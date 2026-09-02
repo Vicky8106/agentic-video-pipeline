@@ -79,6 +79,33 @@ export function beatHasCoStar(role: string, beatIndex: number): boolean {
   return beatIndex % 4 === 1;
 }
 
+/**
+ * Precompute co-star presence across the WHOLE beat list so there is never a
+ * sitcom dead zone: no stretch longer than MAX_GAP_BEATS consecutive beats
+ * without a co-star on stage. Returns a Set of beat ids that get co-stars.
+ */
+export const MAX_GAP_BEATS = 2;
+/** No stretch of host-only time longer than this may exist — sitcom rule. */
+export const MAX_GAP_SEC = 10;
+
+export function computeCoStarPresence(
+  beats: Array<{ id: string; start: number; end: number; role: string }>,
+): Set<string> {
+  const present = new Set<string>();
+  let gapBeats = 0;
+  let gapSec = 0;
+  for (const b of beats) {
+    const beatIndex = Math.round(b.start * 7.13);
+    let has = beatHasCoStar(b.role, beatIndex);
+    // Force a co-star if skipping this beat would create a dead zone:
+    // either 2+ consecutive host-only beats OR 10s+ host-only time.
+    if (!has && (gapBeats >= MAX_GAP_BEATS - 1 || gapSec + (b.end - b.start) >= MAX_GAP_SEC)) has = true;
+    if (has) { present.add(b.id); gapBeats = 0; gapSec = 0; }
+    else { gapBeats++; gapSec += b.end - b.start; }
+  }
+  return present;
+}
+
 export function reactionExpressionFor(role: string, beatIndex: number): CharacterExpressionId {
   const family = REACTION_GRAMMAR[role] ?? REACTION_GRAMMAR.explanation;
   return family[Math.abs(beatIndex) % family.length];
@@ -183,9 +210,14 @@ export function renderSitcomLayer(
   beat: { start: number; end: number; role: string; id?: string },
   punchAt: number | null,
   renderActor: (ctx: { actorId: string; state: StickFigureState; timeSec: number }) => string,
+  presence?: Set<string>,
 ): string {
   const beatIndex = Math.round(beat.start * 7.13);
-  if (!beatHasCoStar(beat.role, beatIndex)) return "";
+  if (presence) {
+    if (!presence.has(beat.id ?? "")) return "";
+  } else if (!beatHasCoStar(beat.role, beatIndex)) {
+    return "";
+  }
   const member = castForBeat(beatIndex);
   const cs = coStarState(member, beat, t, punchAt);
   return renderActor({ actorId: cs.actorId, state: cs.state, timeSec: t });

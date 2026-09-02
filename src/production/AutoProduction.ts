@@ -13,7 +13,7 @@ import { parseSrt } from "../subtitles/SrtParser.js";
 import { cameraAt, traumaAt, shakeAt, flashAt } from "../camera/CameraTrack.js";
 import { STYLE_REGISTRY, resolveStyle } from "../styles/index.js";
 import { buildStageObjects, stageAtTime, type StageObject, type StageObjectState } from "./SceneMemory.js";
-import { renderSitcomLayer } from "./SitcomCast.js";
+import { renderSitcomLayer, computeCoStarPresence } from "./SitcomCast.js";
 import { pickPunchWord, impactWordState, renderImpactWord } from "./ImpactTypography.js";
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -196,7 +196,12 @@ export function createAutoProduction(srtText, styleId = "casually-procedural") {
         semantic: b.visual?.semantic ?? "", topic: b.visual?.topic ?? "explain",
         energy: b.energy, role: b.role,
     })));
-    return { transcript, plan, productionPlan, style, stageObjects };
+    // Sitcom presence plan: never more than 2 consecutive beats without a
+    // co-star on stage (no dead zones over a 10-minute movie).
+    const coStarPresence = computeCoStarPresence(productionPlan.beats.map(b => ({
+        id: b.id, start: b.start, end: b.end, role: b.role,
+    })));
+    return { transcript, plan, productionPlan, style, stageObjects, coStarPresence };
 }
 export function renderAutoSvgFrame({ production, timeSec, width = 1920, height = 1080 }) {
     const { transcript, plan, productionPlan, style } = production;
@@ -251,7 +256,7 @@ export function renderAutoSvgFrame({ production, timeSec, width = 1920, height =
     // Two-shot blocking; reactions timed to the punch moment.
     const punchAction = active.find(a => a.type === "camera" && (a.payload?.move === "punch" || a.payload?.move === "impact"));
     const punchAt = punchAction ? punchAction.start : (beat && (beat.role === "punchline") ? beat.start + (beat.end - beat.start) * 0.55 : null);
-    const sitcom = beat ? renderSitcomLayer(timeSec, beat, punchAt, style.renderActor) : "";
+    const sitcom = beat ? renderSitcomLayer(timeSec, beat, punchAt, style.renderActor, production.coStarPresence) : "";
     // Impact typography: the punch word SLAMS in exactly as spoken.
     const beatText = beat?.visual?.semantic ?? "";
     const impactSvg = (() => {

@@ -108,7 +108,7 @@ export function computeCoStarPresence(
 
 export function reactionExpressionFor(role: string, beatIndex: number): CharacterExpressionId {
   const family = REACTION_GRAMMAR[role] ?? REACTION_GRAMMAR.explanation;
-  return family[Math.abs(beatIndex) % family.length];
+  return family[Math.abs(Math.floor(beatIndex)) % family.length];
 }
 
 // ---------------------------------------------------------------------------
@@ -154,7 +154,7 @@ export function coStarState(
   if (punchAt !== null && t >= punchAt) {
     punchReact = Math.exp(-(t - punchAt) * 4.5) * Math.sin(Math.min(1, (t - punchAt) * 6));
   }
-  const reaction = reactionExpressionFor(beat.role, hash(beat.start));
+  const reaction = reactionExpressionFor(beat.role, Math.round(beat.start * 7.13));
   const speaking = false; // narrator is the only voice; co-star mimes
   return {
     actorId: member.actorId,

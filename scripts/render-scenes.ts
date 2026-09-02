@@ -88,6 +88,37 @@ function subtitleBand(text: string): string {
 
 const IMPACT_DEFS = `<filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.3"/></filter>`;
 
+/**
+ * Clip every <line> to the camera viewport (+margin). resvg 2.6.2 panics on
+ * lines with element opacity that end up >900px outside the viewBox while
+ * spanning it (zero-width isolated layer -> geom.rs unwrap). Clipping is
+ * visually identical: geometry beyond the viewport never rasterizes.
+ * Liang-Barsky parametric clip; fully-outside lines are dropped.
+ */
+function clipLinesToViewport(svg: string, minX: number, minY: number, maxX: number, maxY: number): string {
+  const m = 60; // margin covers any stroke cap/join overhang
+  const a = minX - m, b = minY - m, c = maxX + m, d = maxY + m;
+  return svg.replace(/<line\b([^>]*?)\/>/g, (tag0, attrs) => {
+    const g = (n: string) => { const mm = attrs.match(new RegExp(`${n}="([-\\d.eE+]+)"`)); return mm ? parseFloat(mm[1]) : null; };
+    const x1 = g("x1"), y1 = g("y1"), x2 = g("x2"), y2 = g("y2");
+    if (x1 === null || y1 === null || x2 === null || y2 === null) return tag0;
+    // Liang-Barsky
+    let t0 = 0, t1 = 1;
+    const dx = x2 - x1, dy = y2 - y1;
+    const checks: Array<[number, number]> = [[-dx, x1 - a], [dx, c - x1], [-dy, y1 - b], [dy, d - y1]];
+    for (const [p, q] of checks) {
+      if (p === 0) { if (q < 0) return ""; continue; }
+      const r = q / p;
+      if (p < 0) { if (r > t1) return ""; if (r > t0) t0 = r; }
+      else { if (r < t0) return ""; if (r < t1) t1 = r; }
+    }
+    const nx1 = x1 + t0 * dx, ny1 = y1 + t0 * dy, nx2 = x1 + t1 * dx, ny2 = y1 + t1 * dy;
+    const f = (v: number) => v.toFixed(2);
+    const rest = attrs.replace(/\s(x1|x2|y1|y2)="[^"]*"/g, "");
+    return `<line x1="${f(nx1)}" y1="${f(ny1)}" x2="${f(nx2)}" y2="${f(ny2)}"${rest}/>`;
+  });
+}
+
 function renderFrame(t: number, prevTargetRef: { key: string; lastChange: number }): string {
   const scene = getActiveScene(t);
   const sceneElapsed = t - scene.startTime;
@@ -145,7 +176,7 @@ function renderFrame(t: number, prevTargetRef: { key: string; lastChange: number
     slamSvg = renderImpactWord(st);
   }
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" width="${width}" height="${height}">
+  const svgOut = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" width="${width}" height="${height}">
   <defs>
     <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.18"/></filter>
     <filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="12" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -158,6 +189,9 @@ function renderFrame(t: number, prevTargetRef: { key: string; lastChange: number
   ${slamSvg}
   ${subtitleBand(activeSub?.cleanText ?? "")}
 </svg>`.replace(/&(?!(amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)/g, "&amp;");
+  // resvg panic guard: clip lines to the camera viewport (no visual change)
+  const vbNums = viewBox.split(/[ ,]+/).map(Number);
+  return clipLinesToViewport(svgOut, vbNums[0], vbNums[1], vbNums[0] + vbNums[2], vbNums[1] + vbNums[3]);
 }
 
 // --- Stream to ffmpeg --------------------------------------------------------

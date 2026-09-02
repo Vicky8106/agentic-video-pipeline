@@ -88,16 +88,51 @@ function subtitleBand(text: string): string {
 
 const IMPACT_DEFS = `<filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.3"/></filter>`;
 
-function renderFrame(t: number): string {
+function renderFrame(t: number, prevTargetRef: { key: string; lastChange: number }): string {
   const scene = getActiveScene(t);
   const sceneElapsed = t - scene.startTime;
   const progress = Math.min(1, Math.max(0, sceneElapsed / Math.max(0.1, scene.endTime - scene.startTime)));
   const activeSub = getActiveSubtitle(subtitles, t);
   const talkingFlap = activeSub ? (Math.sin(t * 16) * 0.5 + 0.5) : 0;
 
+  // 1. Scene renders and drives the camera (setTarget = glide phase,
+  //    cutTo = hard cut) — exactly as the browser player's tick loop.
   const output = scene.render({ timeSec: t, sceneTime: sceneElapsed, progress, talkingFlap, camera });
-  if (output.cameraTarget) camera.setImmediate({ centerX: output.cameraTarget.x, centerY: output.cameraTarget.y, zoom: output.cameraTarget.zoom });
+
+  // 2. Track target changes (for the living-frame breath).
+  const tkey = `${camera.target.centerX.toFixed(1)},${camera.target.centerY.toFixed(1)},${camera.target.zoom.toFixed(2)}`;
+  if (tkey !== prevTargetRef.key) { prevTargetRef.key = tkey; prevTargetRef.lastChange = t; }
+
+  // 3. Camera AGENT step: exponential glide toward the authored target.
+  //    Snappiness converted for 24fps so the glide speed matches the
+  //    player's 60fps/0.28 feel (same continuous-time constant).
+  camera.update(Math.round(t * 1000), 0.56);
+
+  // 4. Living-frame breath: while the authored framing holds (>1.2s since
+  //    last change), a very slow ±0.8% zoom sine keeps the frame alive
+  //    without ever reading as a move. Resets to 0 right after each change.
+  const hold = t - prevTargetRef.lastChange;
+  if (hold > 1.2) {
+    const breath = 0.008 * Math.min(1, (hold - 1.2) / 2) * Math.sin((t - prevTargetRef.lastChange) * 2 * Math.PI / 11);
+    camera.current.zoom *= 1 + breath;
+  }
+
+  // 5. Per-sentence DOLLY: the Ce signature — the camera pushes in slowly
+  //    while a sentence is spoken (+6% by its end), then resets at the next
+  //    sentence's start (reads as a fresh setup). Multiplied on top of the
+  //    lerped base zoom; the base is restored after the viewBox so the lerp
+  //    never compounds.
+  const sent = transcript.sentences.find(s => t >= s.start && t <= s.end)
+    ?? transcript.sentences.slice().reverse().find(s => s.start <= t);
+  let push = 1;
+  if (sent) {
+    const bp = Math.min(1, Math.max(0, (t - sent.start) / Math.max(0.4, sent.end - sent.start)));
+    push = 1 + 0.06 * (1 - (1 - bp) * (1 - bp)); // easeOutQuad
+  }
+  const baseZoom = camera.current.zoom;
+  camera.current.zoom = baseZoom * push;
   const viewBox = camera.getViewBox(t);
+  camera.current.zoom = baseZoom;
 
   const figures = output.stickFigures?.length
     ? output.stickFigures.map(sf => renderStickFigure(sf.id, sf.state)).join("\n")
@@ -144,9 +179,10 @@ const ff = spawn("/usr/bin/ffmpeg", [
 const frames = Math.round((finalEnd - startSec) * fps);
 const t0 = Date.now();
 let rssPeak = 0;
+const prevTargetRef = { key: "", lastChange: startSec };
 for (let i = 0; i < frames; i++) {
   const t = Math.min(finalEnd - 1e-6, startSec + i / fps);
-  const svg = renderFrame(t);
+  const svg = renderFrame(t, prevTargetRef);
   const pixels = new Resvg(svg, { fitTo: { mode: "width", value: width }, font: { fontFiles, defaultFontFamily: "Noto Sans", loadSystemFonts: false } }).render().pixels;
   if (!ff.stdin.write(pixels)) await new Promise(r => ff.stdin.once("drain", r));
   if (i % (fps * 10) === 0) {

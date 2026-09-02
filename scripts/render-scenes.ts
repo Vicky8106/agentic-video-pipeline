@@ -122,7 +122,7 @@ function renderFrame(t: number): string {
   <g id="scene-foreground">${output.foregroundSvg || ""}</g>
   ${slamSvg}
   ${subtitleBand(activeSub?.cleanText ?? "")}
-</svg>`;
+</svg>`.replace(/&(?!(amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)/g, "&amp;");
 }
 
 // --- Stream to ffmpeg --------------------------------------------------------

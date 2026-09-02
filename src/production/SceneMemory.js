@@ -1,0 +1,256 @@
+/**
+ * SceneMemory — the persistent stage.
+ *
+ * The #1 reason long renders degenerate into slideshows: every frame is
+ * rendered statelessly, so nothing on stage accumulates, interacts, or
+ * leaves. Real animation has continuity — objects enter, persist, get
+ * referenced again, stack up, and exit.
+ *
+ * This module maintains a deterministic list of stage objects derived from
+ * the production beats. Given any time t it returns the objects that should
+ * be on stage, each with an entry animation phase, an idle life phase
+ * (bob, pulse, jitter), and an exit phase. It is a pure function of the
+ * beat list: no mutable state crosses frames, so chunked/parallel rendering
+ * stays bit-exact.
+ */
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+/** Concept extraction: pull the joke nouns out of a sentence, deterministically. */
+const STOP = new Set([
+    "the", "a", "an", "and", "or", "but", "if", "of", "to", "in", "on", "for",
+    "with", "from", "have", "has", "had", "you", "your", "they", "their", "we",
+    "our", "it", "its", "is", "are", "was", "were", "be", "been", "this", "that",
+    "these", "those", "as", "at", "by", "not", "so", "than", "then", "there",
+    "here", "just", "like", "really", "thing", "things", "some", "more", "most",
+    "into", "about", "would", "could", "should", "because", "what", "when",
+    "which", "who", "how", "why", "all", "any", "can", "will", "who've", "you've",
+    "i've", "we've", "i'm", "you're", "they're", "it's", "he's", "she's", "i",
+    "me", "my", "him", "he", "she", "her", "us", "them", "do", "does", "did",
+    "going", "gone", "get", "got", "getting", "one", "two", "look", "looks",
+    "looking", "see", "seen", "know", "think", "said", "says", "even", "also",
+    "still", "yet", "new", "old", "way", "lot", "bit", "kind", "sort", "made",
+    "make", "makes", "take", "takes", "took", "come", "came", "go", "goes",
+    "went", "time", "times", "day", "days", "year", "years", "people", "person",
+    "where", "everywhere", "anywhere", "somehow", "anyway", "anytime", "always",
+    "never", "something", "nothing", "everything", "someone", "nobody", "every",
+    "seems", "seem", "seemed", "suddenly", "overnight", "entire", "whole",
+    "fundamental", "concept", "shift", "local", "ecosystem", "understanding",
+    "direction", "situation", "consequence", "importance", "point", "issue",
+    "different", "difference", "marketing", "aspect", "factor", "reason",
+    "basically", "literally", "obviously", "apparently", "technically", "meanwhile",
+    "right", "where", "look", "looks", "looking", "started", "starts", "start",
+    "once", "before", "after", "now", "then", "soon", "that's", "they've", "idon't",
+    "they", "them", "their", "there", "these", "those", "thing", "things", "tube",
+    "imagine", "single", "secondary", "someone", "nobody", "everybody", "everyone",
+]);
+const KIND_RULES = [
+    [/(\$\d|dollars?\b|money|cost|price|pricing|million|billion|budget|receipt|invoice|subscription|economic|revenue|wheelbarrow|gold|billionaire|salary|wage|rent|wealth|rich|bank|wallet|crypto|bitcoin|cash|finance)/i, "money"],
+    [/(ozempic|glp-?1|wegovy|injection|inject|syringe|pill|drug|medication|pharma|dose|botox|treatment|procedure|surgery|surgical|scalpel|trt|testosterone|pharmaceutical|vaccine|hospital|clinic|therapy|prescription|vitamin|cure)/i, "pill"],
+    [/(carbs?\b|carbohydrate|bread|pasta|pizza|lunch|food|snack|diet|coke|calorie|meal|chicken|broccoli|sugar|baguette|cracker|saltine|ham|supermarket|celery|burger|coffee|beer|wine|tea|drink|dinner|breakfast|cake|cheese|restaurant|bar)/i, "food"],
+    [/(phone|instagram|tiktok|tweet|\bapp\b|screen|feed|online|website|computer|laptop|notification|camera|terminal|code|prompt|battery|lithium|charge|dial-?up|internet|y2k|software|ai\b|bot|wifi|keyboard|console|steam|gaming|vr|display)/i, "device"],
+    [/(car\b|tesla|vehicle|automobile|truck|bike|bicycle|motorcycle|plane|airplane|flight|rocket|spaceship|train|bus|ship|boat|helicopter)/i, "vehicle"],
+    [/(body|weight|fat|thin|leaner|skin|face|jaw|cheek|muscle|stomach|butt|hourglass|appearance|beauty|figure|buccal|cheekbone|dehydration|shredded|hollow|skull|forehead|silhouette|organ|jeans|skirt|belt|abs|posture|fitness|gym|workout)/i, "body"],
+    [/(chart|graph|percent|%|trend|\bdata\b|number|stats|statistics|increase|decrease|drop|spike|survey|study|slider|velocity|hud|rpg|creator|metrics|growth|crash|score|target|index)/i, "chart"],
+    [/(celebrity|actor|actress|\bstar\b|influencer|hollywood|jenna|ortega|emma|stone|ariana|grande|kate|moss|\btim\b|burton|marvel|superhero|butler|doctor|surgeon|paparazzi|\bbro\b|\bguy\b|\bgirl\b|\bmom\b|\bdad\b|\bkid\b|crowd|boss|mourner|wednesday|pixar|physician|friend|girlfriend|boyfriend|teacher|student|police|cop|lawyer|judge|scientist|politician|president|customer|developer)/i, "person"],
+    [/(rule|law|ban|policy|warning|notice|sign|deadline|contract|terms|nda|statement|headline|news|banner|badge|asterisk|fine\s*print|siren|modal|standards?|license|document|certificate|award|agreement)/i, "sign"],
+    [/(book|clock|time|watch|timer|hammer|tool|microscope|telescope|medal|trophy|dumbbell|guitar|key|box|package|umbrella|flag|weapon|sword|gun|bomb|lightbulb|idea|cup|glass|bottle)/i, "object"],
+];
+export function classifyKind(concept) {
+    for (const [re, kind] of KIND_RULES)
+        if (re.test(concept))
+            return kind;
+    return "generic";
+}
+function cleanToken(raw) {
+    return raw
+        .toLowerCase()
+        .replace(/^['"]+|['"]+$/g, "")
+        .replace(/(?:'s|'ve|'d|'ll|'re|'m|n't|hasn't|don't|doesn't)$/i, "")
+        .replace(/[^a-z0-9$-]/gi, "");
+}
+/** Score a candidate word as a visual anchor. Higher = more drawable. */
+function conceptScore(raw) {
+    const w = cleanToken(raw);
+    if (w.length < 3 || STOP.has(w) || /^\d+$/.test(w))
+        return 0;
+    if (/ly$/.test(w) && !/poly|daily|weekly|monthly/i.test(w))
+        return 0;
+    if (/^(.*(?:ing|ed|s)$)/.test(w) && /(?:ing|ed)$/.test(w) && !/dieting|starving|speedrunning|injecting/i.test(w))
+        return 1;
+    let score = 2;
+    for (const [re] of KIND_RULES)
+        if (re.test(w)) {
+            score = 6;
+            break;
+        }
+    if (/^[A-Z]/.test(raw) || /\B[A-Z]/.test(raw))
+        score = Math.max(score, 5);
+    if (/thicc|stick|ozempic|wegovy|glp-?1|buccal|ps1|rpg|burton|ortega|grande|stone|moss|marvel|celery|baguette|cracker|stomach|battery|y2k/i.test(w))
+        score = 8;
+    if (w.length >= 6)
+        score += 1;
+    return score;
+}
+/** Extract up to `max` distinct concepts from a sentence, strongest anchors first. */
+export function extractConcepts(text, max = 2) {
+    const out = [];
+    const seen = new Set();
+    // Normalize fused text from imperfect transcripts
+    const normalizedText = text
+        .replace(/youdon't/gi, "you don't")
+        .replace(/yourfriend's/gi, "your friend's")
+        .replace(/hollywoodhasn't/gi, "hollywood hasn't")
+        .replace(/idon't/gi, "i don't")
+        .replace(/y2k/gi, "y2k_fashion");
+    // Quoted words are deliberate joke anchors ("Thicc", "stick") — highest priority.
+    for (const m of normalizedText.matchAll(/[“'"]([A-Za-z][A-Za-z0-9'-]{2,})[”'"]/g)) {
+        const c = cleanToken(m[1]);
+        if (c && !STOP.has(c) && !seen.has(c)) {
+            seen.add(c);
+            out.push(c);
+        }
+    }
+    // Numbers with units next — they are strong visual anchors.
+    for (const m of normalizedText.matchAll(/(\$[\d.,]+[\dkkmmbbn]*|\d[\d.,]*\s*(?:percent|%|lbs|pounds|kg|mm|cm|million|billion|k)\b)/gi)) {
+        const c = m[0].trim().toLowerCase().replace(/\s+/g, "");
+        if (!seen.has(c)) {
+            seen.add(c);
+            out.push(c);
+        }
+    }
+    const scored = [];
+    const raws = normalizedText.split(/[^A-Za-z0-9'$-]+/);
+    for (let ri = 0; ri < raws.length; ri++) {
+        const raw = raws[ri];
+        const w = cleanToken(raw);
+        if (!w || seen.has(w) || STOP.has(w))
+            continue;
+        let score = conceptScore(raw);
+        // Merge consecutive name words into one person ("jenna ortega" -> "jenna ortega", "tim burton" -> "tim burton").
+        if (score >= 4 && classifyKind(w) === "person") {
+            const nextRaw = raws[ri + 1] ?? "";
+            const next = cleanToken(nextRaw);
+            if (next && (classifyKind(next) === "person" || conceptScore(nextRaw) >= 4)) {
+                const merged = `${w} ${next}`;
+                scored.push([merged, score + 3]);
+                ri++;
+                continue;
+            }
+        }
+        // Compound concepts: "buccal fat", "saltine cracker", "lithium battery", "y2k fashion", "concierge doctor"
+        const nextRaw = raws[ri + 1] ?? "";
+        const next = cleanToken(nextRaw);
+        if (next && /(fat|wire|noise|bro|cracker|baguette|battery|pen|shot|doctor|surgeon|shadow|dress|jeans|belt|poster|gavel|wind|creator|creation|game|fashion|organ|organs)/i.test(next)) {
+            const merged = `${w} ${next}`;
+            scored.push([merged, score + 4]);
+            ri++;
+            continue;
+        }
+        if (score >= 2)
+            scored.push([w, score]);
+    }
+    scored.sort((a, b) => b[1] - a[1]);
+    for (const [w, score] of scored) {
+        if (seen.has(w))
+            continue;
+        if (score < 4 && classifyKind(w) === "generic")
+            continue;
+        seen.add(w);
+        out.push(w);
+        if (out.length >= max)
+            break;
+    }
+    return out.slice(0, max);
+}
+/**
+ * Stage slots for Casually Explained / Alex Meyers visual comedy.
+ * Single objects take center stage right [1320, 520]. Multiple objects frame side-by-side.
+ */
+const CENTER_POS = [1320, 520];
+const PAIR_POS = [
+    [1100, 520], [1540, 520],
+];
+export function buildStageObjects(beats, opts = {}) {
+    const maxLive = opts.maxLive ?? 2;
+    const lifetime = opts.lifetimeSec ?? 4.5;
+    const objects = [];
+    // live[key] = index into objects of the currently-visible instance
+    const live = new Map();
+    for (const b of beats) {
+        const concepts = extractConcepts(b.semantic, 2);
+        if (concepts.length === 0)
+            continue;
+        for (const concept of concepts) {
+            const key = concept;
+            // Expire objects whose retireAt has passed relative to this beat.
+            for (const [k, i] of live) {
+                if (objects[i].retireAt <= b.start)
+                    live.delete(k);
+            }
+            // Retire the oldest objects when the stage is full.
+            while (live.size >= maxLive) {
+                let oldestKey = null;
+                let oldestEnd = Infinity;
+                for (const [k, idx] of live) {
+                    const end = objects[idx].retireAt;
+                    if (end < oldestEnd) {
+                        oldestEnd = end;
+                        oldestKey = k;
+                    }
+                }
+                if (oldestKey === null)
+                    break;
+                live.delete(oldestKey);
+            }
+            const existing = live.get(key);
+            if (existing !== undefined) {
+                // Referenced again: refresh lifetime
+                objects[existing].retireAt = Math.max(objects[existing].retireAt, b.end + lifetime * 0.5);
+                continue;
+            }
+            let x = CENTER_POS[0];
+            let y = CENTER_POS[1];
+            let slot = 0;
+            if (live.size === 1) {
+                // Shift existing object to left flank and put new object on right flank
+                const otherIdx = live.values().next().value;
+                objects[otherIdx].x = PAIR_POS[0][0];
+                objects[otherIdx].y = PAIR_POS[0][1];
+                objects[otherIdx].slot = 0;
+                x = PAIR_POS[1][0];
+                y = PAIR_POS[1][1];
+                slot = 1;
+            }
+            const idx = objects.length;
+            objects.push({
+                key,
+                concept,
+                kind: classifyKind(concept),
+                spawnAt: b.start + 0.25, // land quickly on the spoken word
+                retireAt: b.end + lifetime,
+                x,
+                y,
+                scale: 1.35 + clamp(b.energy, 0, 1) * 0.25,
+                energy: b.energy,
+                slot,
+                beatId: b.id,
+            });
+            live.set(key, idx);
+        }
+    }
+    return objects;
+}
+export function stageAtTime(objects, t) {
+    const out = [];
+    for (const o of objects) {
+        const fadeDur = 0.6;
+        if (t < o.spawnAt - 0.001)
+            continue;
+        const retireEnd = o.retireAt + fadeDur;
+        if (t > retireEnd)
+            continue;
+        const entry = clamp((t - o.spawnAt) / 0.28, 0, 1);
+        const exit = clamp((t - o.retireAt) / fadeDur, 0, 1);
+        out.push({ ...o, entry, exit, visible: true, age: t - o.spawnAt });
+    }
+    return out;
+}

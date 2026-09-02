@@ -1,0 +1,3183 @@
+import json
+import os
+
+def create_storyboard():
+    storyboard = {
+        "manifestVersion": "2.0.0",
+        "projectTitle": "Casually Explained: The Great Hollywood Thinning & The GLP-1 Meta",
+        "director": "Casually Explained Animation Director Agent",
+        "totalDuration": 185.886,
+        "targetCanvas": {
+            "width": 1920,
+            "height": 1080,
+            "aspectRatio": "16:9",
+            "frameRate": 60,
+            "defaultViewBox": [0, 0, 1920, 1080],
+            "backgroundColor": "#FBFBF9",
+            "gridColor": "#E5E7EB",
+            "gridSize": 40
+        },
+        "mediaSources": {
+            "audioFile": "/root/Desktop/Finaljenna.mp3",
+            "srtFile": "/root/Desktop/0-chapter-1.srt",
+            "characterRefPng": "/root/Desktop/Picsart_26-08-16_20-36-21-244.png",
+            "referenceImagesDir": "/root/Desktop/chapter_1_full_timestamped_final/"
+        },
+        "styleGuide": {
+            "aesthetic": "Casually Explained / MS Paint minimalist vector whiteboard animation",
+            "colorPalette": {
+                "background": "#FBFBF9",
+                "canvasBorder": "#E2E8F0",
+                "inkBlack": "#111111",
+                "sketchGray": "#64748B",
+                "whiteboardWhite": "#FFFFFF",
+                "markerRed": "#EF4444",
+                "markerBlue": "#3B82F6",
+                "markerGreen": "#10B981",
+                "highlighterYellow": "#FDE047",
+                "highlighterOrange": "#FB923C",
+                "gothicPurple": "#A855F7",
+                "y2kPink": "#EC4899",
+                "skinTonePeach": "#F5D6B4",
+                "skinToneWarm": "#FDD7A4"
+            },
+            "typography": {
+                "primary": "'Inter', 'Comic Neue', 'Patrick Hand', sans-serif",
+                "handwriting": "'Patrick Hand', 'Caveat', cursive",
+                "impactMeme": "'Impact', 'Bangers', sans-serif",
+                "monospaceRetro": "'Courier New', monospace"
+            },
+            "linesAndStrokes": {
+                "defaultStrokeWidth": 12,
+                "thinStrokeWidth": 6,
+                "heavyStrokeWidth": 18,
+                "lineCap": "round",
+                "lineJoin": "round"
+            }
+        },
+        "characterSystem": {
+            "characterName": "Host (Casually Explained Stick Figure)",
+            "modelReference": "/root/Desktop/Picsart_26-08-16_20-36-21-244.png",
+            "baseAnatomy": {
+                "head": {
+                    "shape": "ellipse",
+                    "rx": 52,
+                    "ry": 58,
+                    "fillColor": "#F5D6B4",
+                    "strokeColor": "#111111",
+                    "strokeWidth": 10
+                },
+                "hair": {
+                    "type": "messy_spikes_silhouette",
+                    "fillColor": "#111111",
+                    "description": "Loose, messy choppy black hair covering crown, left temple tufts, and right jagged bangs matching reference PNG"
+                },
+                "eyebrows": {
+                    "type": "dual_dynamic_arcs",
+                    "strokeColor": "#111111",
+                    "strokeWidth": 8,
+                    "states": ["neutral", "skeptical_raise", "shocked_arch", "furrowed_angry", "deadpan_flat"]
+                },
+                "eyes": {
+                    "types": [
+                        "look_camera",
+                        "look_left",
+                        "look_right",
+                        "roll_eyes",
+                        "wide_shock",
+                        "squint",
+                        "tim_burton_spiral",
+                        "ps1_poly"
+                    ],
+                    "defaultSclera": "#FFFFFF",
+                    "defaultPupil": "#111111"
+                },
+                "mouth": {
+                    "shapes": [
+                        "talk_wide",
+                        "straight_line",
+                        "open_O",
+                        "smirk",
+                        "scream",
+                        "slight_smile"
+                    ],
+                    "strokeColor": "#111111",
+                    "strokeWidth": 8,
+                    "strokeLinecap": "round"
+                },
+                "body": {
+                    "neck": {"length": 18, "strokeWidth": 12},
+                    "torso": {"length": 140, "strokeWidth": 14, "strokeColor": "#111111"},
+                    "arms": {"upperArmLength": 65, "foreArmLength": 60, "strokeWidth": 12, "strokeColor": "#111111"},
+                    "legs": {"thighLength": 75, "shinLength": 75, "strokeWidth": 12, "strokeColor": "#111111"}
+                }
+            },
+            "poseRegistry": {
+                "neutral_talk": {
+                    "description": "Standing upright with slight casual posture, left arm slightly relaxed at side, right arm gesturing subtly with conversational rhythm.",
+                    "rigParams": {"leftArmAngle1": 155, "leftArmAngle2": -15, "rightArmAngle1": 25, "rightArmAngle2": 15, "spineLean": 0, "headTilt": 2}
+                },
+                "point_right": {
+                    "description": "Left hand on hip, right arm extended pointing wooden pointer or laser at right-hand chart.",
+                    "rigParams": {"leftArmAngle1": 120, "leftArmAngle2": -60, "rightArmAngle1": -10, "rightArmAngle2": -5, "spineLean": 2, "headTilt": 4}
+                },
+                "point_left": {
+                    "description": "Right hand relaxed, left arm extended pointing back towards previous graph on the left.",
+                    "rigParams": {"leftArmAngle1": 190, "leftArmAngle2": 10, "rightArmAngle1": 60, "rightArmAngle2": -20, "spineLean": -2, "headTilt": -4}
+                },
+                "shrug": {
+                    "description": "Shoulders elevated, both elbows bent 90 degrees outward, palms facing upwards, head tilted 4 degrees.",
+                    "rigParams": {"leftArmAngle1": 135, "leftArmAngle2": -90, "rightArmAngle1": 45, "rightArmAngle2": 90, "spineLean": 0, "headTilt": 5}
+                },
+                "deadpan_stare": {
+                    "description": "Both arms hanging completely vertical, motionless posture, pupils locked directly forward at camera lens, zero emotion.",
+                    "rigParams": {"leftArmAngle1": 175, "leftArmAngle2": 0, "rightArmAngle1": 5, "rightArmAngle2": 0, "spineLean": 0, "headTilt": 0}
+                },
+                "shock": {
+                    "description": "Body recoiling 8 degrees backward, arms thrown slightly back, hands open-fingered, jaw dropped in astonishment.",
+                    "rigParams": {"leftArmAngle1": 210, "leftArmAngle2": -30, "rightArmAngle1": -30, "rightArmAngle2": 30, "spineLean": -8, "headTilt": -6}
+                },
+                "facepalm": {
+                    "description": "Left arm hanging down, right elbow raised with hand slapped flat over eyes and forehead in exasperation.",
+                    "rigParams": {"leftArmAngle1": 170, "leftArmAngle2": 0, "rightArmAngle1": -60, "rightArmAngle2": -110, "spineLean": 5, "headTilt": 8}
+                },
+                "sip_diet_coke": {
+                    "description": "Right arm bent holding a silver Diet Coke can with red logo to mouth, left arm at waist, eyes half-lidded in apathy.",
+                    "rigParams": {"leftArmAngle1": 130, "leftArmAngle2": -40, "rightArmAngle1": -45, "rightArmAngle2": -85, "spineLean": -2, "headTilt": -3}
+                },
+                "typing": {
+                    "description": "Hunched forward slightly, both arms bent forward tapping rapidly on an SVG laptop keyboard with motion lines.",
+                    "rigParams": {"leftArmAngle1": 110, "leftArmAngle2": -60, "rightArmAngle1": 70, "rightArmAngle2": 60, "spineLean": 10, "headTilt": 12}
+                },
+                "workout_squat": {
+                    "description": "Knees bent at deep 90-degree angle, torso tilted forward, arms clenched in front, sweat droplets flying.",
+                    "rigParams": {"leftArmAngle1": 90, "leftArmAngle2": -70, "rightArmAngle1": 90, "rightArmAngle2": 70, "leftLegAngle1": 45, "leftLegAngle2": 90, "rightLegAngle1": 135, "rightLegAngle2": -90, "spineLean": 15}
+                },
+                "victor_faint": {
+                    "description": "Dramatic 42-degree backward recline across a Victorian velvet chaise lounge, limp wrist dangling a lace handkerchief.",
+                    "rigParams": {"leftArmAngle1": 220, "leftArmAngle2": -20, "rightArmAngle1": -80, "rightArmAngle2": -50, "spineLean": -42, "headTilt": -25, "rotation": -20}
+                }
+            },
+            "props": [
+                "wooden_pointer",
+                "caliper_tool",
+                "magnifying_glass",
+                "diet_coke_can",
+                "iceberg_lettuce",
+                "belt_skirt",
+                "fidget_spinner",
+                "podcast_mic",
+                "parliament_cigarette",
+                "laptop_office",
+                "laser_pointer",
+                "velvet_chaise_lounge"
+            ]
+        },
+        "timelineOverview": {
+            "totalScenes": 11,
+            "totalTimeSeconds": 185.886,
+            "coveredSubtitleRange": "Subtitles 1 to 60 (00:00:00,000 -> 00:03:05,886)"
+        },
+        "scenes": [
+            {
+                "sceneNumber": 1,
+                "sceneId": "scene_01",
+                "title": "Scene 1: Red Carpet & Ecosystem Shift",
+                "timeWindow": {
+                    "startTime": 0.000,
+                    "endTime": 10.320,
+                    "duration": 10.320
+                },
+                "subtitles": [
+                    {
+                        "id": 1,
+                        "start": 0.000,
+                        "end": 3.200,
+                        "text": "If you've looked at a red carpet, a movie screen, or"
+                    },
+                    {
+                        "id": 2,
+                        "start": 3.200,
+                        "end": 6.480,
+                        "text": "your Instagram feed anytime in the last eighteen months, you"
+                    },
+                    {
+                        "id": 3,
+                        "start": 6.480,
+                        "end": 9.920,
+                        "text": "might have noticed a slight shift in the local Hollywood ecosystem."
+                    }
+                ],
+                "narrationExcerpt": "If you've looked at a red carpet, a movie screen, or your Instagram feed anytime in the last eighteen months, you might have noticed a slight shift in the local Hollywood ecosystem.",
+                "comedicSynopsis": "The host opens casually in front of a giant lecture whiteboard, framing the rapid physical thinning of Hollywood as a sudden biological ecosystem anomaly akin to a bizarre wildlife documentary.",
+                "camera": {
+                    "viewBox": [0, 0, 1920, 1080],
+                    "center": {"x": 960, "y": 540},
+                    "zoom": 1.0,
+                    "motionType": "smooth_pan_zoom",
+                    "panSpeed": "smooth_ease_in_out",
+                    "cameraShake": {
+                        "enabled": False,
+                        "intensity": 0,
+                        "duration": 0
+                    }
+                },
+                "hostState": {
+                    "x": 380,
+                    "y": 680,
+                    "scale": 1.0,
+                    "rotation": 0,
+                    "pose": "neutral_talk",
+                    "mouth_shape": "talk_wide",
+                    "eyes": "look_camera",
+                    "heldProp": "wooden_pointer",
+                    "keyframeMotions": [
+                        {
+                            "timestamp": 0.000,
+                            "pose": "neutral_talk",
+                            "mouth_shape": "talk_wide",
+                            "eyes": "look_camera",
+                            "action": "Host introduces the scene calmly gesturing with left hand."
+                        },
+                        {
+                            "timestamp": 3.200,
+                            "pose": "point_right",
+                            "mouth_shape": "talk_wide",
+                            "eyes": "look_right",
+                            "action": "Host extends pointer to the mock Instagram smartphone SVG popping on right."
+                        },
+                        {
+                            "timestamp": 6.480,
+                            "pose": "point_right",
+                            "mouth_shape": "smirk",
+                            "eyes": "look_camera",
+                            "action": "Host taps whiteboard header 'Ecosystem Shift' and deadpan smirks."
+                        }
+                    ]
+                },
+                "visualGagsAndProps": [
+                    {
+                        "id": "whiteboard_01",
+                        "type": "svg_whiteboard",
+                        "layout": {"x": 100, "y": 80, "width": 1720, "height": 920},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 100, "y": 80, "width": 1720, "height": 920, "rx": 16, "fill": "#FFFFFF", "stroke": "#CBD5E1", "strokeWidth": 8}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 960, "y": 150, "textAnchor": "middle", "fill": "#1E293B", "fontFamily": "'Patrick Hand', cursive", "fontSize": 46, "fontWeight": "bold", "text": "HOLLYWOOD ECOSYSTEM (2024 - 2026 META)"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "food_chain_svg",
+                        "type": "svg_diagram",
+                        "description": "Hilarious biological food chain diagram showing evolution of celebrity nutrition.",
+                        "layout": {"x": 160, "y": 240, "width": 800, "height": 400},
+                        "elements": [
+                            {
+                                "tag": "text",
+                                "props": {"x": 200, "y": 280, "fill": "#EF4444", "fontSize": 28, "fontFamily": "'Patrick Hand', cursive", "text": "OLD DIET: Salad + Agony 🥗"}
+                            },
+                            {
+                                "tag": "path",
+                                "props": {"d": "M 420 270 L 520 270", "stroke": "#EF4444", "strokeWidth": 6, "markerEnd": "url(#arrowRed)"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 550, "y": 280, "fill": "#3B82F6", "fontSize": 28, "fontFamily": "'Patrick Hand', cursive", "text": "NEW DIET: Iced Americano + Vibe ☕"}
+                            },
+                            {
+                                "tag": "path",
+                                "props": {"d": "M 550 310 L 550 390", "stroke": "#3B82F6", "strokeWidth": 6, "markerEnd": "url(#arrowBlue)"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 420, "y": 430, "fill": "#10B981", "fontSize": 32, "fontFamily": "'Patrick Hand', cursive", "fontWeight": "bold", "text": "RESULT: Photosynthesis & Attention ✨"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "smartphone_feed_svg",
+                        "type": "svg_phone_frame",
+                        "description": "Vector iPhone displaying a chaotic Instagram feed with flashing paparazzi lights.",
+                        "layout": {"x": 1180, "y": 160, "width": 460, "height": 780},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 1180, "y": 160, "width": 460, "height": 780, "rx": 40, "fill": "#0F172A", "stroke": "#334155", "strokeWidth": 8}
+                            },
+                            {
+                                "tag": "rect",
+                                "props": {"x": 1200, "y": 220, "width": 420, "height": 680, "rx": 16, "fill": "#F8FAFC"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1410, "y": 255, "textAnchor": "middle", "fill": "#0F172A", "fontSize": 20, "fontFamily": "sans-serif", "fontWeight": "bold", "text": "Instagram • Following"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "paparazzi_flashes",
+                        "type": "comic_bursts",
+                        "description": "Yellow starburst bursts popping around polaroids with text *FLASH!* *PZZT!*",
+                        "instances": [
+                            {"x": 1100, "y": 220, "scale": 1.2, "color": "#FDE047", "soundText": "*FLASH!*", "timestamp": 1.2},
+                            {"x": 1650, "y": 300, "scale": 1.4, "color": "#FACC15", "soundText": "*CLICK!*", "timestamp": 2.5},
+                            {"x": 1050, "y": 480, "scale": 1.1, "color": "#FEF08A", "soundText": "*PZZT!*", "timestamp": 4.8}
+                        ]
+                    }
+                ],
+                "onScreenSubtitles": [
+                    {
+                        "text": "RED CARPET",
+                        "startTime": 0.800,
+                        "endTime": 3.000,
+                        "position": {"x": 960, "y": 180},
+                        "style": {
+                            "fontSize": 68,
+                            "fontFamily": "Impact",
+                            "color": "#F59E0B",
+                            "stroke": "#111111",
+                            "strokeWidth": 4,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "INSTAGRAM FEED",
+                        "startTime": 3.400,
+                        "endTime": 6.200,
+                        "position": {"x": 1410, "y": 140},
+                        "style": {
+                            "fontSize": 54,
+                            "fontFamily": "Impact",
+                            "color": "#06B6D4",
+                            "stroke": "#111111",
+                            "strokeWidth": 3,
+                            "animation": "slide_down"
+                        }
+                    },
+                    {
+                        "text": "HOLLYWOOD ECOSYSTEM SHIFT",
+                        "startTime": 6.800,
+                        "endTime": 10.000,
+                        "position": {"x": 960, "y": 940},
+                        "style": {
+                            "fontSize": 66,
+                            "fontFamily": "Impact",
+                            "color": "#EF4444",
+                            "stroke": "#111111",
+                            "strokeWidth": 4,
+                            "animation": "stamp_slam"
+                        }
+                    }
+                ],
+                "referenceImages": [
+                    {
+                        "id": "ref_01",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/00m00s-00m03s_P0_jNSMuYIMuPhn.jpg",
+                        "timeWindow": {"startTime": 0.000, "endTime": 3.200},
+                        "priority": "P0",
+                        "purpose": "Opening red-carpet premise",
+                        "layout": {
+                            "x": 1215,
+                            "y": 270,
+                            "width": 390,
+                            "height": 585,
+                            "rotation": -3.0,
+                            "tapeStrip": True,
+                            "pushPin": "red",
+                            "captionText": "FIG 1.1: RED CARPET BASELINE"
+                        }
+                    },
+                    {
+                        "id": "ref_02",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/00m03s-00m10s_P1_asDVjYVAUHos.jpg",
+                        "timeWindow": {"startTime": 3.200, "endTime": 6.480},
+                        "priority": "P1",
+                        "purpose": "Instagram/celebrity-feed visual",
+                        "layout": {
+                            "x": 1220,
+                            "y": 275,
+                            "width": 380,
+                            "height": 570,
+                            "rotation": 2.5,
+                            "tapeStrip": True,
+                            "pushPin": "none",
+                            "captionText": "FIG 1.2: SOCIAL TIMELINE (18 MOS)"
+                        }
+                    },
+                    {
+                        "id": "ref_03",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/00m10s-00m16s_P1_Xgkbcktr24OF.jpg",
+                        "timeWindow": {"startTime": 6.480, "endTime": 10.320},
+                        "priority": "P1",
+                        "purpose": "Wider Hollywood ecosystem visual",
+                        "layout": {
+                            "x": 1210,
+                            "y": 265,
+                            "width": 395,
+                            "height": 590,
+                            "rotation": -1.5,
+                            "tapeStrip": True,
+                            "pushPin": "blue",
+                            "captionText": "FIG 1.3: THE HOLLYWOOD SPECIES"
+                        }
+                    }
+                ],
+                "granularShots": [
+                    {
+                        "shotId": "shot_1_1",
+                        "startTime": 0.000,
+                        "endTime": 3.200,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Host talks facing front, red carpet photo pops on right with flash starbursts.",
+                        "focusElement": "ref_01"
+                    },
+                    {
+                        "shotId": "shot_1_2",
+                        "startTime": 3.200,
+                        "endTime": 6.480,
+                        "cameraViewBox": [200, 40, 1720, 967],
+                        "hostAction": "Host points right at smartphone frame displaying scrolling Instagram photos.",
+                        "focusElement": "smartphone_feed_svg"
+                    },
+                    {
+                        "shotId": "shot_1_3",
+                        "startTime": 6.480,
+                        "endTime": 10.320,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Camera resets wide; host taps the 'Hollywood Ecosystem' header with wooden pointer and smirks.",
+                        "focusElement": "whiteboard_01"
+                    }
+                ]
+            },
+            {
+                "sceneNumber": 2,
+                "sceneId": "scene_02",
+                "title": "Scene 2: Thicc to Stick & Tech Bro Pivot",
+                "timeWindow": {
+                    "startTime": 10.320,
+                    "endTime": 16.875,
+                    "duration": 6.555
+                },
+                "subtitles": [
+                    {
+                        "id": 4,
+                        "start": 10.320,
+                        "end": 13.280,
+                        "text": ". The timeline has gone from \"Thicc\" to \"stick\" faster than a"
+                    },
+                    {
+                        "id": 5,
+                        "start": 13.280,
+                        "end": 16.320,
+                        "text": "tech bro pivoting from crypto to artificial intelligence."
+                    }
+                ],
+                "narrationExcerpt": "The timeline has gone from 'Thicc' to 'stick' faster than a tech bro pivoting from crypto to artificial intelligence.",
+                "comedicSynopsis": "A rapid split-panel comparison gag: on the left, an hourglass figure instantly snaps into a single 1px vertical line; on the right, a fleece-vested Tech Bro flips his hoodie from Web3 crypto to AI agents in 0.003 seconds.",
+                "camera": {
+                    "viewBox": [0, 0, 1920, 1080],
+                    "center": {"x": 960, "y": 540},
+                    "zoom": 1.0,
+                    "motionType": "whip_pan_zoom",
+                    "panSpeed": "snap_fast",
+                    "cameraShake": {
+                        "enabled": True,
+                        "intensity": 6,
+                        "duration": 0.25,
+                        "triggerTimestamp": 13.280
+                    }
+                },
+                "hostState": {
+                    "x": 280,
+                    "y": 700,
+                    "scale": 1.0,
+                    "rotation": 0,
+                    "pose": "point_right",
+                    "mouth_shape": "talk_wide",
+                    "eyes": "look_right",
+                    "heldProp": None,
+                    "keyframeMotions": [
+                        {
+                            "timestamp": 10.320,
+                            "pose": "point_right",
+                            "mouth_shape": "talk_wide",
+                            "eyes": "look_right",
+                            "action": "Host points excitedly at the 'Thicc -> Stick' transformation curve."
+                        },
+                        {
+                            "timestamp": 13.280,
+                            "pose": "shrug",
+                            "mouth_shape": "smirk",
+                            "eyes": "look_camera",
+                            "action": "Host throws both hands up in deadpan shrug as the Tech Bro flips hoodies."
+                        }
+                    ]
+                },
+                "visualGagsAndProps": [
+                    {
+                        "id": "thicc_to_stick_panel",
+                        "type": "svg_comparison_panel",
+                        "description": "Left split panel showing 2019 Thicc vs 2024 Stick figures.",
+                        "layout": {"x": 80, "y": 120, "width": 840, "height": 840},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 80, "y": 120, "width": 840, "height": 840, "rx": 20, "fill": "#FFF1F2", "stroke": "#FDA4AF", "strokeWidth": 6}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 500, "y": 200, "textAnchor": "middle", "fill": "#E11D48", "fontSize": 42, "fontFamily": "Impact", "text": "TIMELINE METAMORPHOSIS"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 240, "y": 300, "fill": "#E11D48", "fontSize": 36, "fontFamily": "Impact", "text": "2019: \"THICC\" 🍑"}
+                            },
+                            {
+                                "tag": "path",
+                                "props": {"d": "M 240 360 Q 180 480 300 620 Q 340 720 240 820", "stroke": "#E11D48", "strokeWidth": 26, "fill": "none", "strokeLinecap": "round"}
+                            },
+                            {
+                                "tag": "path",
+                                "props": {"d": "M 380 500 L 580 500", "stroke": "#EF4444", "strokeWidth": 16, "markerEnd": "url(#heavyArrowRed)"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 480, "y": 460, "textAnchor": "middle", "fill": "#EF4444", "fontSize": 32, "fontFamily": "Impact", "text": "*SNAP*"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 680, "y": 300, "fill": "#0F172A", "fontSize": 36, "fontFamily": "Impact", "text": "2024: \"STICK\" |"}
+                            },
+                            {
+                                "tag": "line",
+                                "props": {"x1": 740, "y1": 360, "x2": 740, "y2": 820, "stroke": "#0F172A", "strokeWidth": 4, "strokeLinecap": "round"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "tech_bro_panel",
+                        "type": "svg_tech_bro_pivot",
+                        "description": "Right panel featuring a Patagonia-vested stick figure flipping grifts.",
+                        "layout": {"x": 980, "y": 120, "width": 860, "height": 840},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 980, "y": 120, "width": 860, "height": 840, "rx": 20, "fill": "#F0FDF4", "stroke": "#86EFAC", "strokeWidth": 6}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1410, "y": 200, "textAnchor": "middle", "fill": "#15803D", "fontSize": 42, "fontFamily": "Impact", "text": "PIVOT SPEED: 0.003 SEC"}
+                            },
+                            {
+                                "tag": "rect",
+                                "props": {"x": 1140, "y": 280, "width": 540, "height": 180, "rx": 16, "fill": "#1E293B"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1410, "y": 350, "textAnchor": "middle", "fill": "#F59E0B", "fontSize": 36, "fontFamily": "'Courier New', monospace", "fontWeight": "bold", "text": "WAS: Web3 / NFT / $DOGE 🚀"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1410, "y": 420, "textAnchor": "middle", "fill": "#10B981", "fontSize": 38, "fontFamily": "'Courier New', monospace", "fontWeight": "bold", "text": "NOW: AGI / NVIDIA / LLMs 🤖"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1410, "y": 740, "textAnchor": "middle", "fill": "#EF4444", "fontSize": 30, "fontFamily": "'Patrick Hand', cursive", "text": "\"Totally different thesis bro, we are changing humanity\""}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "speed_lines_whoosh",
+                        "type": "action_speed_lines",
+                        "description": "Horizontal speed streak lines across the center split indicating blistering pivot speed.",
+                        "lines": [
+                            {"y": 480, "stroke": "#F59E0B", "strokeWidth": 6},
+                            {"y": 520, "stroke": "#10B981", "strokeWidth": 8},
+                            {"y": 560, "stroke": "#3B82F6", "strokeWidth": 5}
+                        ]
+                    }
+                ],
+                "onScreenSubtitles": [
+                    {
+                        "text": "THICC ➡️ STICK",
+                        "startTime": 10.800,
+                        "endTime": 13.200,
+                        "position": {"x": 500, "y": 890},
+                        "style": {
+                            "fontSize": 78,
+                            "fontFamily": "Impact",
+                            "color": "#EC4899",
+                            "stroke": "#111111",
+                            "strokeWidth": 4,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "TECH BRO PIVOT",
+                        "startTime": 13.300,
+                        "endTime": 16.200,
+                        "position": {"x": 1410, "y": 890},
+                        "style": {
+                            "fontSize": 74,
+                            "fontFamily": "Impact",
+                            "color": "#10B981",
+                            "stroke": "#111111",
+                            "strokeWidth": 4,
+                            "animation": "stamp_slam"
+                        }
+                    }
+                ],
+                "referenceImages": [
+                    {
+                        "id": "ref_04",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/00m10s-00m16s_P1_Xgkbcktr24OF.jpg",
+                        "timeWindow": {"startTime": 10.320, "endTime": 16.875},
+                        "priority": "P1",
+                        "purpose": "Wider Hollywood ecosystem visual",
+                        "layout": {
+                            "x": 1440,
+                            "y": 490,
+                            "width": 320,
+                            "height": 480,
+                            "rotation": 6.0,
+                            "tapeStrip": True,
+                            "pushPin": "yellow",
+                            "captionText": "PIVOT EVIDENCE #42"
+                        }
+                    }
+                ],
+                "granularShots": [
+                    {
+                        "shotId": "shot_2_1",
+                        "startTime": 10.320,
+                        "endTime": 13.280,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Host points right at the 'Thicc -> Stick' curve as the stick snaps into 1px.",
+                        "focusElement": "thicc_to_stick_panel"
+                    },
+                    {
+                        "shotId": "shot_2_2",
+                        "startTime": 13.280,
+                        "endTime": 16.875,
+                        "cameraViewBox": [750, 60, 1170, 960],
+                        "hostAction": "Camera zooms towards the right panel; host shrugs as tech bro flips from crypto to AI.",
+                        "focusElement": "tech_bro_panel"
+                    }
+                ]
+            },
+            {
+                "sceneNumber": 3,
+                "sceneId": "scene_03",
+                "title": "Scene 3: Celebrity Lean Caliper Inspection",
+                "timeWindow": {
+                    "startTime": 16.875,
+                    "endTime": 23.675,
+                    "duration": 6.800
+                },
+                "subtitles": [
+                    {
+                        "id": 6,
+                        "start": 16.875,
+                        "end": 19.915,
+                        "text": "Suddenly, everywhere you look, celebrities like Jenna Ortega"
+                    },
+                    {
+                        "id": 7,
+                        "start": 19.995,
+                        "end": 23.275,
+                        "text": ", Emma Stone, and Ariana Grande are looking noticeably leaner"
+                    }
+                ],
+                "narrationExcerpt": "Suddenly, everywhere you look, celebrities like Jenna Ortega, Emma Stone, and Ariana Grande are looking noticeably leaner.",
+                "comedicSynopsis": "The host becomes a deadpan forensic detective, using a giant yellow mechanical caliper tool and sci-fi HUD crosshairs to measure celebrity jawlines and collarbones with millimeter precision.",
+                "camera": {
+                    "viewBox": [0, 0, 1920, 1080],
+                    "center": {"x": 960, "y": 540},
+                    "zoom": 1.0,
+                    "motionType": "crash_zoom",
+                    "panSpeed": "snap_fast",
+                    "cameraShake": {
+                        "enabled": False,
+                        "intensity": 0,
+                        "duration": 0
+                    }
+                },
+                "hostState": {
+                    "x": 260,
+                    "y": 700,
+                    "scale": 1.0,
+                    "rotation": 0,
+                    "pose": "point_right",
+                    "mouth_shape": "talk_wide",
+                    "eyes": "look_right",
+                    "heldProp": "caliper_tool",
+                    "keyframeMotions": [
+                        {
+                            "timestamp": 16.875,
+                            "pose": "point_right",
+                            "mouth_shape": "talk_wide",
+                            "eyes": "look_right",
+                            "action": "Host holds yellow caliper tool up against Jenna Ortega polaroid."
+                        },
+                        {
+                            "timestamp": 20.000,
+                            "pose": "deadpan_stare",
+                            "mouth_shape": "open_O",
+                            "eyes": "squint",
+                            "action": "Host pulls out magnifying glass and leans in close to collarbones."
+                        }
+                    ]
+                },
+                "visualGagsAndProps": [
+                    {
+                        "id": "forensic_board",
+                        "type": "svg_investigation_board",
+                        "description": "Detective corkboard with red yarn connecting celebrity portraits.",
+                        "layout": {"x": 120, "y": 100, "width": 1680, "height": 880},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 120, "y": 100, "width": 1680, "height": 880, "rx": 16, "fill": "#E2E8F0", "stroke": "#94A3B8", "strokeWidth": 8}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 960, "y": 160, "textAnchor": "middle", "fill": "#0F172A", "fontSize": 40, "fontFamily": "Impact", "text": "CASE FILE #802: SYSTEMIC SKELETAL RE-ALIGNMENT"}
+                            },
+                            {
+                                "tag": "path",
+                                "props": {"d": "M 680 400 Q 960 280 1280 400", "stroke": "#EF4444", "strokeWidth": 6, "strokeDasharray": "12,6"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "caliper_svg_tool",
+                        "type": "svg_measuring_tool",
+                        "description": "Bright yellow mechanical calipers pinching the jawline on the polaroid.",
+                        "layout": {"x": 780, "y": 320, "width": 240, "height": 360},
+                        "elements": [
+                            {
+                                "tag": "path",
+                                "props": {"d": "M 800 340 L 880 460 L 920 460 L 1000 340", "stroke": "#FACC15", "strokeWidth": 18, "fill": "none", "strokeLinecap": "round"}
+                            },
+                            {
+                                "tag": "rect",
+                                "props": {"x": 860, "y": 480, "width": 120, "height": 50, "rx": 8, "fill": "#0F172A"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 920, "y": 515, "textAnchor": "middle", "fill": "#22C55E", "fontSize": 22, "fontFamily": "'Courier New', monospace", "fontWeight": "bold", "text": "1.2 mm"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "hud_targeting_overlay",
+                        "type": "svg_hud_scanner",
+                        "description": "Cyan HUD targeting reticles locked onto cheekbones and collarbones.",
+                        "elements": [
+                            {
+                                "tag": "circle",
+                                "props": {"cx": 640, "cy": 380, "r": 60, "stroke": "#06B6D4", "strokeWidth": 3, "fill": "none", "strokeDasharray": "8,4"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 640, "y": 470, "textAnchor": "middle", "fill": "#06B6D4", "fontSize": 18, "fontFamily": "'Courier New', monospace", "text": "TARGET: JAWLINE"}
+                            },
+                            {
+                                "tag": "circle",
+                                "props": {"cx": 1280, "cy": 380, "r": 60, "stroke": "#06B6D4", "strokeWidth": 3, "fill": "none", "strokeDasharray": "8,4"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1280, "y": 470, "textAnchor": "middle", "fill": "#06B6D4", "fontSize": 18, "fontFamily": "'Courier New', monospace", "text": "FAT_PCT: 0.0001%"}
+                            }
+                        ]
+                    }
+                ],
+                "onScreenSubtitles": [
+                    {
+                        "text": "JENNA ORTEGA",
+                        "startTime": 17.200,
+                        "endTime": 19.800,
+                        "position": {"x": 640, "y": 200},
+                        "style": {
+                            "fontSize": 56,
+                            "fontFamily": "Impact",
+                            "color": "#FFFFFF",
+                            "stroke": "#EF4444",
+                            "strokeWidth": 4,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "EMMA STONE & ARIANA GRANDE",
+                        "startTime": 20.000,
+                        "endTime": 22.800,
+                        "position": {"x": 1280, "y": 200},
+                        "style": {
+                            "fontSize": 48,
+                            "fontFamily": "Impact",
+                            "color": "#FDE047",
+                            "stroke": "#111111",
+                            "strokeWidth": 4,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "NOTICEABLY LEANER",
+                        "startTime": 22.000,
+                        "endTime": 23.600,
+                        "position": {"x": 960, "y": 940},
+                        "style": {
+                            "fontSize": 78,
+                            "fontFamily": "Impact",
+                            "color": "#EF4444",
+                            "stroke": "#FFFFFF",
+                            "strokeWidth": 3,
+                            "animation": "stamp_slam"
+                        }
+                    }
+                ],
+                "referenceImages": [
+                    {
+                        "id": "ref_05",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/00m16s-00m23s_P0_dE2sYmsioUfQ.jpg",
+                        "timeWindow": {"startTime": 16.875, "endTime": 23.675},
+                        "priority": "P0",
+                        "purpose": "Jenna Ortega real red-carpet reference",
+                        "layout": {
+                            "x": 480,
+                            "y": 240,
+                            "width": 360,
+                            "height": 540,
+                            "rotation": -4.0,
+                            "tapeStrip": True,
+                            "pushPin": "red",
+                            "captionText": "JENNA ORTEGA (2024 RED CARPET)"
+                        }
+                    },
+                    {
+                        "id": "ref_06",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/00m23s-00m32s_P1_Cnu1VBm6CjgF.jpg",
+                        "timeWindow": {"startTime": 19.995, "endTime": 23.675},
+                        "priority": "P1",
+                        "purpose": "Multiple celebrities looking leaner",
+                        "layout": {
+                            "x": 1120,
+                            "y": 240,
+                            "width": 380,
+                            "height": 570,
+                            "rotation": 3.5,
+                            "tapeStrip": True,
+                            "pushPin": "red",
+                            "captionText": "HOLLYWOOD WIDE LEANNESS"
+                        }
+                    }
+                ],
+                "granularShots": [
+                    {
+                        "shotId": "shot_3_1",
+                        "startTime": 16.875,
+                        "endTime": 19.995,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Host positions calipers over Jenna Ortega portrait, digital readout appears.",
+                        "focusElement": "ref_05"
+                    },
+                    {
+                        "shotId": "shot_3_2",
+                        "startTime": 19.995,
+                        "endTime": 23.675,
+                        "cameraViewBox": [380, 120, 1360, 765],
+                        "hostAction": "Camera crash-zooms into both celebrity portraits as HUD crosshairs lock on.",
+                        "focusElement": "ref_06"
+                    }
+                ]
+            },
+            {
+                "sceneNumber": 4,
+                "sceneId": "scene_04",
+                "title": "Scene 4: Unsubscribe from Carbs & Cancel Lunch",
+                "timeWindow": {
+                    "startTime": 23.675,
+                    "endTime": 32.862,
+                    "duration": 9.187
+                },
+                "subtitles": [
+                    {
+                        "id": 8,
+                        "start": 23.675,
+                        "end": 26.475,
+                        "text": ". It seems like overnight, the entire entertainment industry"
+                    },
+                    {
+                        "id": 9,
+                        "start": 26.475,
+                        "end": 29.835,
+                        "text": "decided to collectively unsubscribe from carbohydrates and cancel"
+                    },
+                    {
+                        "id": 10,
+                        "start": 29.835,
+                        "end": 32.315,
+                        "text": "their biological subscription to the concept of lunch."
+                    }
+                ],
+                "narrationExcerpt": "It seems like overnight, the entire entertainment industry decided to collectively unsubscribe from carbohydrates and cancel their biological subscription to the concept of lunch.",
+                "comedicSynopsis": "The entertainment industry treats biological nourishment like an unwanted SaaS software tier. A macOS-style subscription dashboard pops up where an animated mouse cursor clicks 'CANCEL PLAN' on carbohydrates and lunch, leaving the host chewing a single sad lettuce leaf.",
+                "camera": {
+                    "viewBox": [0, 0, 1920, 1080],
+                    "center": {"x": 960, "y": 540},
+                    "zoom": 1.0,
+                    "motionType": "slow_push_in",
+                    "panSpeed": "smooth_linear",
+                    "cameraShake": {
+                        "enabled": True,
+                        "intensity": 8,
+                        "duration": 0.3,
+                        "triggerTimestamp": 29.835
+                    }
+                },
+                "hostState": {
+                    "x": 320,
+                    "y": 720,
+                    "scale": 1.0,
+                    "rotation": 0,
+                    "pose": "typing",
+                    "mouth_shape": "talk_wide",
+                    "eyes": "look_camera",
+                    "heldProp": None,
+                    "keyframeMotions": [
+                        {
+                            "timestamp": 23.675,
+                            "pose": "typing",
+                            "mouth_shape": "talk_wide",
+                            "eyes": "look_camera",
+                            "action": "Host is typing at a laptop, narrating the overnight change."
+                        },
+                        {
+                            "timestamp": 26.475,
+                            "pose": "point_right",
+                            "mouth_shape": "smirk",
+                            "eyes": "look_right",
+                            "action": "Host points at the UI subscription modal popping up."
+                        },
+                        {
+                            "timestamp": 29.835,
+                            "pose": "deadpan_stare",
+                            "mouth_shape": "straight_line",
+                            "eyes": "look_camera",
+                            "action": "Host holds up a plate with one single translucent lettuce leaf, staring into the camera."
+                        }
+                    ]
+                },
+                "visualGagsAndProps": [
+                    {
+                        "id": "saas_subscription_modal",
+                        "type": "svg_app_window",
+                        "description": "macOS window titled 'Biology & Nutrition Cloud Settings'.",
+                        "layout": {"x": 580, "y": 140, "width": 1160, "height": 760},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 580, "y": 140, "width": 1160, "height": 760, "rx": 24, "fill": "#1E293B", "stroke": "#334155", "strokeWidth": 6}
+                            },
+                            {
+                                "tag": "circle",
+                                "props": {"cx": 620, "cy": 180, "r": 10, "fill": "#EF4444"}
+                            },
+                            {
+                                "tag": "circle",
+                                "props": {"cx": 650, "cy": 180, "r": 10, "fill": "#F59E0B"}
+                            },
+                            {
+                                "tag": "circle",
+                                "props": {"cx": 680, "cy": 180, "r": 10, "fill": "#10B981"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1160, "y": 190, "textAnchor": "middle", "fill": "#94A3B8", "fontSize": 22, "fontFamily": "sans-serif", "text": "Hollywood Cloud Subscriptions > Active Plans"}
+                            },
+                            {
+                                "tag": "rect",
+                                "props": {"x": 640, "y": 240, "width": 1040, "height": 160, "rx": 16, "fill": "#0F172A"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 680, "y": 300, "fill": "#F8FAFC", "fontSize": 28, "fontFamily": "sans-serif", "fontWeight": "bold", "text": "🍞 Carbohydrates (Bread, Bagels, Pasta, Joy)"}
+                            },
+                            {
+                                "tag": "rect",
+                                "props": {"x": 1440, "y": 280, "width": 200, "height": 60, "rx": 8, "fill": "#EF4444"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1540, "y": 320, "textAnchor": "middle", "fill": "#FFFFFF", "fontSize": 20, "fontFamily": "sans-serif", "fontWeight": "bold", "text": "CANCELLED ❌"}
+                            },
+                            {
+                                "tag": "rect",
+                                "props": {"x": 640, "y": 440, "width": 1040, "height": 180, "rx": 16, "fill": "#0F172A"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 680, "y": 500, "fill": "#F8FAFC", "fontSize": 28, "fontFamily": "sans-serif", "fontWeight": "bold", "text": "🥪 The Concept of Lunch™ (12:00 PM - 1:00 PM)"}
+                            },
+                            {
+                                "tag": "rect",
+                                "props": {"x": 1400, "y": 480, "width": 240, "height": 70, "rx": 12, "fill": "#DC2626"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1520, "y": 525, "textAnchor": "middle", "fill": "#FFFFFF", "fontSize": 24, "fontFamily": "sans-serif", "fontWeight": "bold", "text": "UNSUBSCRIBE"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 680, "y": 570, "fill": "#94A3B8", "fontSize": 20, "fontFamily": "sans-serif", "text": "Status: Billing terminated. Saved 900 kcal/day."}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "animated_cursor_click",
+                        "type": "svg_cursor",
+                        "description": "White OS arrow cursor hovering over UNSUBSCRIBE button and triggering a click spark.",
+                        "layout": {"x": 1520, "y": 520},
+                        "action": "At t=29.835, cursor clicks button -> *CLICK!* -> Button pulses dark red."
+                    },
+                    {
+                        "id": "lettuce_plate_gag",
+                        "type": "svg_prop",
+                        "description": "Ceramic plate holding 1 single microscopic lettuce leaf labeled 'LUNCH 2024'.",
+                        "layout": {"x": 300, "y": 620, "width": 160, "height": 80}
+                    }
+                ],
+                "onScreenSubtitles": [
+                    {
+                        "text": "UNSUBSCRIBE FROM CARBS",
+                        "startTime": 26.800,
+                        "endTime": 29.500,
+                        "position": {"x": 1160, "y": 90},
+                        "style": {
+                            "fontSize": 64,
+                            "fontFamily": "Impact",
+                            "color": "#EF4444",
+                            "stroke": "#111111",
+                            "strokeWidth": 3,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "CANCEL LUNCH™",
+                        "startTime": 29.835,
+                        "endTime": 32.500,
+                        "position": {"x": 960, "y": 960},
+                        "style": {
+                            "fontSize": 92,
+                            "fontFamily": "Impact",
+                            "color": "#FDE047",
+                            "stroke": "#DC2626",
+                            "strokeWidth": 5,
+                            "animation": "stamp_slam"
+                        }
+                    }
+                ],
+                "referenceImages": [
+                    {
+                        "id": "ref_07",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/00m23s-00m32s_P1_Cnu1VBm6CjgF.jpg",
+                        "timeWindow": {"startTime": 23.675, "endTime": 32.862},
+                        "priority": "P1",
+                        "purpose": "Multiple celebrities looking leaner",
+                        "layout": {
+                            "x": 1420,
+                            "y": 640,
+                            "width": 360,
+                            "height": 360,
+                            "rotation": -4.0,
+                            "tapeStrip": True,
+                            "pushPin": "none",
+                            "captionText": "CANCELLED PARTICIPANTS"
+                        }
+                    }
+                ],
+                "granularShots": [
+                    {
+                        "shotId": "shot_4_1",
+                        "startTime": 23.675,
+                        "endTime": 26.475,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Host types at laptop as modal window opens on right.",
+                        "focusElement": "saas_subscription_modal"
+                    },
+                    {
+                        "shotId": "shot_4_2",
+                        "startTime": 26.475,
+                        "endTime": 29.835,
+                        "cameraViewBox": [300, 80, 1500, 843],
+                        "hostAction": "Animated cursor moves across UI to the 'UNSUBSCRIBE' button.",
+                        "focusElement": "animated_cursor_click"
+                    },
+                    {
+                        "shotId": "shot_4_3",
+                        "startTime": 29.835,
+                        "endTime": 32.862,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Camera shakes upon click; host holds plate of single lettuce leaf with deadpan stare.",
+                        "focusElement": "lettuce_plate_gag"
+                    }
+                ]
+            },
+            {
+                "sceneNumber": 5,
+                "sceneId": "scene_05",
+                "title": "Scene 5: Tim Burton & PS1 Low-Poly",
+                "timeWindow": {
+                    "startTime": 32.862,
+                    "endTime": 43.285,
+                    "duration": 10.423
+                },
+                "subtitles": [
+                    {
+                        "id": 11,
+                        "start": 32.862,
+                        "end": 35.902,
+                        "text": "But why is everyone suddenly speedrunning the Tim Burton aesthetic"
+                    },
+                    {
+                        "id": 12,
+                        "start": 36.222,
+                        "end": 39.422,
+                        "text": "?  The aggressive return of the 90s, and why your favorite actors"
+                    },
+                    {
+                        "id": 13,
+                        "start": 39.422,
+                        "end": 41.582,
+                        "text": "are starting to look like they're rendered in low-poly"
+                    },
+                    {
+                        "id": 14,
+                        "start": 41.582,
+                        "end": 42.782,
+                        "text": "low-poly PS1 graphics."
+                    }
+                ],
+                "narrationExcerpt": "But why is everyone suddenly speedrunning the Tim Burton aesthetic? The aggressive return of the 90s, and why your favorite actors are starting to look like they're rendered in low-poly PS1 graphics.",
+                "comedicSynopsis": "The host monologues as an Any% speedrun HUD timer ticks in the corner. His eyes morph into gothic Tim Burton spirals, before a full 1996 retro PlayStation 1 low-poly filter degrades his head into sharp 14-polygon wireframes accompanied by a vintage PS1 startup sound.",
+                "camera": {
+                    "viewBox": [0, 0, 1920, 1080],
+                    "center": {"x": 960, "y": 540},
+                    "zoom": 1.0,
+                    "motionType": "crash_zoom",
+                    "panSpeed": "snap_fast",
+                    "cameraShake": {
+                        "enabled": True,
+                        "intensity": 10,
+                        "duration": 0.4,
+                        "triggerTimestamp": 41.582
+                    }
+                },
+                "hostState": {
+                    "x": 960,
+                    "y": 660,
+                    "scale": 1.2,
+                    "rotation": 0,
+                    "pose": "neutral_talk",
+                    "mouth_shape": "open_O",
+                    "eyes": "tim_burton_spiral",
+                    "heldProp": None,
+                    "keyframeMotions": [
+                        {
+                            "timestamp": 32.862,
+                            "pose": "neutral_talk",
+                            "mouth_shape": "open_O",
+                            "eyes": "tim_burton_spiral",
+                            "action": "Host stands center screen, hypnotic Tim Burton black-and-white spiral eyes activate."
+                        },
+                        {
+                            "timestamp": 36.222,
+                            "pose": "point_left",
+                            "mouth_shape": "talk_wide",
+                            "eyes": "tim_burton_spiral",
+                            "action": "Gothic curly branches frame the screen; host points at 90s aesthetic reference."
+                        },
+                        {
+                            "timestamp": 41.582,
+                            "pose": "shock",
+                            "mouth_shape": "scream",
+                            "eyes": "ps1_poly",
+                            "action": "Host's head violently snaps into low-poly triangular facets; eyes become 4-vertex polygons."
+                        }
+                    ]
+                },
+                "visualGagsAndProps": [
+                    {
+                        "id": "speedrun_hud",
+                        "type": "svg_speedrun_timer",
+                        "description": "Livesplit speedrunning timer overlay in top right corner.",
+                        "layout": {"x": 1420, "y": 40, "width": 440, "height": 160},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 1420, "y": 40, "width": 440, "height": 160, "rx": 12, "fill": "rgba(0,0,0,0.85)", "stroke": "#22C55E", "strokeWidth": 3}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1440, "y": 80, "fill": "#94A3B8", "fontSize": 18, "fontFamily": "'Courier New', monospace", "text": "ANY% TIM BURTON GLITCHLESS"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1440, "y": 140, "fill": "#22C55E", "fontSize": 48, "fontFamily": "'Courier New', monospace", "fontWeight": "bold", "text": "00:01:42.18"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1780, "y": 140, "fill": "#EAB308", "fontSize": 20, "fontFamily": "'Courier New', monospace", "text": "-14.2s"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "tim_burton_gothic_vignette",
+                        "type": "svg_spooky_frame",
+                        "description": "Spindly curly black silhouette branches and dark purple mist crawling from edges.",
+                        "elements": [
+                            {
+                                "tag": "path",
+                                "props": {"d": "M 0 0 Q 200 150 150 400 Q 100 250 0 350", "fill": "#1E1B4B", "opacity": "0.6"}
+                            },
+                            {
+                                "tag": "path",
+                                "props": {"d": "M 1920 0 Q 1720 150 1770 400 Q 1820 250 1920 350", "fill": "#1E1B4B", "opacity": "0.6"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "ps1_wireframe_mesh",
+                        "type": "svg_poly_mesh",
+                        "description": "Low-poly 3D triangular wireframe overlay and pixelated dither matrix on host's cheekbones.",
+                        "elements": [
+                            {
+                                "tag": "polygon",
+                                "props": {"points": "910,610 960,560 960,650", "fill": "#F5D6B4", "stroke": "#000000", "strokeWidth": 3}
+                            },
+                            {
+                                "tag": "polygon",
+                                "props": {"points": "1010,610 960,560 960,650", "fill": "#E5B694", "stroke": "#000000", "strokeWidth": 3}
+                            },
+                            {
+                                "tag": "polygon",
+                                "props": {"points": "910,610 960,650 930,710", "fill": "#D5A684", "stroke": "#000000", "strokeWidth": 3}
+                            },
+                            {
+                                "tag": "polygon",
+                                "props": {"points": "1010,610 960,650 990,710", "fill": "#C59674", "stroke": "#000000", "strokeWidth": 3}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 960, "y": 790, "textAnchor": "middle", "fill": "#22C55E", "fontSize": 24, "fontFamily": "'Courier New', monospace", "text": "POLYGON COUNT: 14 | VRAM: 1MB"}
+                            }
+                        ]
+                    }
+                ],
+                "onScreenSubtitles": [
+                    {
+                        "text": "TIM BURTON AESTHETIC ANY%",
+                        "startTime": 33.200,
+                        "endTime": 36.000,
+                        "position": {"x": 960, "y": 140},
+                        "style": {
+                            "fontSize": 70,
+                            "fontFamily": "Impact",
+                            "color": "#A855F7",
+                            "stroke": "#000000",
+                            "strokeWidth": 4,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "LOW-POLY PS1 GRAPHICS",
+                        "startTime": 41.582,
+                        "endTime": 43.285,
+                        "position": {"x": 960, "y": 920},
+                        "style": {
+                            "fontSize": 86,
+                            "fontFamily": "Impact",
+                            "color": "#F59E0B",
+                            "stroke": "#000000",
+                            "strokeWidth": 5,
+                            "animation": "stamp_slam"
+                        }
+                    }
+                ],
+                "referenceImages": [
+                    {
+                        "id": "ref_08",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/00m32s-00m42s_P1_sOcn3DSdXH3p.jpg",
+                        "timeWindow": {"startTime": 32.862, "endTime": 41.582},
+                        "priority": "P1",
+                        "purpose": "90s/gaunt aesthetic bridge",
+                        "layout": {
+                            "x": 220,
+                            "y": 200,
+                            "width": 460,
+                            "height": 345,
+                            "rotation": -6.0,
+                            "tapeStrip": True,
+                            "pushPin": "none",
+                            "captionText": "EXHIBIT: BURTONESQUE GAUNT"
+                        }
+                    },
+                    {
+                        "id": "ref_09",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/00m42s-00m46s_P1_KRMezIIsHgN4.jpg",
+                        "timeWindow": {"startTime": 41.582, "endTime": 43.285},
+                        "priority": "P1",
+                        "purpose": "Size-zero fashion-history cue / PS1 low-poly visual",
+                        "layout": {
+                            "x": 1260,
+                            "y": 220,
+                            "width": 440,
+                            "height": 264,
+                            "rotation": 5.0,
+                            "tapeStrip": True,
+                            "pushPin": "red",
+                            "captionText": "32-BIT FACIAL ASSET"
+                        }
+                    }
+                ],
+                "granularShots": [
+                    {
+                        "shotId": "shot_5_1",
+                        "startTime": 32.862,
+                        "endTime": 36.222,
+                        "cameraViewBox": [400, 150, 1120, 630],
+                        "hostAction": "Host's eyes spin into hypnotic black/white spirals; speedrun timer active.",
+                        "focusElement": "speedrun_hud"
+                    },
+                    {
+                        "shotId": "shot_5_2",
+                        "startTime": 36.222,
+                        "endTime": 41.582,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Gothic branches frame camera; host points to gaunt fashion reference.",
+                        "focusElement": "ref_08"
+                    },
+                    {
+                        "shotId": "shot_5_3",
+                        "startTime": 41.582,
+                        "endTime": 43.285,
+                        "cameraViewBox": [580, 320, 760, 428],
+                        "hostAction": "Crash zoom & camera shake on 'PS1 graphics' as host head turns into 3D low-poly triangles.",
+                        "focusElement": "ps1_wireframe_mesh"
+                    }
+                ]
+            },
+            {
+                "sceneNumber": 6,
+                "sceneId": "scene_06",
+                "title": "Scene 6: Terrifying Beauty Pendulum",
+                "timeWindow": {
+                    "startTime": 43.285,
+                    "endTime": 57.574,
+                    "duration": 14.289
+                },
+                "subtitles": [
+                    {
+                        "id": 15,
+                        "start": 43.285,
+                        "end": 46.005,
+                        "text": "To understand where we are right now, we have to look at where"
+                    },
+                    {
+                        "id": 16,
+                        "start": 46.005,
+                        "end": 49.205,
+                        "text": "we've been. Human beauty standards operate on a giant,"
+                    },
+                    {
+                        "id": 17,
+                        "start": 49.205,
+                        "end": 52.085,
+                        "text": "terrifying pendulum that swings wildly depending on whatever"
+                    },
+                    {
+                        "id": 18,
+                        "start": 52.085,
+                        "end": 55.045,
+                        "text": "makes regular, working-class people feel the absolute"
+                    },
+                    {
+                        "id": 19,
+                        "start": 55.045,
+                        "end": 57.045,
+                        "text": "worst about themselves at any given time."
+                    }
+                ],
+                "narrationExcerpt": "To understand where we are right now, we have to look at where we've been. Human beauty standards operate on a giant, terrifying pendulum that swings wildly depending on whatever makes regular, working-class people feel the absolute worst about themselves at any given time.",
+                "comedicSynopsis": "The host presents the Grand Theory of Beauty Standards: a weaponized grandfather clock pendulum swinging violently across decades, designed exclusively to crush the self-esteem of an ordinary working-class guy sitting on a couch eating chips.",
+                "camera": {
+                    "viewBox": [0, 0, 1920, 1080],
+                    "center": {"x": 960, "y": 540},
+                    "zoom": 1.0,
+                    "motionType": "camera_shake",
+                    "panSpeed": "smooth_ease_in_out",
+                    "cameraShake": {
+                        "enabled": True,
+                        "intensity": 14,
+                        "duration": 0.45,
+                        "triggerTimestamp": 52.085
+                    }
+                },
+                "hostState": {
+                    "x": 300,
+                    "y": 720,
+                    "scale": 1.0,
+                    "rotation": 0,
+                    "pose": "point_right",
+                    "mouth_shape": "talk_wide",
+                    "eyes": "look_right",
+                    "heldProp": "wooden_pointer",
+                    "keyframeMotions": [
+                        {
+                            "timestamp": 43.285,
+                            "pose": "point_right",
+                            "mouth_shape": "talk_wide",
+                            "eyes": "look_right",
+                            "action": "Host introduces the historical pendulum diagram with wooden pointer."
+                        },
+                        {
+                            "timestamp": 49.205,
+                            "pose": "shock",
+                            "mouth_shape": "open_O",
+                            "eyes": "wide_shock",
+                            "action": "Host recoils as the giant pendulum swings past with terrifying speed."
+                        },
+                        {
+                            "timestamp": 55.045,
+                            "pose": "facepalm",
+                            "mouth_shape": "straight_line",
+                            "eyes": "roll_eyes",
+                            "action": "Host facepalms as the working-class stick figure gets demolished by the pendulum."
+                        }
+                    ]
+                },
+                "visualGagsAndProps": [
+                    {
+                        "id": "giant_pendulum_svg",
+                        "type": "svg_mechanical_pendulum",
+                        "description": "Massive iron gear pivot at top with swinging cable and spiked wrecking ball bob.",
+                        "layout": {"x": 960, "y": 60},
+                        "elements": [
+                            {
+                                "tag": "circle",
+                                "props": {"cx": 960, "cy": 80, "r": 28, "fill": "#334155", "stroke": "#0F172A", "strokeWidth": 6}
+                            },
+                            {
+                                "tag": "line",
+                                "props": {"x1": 960, "y1": 80, "x2": 960, "y2": 720, "stroke": "#1E293B", "strokeWidth": 14, "strokeLinecap": "round"}
+                            },
+                            {
+                                "tag": "circle",
+                                "props": {"cx": 960, "cy": 720, "r": 110, "fill": "#DC2626", "stroke": "#7F1D1D", "strokeWidth": 10}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 960, "y": 728, "textAnchor": "middle", "fill": "#FFFFFF", "fontSize": 24, "fontFamily": "Impact", "text": "BEAUTY META"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "pendulum_arc_labels",
+                        "type": "svg_arc_extremes",
+                        "description": "Text banners at the two extreme peaks of the pendulum trajectory.",
+                        "elements": [
+                            {
+                                "tag": "text",
+                                "props": {"x": 340, "y": 380, "textAnchor": "middle", "fill": "#9333EA", "fontSize": 34, "fontFamily": "Impact", "text": "⬅️ 1995: SKELETAL HEROIN CHIC\n(0% FAT / NEGATIVE BMI)"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1580, "y": 380, "textAnchor": "middle", "fill": "#EC4899", "fontSize": 34, "fontFamily": "Impact", "text": "2016: PIXAR MOM BBL ➡️\n(GRAVITATIONAL ANOMALY)"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "working_class_victim",
+                        "type": "svg_victim_gag",
+                        "description": "Ordinary stick figure in sweatpants on couch getting wiped out on every pass.",
+                        "layout": {"x": 960, "y": 860},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 860, "y": 820, "width": 200, "height": 100, "rx": 12, "fill": "#94A3B8"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 960, "y": 940, "textAnchor": "middle", "fill": "#0F172A", "fontSize": 20, "fontFamily": "'Patrick Hand', cursive", "text": "Regular Working-Class Guy (Eating Chips)"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1080, "y": 790, "fill": "#EF4444", "fontSize": 36, "fontFamily": "Impact", "text": "*WHACK!*"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "insecurity_meter",
+                        "type": "svg_gauge",
+                        "description": "Dashboard speedometer with needle pegged at 100% RED ZONE.",
+                        "layout": {"x": 120, "y": 140, "width": 260, "height": 180},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 120, "y": 140, "width": 260, "height": 180, "rx": 16, "fill": "#0F172A", "stroke": "#EF4444", "strokeWidth": 4}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 250, "y": 180, "textAnchor": "middle", "fill": "#94A3B8", "fontSize": 18, "fontFamily": "sans-serif", "text": "PUBLIC INSECURITY"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 250, "y": 250, "textAnchor": "middle", "fill": "#EF4444", "fontSize": 48, "fontFamily": "Impact", "text": "100% MAX"}
+                            }
+                        ]
+                    }
+                ],
+                "onScreenSubtitles": [
+                    {
+                        "text": "TERRIFYING BEAUTY PENDULUM",
+                        "startTime": 48.000,
+                        "endTime": 51.500,
+                        "position": {"x": 960, "y": 160},
+                        "style": {
+                            "fontSize": 74,
+                            "fontFamily": "Impact",
+                            "color": "#EF4444",
+                            "stroke": "#000000",
+                            "strokeWidth": 4,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "FEEL THE ABSOLUTE WORST",
+                        "startTime": 54.500,
+                        "endTime": 57.045,
+                        "position": {"x": 960, "y": 950},
+                        "style": {
+                            "fontSize": 72,
+                            "fontFamily": "Impact",
+                            "color": "#FDE047",
+                            "stroke": "#111111",
+                            "strokeWidth": 4,
+                            "animation": "stamp_slam"
+                        }
+                    }
+                ],
+                "referenceImages": [
+                    {
+                        "id": "ref_10",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/00m46s-00m57s_P0_KJ7ASUmM1AuC.jpg",
+                        "timeWindow": {"startTime": 46.005, "endTime": 57.574},
+                        "priority": "P0",
+                        "purpose": "Beauty-standard pendulum setup",
+                        "layout": {
+                            "x": 1380,
+                            "y": 200,
+                            "width": 420,
+                            "height": 328,
+                            "rotation": 6.0,
+                            "tapeStrip": True,
+                            "pushPin": "red",
+                            "captionText": "PENDULUM APPARATUS METRIC"
+                        }
+                    }
+                ],
+                "granularShots": [
+                    {
+                        "shotId": "shot_6_1",
+                        "startTime": 43.285,
+                        "endTime": 49.205,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Host gestures at pendulum diagram; pendulum begins swinging back and forth.",
+                        "focusElement": "giant_pendulum_svg"
+                    },
+                    {
+                        "shotId": "shot_6_2",
+                        "startTime": 49.205,
+                        "endTime": 55.045,
+                        "cameraViewBox": [-100, -30, 2120, 1140],
+                        "hostAction": "Camera follows wide swing; pendulum crashes through the center with camera shake.",
+                        "focusElement": "working_class_victim"
+                    },
+                    {
+                        "shotId": "shot_6_3",
+                        "startTime": 55.045,
+                        "endTime": 57.574,
+                        "cameraViewBox": [650, 480, 620, 348],
+                        "hostAction": "Punch-in zoom to the destroyed couch stick figure as host facepalms in despair.",
+                        "focusElement": "working_class_victim"
+                    }
+                ]
+            },
+            {
+                "sceneNumber": 7,
+                "sceneId": "scene_07",
+                "title": "Scene 7: 90s Heroin Chic & Victorian Wasting Disease",
+                "timeWindow": {
+                    "startTime": 57.574,
+                    "endTime": 84.150,
+                    "duration": 26.576
+                },
+                "subtitles": [
+                    {
+                        "id": 20,
+                        "start": 57.574,
+                        "end": 61.894,
+                        "text": "If we rewind to the 90s and early 2000s, we had an era affectionately"
+                    },
+                    {
+                        "id": 21,
+                        "start": 61.894,
+                        "end": 65.174,
+                        "text": "dubbed \"Heroin Chick\" This was pioneered by models like Kate"
+                    },
+                    {
+                        "id": 22,
+                        "start": 65.174,
+                        "end": 68.214,
+                        "text": "Moss, and the overarching goal was to look like you sustained"
+                    },
+                    {
+                        "id": 23,
+                        "start": 68.214,
+                        "end": 71.654,
+                        "text": "yourself entirely on Diet Coke, Parliament cigarettes, and pure"
+                    },
+                    {
+                        "id": 24,
+                        "start": 71.734,
+                        "end": 72.934,
+                        "text": ", unfiltered apathy."
+                    },
+                    {
+                        "id": 25,
+                        "start": 73.430,
+                        "end": 75.830,
+                        "text": "You were supposed to look like you were perpetually recovering"
+                    },
+                    {
+                        "id": 26,
+                        "start": 75.830,
+                        "end": 79.510,
+                        "text": "from a minor Victorian wasting disease, but in a cool, fashionable"
+                    },
+                    {
+                        "id": 27,
+                        "start": 79.510,
+                        "end": 84.150,
+                        "text": "way.  Then, as the 2010s rolled around, the pendulum swung violently"
+                    }
+                ],
+                "narrationExcerpt": "If we rewind to the 90s and early 2000s, we had an era affectionately dubbed 'Heroin Chic' This was pioneered by models like Kate Moss, and the overarching goal was to look like you sustained yourself entirely on Diet Coke, Parliament cigarettes, and pure, unfiltered apathy. You were supposed to look like you were perpetually recovering from a minor Victorian wasting disease, but in a cool, fashionable way. Then, as the 2010s rolled around, the pendulum swung violently in the opposite direction.",
+                "comedicSynopsis": "The screen rewinds via VHS glitches to 1997. The host presents 'The 90s Nutrition Pyramid' (Diet Coke, Parliament lights, and 100% Pure Apathy), takes a deadpan sip from a silver Diet Coke can, and then dramatically faints backward onto an ornate Victorian fainting couch clutching a lace handkerchief with a chic cough.",
+                "camera": {
+                    "viewBox": [0, 0, 1920, 1080],
+                    "center": {"x": 960, "y": 540},
+                    "zoom": 1.0,
+                    "motionType": "smooth_pan_zoom",
+                    "panSpeed": "smooth_ease_in_out",
+                    "cameraShake": {
+                        "enabled": False,
+                        "intensity": 0,
+                        "duration": 0
+                    }
+                },
+                "hostState": {
+                    "x": 340,
+                    "y": 700,
+                    "scale": 1.0,
+                    "rotation": 0,
+                    "pose": "neutral_talk",
+                    "mouth_shape": "talk_wide",
+                    "eyes": "look_right",
+                    "heldProp": None,
+                    "keyframeMotions": [
+                        {
+                            "timestamp": 57.574,
+                            "pose": "neutral_talk",
+                            "mouth_shape": "talk_wide",
+                            "eyes": "look_right",
+                            "action": "Host introduces the 90s rewind; Kate Moss polaroids pop in."
+                        },
+                        {
+                            "timestamp": 68.214,
+                            "pose": "sip_diet_coke",
+                            "mouth_shape": "straight_line",
+                            "eyes": "squint",
+                            "action": "Host lifts silver Diet Coke can with red stripe and takes a deadpan sip; cigarette smoke swirls."
+                        },
+                        {
+                            "timestamp": 73.430,
+                            "pose": "victor_faint",
+                            "mouth_shape": "open_O",
+                            "eyes": "roll_eyes",
+                            "action": "Host falls back 42 degrees onto Victorian chaise lounge holding a lace handkerchief."
+                        },
+                        {
+                            "timestamp": 81.000,
+                            "pose": "shock",
+                            "mouth_shape": "open_O",
+                            "eyes": "look_right",
+                            "action": "Host sits up in shock looking right as the 2010s pendulum arrives."
+                        }
+                    ]
+                },
+                "visualGagsAndProps": [
+                    {
+                        "id": "vhs_rewind_overlay",
+                        "type": "svg_vhs_filter",
+                        "description": "Green phosphorescent VCR text '⏪ REWIND 1997 [SP]' with horizontal scanline noise.",
+                        "elements": [
+                            {
+                                "tag": "text",
+                                "props": {"x": 100, "y": 100, "fill": "#22C55E", "fontSize": 32, "fontFamily": "'Courier New', monospace", "fontWeight": "bold", "text": "⏪ REWIND 1997 [SP] • PLAY 01:23:45"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "heroin_chic_pyramid",
+                        "type": "svg_food_pyramid",
+                        "description": "Classic nutritional food pyramid redesigned for 1990s runway survival.",
+                        "layout": {"x": 780, "y": 200, "width": 560, "height": 520},
+                        "elements": [
+                            {
+                                "tag": "polygon",
+                                "props": {"points": "1060,200 780,720 1340,720", "fill": "#FFFFFF", "stroke": "#0F172A", "strokeWidth": 6}
+                            },
+                            {
+                                "tag": "line",
+                                "props": {"x1": 870, "y1": 550, "x2": 1250, "y2": 550, "stroke": "#0F172A", "strokeWidth": 4}
+                            },
+                            {
+                                "tag": "line",
+                                "props": {"x1": 965, "y1": 380, "x2": 1155, "y2": 380, "stroke": "#0F172A", "strokeWidth": 4}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1060, "y": 650, "textAnchor": "middle", "fill": "#DC2626", "fontSize": 26, "fontFamily": "Impact", "text": "DIET COKE (3L DAILY) 🥤"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1060, "y": 480, "textAnchor": "middle", "fill": "#475569", "fontSize": 24, "fontFamily": "Impact", "text": "PARLIAMENT LIGHTS 🚬"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1060, "y": 320, "textAnchor": "middle", "fill": "#7C3AED", "fontSize": 22, "fontFamily": "Impact", "text": "PURE APATHY ✨"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "victorian_chaise_lounge",
+                        "type": "svg_antique_furniture",
+                        "description": "Deep red velvet Victorian chaise lounge with gold carved cabriole legs.",
+                        "layout": {"x": 220, "y": 720, "width": 420, "height": 180},
+                        "elements": [
+                            {
+                                "tag": "path",
+                                "props": {"d": "M 220 840 Q 240 740 320 740 L 580 740 Q 640 740 640 840 Z", "fill": "#881337", "stroke": "#4C0519", "strokeWidth": 6}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 430, "y": 700, "textAnchor": "middle", "fill": "#F59E0B", "fontSize": 26, "fontFamily": "'Patrick Hand', cursive", "text": "*chic Victorian cough*"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "diet_coke_prop_svg",
+                        "type": "svg_can",
+                        "description": "Silver aluminum can with red Diet Coke script logo.",
+                        "layout": {"x": 420, "y": 660, "width": 60, "height": 90}
+                    }
+                ],
+                "onScreenSubtitles": [
+                    {
+                        "text": "HEROIN CHIC (1990s)",
+                        "startTime": 61.894,
+                        "endTime": 65.000,
+                        "position": {"x": 960, "y": 140},
+                        "style": {
+                            "fontSize": 78,
+                            "fontFamily": "Impact",
+                            "color": "#E2E8F0",
+                            "stroke": "#000000",
+                            "strokeWidth": 4,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "DIET COKE + CIGARETTES + APATHY",
+                        "startTime": 68.214,
+                        "endTime": 72.800,
+                        "position": {"x": 1060, "y": 820},
+                        "style": {
+                            "fontSize": 60,
+                            "fontFamily": "Impact",
+                            "color": "#EF4444",
+                            "stroke": "#FFFFFF",
+                            "strokeWidth": 3,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "VICTORIAN WASTING DISEASE (BUT COOL)",
+                        "startTime": 75.830,
+                        "endTime": 79.500,
+                        "position": {"x": 960, "y": 940},
+                        "style": {
+                            "fontSize": 68,
+                            "fontFamily": "Impact",
+                            "color": "#D97706",
+                            "stroke": "#000000",
+                            "strokeWidth": 4,
+                            "animation": "stamp_slam"
+                        }
+                    }
+                ],
+                "referenceImages": [
+                    {
+                        "id": "ref_11",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/00m57s-01m05s_P0_rdCuAj7HPqpT.jpg",
+                        "timeWindow": {"startTime": 57.574, "endTime": 65.174},
+                        "priority": "P0",
+                        "purpose": "Kate Moss heroin-chic archive",
+                        "layout": {
+                            "x": 1360,
+                            "y": 160,
+                            "width": 460,
+                            "height": 690,
+                            "rotation": 4.0,
+                            "tapeStrip": True,
+                            "pushPin": "black",
+                            "captionText": "KATE MOSS: HEROIN CHIC PIONEER"
+                        }
+                    },
+                    {
+                        "id": "ref_12",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/01m05s-01m12s_P0_KgXDujRAfM45.jpg",
+                        "timeWindow": {"startTime": 65.174, "endTime": 73.430},
+                        "priority": "P0",
+                        "purpose": "Diet Coke advertising joke",
+                        "layout": {
+                            "x": 1380,
+                            "y": 240,
+                            "width": 440,
+                            "height": 247,
+                            "rotation": -3.0,
+                            "tapeStrip": True,
+                            "pushPin": "none",
+                            "captionText": "DIET COKE COMMERCIAL ARCHIVE"
+                        }
+                    },
+                    {
+                        "id": "ref_13",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/01m12s-01m24s_P1_p9PtEq5Y57TR.jpg",
+                        "timeWindow": {"startTime": 73.430, "endTime": 84.150},
+                        "priority": "P1",
+                        "purpose": "Apathy/wasting-disease fashion callback",
+                        "layout": {
+                            "x": 1380,
+                            "y": 520,
+                            "width": 440,
+                            "height": 330,
+                            "rotation": 2.0,
+                            "tapeStrip": True,
+                            "pushPin": "yellow",
+                            "captionText": "90s RUNWAY APATHY"
+                        }
+                    }
+                ],
+                "granularShots": [
+                    {
+                        "shotId": "shot_7_1",
+                        "startTime": 57.574,
+                        "endTime": 65.174,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "VHS rewind filter rolls; host introduces Kate Moss and heroin chic era.",
+                        "focusElement": "ref_11"
+                    },
+                    {
+                        "shotId": "shot_7_2",
+                        "startTime": 65.174,
+                        "endTime": 73.430,
+                        "cameraViewBox": [600, 120, 1280, 720],
+                        "hostAction": "Push-in on Nutrition Pyramid; host sips Diet Coke with cigarette smoke curling.",
+                        "focusElement": "heroin_chic_pyramid"
+                    },
+                    {
+                        "shotId": "shot_7_3",
+                        "startTime": 73.430,
+                        "endTime": 79.510,
+                        "cameraViewBox": [100, 480, 1200, 675],
+                        "hostAction": "Host dramatically collapses onto Victorian fainting couch holding handkerchief.",
+                        "focusElement": "victorian_chaise_lounge"
+                    },
+                    {
+                        "shotId": "shot_7_4",
+                        "startTime": 79.510,
+                        "endTime": 84.150,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Wide shot resets; host snaps up in alarm as pendulum swings violently into 2010s.",
+                        "focusElement": "ref_13"
+                    }
+                ]
+            },
+            {
+                "sceneNumber": 8,
+                "sceneId": "scene_08",
+                "title": "Scene 8: 2010s BBL & Pixar Mom Gravitational Field",
+                "timeWindow": {
+                    "startTime": 84.150,
+                    "endTime": 110.890,
+                    "duration": 26.740
+                },
+                "subtitles": [
+                    {
+                        "id": 28,
+                        "start": 84.150,
+                        "end": 85.270,
+                        "text": "in the opposite direction."
+                    },
+                    {
+                        "id": 29,
+                        "start": 85.864,
+                        "end": 89.864,
+                        "text": "We entered the era of the BBL, or Brazilian Butt Lift, where"
+                    },
+                    {
+                        "id": 30,
+                        "start": 89.864,
+                        "end": 93.544,
+                        "text": "the ideal body type shifted to what biologists might classify"
+                    },
+                    {
+                        "id": 31,
+                        "start": 93.544,
+                        "end": 97.544,
+                        "text": "as \"Pixar Mom.\" Celebrities were suddenly buying curves, and"
+                    },
+                    {
+                        "id": 32,
+                        "start": 97.544,
+                        "end": 100.904,
+                        "text": "the internet was flooded with fitness influencers who insisted"
+                    },
+                    {
+                        "id": 33,
+                        "start": 100.904,
+                        "end": 104.664,
+                        "text": "their new, localized gravitational pull was entirely due to"
+                    },
+                    {
+                        "id": 34,
+                        "start": 104.664,
+                        "end": 107.784,
+                        "text": "doing a lot of squats, despite the fact that their calves and"
+                    },
+                    {
+                        "id": 35,
+                        "start": 107.784,
+                        "end": 110.344,
+                        "text": "forearms remained the exact same size."
+                    }
+                ],
+                "narrationExcerpt": "Then, as the 2010s rolled around, the pendulum swung violently in the opposite direction. We entered the era of the BBL, or Brazilian Butt Lift, where the ideal body type shifted to what biologists might classify as 'Pixar Mom.' Celebrities were suddenly buying curves, and the internet was flooded with fitness influencers who insisted their new, localized gravitational pull was entirely due to doing a lot of squats, despite the fact that their calves and forearms remained the exact same size.",
+                "comedicSynopsis": "The 2010s arrives with an astronomical rupture: a giant stick figure drawn with 'Pixar Mom' proportions generates an actual gravitational field with orbital rings pulling dumbbells, iPhones, and protein shakers into orbit. An influencer furiously does air squats claiming it's 100% natural, while magnifying callouts reveal 1mm toothpick forearms vs 500,000 cm³ glutes.",
+                "camera": {
+                    "viewBox": [0, 0, 1920, 1080],
+                    "center": {"x": 960, "y": 540},
+                    "zoom": 1.0,
+                    "motionType": "crash_zoom",
+                    "panSpeed": "snap_fast",
+                    "cameraShake": {
+                        "enabled": True,
+                        "intensity": 8,
+                        "duration": 0.3,
+                        "triggerTimestamp": 85.864
+                    }
+                },
+                "hostState": {
+                    "x": 280,
+                    "y": 700,
+                    "scale": 1.0,
+                    "rotation": 0,
+                    "pose": "point_right",
+                    "mouth_shape": "talk_wide",
+                    "eyes": "look_right",
+                    "heldProp": "wooden_pointer",
+                    "keyframeMotions": [
+                        {
+                            "timestamp": 85.864,
+                            "pose": "point_right",
+                            "mouth_shape": "talk_wide",
+                            "eyes": "look_right",
+                            "action": "Host points at the giant BBL diagram."
+                        },
+                        {
+                            "timestamp": 93.544,
+                            "pose": "neutral_talk",
+                            "mouth_shape": "smirk",
+                            "eyes": "look_camera",
+                            "action": "Host introduces the 'Pixar Mom' anatomical classification."
+                        },
+                        {
+                            "timestamp": 100.904,
+                            "pose": "workout_squat",
+                            "mouth_shape": "scream",
+                            "eyes": "squint",
+                            "action": "Host mimics the fitness influencer doing frantic squats with sweat flying."
+                        },
+                        {
+                            "timestamp": 107.784,
+                            "pose": "deadpan_stare",
+                            "mouth_shape": "straight_line",
+                            "eyes": "look_camera",
+                            "action": "Host freezes with magnifying glass examining 1mm toothpick calves."
+                        }
+                    ]
+                },
+                "visualGagsAndProps": [
+                    {
+                        "id": "pixar_mom_gravity_diagram",
+                        "type": "svg_astro_physics_model",
+                        "description": "Stick figure with extreme bezier curve hips and orbital gravity rings like Saturn.",
+                        "layout": {"x": 880, "y": 240, "width": 600, "height": 600},
+                        "elements": [
+                            {
+                                "tag": "ellipse",
+                                "props": {"cx": 1100, "cy": 580, "rx": 280, "ry": 180, "fill": "#FDF2F8", "stroke": "#EC4899", "strokeWidth": 12}
+                            },
+                            {
+                                "tag": "ellipse",
+                                "props": {"cx": 1100, "cy": 580, "rx": 380, "ry": 90, "fill": "none", "stroke": "#06B6D4", "strokeWidth": 4, "strokeDasharray": "12,8"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1100, "y": 480, "textAnchor": "middle", "fill": "#06B6D4", "fontSize": 20, "fontFamily": "'Courier New', monospace", "text": "ORBITAL EVENT HORIZON"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1420, "y": 540, "fill": "#F59E0B", "fontSize": 26, "fontFamily": "sans-serif", "text": "📱 TikTok"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 820, "y": 620, "fill": "#10B981", "fontSize": 26, "fontFamily": "sans-serif", "text": "🥑 Toast"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1260, "y": 680, "fill": "#8B5CF6", "fontSize": 26, "fontFamily": "sans-serif", "text": "🏋️ Dumbbell"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "forensic_squat_discrepancy",
+                        "type": "svg_anatomical_callouts",
+                        "description": "Magnifying callouts pointing at toothpick limbs vs galactic glutes.",
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 580, "y": 740, "width": 320, "height": 70, "rx": 12, "fill": "#0F172A"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 740, "y": 782, "textAnchor": "middle", "fill": "#EF4444", "fontSize": 20, "fontFamily": "'Courier New', monospace", "fontWeight": "bold", "text": "FOREARM: 1.0mm (STICK)"}
+                            },
+                            {
+                                "tag": "rect",
+                                "props": {"x": 1280, "y": 740, "width": 320, "height": 70, "rx": 12, "fill": "#0F172A"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1440, "y": 782, "textAnchor": "middle", "fill": "#EF4444", "fontSize": 20, "fontFamily": "'Courier New', monospace", "fontWeight": "bold", "text": "CALVES: 1.0mm (TOOTHPICK)"}
+                            }
+                        ]
+                    }
+                ],
+                "onScreenSubtitles": [
+                    {
+                        "text": "ERA OF THE BBL",
+                        "startTime": 86.000,
+                        "endTime": 89.500,
+                        "position": {"x": 960, "y": 140},
+                        "style": {
+                            "fontSize": 82,
+                            "fontFamily": "Impact",
+                            "color": "#EC4899",
+                            "stroke": "#000000",
+                            "strokeWidth": 4,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "\"PIXAR MOM\" CLASSIFICATION",
+                        "startTime": 93.544,
+                        "endTime": 97.500,
+                        "position": {"x": 1100, "y": 200},
+                        "style": {
+                            "fontSize": 64,
+                            "fontFamily": "Impact",
+                            "color": "#06B6D4",
+                            "stroke": "#000000",
+                            "strokeWidth": 3,
+                            "animation": "slide_down"
+                        }
+                    },
+                    {
+                        "text": "LOCALIZED GRAVITATIONAL PULL",
+                        "startTime": 101.500,
+                        "endTime": 104.500,
+                        "position": {"x": 960, "y": 920},
+                        "style": {
+                            "fontSize": 68,
+                            "fontFamily": "Impact",
+                            "color": "#A855F7",
+                            "stroke": "#FFFFFF",
+                            "strokeWidth": 3,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "\"JUST SQUATS BRO!\" 🧢",
+                        "startTime": 105.000,
+                        "endTime": 108.500,
+                        "position": {"x": 420, "y": 580},
+                        "style": {
+                            "fontSize": 54,
+                            "fontFamily": "Impact",
+                            "color": "#FDE047",
+                            "stroke": "#111111",
+                            "strokeWidth": 3,
+                            "animation": "stamp_slam"
+                        }
+                    }
+                ],
+                "referenceImages": [
+                    {
+                        "id": "ref_14",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/01m25s-01m33s_P0_BNcYNEsHPmPt.jpg",
+                        "timeWindow": {"startTime": 85.864, "endTime": 93.544},
+                        "priority": "P0",
+                        "purpose": "BBL boom news context",
+                        "layout": {
+                            "x": 1360,
+                            "y": 180,
+                            "width": 440,
+                            "height": 264,
+                            "rotation": 4.0,
+                            "tapeStrip": True,
+                            "pushPin": "red",
+                            "captionText": "NEWS: SURGE OF THE BBL"
+                        }
+                    },
+                    {
+                        "id": "ref_15",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/01m33s-01m40s_P1_HvCAhEVoWRYN.jpg",
+                        "timeWindow": {"startTime": 97.544, "endTime": 104.664},
+                        "priority": "P1",
+                        "purpose": "Squat/fitness-influencer butt joke",
+                        "layout": {
+                            "x": 780,
+                            "y": 280,
+                            "width": 340,
+                            "height": 340,
+                            "rotation": -4.0,
+                            "tapeStrip": True,
+                            "pushPin": "none",
+                            "captionText": "EXHIBIT: INFLUENCER SQUAT"
+                        }
+                    },
+                    {
+                        "id": "ref_16",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/01m40s-01m50s_P1_qDNWZoSAhSoJ.jpg",
+                        "timeWindow": {"startTime": 104.664, "endTime": 110.890},
+                        "priority": "P1",
+                        "purpose": "Big-business-of-bottoms visual",
+                        "layout": {
+                            "x": 1380,
+                            "y": 480,
+                            "width": 380,
+                            "height": 380,
+                            "rotation": 3.0,
+                            "tapeStrip": True,
+                            "pushPin": "yellow",
+                            "captionText": "BOTTOMS INDUSTRIAL COMPLEX"
+                        }
+                    }
+                ],
+                "granularShots": [
+                    {
+                        "shotId": "shot_8_1",
+                        "startTime": 84.150,
+                        "endTime": 93.544,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Host points right as the Pixar Mom gravity diagram is assembled.",
+                        "focusElement": "pixar_mom_gravity_diagram"
+                    },
+                    {
+                        "shotId": "shot_8_2",
+                        "startTime": 93.544,
+                        "endTime": 104.664,
+                        "cameraViewBox": [320, 140, 1440, 810],
+                        "hostAction": "Camera zooms in as orbital debris spins around hips; host squats vigorously.",
+                        "focusElement": "ref_15"
+                    },
+                    {
+                        "shotId": "shot_8_3",
+                        "startTime": 104.664,
+                        "endTime": 110.890,
+                        "cameraViewBox": [500, 350, 1000, 562],
+                        "hostAction": "Tight forensic crop on toothpick forearm callouts; host looks deadpan into lens.",
+                        "focusElement": "forensic_squat_discrepancy"
+                    }
+                ]
+            },
+            {
+                "sceneNumber": 9,
+                "sceneId": "scene_09",
+                "title": "Scene 9: Hourglass Sand Overflow & Corporate Body Positivity",
+                "timeWindow": {
+                    "startTime": 110.890,
+                    "endTime": 135.433,
+                    "duration": 24.543
+                },
+                "subtitles": [
+                    {
+                        "id": 36,
+                        "start": 110.890,
+                        "end": 114.250,
+                        "text": "For about ten years, the ultimate flex was looking like an hourglass"
+                    },
+                    {
+                        "id": 37,
+                        "start": 114.330,
+                        "end": 117.050,
+                        "text": "that had been overfilled at the bottom. During this exact same"
+                    },
+                    {
+                        "id": 38,
+                        "start": 117.050,
+                        "end": 120.090,
+                        "text": "time, society also pushed heavily for \"body positivity.\""
+                    },
+                    {
+                        "id": 39,
+                        "start": 120.633,
+                        "end": 124.073,
+                        "text": "We were told by countless brands and PR agencies that all bodies"
+                    },
+                    {
+                        "id": 40,
+                        "start": 124.073,
+                        "end": 126.473,
+                        "text": "are beautiful, that you don't have to be a size zero"
+                    },
+                    {
+                        "id": 41,
+                        "start": 126.553,
+                        "end": 129.513,
+                        "text": "to be a leading lady, and that Hollywood was finally progressing"
+                    },
+                    {
+                        "id": 42,
+                        "start": 129.513,
+                        "end": 131.913,
+                        "text": "past its shallow, aesthetic-obsessed roots."
+                    },
+                    {
+                        "id": 43,
+                        "start": 132.393,
+                        "end": 135.433,
+                        "text": ".  Well, it turns out, body positivity was less of a permanent"
+                    }
+                ],
+                "narrationExcerpt": "For about ten years, the ultimate flex was looking like an hourglass that had been overfilled at the bottom. During this exact same time, society also pushed heavily for 'body positivity.' We were told by countless brands and PR agencies that all bodies are beautiful, that you don't have to be a size zero to be a leading lady, and that Hollywood was finally progressing past its shallow, aesthetic-obsessed roots.",
+                "comedicSynopsis": "A giant glass hourglass cracks and spills golden sand from its bursting bottom bulb. Then, the screen bursts with pastel rainbow confetti as corporate PR banners fall from the sky ('BEAUTY CORP: ALL BODIES ARE BEAUTIFUL™ - Terms & Conditions Apply 2016-2022'). The host gives a sterile corporate smile at a branded press podium.",
+                "camera": {
+                    "viewBox": [0, 0, 1920, 1080],
+                    "center": {"x": 960, "y": 540},
+                    "zoom": 1.0,
+                    "motionType": "slow_zoom_in",
+                    "panSpeed": "smooth_linear",
+                    "cameraShake": {
+                        "enabled": False,
+                        "intensity": 0,
+                        "duration": 0
+                    }
+                },
+                "hostState": {
+                    "x": 360,
+                    "y": 700,
+                    "scale": 1.0,
+                    "rotation": 0,
+                    "pose": "point_right",
+                    "mouth_shape": "talk_wide",
+                    "eyes": "look_right",
+                    "heldProp": "wooden_pointer",
+                    "keyframeMotions": [
+                        {
+                            "timestamp": 110.890,
+                            "pose": "point_right",
+                            "mouth_shape": "talk_wide",
+                            "eyes": "look_right",
+                            "action": "Host points at the bursting hourglass."
+                        },
+                        {
+                            "timestamp": 120.633,
+                            "pose": "neutral_talk",
+                            "mouth_shape": "slight_smile",
+                            "eyes": "look_camera",
+                            "action": "Host stands behind corporate podium; pastel confetti bursts."
+                        },
+                        {
+                            "timestamp": 129.513,
+                            "pose": "shrug",
+                            "mouth_shape": "smirk",
+                            "eyes": "roll_eyes",
+                            "action": "Host rolls eyes in sarcastic skepticism as PR slogans pile up."
+                        }
+                    ]
+                },
+                "visualGagsAndProps": [
+                    {
+                        "id": "overfilled_hourglass_svg",
+                        "type": "svg_hourglass",
+                        "description": "Glass hourglass with an empty top chamber and a massive cracked bottom bulb overflowing sand.",
+                        "layout": {"x": 780, "y": 140, "width": 360, "height": 600},
+                        "elements": [
+                            {
+                                "tag": "path",
+                                "props": {"d": "M 840 180 L 1080 180 L 980 380 Q 1160 500 1160 680 L 760 680 Q 760 500 940 380 Z", "fill": "rgba(255,255,255,0.7)", "stroke": "#0F172A", "strokeWidth": 8}
+                            },
+                            {
+                                "tag": "ellipse",
+                                "props": {"cx": 960, "cy": 620, "rx": 180, "ry": 50, "fill": "#F59E0B"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 960, "y": 280, "textAnchor": "middle", "fill": "#94A3B8", "fontSize": 24, "fontFamily": "'Patrick Hand', cursive", "text": "TOP: 0.01% SAND"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 960, "y": 630, "textAnchor": "middle", "fill": "#78350F", "fontSize": 28, "fontFamily": "Impact", "text": "BOTTOM: 99.99% SAND"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1180, "y": 580, "fill": "#EF4444", "fontSize": 32, "fontFamily": "Impact", "text": "*CRACK!*"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "corporate_pr_billboards",
+                        "type": "svg_billboard_stack",
+                        "description": "Pastel branded banners dropping down with diverse stick figures and corporate disclaimers.",
+                        "layout": {"x": 1180, "y": 140, "width": 640, "height": 480},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 1180, "y": 140, "width": 640, "height": 180, "rx": 16, "fill": "#EFF6FF", "stroke": "#3B82F6", "strokeWidth": 4}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1500, "y": 210, "textAnchor": "middle", "fill": "#1D4ED8", "fontSize": 28, "fontFamily": "sans-serif", "fontWeight": "bold", "text": "SOAP CORP: \"ALL BODIES ARE BEAUTIFUL™\""}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1500, "y": 260, "textAnchor": "middle", "fill": "#64748B", "fontSize": 16, "fontFamily": "sans-serif", "text": "*(Campaign expires immediately upon GLP-1 FDA approval)"}
+                            }
+                        ]
+                    }
+                ],
+                "onScreenSubtitles": [
+                    {
+                        "text": "OVERFILLED HOURGLASS",
+                        "startTime": 112.000,
+                        "endTime": 116.000,
+                        "position": {"x": 960, "y": 100},
+                        "style": {
+                            "fontSize": 74,
+                            "fontFamily": "Impact",
+                            "color": "#F59E0B",
+                            "stroke": "#000000",
+                            "strokeWidth": 4,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "\"ALL BODIES ARE BEAUTIFUL\"",
+                        "startTime": 122.000,
+                        "endTime": 126.000,
+                        "position": {"x": 960, "y": 920},
+                        "style": {
+                            "fontSize": 72,
+                            "fontFamily": "Impact",
+                            "color": "#3B82F6",
+                            "stroke": "#FFFFFF",
+                            "strokeWidth": 4,
+                            "animation": "slide_up"
+                        }
+                    },
+                    {
+                        "text": "PROGRESSING PAST ROOTS (OR SO WE THOUGHT)",
+                        "startTime": 128.500,
+                        "endTime": 133.000,
+                        "position": {"x": 960, "y": 970},
+                        "style": {
+                            "fontSize": 48,
+                            "fontFamily": "Impact",
+                            "color": "#64748B",
+                            "stroke": "#FFFFFF",
+                            "strokeWidth": 2,
+                            "animation": "pop_in"
+                        }
+                    }
+                ],
+                "referenceImages": [
+                    {
+                        "id": "ref_17",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/01m50s-02m00s_P1_M0nfsCnDdPY8.jpg",
+                        "timeWindow": {"startTime": 110.890, "endTime": 120.090},
+                        "priority": "P1",
+                        "purpose": "Hourglass/body-ideal transition",
+                        "layout": {
+                            "x": 1360,
+                            "y": 180,
+                            "width": 420,
+                            "height": 236,
+                            "rotation": -4.0,
+                            "tapeStrip": True,
+                            "pushPin": "none",
+                            "captionText": "THE OVERFILLED HOURGLASS"
+                        }
+                    },
+                    {
+                        "id": "ref_18",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/02m00s-02m09s_P0_3EzcHHw9HEc2.jpg",
+                        "timeWindow": {"startTime": 120.090, "endTime": 129.513},
+                        "priority": "P0",
+                        "purpose": "Body-positivity brand promise",
+                        "layout": {
+                            "x": 1380,
+                            "y": 440,
+                            "width": 420,
+                            "height": 315,
+                            "rotation": 3.0,
+                            "tapeStrip": True,
+                            "pushPin": "red",
+                            "captionText": "BRAND CAMPAIGN PROMISES"
+                        }
+                    },
+                    {
+                        "id": "ref_19",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/02m09s-02m21s_P1_OTEVtw483MAv.jpg",
+                        "timeWindow": {"startTime": 129.513, "endTime": 135.433},
+                        "priority": "P1",
+                        "purpose": "Real-body campaign/editorial context",
+                        "layout": {
+                            "x": 860,
+                            "y": 520,
+                            "width": 440,
+                            "height": 247,
+                            "rotation": -2.0,
+                            "tapeStrip": True,
+                            "pushPin": "yellow",
+                            "captionText": "EDITORIAL: EMBRACING REALITY"
+                        }
+                    }
+                ],
+                "granularShots": [
+                    {
+                        "shotId": "shot_9_1",
+                        "startTime": 110.890,
+                        "endTime": 120.090,
+                        "cameraViewBox": [350, 60, 1380, 776],
+                        "hostAction": "Host points at hourglass; sand cracks the bottom bulb and spills.",
+                        "focusElement": "overfilled_hourglass_svg"
+                    },
+                    {
+                        "shotId": "shot_9_2",
+                        "startTime": 120.090,
+                        "endTime": 129.513,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Wide confetti celebration; corporate PR billboards slide in from above.",
+                        "focusElement": "corporate_pr_billboards"
+                    },
+                    {
+                        "shotId": "shot_9_3",
+                        "startTime": 129.513,
+                        "endTime": 135.433,
+                        "cameraViewBox": [200, 280, 1200, 675],
+                        "hostAction": "Host shrugs with deadpan smirk into camera as the music shifts.",
+                        "focusElement": "ref_19"
+                    }
+                ]
+            },
+            {
+                "sceneNumber": 10,
+                "sceneId": "scene_10",
+                "title": "Scene 10: Fidget Spinner, Podcast & Boss Closes Tab",
+                "timeWindow": {
+                    "startTime": 135.433,
+                    "endTime": 154.828,
+                    "duration": 19.395
+                },
+                "subtitles": [
+                    {
+                        "id": 44,
+                        "start": 135.433,
+                        "end": 138.153,
+                        "text": "cultural shift and more of a temporary trend—kind of"
+                    },
+                    {
+                        "id": 45,
+                        "start": 138.153,
+                        "end": 140.873,
+                        "text": "like fidget spinners, or pretending to care about your friend's"
+                    },
+                    {
+                        "id": 46,
+                        "start": 140.873,
+                        "end": 141.873,
+                        "text": "podcast."
+                    },
+                    {
+                        "id": 47,
+                        "start": 142.028,
+                        "end": 144.908,
+                        "text": "As soon as a pharmaceutical shortcut dropped that allowed rich"
+                    },
+                    {
+                        "id": 48,
+                        "start": 144.908,
+                        "end": 148.188,
+                        "text": "people to just opt out of their natural body weight, the industry"
+                    },
+                    {
+                        "id": 49,
+                        "start": 148.188,
+                        "end": 151.308,
+                        "text": "abandoned the \"every body is beautiful\" narrative with the swiftness"
+                    },
+                    {
+                        "id": 50,
+                        "start": 151.308,
+                        "end": 154.268,
+                        "text": "of someone closing a browser tab when their boss walks by."
+                    }
+                ],
+                "narrationExcerpt": "Well, it turns out, body positivity was less of a permanent cultural shift and more of a temporary trend—kind of like fidget spinners, or pretending to care about your friend's podcast. As soon as a pharmaceutical shortcut dropped that allowed rich people to just opt out of their natural body weight, the industry abandoned the 'every body is beautiful' narrative with the swiftness of someone closing a browser tab when their boss walks by.",
+                "comedicSynopsis": "The collapse of body positivity is illustrated via temporary fads (fidget spinners, 0-listener podcasts) and climaxed with an office panic scene: a boss stomps behind the desk, prompting a violent, frame-shaking `Ctrl + W` keyboard slam that replaces the 'Body Positivity' manifesto with an Excel spreadsheet.",
+                "camera": {
+                    "viewBox": [0, 0, 1920, 1080],
+                    "center": {"x": 960, "y": 540},
+                    "zoom": 1.0,
+                    "motionType": "camera_shake",
+                    "panSpeed": "snap_fast",
+                    "cameraShake": {
+                        "enabled": True,
+                        "intensity": 18,
+                        "duration": 0.35,
+                        "triggerTimestamp": 151.308
+                    }
+                },
+                "hostState": {
+                    "x": 300,
+                    "y": 720,
+                    "scale": 1.0,
+                    "rotation": 0,
+                    "pose": "shrug",
+                    "mouth_shape": "smirk",
+                    "eyes": "roll_eyes",
+                    "heldProp": None,
+                    "keyframeMotions": [
+                        {
+                            "timestamp": 135.433,
+                            "pose": "shrug",
+                            "mouth_shape": "smirk",
+                            "eyes": "roll_eyes",
+                            "action": "Host shrugs sarcastically at temporary fads."
+                        },
+                        {
+                            "timestamp": 142.028,
+                            "pose": "typing",
+                            "mouth_shape": "talk_wide",
+                            "eyes": "look_camera",
+                            "action": "Host sits at computer desk browsing online GLP-1 shortcut."
+                        },
+                        {
+                            "timestamp": 151.308,
+                            "pose": "deadpan_stare",
+                            "mouth_shape": "straight_line",
+                            "eyes": "look_camera",
+                            "action": "Host slams keyboard with Ctrl+W; freezes with single sweat drop as boss stands behind him."
+                        }
+                    ]
+                },
+                "visualGagsAndProps": [
+                    {
+                        "id": "fidget_spinner_svg",
+                        "type": "svg_spinning_toy",
+                        "description": "3-blade neon fidget spinner rotating at 3600 RPM with speed motion blur lines.",
+                        "layout": {"x": 680, "y": 180, "width": 260, "height": 260},
+                        "elements": [
+                            {
+                                "tag": "circle",
+                                "props": {"cx": 810, "cy": 310, "r": 90, "fill": "#06B6D4", "opacity": "0.3"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 810, "y": 420, "textAnchor": "middle", "fill": "#06B6D4", "fontSize": 24, "fontFamily": "Impact", "text": "*WHIRRRRR*"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "friends_podcast_svg",
+                        "type": "svg_podcast_card",
+                        "description": "Podcast audio card showing flatlined zero waveform and zero listener count.",
+                        "layout": {"x": 1020, "y": 180, "width": 480, "height": 220},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 1020, "y": 180, "width": 480, "height": 220, "rx": 16, "fill": "#1E1B4B", "stroke": "#6366F1", "strokeWidth": 4}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1260, "y": 230, "textAnchor": "middle", "fill": "#A5B4FC", "fontSize": 22, "fontFamily": "sans-serif", "fontWeight": "bold", "text": "🎙️ BRAD & CHAD TALK CRYPTO #412"}
+                            },
+                            {
+                                "tag": "line",
+                                "props": {"x1": 1060, "y1": 290, "x2": 1460, "y2": 290, "stroke": "#EF4444", "strokeWidth": 4}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1260, "y": 350, "textAnchor": "middle", "fill": "#EF4444", "fontSize": 20, "fontFamily": "'Courier New', monospace", "text": "CURRENT LISTENERS: 0 (MOM LEFT)"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "boss_browser_tab_slam",
+                        "type": "svg_browser_panic",
+                        "description": "Simulated web browser panic close replacing controversial tabs with a dull spreadsheet.",
+                        "layout": {"x": 480, "y": 440, "width": 1280, "height": 560},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 480, "y": 440, "width": 1280, "height": 560, "rx": 16, "fill": "#1E293B", "stroke": "#475569", "strokeWidth": 6}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1120, "y": 720, "textAnchor": "middle", "fill": "#22C55E", "fontSize": 52, "fontFamily": "'Courier New', monospace", "fontWeight": "bold", "text": "EXCEL: Q3_EXPENSES_SPREADSHEET.XLSX"}
+                            },
+                            {
+                                "tag": "rect",
+                                "props": {"x": 920, "y": 520, "width": 400, "height": 110, "rx": 20, "fill": "#DC2626"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1120, "y": 595, "textAnchor": "middle", "fill": "#FFFFFF", "fontSize": 64, "fontFamily": "Impact", "text": "Ctrl + W"}
+                            }
+                        ]
+                    }
+                ],
+                "onScreenSubtitles": [
+                    {
+                        "text": "TEMPORARY TREND",
+                        "startTime": 136.000,
+                        "endTime": 139.500,
+                        "position": {"x": 960, "y": 120},
+                        "style": {
+                            "fontSize": 76,
+                            "fontFamily": "Impact",
+                            "color": "#F97316",
+                            "stroke": "#000000",
+                            "strokeWidth": 4,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "PHARMACEUTICAL SHORTCUT",
+                        "startTime": 142.500,
+                        "endTime": 147.000,
+                        "position": {"x": 960, "y": 140},
+                        "style": {
+                            "fontSize": 72,
+                            "fontFamily": "Impact",
+                            "color": "#10B981",
+                            "stroke": "#000000",
+                            "strokeWidth": 4,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "Ctrl + W (PANIC CLOSE)",
+                        "startTime": 151.308,
+                        "endTime": 154.268,
+                        "position": {"x": 960, "y": 540},
+                        "style": {
+                            "fontSize": 96,
+                            "fontFamily": "Impact",
+                            "color": "#EF4444",
+                            "stroke": "#FFFFFF",
+                            "strokeWidth": 5,
+                            "animation": "stamp_slam"
+                        }
+                    }
+                ],
+                "referenceImages": [
+                    {
+                        "id": "ref_20",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/02m21s-02m24s_P1_F85FvDOBkgNy.jpg",
+                        "timeWindow": {"startTime": 135.433, "endTime": 144.908},
+                        "priority": "P1",
+                        "purpose": "Body-positivity reversal punchline",
+                        "layout": {
+                            "x": 1440,
+                            "y": 160,
+                            "width": 380,
+                            "height": 213,
+                            "rotation": 5.0,
+                            "tapeStrip": True,
+                            "pushPin": "none",
+                            "captionText": "FAD COMPARISON ARCHIVE"
+                        }
+                    },
+                    {
+                        "id": "ref_21",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/02m22s-02m31s_P0_tcVkmZihKdAe.webp",
+                        "timeWindow": {"startTime": 144.908, "endTime": 154.828},
+                        "priority": "P0",
+                        "purpose": "GLP-1 product comparison",
+                        "layout": {
+                            "x": 1360,
+                            "y": 480,
+                            "width": 460,
+                            "height": 300,
+                            "rotation": -3.0,
+                            "tapeStrip": True,
+                            "pushPin": "red",
+                            "captionText": "THE GLP-1 SHORTCUT"
+                        }
+                    }
+                ],
+                "granularShots": [
+                    {
+                        "shotId": "shot_10_1",
+                        "startTime": 135.433,
+                        "endTime": 142.028,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Fidget spinner and podcast mic pop in; host shrugs sarcastically.",
+                        "focusElement": "fidget_spinner_svg"
+                    },
+                    {
+                        "shotId": "shot_10_2",
+                        "startTime": 142.028,
+                        "endTime": 151.308,
+                        "cameraViewBox": [200, 180, 1600, 900],
+                        "hostAction": "Host types at desk; GLP-1 product comparison visual pops up.",
+                        "focusElement": "ref_21"
+                    },
+                    {
+                        "shotId": "shot_10_3",
+                        "startTime": 151.308,
+                        "endTime": 154.828,
+                        "cameraViewBox": [400, 360, 1120, 630],
+                        "hostAction": "Screen shake! Boss walks in, `Ctrl+W` slams down, swapping browser to Excel spreadsheet.",
+                        "focusElement": "boss_browser_tab_slam"
+                    }
+                ]
+            },
+            {
+                "sceneNumber": 11,
+                "sceneId": "scene_11",
+                "title": "Scene 11: Y2K Organ-Hostile Fashion & $2000 Belt Skirt",
+                "timeWindow": {
+                    "startTime": 154.828,
+                    "endTime": 185.886,
+                    "duration": 31.058
+                },
+                "subtitles": [
+                    {
+                        "id": 51,
+                        "start": 154.828,
+                        "end": 158.348,
+                        "text": "Because right alongside the medical advancements, the fashion"
+                    },
+                    {
+                        "id": 52,
+                        "start": 158.348,
+                        "end": 161.948,
+                        "text": "industry decided it was time to bring back Y2K fashion. And"
+                    },
+                    {
+                        "id": 53,
+                        "start": 161.948,
+                        "end": 165.468,
+                        "text": "for those of you who don't know, Y2K fashion is incredibly hostile"
+                    },
+                    {
+                        "id": 54,
+                        "start": 165.548,
+                        "end": 167.548,
+                        "text": "to anyone who possesses internal organs."
+                    },
+                    {
+                        "id": 55,
+                        "start": 168.046,
+                        "end": 170.606,
+                        "text": "We are talking aboutlowrise low-rise jeans that sit below the"
+                    },
+                    {
+                        "id": 56,
+                        "start": 170.606,
+                        "end": 173.646,
+                        "text": "pelvic bone, baby tees that offer the coverage of a moderately"
+                    },
+                    {
+                        "id": 57,
+                        "start": 173.646,
+                        "end": 177.006,
+                        "text": "sized napkin, and the infamous Miu Miumicroskirt micro-skirt, which"
+                    },
+                    {
+                        "id": 58,
+                        "start": 177.006,
+                        "end": 180.206,
+                        "text": "is essentially just a belt that costs two thousand dollars. You"
+                    },
+                    {
+                        "id": 59,
+                        "start": 180.206,
+                        "end": 183.006,
+                        "text": "physically cannot participate in this trend if you have a functioning"
+                    },
+                    {
+                        "id": 60,
+                        "start": 183.006,
+                        "end": 185.886,
+                        "text": "digestive tract that occasionally needs to process solid food."
+                    }
+                ],
+                "narrationExcerpt": "Because right alongside the medical advancements, the fashion industry decided it was time to bring back Y2K fashion. And for those of you who don't know, Y2K fashion is incredibly hostile to anyone who possesses internal organs. We are talking about low-rise jeans that sit below the pelvic bone, baby tees that offer the coverage of a moderately sized napkin, and the infamous Miu Miu micro-skirt, which is essentially just a belt that costs two thousand dollars. You physically cannot participate in this trend if you have a functioning digestive tract that occasionally needs to process solid food.",
+                "comedicSynopsis": "The comedic grand finale: an anatomical breakdown proves that Y2K fashion strictly bans all internal viscera. The host reviews the 3 Y2K Artifacts of Doom: low-rise jeans sitting at knee height, a baby-tee drawn as a folded dinner napkin with strings, and a $2,000 Miu Miu leather belt masquerading as a skirt. A biomechanical system alert warns that digesting solid food violates the 2024 dress code.",
+                "camera": {
+                    "viewBox": [0, 0, 1920, 1080],
+                    "center": {"x": 960, "y": 540},
+                    "zoom": 1.0,
+                    "motionType": "crash_zoom",
+                    "panSpeed": "snap_fast",
+                    "cameraShake": {
+                        "enabled": True,
+                        "intensity": 10,
+                        "duration": 0.3,
+                        "triggerTimestamp": 177.006
+                    }
+                },
+                "hostState": {
+                    "x": 300,
+                    "y": 700,
+                    "scale": 1.0,
+                    "rotation": 0,
+                    "pose": "point_right",
+                    "mouth_shape": "talk_wide",
+                    "eyes": "look_right",
+                    "heldProp": "wooden_pointer",
+                    "keyframeMotions": [
+                        {
+                            "timestamp": 154.828,
+                            "pose": "point_right",
+                            "mouth_shape": "talk_wide",
+                            "eyes": "look_right",
+                            "action": "Host introduces the Y2K fashion revival whiteboard."
+                        },
+                        {
+                            "timestamp": 165.548,
+                            "pose": "shock",
+                            "mouth_shape": "open_O",
+                            "eyes": "wide_shock",
+                            "action": "Host recoils at the X-ray diagram showing internal organs being evicted."
+                        },
+                        {
+                            "timestamp": 173.646,
+                            "pose": "shrug",
+                            "mouth_shape": "smirk",
+                            "eyes": "look_camera",
+                            "action": "Host dangles a $2,000 leather belt on one finger as the micro-skirt punchline."
+                        },
+                        {
+                            "timestamp": 183.006,
+                            "pose": "facepalm",
+                            "mouth_shape": "straight_line",
+                            "eyes": "roll_eyes",
+                            "action": "Host facepalms in total defeat as the digestive error modal flashes."
+                        }
+                    ]
+                },
+                "visualGagsAndProps": [
+                    {
+                        "id": "organ_hostile_xray",
+                        "type": "svg_anatomy_xray",
+                        "description": "Stick figure torso cross-section with red hazard stamps across the stomach and intestines.",
+                        "layout": {"x": 680, "y": 140, "width": 540, "height": 560},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 680, "y": 140, "width": 540, "height": 560, "rx": 20, "fill": "#0F172A", "stroke": "#EC4899", "strokeWidth": 6}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 950, "y": 200, "textAnchor": "middle", "fill": "#F472B6", "fontSize": 28, "fontFamily": "Impact", "text": "BIOLOGICAL COMPATIBILITY: 0%"}
+                            },
+                            {
+                                "tag": "circle",
+                                "props": {"cx": 950, "cy": 360, "r": 100, "fill": "none", "stroke": "#EF4444", "strokeWidth": 6, "strokeDasharray": "8,6"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 950, "y": 370, "textAnchor": "middle", "fill": "#EF4444", "fontSize": 32, "fontFamily": "Impact", "text": "❌ ORGANS BANNED"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 950, "y": 620, "textAnchor": "middle", "fill": "#CBD5E1", "fontSize": 22, "fontFamily": "'Courier New', monospace", "text": "Stomach & Liver occupy forbidden volume."}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "three_y2k_horrors",
+                        "type": "svg_fashion_trio",
+                        "description": "3 vector illustrations of low-rise jeans, napkin baby tee, and $2000 belt.",
+                        "elements": [
+                            {
+                                "tag": "text",
+                                "props": {"x": 1420, "y": 220, "fill": "#06B6D4", "fontSize": 26, "fontFamily": "Impact", "text": "1. LOW-RISE JEANS (-30cm altitude)"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1420, "y": 380, "fill": "#F59E0B", "fontSize": 26, "fontFamily": "Impact", "text": "2. BABY TEE (1 Dinner Napkin)"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1420, "y": 540, "fill": "#EF4444", "fontSize": 28, "fontFamily": "Impact", "text": "3. MIU MIU BELT: $2,000.00 USD 🏷️"}
+                            }
+                        ]
+                    },
+                    {
+                        "id": "digestive_tract_warning",
+                        "type": "svg_warning_box",
+                        "description": "Biomechanical alert popup warning that solid food digestion violates fashion regulations.",
+                        "layout": {"x": 580, "y": 760, "width": 960, "height": 180},
+                        "elements": [
+                            {
+                                "tag": "rect",
+                                "props": {"x": 580, "y": 760, "width": 960, "height": 180, "rx": 16, "fill": "#7F1D1D", "stroke": "#EF4444", "strokeWidth": 6}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1060, "y": 820, "textAnchor": "middle", "fill": "#FDE047", "fontSize": 32, "fontFamily": "Impact", "text": "⚠️ SYSTEM CRITICAL: SOLID FOOD DETECTED"}
+                            },
+                            {
+                                "tag": "text",
+                                "props": {"x": 1060, "y": 880, "textAnchor": "middle", "fill": "#FFFFFF", "fontSize": 22, "fontFamily": "sans-serif", "text": "Peristalsis is incompatible with low-rise waistband. Please reboot without intestines."}
+                            }
+                        ]
+                    }
+                ],
+                "onScreenSubtitles": [
+                    {
+                        "text": "Y2K FASHION: ORGAN HOSTILE",
+                        "startTime": 163.000,
+                        "endTime": 167.548,
+                        "position": {"x": 960, "y": 100},
+                        "style": {
+                            "fontSize": 78,
+                            "fontFamily": "Impact",
+                            "color": "#EC4899",
+                            "stroke": "#000000",
+                            "strokeWidth": 4,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "NAPKIN-SIZED BABY TEE",
+                        "startTime": 171.000,
+                        "endTime": 174.000,
+                        "position": {"x": 1420, "y": 420},
+                        "style": {
+                            "fontSize": 52,
+                            "fontFamily": "Impact",
+                            "color": "#FDE047",
+                            "stroke": "#000000",
+                            "strokeWidth": 3,
+                            "animation": "pop_in"
+                        }
+                    },
+                    {
+                        "text": "$2000 BELT SKIRT",
+                        "startTime": 177.006,
+                        "endTime": 180.206,
+                        "position": {"x": 960, "y": 940},
+                        "style": {
+                            "fontSize": 94,
+                            "fontFamily": "Impact",
+                            "color": "#EAB308",
+                            "stroke": "#111111",
+                            "strokeWidth": 5,
+                            "animation": "stamp_slam"
+                        }
+                    },
+                    {
+                        "text": "NO SOLID FOOD ALLOWED",
+                        "startTime": 183.006,
+                        "endTime": 185.886,
+                        "position": {"x": 960, "y": 960},
+                        "style": {
+                            "fontSize": 68,
+                            "fontFamily": "Impact",
+                            "color": "#EF4444",
+                            "stroke": "#FFFFFF",
+                            "strokeWidth": 3,
+                            "animation": "pop_in"
+                        }
+                    }
+                ],
+                "referenceImages": [
+                    {
+                        "id": "ref_22",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/02m31s-02m41s_P1_lCjXRUP5yfZ0.jpg",
+                        "timeWindow": {"startTime": 154.828, "endTime": 161.948},
+                        "priority": "P1",
+                        "purpose": "Real-world drug comparison",
+                        "layout": {
+                            "x": 1360,
+                            "y": 140,
+                            "width": 440,
+                            "height": 293,
+                            "rotation": -3.0,
+                            "tapeStrip": True,
+                            "pushPin": "none",
+                            "captionText": "GLP-1 MEDICAL CHEAT CODE"
+                        }
+                    },
+                    {
+                        "id": "ref_23",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/02m41s-02m50s_P0_eB45IBS3jFAC.jpg",
+                        "timeWindow": {"startTime": 168.046, "endTime": 173.646},
+                        "priority": "P0",
+                        "purpose": "Low-rise fashion hostility",
+                        "layout": {
+                            "x": 1420,
+                            "y": 460,
+                            "width": 340,
+                            "height": 408,
+                            "rotation": 4.0,
+                            "tapeStrip": True,
+                            "pushPin": "red",
+                            "captionText": "PELVIC LOW-RISE HOSTILITY"
+                        }
+                    },
+                    {
+                        "id": "ref_24",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/02m50s-03m00s_P1_oXnvbtznT5VD.jpg",
+                        "timeWindow": {"startTime": 170.606, "endTime": 177.006},
+                        "priority": "P1",
+                        "purpose": "Baby-tee joke",
+                        "layout": {
+                            "x": 820,
+                            "y": 420,
+                            "width": 380,
+                            "height": 253,
+                            "rotation": -4.0,
+                            "tapeStrip": True,
+                            "pushPin": "none",
+                            "captionText": "THE DINNER NAPKIN TEE"
+                        }
+                    },
+                    {
+                        "id": "ref_25",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/03m00s-03m06s_P0_jzB3tix5WANh.jpg",
+                        "timeWindow": {"startTime": 177.006, "endTime": 183.006},
+                        "priority": "P0",
+                        "purpose": "Miu Miu micro-skirt/belt punchline",
+                        "layout": {
+                            "x": 1440,
+                            "y": 320,
+                            "width": 340,
+                            "height": 510,
+                            "rotation": 5.0,
+                            "tapeStrip": True,
+                            "pushPin": "yellow",
+                            "captionText": "MIU MIU $2,000 BELT"
+                        }
+                    },
+                    {
+                        "id": "ref_26",
+                        "filePath": "/root/Desktop/chapter_1_full_timestamped_final/03m06s-03m13s_P1_ycsbEbR6Tk2a.jpeg",
+                        "timeWindow": {"startTime": 183.006, "endTime": 185.886},
+                        "priority": "P1",
+                        "purpose": "Injection-pen cheat-code visual",
+                        "layout": {
+                            "x": 1280,
+                            "y": 180,
+                            "width": 420,
+                            "height": 280,
+                            "rotation": -2.0,
+                            "tapeStrip": True,
+                            "pushPin": "red",
+                            "captionText": "THE INJECTION PEN SOLUTION"
+                        }
+                    }
+                ],
+                "granularShots": [
+                    {
+                        "shotId": "shot_11_1",
+                        "startTime": 154.828,
+                        "endTime": 165.548,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Host points right at Y2K fashion title board; drug cheat code visual appears.",
+                        "focusElement": "ref_22"
+                    },
+                    {
+                        "shotId": "shot_11_2",
+                        "startTime": 165.548,
+                        "endTime": 173.646,
+                        "cameraViewBox": [250, 80, 1500, 843],
+                        "hostAction": "Camera zooms in on the Organ Rejection X-ray blueprint as host recoils.",
+                        "focusElement": "organ_hostile_xray"
+                    },
+                    {
+                        "shotId": "shot_11_3",
+                        "startTime": 173.646,
+                        "endTime": 180.206,
+                        "cameraViewBox": [600, 200, 960, 540],
+                        "hostAction": "Crash zoom & camera shake on $2,000 Miu Miu belt skirt as host holds belt by one finger.",
+                        "focusElement": "ref_25"
+                    },
+                    {
+                        "shotId": "shot_11_4",
+                        "startTime": 180.206,
+                        "endTime": 185.886,
+                        "cameraViewBox": [0, 0, 1920, 1080],
+                        "hostAction": "Camera returns wide; digestive warning modal flashes red as host facepalms into camera.",
+                        "focusElement": "digestive_tract_warning"
+                    }
+                ]
+            }
+        ]
+    }
+    
+    target_file = "/root/Desktop/casually-explained-video/storyboard.json"
+    os.makedirs(os.path.dirname(target_file), exist_ok=True)
+    with open(target_file, "w", encoding="utf-8") as f:
+        json.dump(storyboard, f, indent=2, ensure_ascii=False)
+    
+    print(f"Generated {target_file} successfully. Total scenes: {len(storyboard['scenes'])}, Duration: {storyboard['totalDuration']}s")
+
+if __name__ == "__main__":
+    create_storyboard()

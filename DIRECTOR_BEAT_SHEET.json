@@ -1,0 +1,2482 @@
+{
+  "metadata": {
+    "title": "The Great Hollywood Thinning & The GLP-1 Meta",
+    "chapter": "Chapter 1: The Timeline Shifts (0.0s - 180.0s)",
+    "srtSource": "/root/Desktop/casually-explained-video/public/0-chapter-1.srt",
+    "totalScenes": 11,
+    "totalCues": 63,
+    "totalDurationSec": 183.851,
+    "animationStyle": "Casually Explained / Alex Meyers 100% Pure Vector Animated Comedy",
+    "directorialGrammar": {
+      "progressiveRevealRule": "Never show all joke elements at the beginning of a sentence. Elements enter strictly in chronological order matching spoken keywords.",
+      "snapZoomChoreography": "Use hard snap cuts and dynamic punch-ins (< 150ms) for punchlines, escalating absurdity, and forensic examinations. Zero slow 5-second dragging pans.",
+      "sub100msAudioSync": "All asset entrances, stamp slams, zooms, and facial expressions land within +/- 100ms of spoken audio cues.",
+      "stageFramingSafeZone": {
+        "frameResolution": "1920x1080 (16:9)",
+        "hostAnchor": {
+          "x": 520,
+          "y": 680,
+          "scale": 1.15
+        },
+        "jokeStageZone": {
+          "xMin": 1300,
+          "xMax": 1450,
+          "yMin": 480,
+          "yMax": 640
+        },
+        "floorBaselineY": 840,
+        "defaultCamera": {
+          "x": 960,
+          "y": 540,
+          "zoom": 1.04
+        }
+      },
+      "characterActing": {
+        "defaultResting": "deadpan_classic / smug_rock_eyebrow",
+        "speechFlap": "Vertical mouth flap Math.sin(timeSec * 16) during speech",
+        "idleBreathing": "Vertical body bob Math.sin(timeSec * 3.5) * 2",
+        "punchlineExpressions": "Extreme reactions (shock_eye_pop, mind_blown_galaxy_brain, cringe_teeth_grit, fear_sweat_freeze) held for 1.0-2.0s at climax before resolving to deadpan"
+      }
+    }
+  },
+  "scenes": [
+    {
+      "sceneId": "scene_01_ecosystem",
+      "sceneNumber": 1,
+      "name": "Hollywood Red Carpet & Instagram Ecosystem",
+      "startTime": 0.0,
+      "endTime": 8.62,
+      "duration": 8.62,
+      "cueRange": [
+        1,
+        3
+      ],
+      "transcript": "If you’ve looked at a red carpet, a movie screen, or your Instagram feed anytime in the last eighteen months, you might have noticed a slight shift in the local Hollywood ecosystem.",
+      "comedyConcept": "Establishes the glamorous Hollywood baseline of red carpets and paparazzi flashes before escalating to the algorithmic absurdity of the modern Instagram feed.",
+      "beats": [
+        {
+          "beatNumber": 1,
+          "beatType": "SETUP",
+          "timeStart": 0.0,
+          "timeEnd": 2.0,
+          "duration": 2.0,
+          "keywordTrigger": "red carpet",
+          "keywordTimestamp": 0.9,
+          "narrationSnippet": "If you’ve looked at a red carpet, a movie screen, or your",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.02,
+            "snap": false,
+            "transition": "smooth"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_classic",
+            "pose": "default",
+            "gaze": {
+              "x": 0.5,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Deadpan narration establishing the baseline Hollywood scene"
+          },
+          "stageAssets": [
+            {
+              "id": "red_carpet",
+              "type": "vector_polygon",
+              "x": 960,
+              "y": 690,
+              "scale": 1.0,
+              "state": "visible",
+              "description": "Grand perspective red carpet runway stretching from horizon to foreground with gold velvet rope stanchions"
+            },
+            {
+              "id": "paparazzi_left",
+              "type": "stick_figure_cast",
+              "x": 240,
+              "y": 680,
+              "scale": 1.0,
+              "state": "flashing",
+              "description": "Paparazzi stick figure taking photos with animated flashing strobe"
+            },
+            {
+              "id": "paparazzi_right",
+              "type": "stick_figure_cast",
+              "x": 1640,
+              "y": 680,
+              "scale": 1.0,
+              "state": "flashing",
+              "description": "Paparazzi stick figure on right flank flashing strobe cameras"
+            }
+          ],
+          "comedicAction": "Classic Hollywood premiere baseline: velvet ropes, red carpet, and blinding paparazzi flashbulbs establish normal vanity culture."
+        },
+        {
+          "beatNumber": 2,
+          "beatType": "ESCALATION",
+          "timeStart": 2.0,
+          "timeEnd": 4.8,
+          "duration": 2.8,
+          "keywordTrigger": "Instagram feed",
+          "keywordTimestamp": 2.0,
+          "narrationSnippet": "Instagram feed anytime in the last eighteen months, you might",
+          "camera": {
+            "x": 1200,
+            "y": 520,
+            "zoom": 1.15,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "skeptical_side_eye",
+            "pose": "hands_on_hips",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.1
+            },
+            "isTalking": true,
+            "actionDescription": "Host casts heavy skeptical side-eye at the giant glowing phone screen"
+          },
+          "stageAssets": [
+            {
+              "id": "giant_phone_instagram",
+              "type": "vector_device_ui",
+              "x": 1350,
+              "y": 500,
+              "scale": 1.0,
+              "state": "active_feed",
+              "description": "Giant iPhone frame showing Instagram feed with @hollywood verified account and chiseled jawline silhouette"
+            },
+            {
+              "id": "floating_hearts_counter",
+              "type": "animated_particles",
+              "x": 1350,
+              "y": 420,
+              "scale": 1.2,
+              "state": "pulsing",
+              "description": "Pulsing red hearts floating upward with animated '2.4M likes' ticker"
+            }
+          ],
+          "comedicAction": "Snap zoom punch-in to social media madness: a giant iPhone drops in displaying impossible chiseled jawlines while likes counter ticks frantically."
+        },
+        {
+          "beatNumber": 3,
+          "beatType": "PUNCHLINE",
+          "timeStart": 4.8,
+          "timeEnd": 7.5,
+          "duration": 2.7,
+          "keywordTrigger": "Hollywood ecosystem",
+          "keywordTimestamp": 6.8,
+          "narrationSnippet": "have noticed a slight shift in the local Hollywood ecosystem.",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.05,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "smug_rock_eyebrow",
+            "pose": "point_camera",
+            "gaze": {
+              "x": 0.6,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host raises eyebrow and gestures toward the satirical ecosystem sign"
+          },
+          "stageAssets": [
+            {
+              "id": "hollywood_sign_hills",
+              "type": "vector_backdrop",
+              "x": 1380,
+              "y": 540,
+              "scale": 1.0,
+              "state": "spotlights_active",
+              "description": "Hollywood Hills backdrop with dual searchlights scanning night sky and tilted billboard 'HOLLYWOOD ECOSYSTEM (DOWNSIZED)'"
+            }
+          ],
+          "comedicAction": "Snap cut resolves to wide 2-shot: Hollywood searchlights criss-cross over the cartoon hills highlighting the 'Ecosystem' rebranding."
+        },
+        {
+          "beatNumber": 4,
+          "beatType": "REACTION",
+          "timeStart": 7.5,
+          "timeEnd": 8.62,
+          "duration": 1.12,
+          "keywordTrigger": "[Pause before Cue 4]",
+          "keywordTimestamp": 7.5,
+          "narrationSnippet": "[Comedic Hold]",
+          "camera": {
+            "x": 520,
+            "y": 640,
+            "zoom": 1.18,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_slow_blink",
+            "pose": "crossed_arms",
+            "gaze": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "isTalking": false,
+            "actionDescription": "Deadpan slow blink into camera letting the opening comedic premise settle"
+          },
+          "stageAssets": [],
+          "comedicAction": "Punch-in on host face for iconic Casually Explained deadpan pause before the velocity spike."
+        }
+      ]
+    },
+    {
+      "sceneId": "scene_02_techbro",
+      "sceneNumber": 2,
+      "name": "Thicc to Stick & Tech Bro Pivot",
+      "startTime": 8.62,
+      "endTime": 15.334,
+      "duration": 6.714,
+      "cueRange": [
+        4,
+        5
+      ],
+      "transcript": "The timeline has gone from “Thicc” to “stick” faster than a tech bro pivoting from crypto to artificial intelligence.",
+      "comedyConcept": "Compares the ultra-fast cultural body trend whiplash to a Silicon Valley tech grifter instantly abandoning crypto for generative AI.",
+      "beats": [
+        {
+          "beatNumber": 1,
+          "beatType": "SETUP",
+          "timeStart": 8.62,
+          "timeEnd": 10.1,
+          "duration": 1.48,
+          "keywordTrigger": "Thicc",
+          "keywordTimestamp": 9.2,
+          "narrationSnippet": "The timeline has gone from “Thicc”",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.04,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_classic",
+            "pose": "default",
+            "gaze": {
+              "x": 0.5,
+              "y": -0.6
+            },
+            "isTalking": true,
+            "actionDescription": "Host looks up toward the timeline velocity gauge"
+          },
+          "stageAssets": [
+            {
+              "id": "timeline_slider_track",
+              "type": "vector_hud_element",
+              "x": 960,
+              "y": 180,
+              "scale": 1.0,
+              "state": "thicc_position",
+              "description": "Horizontal speed gauge with red glowing 'THICC' marker at x:750 and blue 'STICK' marker at x:1200"
+            },
+            {
+              "id": "crypto_bro",
+              "type": "stick_figure_cast",
+              "x": 1400,
+              "y": 640,
+              "scale": 1.15,
+              "state": "crypto_mode",
+              "description": "Tech Bro in oversized orange Bitcoin hoodie, gold chains, laser eyes"
+            }
+          ],
+          "comedicAction": "Tech Bro stands flexing his crypto bags while the host introduces the timeline slider anchored at 'THICC'."
+        },
+        {
+          "beatNumber": 2,
+          "beatType": "ESCALATION",
+          "timeStart": 10.1,
+          "timeEnd": 11.9,
+          "duration": 1.8,
+          "keywordTrigger": "stick",
+          "keywordTimestamp": 10.4,
+          "narrationSnippet": "to “stick” faster than a tech",
+          "camera": {
+            "x": 1080,
+            "y": 520,
+            "zoom": 1.1,
+            "snap": false,
+            "transition": "smooth"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "confused_double_take",
+            "pose": "shrug",
+            "gaze": {
+              "x": 0.9,
+              "y": -0.5
+            },
+            "isTalking": true,
+            "actionDescription": "Host head whips violently as the slider shoots across the frame"
+          },
+          "stageAssets": [
+            {
+              "id": "timeline_slider_knob",
+              "type": "animated_knob",
+              "x": 1200,
+              "y": 180,
+              "scale": 1.0,
+              "state": "slammed_to_stick",
+              "description": "Slider knob slamming into STICK position with yellow motion streak lines"
+            }
+          ],
+          "comedicAction": "The slider knob breaks the sound barrier shooting across the track from THICC to STICK with comic velocity lines."
+        },
+        {
+          "beatNumber": 3,
+          "beatType": "CONTRAST",
+          "timeStart": 11.9,
+          "timeEnd": 13.3,
+          "duration": 1.4,
+          "keywordTrigger": "pivoting from crypto",
+          "keywordTimestamp": 12.2,
+          "narrationSnippet": "bro pivoting from crypto",
+          "camera": {
+            "x": 1380,
+            "y": 540,
+            "zoom": 1.22,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "confused_squint",
+            "pose": "hands_on_hips",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host watches the instantaneous identity wipeout in confusion"
+          },
+          "stageAssets": [
+            {
+              "id": "smoke_poof_explosion",
+              "type": "animated_vfx",
+              "x": 1400,
+              "y": 600,
+              "scale": 1.4,
+              "state": "exploding",
+              "description": "Massive comic SVG cloud explosion with burst particles and flying shattered Bitcoin icons"
+            }
+          ],
+          "comedicAction": "Instant comic explosion wipes out the crypto bro in a cloud of vaporized NFTs and puff clouds."
+        },
+        {
+          "beatNumber": 4,
+          "beatType": "PUNCHLINE",
+          "timeStart": 13.3,
+          "timeEnd": 14.78,
+          "duration": 1.48,
+          "keywordTrigger": "artificial intelligence",
+          "keywordTimestamp": 13.6,
+          "narrationSnippet": "to artificial intelligence.",
+          "camera": {
+            "x": 1380,
+            "y": 520,
+            "zoom": 1.25,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "smug_rock_eyebrow",
+            "pose": "point_camera",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host smugly points out the hilarious overnight rebrand"
+          },
+          "stageAssets": [
+            {
+              "id": "ai_founder",
+              "type": "stick_figure_cast",
+              "x": 1400,
+              "y": 640,
+              "scale": 1.15,
+              "state": "ai_mode",
+              "description": "Tech Bro emerges in Patagonia fleece vest, glowing cyan Apple Vision Pro visor, holding matcha latte"
+            },
+            {
+              "id": "prompt_hud_window",
+              "type": "vector_hud_element",
+              "x": 1400,
+              "y": 240,
+              "scale": 1.0,
+              "state": "glowing",
+              "description": "Floating terminal window: > prompt: 'generate skinny --v 6.0'"
+            }
+          ],
+          "comedicAction": "Tech Bro frantically generates his new skinny AI persona with glowing cyan terminal typing."
+        },
+        {
+          "beatNumber": 5,
+          "beatType": "REACTION",
+          "timeStart": 14.78,
+          "timeEnd": 15.334,
+          "duration": 0.554,
+          "keywordTrigger": "[Audio pause before Scene 3]",
+          "keywordTimestamp": 14.78,
+          "narrationSnippet": "[Comedic Beat Pause]",
+          "camera": {
+            "x": 520,
+            "y": 680,
+            "zoom": 1.15,
+            "snap": true,
+            "transition": "punch_out"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "smug_finger_guns",
+            "pose": "point_camera",
+            "gaze": {
+              "x": 0.1,
+              "y": 0.0
+            },
+            "isTalking": false,
+            "actionDescription": "Host drops finger guns directly at camera"
+          },
+          "stageAssets": [],
+          "comedicAction": "Finger guns click into place perfectly timed with the silence before the celebrity onslaught."
+        }
+      ]
+    },
+    {
+      "sceneId": "scene_03_celebrities",
+      "sceneNumber": 3,
+      "name": "Jenna Ortega, Emma Stone, Ariana & Cheekbone Calipers",
+      "startTime": 15.334,
+      "endTime": 22.805,
+      "duration": 7.471,
+      "cueRange": [
+        6,
+        7
+      ],
+      "transcript": "Suddenly, everywhere you look, celebrities like Jenna Ortega, Emma Stone, and Ariana Grande are looking noticeably leaner.",
+      "comedyConcept": "Progressive 1-2-3 reveal of A-list celebrities getting impossibly leaner until mechanical digital calipers clamp down for a forensic cheekbone measurement.",
+      "beats": [
+        {
+          "beatNumber": 1,
+          "beatType": "SETUP",
+          "timeStart": 15.334,
+          "timeEnd": 18.694,
+          "duration": 3.36,
+          "keywordTrigger": "Jenna Ortega",
+          "keywordTimestamp": 17.5,
+          "narrationSnippet": "Suddenly, everywhere you look, celebrities like Jenna Ortega",
+          "camera": {
+            "x": 1050,
+            "y": 540,
+            "zoom": 1.15,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_classic",
+            "pose": "default",
+            "gaze": {
+              "x": 0.6,
+              "y": -0.1
+            },
+            "isTalking": true,
+            "actionDescription": "Host introduces the celebrity line-up with deadpan baseline"
+          },
+          "stageAssets": [
+            {
+              "id": "cast_jenna_ortega",
+              "type": "stick_figure_cast",
+              "x": 1000,
+              "y": 630,
+              "scale": 1.15,
+              "state": "deadpan_gothic",
+              "description": "Jenna Ortega in gothic black evening dress, dark eyeliner, iconic shaggy bangs, sharp cheekbones"
+            }
+          ],
+          "comedicAction": "Snap zoom in to Jenna Ortega appearing on stage with deadpan gothic stare."
+        },
+        {
+          "beatNumber": 2,
+          "beatType": "ESCALATION",
+          "timeStart": 18.694,
+          "timeEnd": 20.0,
+          "duration": 1.306,
+          "keywordTrigger": "Emma Stone",
+          "keywordTimestamp": 18.8,
+          "narrationSnippet": ", Emma Stone",
+          "camera": {
+            "x": 1200,
+            "y": 540,
+            "zoom": 1.18,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "confused_squint",
+            "pose": "hands_on_hips",
+            "gaze": {
+              "x": 0.7,
+              "y": -0.1
+            },
+            "isTalking": true,
+            "actionDescription": "Host narrows eyes as another celebrity pops in leaner than ever"
+          },
+          "stageAssets": [
+            {
+              "id": "cast_jenna_ortega",
+              "type": "stick_figure_cast",
+              "x": 960,
+              "y": 630,
+              "scale": 1.15,
+              "state": "deadpan_gothic",
+              "description": "Jenna Ortega shifted slightly left"
+            },
+            {
+              "id": "cast_emma_stone",
+              "type": "stick_figure_cast",
+              "x": 1260,
+              "y": 630,
+              "scale": 1.15,
+              "state": "expressive_glam",
+              "description": "Emma Stone with auburn hair, emerald evening gown, wide expressive eyes, razor jawline"
+            }
+          ],
+          "comedicAction": "Snap pan/zoom to Emma Stone appearing next to Jenna."
+        },
+        {
+          "beatNumber": 3,
+          "beatType": "ESCALATION",
+          "timeStart": 20.0,
+          "timeEnd": 21.2,
+          "duration": 1.2,
+          "keywordTrigger": "Ariana Grande",
+          "keywordTimestamp": 20.2,
+          "narrationSnippet": ", and Ariana Grande",
+          "camera": {
+            "x": 1380,
+            "y": 540,
+            "zoom": 1.2,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "confused_tilted_head",
+            "pose": "shrug",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.1
+            },
+            "isTalking": true,
+            "actionDescription": "Host tilts head in escalating bewilderment"
+          },
+          "stageAssets": [
+            {
+              "id": "cast_jenna_ortega",
+              "type": "stick_figure_cast",
+              "x": 920,
+              "y": 630,
+              "scale": 1.1,
+              "state": "deadpan_gothic",
+              "description": "Jenna Ortega"
+            },
+            {
+              "id": "cast_emma_stone",
+              "type": "stick_figure_cast",
+              "x": 1200,
+              "y": 630,
+              "scale": 1.1,
+              "state": "expressive_glam",
+              "description": "Emma Stone"
+            },
+            {
+              "id": "cast_ariana_grande",
+              "type": "stick_figure_cast",
+              "x": 1540,
+              "y": 630,
+              "scale": 1.15,
+              "state": "high_ponytail_pop",
+              "description": "Ariana Grande with iconic high blonde ponytail, swaying physics, pink couture gown"
+            }
+          ],
+          "comedicAction": "Snap zoom to Ariana Grande popping in with high ponytail sway."
+        },
+        {
+          "beatNumber": 4,
+          "beatType": "PUNCHLINE",
+          "timeStart": 21.2,
+          "timeEnd": 22.214,
+          "duration": 1.014,
+          "keywordTrigger": "noticeably leaner",
+          "keywordTimestamp": 21.4,
+          "narrationSnippet": "are looking noticeably leaner.",
+          "camera": {
+            "x": 1540,
+            "y": 500,
+            "zoom": 1.35,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "shock_eye_pop",
+            "pose": "mind_blown",
+            "gaze": {
+              "x": 0.9,
+              "y": 0.0
+            },
+            "isTalking": true,
+            "actionDescription": "Host eye pop reaction as the forensic calipers clamp"
+          },
+          "stageAssets": [
+            {
+              "id": "forensic_calipers",
+              "type": "vector_tool_prop",
+              "x": 1540,
+              "y": 500,
+              "scale": 1.0,
+              "state": "clamped",
+              "description": "Stainless steel mechanical caliper clamping cheekbone with LCD display reading '0.02 mm' in green LED font + red laser scanline"
+            },
+            {
+              "id": "forensic_radar_grid",
+              "type": "animated_hud",
+              "x": 1540,
+              "y": 560,
+              "scale": 1.0,
+              "state": "targeting",
+              "description": "Red dashed forensic targeting reticle centered on cheekbone"
+            }
+          ],
+          "comedicAction": "Punch-in snap zoom to Mechanical Calipers clamping cheekbone with 0.02 mm digital display + red laser."
+        },
+        {
+          "beatNumber": 5,
+          "beatType": "REACTION",
+          "timeStart": 22.214,
+          "timeEnd": 22.805,
+          "duration": 0.591,
+          "keywordTrigger": "[Audio pause before Cue 8]",
+          "keywordTimestamp": 22.214,
+          "narrationSnippet": "[Host Shock Reaction Shot]",
+          "camera": {
+            "x": 520,
+            "y": 680,
+            "zoom": 1.18,
+            "snap": true,
+            "transition": "punch_out"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "shock_eye_pop",
+            "pose": "mind_blown",
+            "gaze": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "isTalking": false,
+            "actionDescription": "Host eyes pop out of head on cartoon stalks in absolute shock"
+          },
+          "stageAssets": [],
+          "comedicAction": "Cut back to Host shock reaction."
+        }
+      ]
+    },
+    {
+      "sceneId": "scene_04_unsubscribe",
+      "sceneNumber": 4,
+      "name": "Unsubscribe from Carbs & Cancel Lunch",
+      "startTime": 22.805,
+      "endTime": 32.967,
+      "duration": 10.162,
+      "cueRange": [
+        8,
+        10
+      ],
+      "transcript": "It seems like overnight, the entire entertainment industry decided to collectively unsubscribe from carbohydrates and cancel their biological subscription to the concept of lunch.",
+      "comedyConcept": "Satirizes carb elimination as an automated SaaS software subscription that Hollywood unilaterally cancelled.",
+      "beats": [
+        {
+          "beatNumber": 1,
+          "beatType": "SETUP",
+          "timeStart": 22.805,
+          "timeEnd": 26.325,
+          "duration": 3.52,
+          "keywordTrigger": "overnight, the entire entertainment industry decided",
+          "keywordTimestamp": 22.805,
+          "narrationSnippet": "It seems like overnight, the entire entertainment industry decided",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.04,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_classic",
+            "pose": "default",
+            "gaze": {
+              "x": 0.5,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host introduces the baseline dining situation"
+          },
+          "stageAssets": [
+            {
+              "id": "dining_table_carbs",
+              "type": "vector_prop_set",
+              "x": 1380,
+              "y": 650,
+              "scale": 1.0,
+              "state": "steaming",
+              "description": "Dining table with porcelain plate holding a fresh artisan pepperoni pizza slice and golden crusty sourdough loaf"
+            }
+          ],
+          "comedicAction": "Warm, idyllic restaurant table setup with steaming carbs."
+        },
+        {
+          "beatNumber": 2,
+          "beatType": "ESCALATION",
+          "timeStart": 26.325,
+          "timeEnd": 29.0,
+          "duration": 2.675,
+          "keywordTrigger": "unsubscribe from carbohydrates",
+          "keywordTimestamp": 27.2,
+          "narrationSnippet": "to collectively unsubscribe from carbohydrates",
+          "camera": {
+            "x": 1380,
+            "y": 480,
+            "zoom": 1.18,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "skeptical_side_eye",
+            "pose": "hands_on_hips",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.4
+            },
+            "isTalking": true,
+            "actionDescription": "Host watches carbs being raptured to the heavens"
+          },
+          "stageAssets": [
+            {
+              "id": "macos_unsubscribe_modal",
+              "type": "vector_ui_modal",
+              "x": 1380,
+              "y": 360,
+              "scale": 1.0,
+              "state": "clicked",
+              "description": "macOS modal dialog: 'Unsubscribe from Carbs? [Cancel] [Confirm]' with animated click"
+            },
+            {
+              "id": "cast_flying_carbs",
+              "type": "animated_vfx_cast",
+              "x": 1380,
+              "y": 450,
+              "scale": 1.0,
+              "state": "ascending",
+              "description": "Pizza slice and sourdough loaf sprout flapping feathered angel wings and glowing gold halos, ascending into heavenly clouds with god rays"
+            }
+          ],
+          "comedicAction": "Carbs are digitally unsubscribed and literally ascend to heaven with angelic glow and fluttering wings."
+        },
+        {
+          "beatNumber": 3,
+          "beatType": "CONTRAST",
+          "timeStart": 29.0,
+          "timeEnd": 30.8,
+          "duration": 1.8,
+          "keywordTrigger": "cancel their biological subscription",
+          "keywordTimestamp": 29.4,
+          "narrationSnippet": "and cancel their biological subscription",
+          "camera": {
+            "x": 1380,
+            "y": 520,
+            "zoom": 1.25,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "confused_squint",
+            "pose": "shrug",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host reads the biological cancellation terms"
+          },
+          "stageAssets": [
+            {
+              "id": "billing_cancellation_card",
+              "type": "vector_ui_modal",
+              "x": 1380,
+              "y": 480,
+              "scale": 1.0,
+              "state": "active",
+              "description": "SaaS billing card: 'LUNCH PLAN: $0.00/mo - STATUS: CANCELLED (TERMINATED BY USER)' with red strike-through"
+            }
+          ],
+          "comedicAction": "Corporate billing UI treats human nutrition like a Netflix free trial that was cancelled."
+        },
+        {
+          "beatNumber": 4,
+          "beatType": "PUNCHLINE",
+          "timeStart": 30.8,
+          "timeEnd": 32.405,
+          "duration": 1.605,
+          "keywordTrigger": "the concept of lunch",
+          "keywordTimestamp": 31.2,
+          "narrationSnippet": "to the concept of lunch.",
+          "camera": {
+            "x": 1380,
+            "y": 540,
+            "zoom": 1.3,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "shock_home_alone",
+            "pose": "facepalm",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.1
+            },
+            "isTalking": true,
+            "actionDescription": "Host gasps as lunch is physically obliterated"
+          },
+          "stageAssets": [
+            {
+              "id": "cast_mega_stamp",
+              "type": "animated_tool_slam",
+              "x": 1380,
+              "y": 560,
+              "scale": 1.0,
+              "state": "slammed",
+              "description": "Massive 3D wooden rubber stamp slamming down with dust puff and screen shake: 'CANCELLED / EVICTED'"
+            }
+          ],
+          "comedicAction": "Mega stamp slams down with screen-shaking comedic force, crushing any remaining hope of lunch."
+        },
+        {
+          "beatNumber": 5,
+          "beatType": "REACTION",
+          "timeStart": 32.405,
+          "timeEnd": 32.967,
+          "duration": 0.562,
+          "keywordTrigger": "[Audio pause before Cue 11]",
+          "keywordTimestamp": 32.405,
+          "narrationSnippet": "[Comedic Pause]",
+          "camera": {
+            "x": 520,
+            "y": 680,
+            "zoom": 1.12,
+            "snap": true,
+            "transition": "punch_out"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_shrug",
+            "pose": "shrug",
+            "gaze": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "isTalking": false,
+            "actionDescription": "Host raises hands in deadpan shrug"
+          },
+          "stageAssets": [],
+          "comedicAction": "Deadpan shrug: 'guess we don't do lunch anymore.'"
+        }
+      ]
+    },
+    {
+      "sceneId": "scene_05_timburton_ps1",
+      "sceneNumber": 5,
+      "name": "Tim Burton Aesthetic & Low-Poly PS1 Graphics",
+      "startTime": 32.967,
+      "endTime": 43.729,
+      "duration": 10.762,
+      "cueRange": [
+        11,
+        14
+      ],
+      "transcript": "But why is everyone suddenly speedrunning the Tim Burton aesthetic? The aggressive return of the 90s, and why your favorite actors are starting to look like they’re rendered in low-poly PS1 graphics.",
+      "comedyConcept": "High-contrast visual transition from gothic Tim Burton curly spiral hills to rotating 1996 wireframe PS1 3D polygons.",
+      "beats": [
+        {
+          "beatNumber": 1,
+          "beatType": "SETUP",
+          "timeStart": 32.967,
+          "timeEnd": 36.887,
+          "duration": 3.92,
+          "keywordTrigger": "Tim Burton aesthetic",
+          "keywordTimestamp": 35.2,
+          "narrationSnippet": "But why is everyone suddenly speedrunning the Tim Burton aesthetic",
+          "camera": {
+            "x": 1200,
+            "y": 500,
+            "zoom": 1.12,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_classic",
+            "pose": "default",
+            "gaze": {
+              "x": 0.6,
+              "y": -0.3
+            },
+            "isTalking": true,
+            "actionDescription": "Host introduces the gothic transformation"
+          },
+          "stageAssets": [
+            {
+              "id": "tim_burton_world",
+              "type": "vector_gothic_backdrop",
+              "x": 1400,
+              "y": 500,
+              "scale": 1.0,
+              "state": "active",
+              "description": "Gothic black sky, glowing crescent moon, iconic curly spiral mountain peak, twisted branches, fluttering silhouette bats"
+            }
+          ],
+          "comedicAction": "Full stage transforms instantly into a high-contrast gothic cartoon nightmare."
+        },
+        {
+          "beatNumber": 2,
+          "beatType": "ESCALATION",
+          "timeStart": 36.887,
+          "timeEnd": 39.847,
+          "duration": 2.96,
+          "keywordTrigger": "aggressive return of the 90s",
+          "keywordTimestamp": 37.2,
+          "narrationSnippet": "? The aggressive return of the 90s, and why your favorite actors",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.25,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 960,
+            "y": 660,
+            "scale": 1.3,
+            "expression": "dark_circles_insomnia",
+            "pose": "crossed_arms",
+            "gaze": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "isTalking": true,
+            "actionDescription": "Host centered close-up with extreme sunken dark circles and Beetlejuice striped tie"
+          },
+          "stageAssets": [
+            {
+              "id": "vhs_osd_timestamp",
+              "type": "vector_hud_element",
+              "x": 200,
+              "y": 140,
+              "scale": 1.0,
+              "state": "flickering",
+              "description": "Flickering cyan 90s VHS timestamp 'MAY 1997 - SP' with tracking lines"
+            }
+          ],
+          "comedicAction": "Host snaps to screen center looking like he hasn't slept since 1994."
+        },
+        {
+          "beatNumber": 3,
+          "beatType": "CONTRAST",
+          "timeStart": 39.847,
+          "timeEnd": 41.927,
+          "duration": 2.08,
+          "keywordTrigger": "rendered in low-poly",
+          "keywordTimestamp": 40.8,
+          "narrationSnippet": "are starting to look like they’re rendered in low-poly",
+          "camera": {
+            "x": 1380,
+            "y": 500,
+            "zoom": 1.22,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "confused_squint",
+            "pose": "hands_on_hips",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host examines the geometric actor mesh"
+          },
+          "stageAssets": [
+            {
+              "id": "ps1_polygon_mesh",
+              "type": "vector_3d_wireframe",
+              "x": 1380,
+              "y": 460,
+              "scale": 1.0,
+              "state": "rotating_3d",
+              "description": "Faceted 3D polygonal stick-figure head with emerald and green flat shading rotating on 3 axes over retro wireframe floor"
+            }
+          ],
+          "comedicAction": "World instantly snaps to a 1996 retro 3D game engine wireframe with spinning polygon head."
+        },
+        {
+          "beatNumber": 4,
+          "beatType": "PUNCHLINE",
+          "timeStart": 41.927,
+          "timeEnd": 43.127,
+          "duration": 1.2,
+          "keywordTrigger": "PS1 graphics.",
+          "keywordTimestamp": 42.2,
+          "narrationSnippet": "PS1 graphics.",
+          "camera": {
+            "x": 1380,
+            "y": 480,
+            "zoom": 1.3,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "mind_blown_galaxy_brain",
+            "pose": "mind_blown",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host mind blown by the extreme low polygon count"
+          },
+          "stageAssets": [
+            {
+              "id": "ps1_badge_scanlines",
+              "type": "animated_vfx_overlay",
+              "x": 1380,
+              "y": 220,
+              "scale": 1.0,
+              "state": "active",
+              "description": "Horizontal CRT scanlines overlay + neon badge 'PS1 : 240p | 14 POLYGONS' with blinking memory card icon"
+            }
+          ],
+          "comedicAction": "Crash zoom on spinning 14-polygon head with authentic CRT flicker and memory card UI."
+        },
+        {
+          "beatNumber": 5,
+          "beatType": "REACTION",
+          "timeStart": 43.127,
+          "timeEnd": 43.729,
+          "duration": 0.602,
+          "keywordTrigger": "[Audio pause before Cue 15]",
+          "keywordTimestamp": 43.127,
+          "narrationSnippet": "[Comedic Pause]",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.05,
+            "snap": true,
+            "transition": "punch_out"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_side_glance",
+            "pose": "default",
+            "gaze": {
+              "x": 0.4,
+              "y": 0.0
+            },
+            "isTalking": false,
+            "actionDescription": "Host returns to neutral framing with deadpan side glance"
+          },
+          "stageAssets": [],
+          "comedicAction": "Clean snap reset preparing for the historical pendulum breakdown."
+        }
+      ]
+    },
+    {
+      "sceneId": "scene_06_pendulum",
+      "sceneNumber": 6,
+      "name": "The Beauty Standard Pendulum & Slouching Couch Guy",
+      "startTime": 43.729,
+      "endTime": 57.809,
+      "duration": 14.08,
+      "cueRange": [
+        15,
+        20
+      ],
+      "transcript": "To understand where we are right now, we have to look at where we’ve been. Human beauty standards operate on a giant, terrifying pendulum that swings wildly depending on whatever makes regular, working-class people feel the absolute worst about themselves at any given time.",
+      "comedyConcept": "A giant ACME-style spiked iron wrecking ball swings over a slouching couch potato who narrowly ducks for his life.",
+      "beats": [
+        {
+          "beatNumber": 1,
+          "beatType": "SETUP",
+          "timeStart": 43.729,
+          "timeEnd": 47.386,
+          "duration": 3.657,
+          "keywordTrigger": "where we’ve been",
+          "keywordTimestamp": 46.5,
+          "narrationSnippet": "To understand where we are right now, we have to look at where we’ve been.",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.05,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_classic",
+            "pose": "point_camera",
+            "gaze": {
+              "x": 0.5,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host delivers academic lecture holding pointer stick"
+          },
+          "stageAssets": [
+            {
+              "id": "lecture_chalkboard",
+              "type": "vector_prop",
+              "x": 960,
+              "y": 420,
+              "scale": 1.0,
+              "state": "visible",
+              "description": "Classroom chalkboard with chalk diagram: '[PAST] <=================> [NOW]'"
+            }
+          ],
+          "comedicAction": "Academic lecture parody baseline."
+        },
+        {
+          "beatNumber": 2,
+          "beatType": "ESCALATION",
+          "timeStart": 47.386,
+          "timeEnd": 51.5,
+          "duration": 4.114,
+          "keywordTrigger": "giant, terrifying pendulum",
+          "keywordTimestamp": 49.0,
+          "narrationSnippet": "Human beauty standards operate on a giant, terrifying pendulum",
+          "camera": {
+            "x": 1300,
+            "y": 500,
+            "zoom": 1.15,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 480,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "skeptical_raised_brow",
+            "pose": "hands_on_hips",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.5
+            },
+            "isTalking": true,
+            "actionDescription": "Host points up at the massive doom pendulum"
+          },
+          "stageAssets": [
+            {
+              "id": "acme_wrecking_pendulum",
+              "type": "vector_physics_prop",
+              "x": 1350,
+              "y": 400,
+              "scale": 1.0,
+              "state": "swinging",
+              "description": "Heavy metal ceiling pivot at (1350, -50), swinging steel rod, giant iron ball (r:115) with spikes, red hazard triangle and bold text 'BEAUTY'"
+            }
+          ],
+          "comedicAction": "Spiked wrecking ball drops into frame swinging aggressively like a medieval torture device."
+        },
+        {
+          "beatNumber": 3,
+          "beatType": "CONTRAST",
+          "timeStart": 51.5,
+          "timeEnd": 54.5,
+          "duration": 3.0,
+          "keywordTrigger": "makes regular, working-class people",
+          "keywordTimestamp": 52.2,
+          "narrationSnippet": "that swings wildly depending on whatever makes regular, working-class people",
+          "camera": {
+            "x": 1350,
+            "y": 600,
+            "zoom": 1.25,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 480,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "cringe_teeth_grit",
+            "pose": "facepalm",
+            "gaze": {
+              "x": 0.8,
+              "y": 0.1
+            },
+            "isTalking": true,
+            "actionDescription": "Host winces as wrecking ball almost takes Couch Guy's head off"
+          },
+          "stageAssets": [
+            {
+              "id": "cast_couch_guy",
+              "type": "stick_figure_cast",
+              "x": 1350,
+              "y": 730,
+              "scale": 1.35,
+              "state": "ducking_panic",
+              "description": "Working-class stick figure on worn-out brown sofa ducks in terror as wrecking ball flies 2 inches above his hair, chips flying"
+            }
+          ],
+          "comedicAction": "Wrecking ball swooshes with near-miss sound FX while Couch Guy flattens himself into sofa cushions."
+        },
+        {
+          "beatNumber": 4,
+          "beatType": "PUNCHLINE",
+          "timeStart": 54.5,
+          "timeEnd": 57.666,
+          "duration": 3.166,
+          "keywordTrigger": "feel the absolute worst about themselves at any given time.",
+          "keywordTimestamp": 55.2,
+          "narrationSnippet": "feel the absolute worst about themselves at any given time.",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.08,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 480,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_shrug",
+            "pose": "shrug",
+            "gaze": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "isTalking": true,
+            "actionDescription": "Host deadpan shrugs as living room is demolished behind him"
+          },
+          "stageAssets": [
+            {
+              "id": "demolished_living_room",
+              "type": "vector_backdrop_fx",
+              "x": 1350,
+              "y": 700,
+              "scale": 1.0,
+              "state": "crumbled",
+              "description": "Crumbled brick wall silhouette, dust clouds puffing up around couch, Couch Guy flattened"
+            }
+          ],
+          "comedicAction": "Absolute deadpan delivery while destruction reigns in background."
+        },
+        {
+          "beatNumber": 5,
+          "beatType": "REACTION",
+          "timeStart": 57.666,
+          "timeEnd": 57.809,
+          "duration": 0.143,
+          "keywordTrigger": "[Audio pause before 90s rewind]",
+          "keywordTimestamp": 57.666,
+          "narrationSnippet": "[Micro Pause]",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.02,
+            "snap": true,
+            "transition": "smooth"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_classic",
+            "pose": "default",
+            "gaze": {
+              "x": 0.5,
+              "y": -0.2
+            },
+            "isTalking": false,
+            "actionDescription": "Reset for 90s rewind"
+          },
+          "stageAssets": [],
+          "comedicAction": "Instant snap reset for the 90s rewind scene."
+        }
+      ]
+    },
+    {
+      "sceneId": "scene_07_heroinchic",
+      "sceneNumber": 7,
+      "name": "90s Heroin Chic, Food Pyramid & Victorian Disease",
+      "startTime": 57.809,
+      "endTime": 80.457,
+      "duration": 22.648,
+      "cueRange": [
+        21,
+        28
+      ],
+      "transcript": "If we rewind to the 90s and early 2000s, we had an era affectionately dubbed “Heroin Chick.” This was pioneered by models like Kate Moss, and the overarching goal was to look like you sustained yourself entirely on Diet Coke, Parliament cigarettes, and pure, unfiltered apathy. You were supposed to look like you were perpetually recovering from a minor Victorian wasting disease, but in a cool, fashionable way.",
+      "comedyConcept": "The 1990s supermodel diet codified as a 3-tier satirical Food Pyramid, culminating in a Victorian fainting couch and laudanum tonic.",
+      "beats": [
+        {
+          "beatNumber": 1,
+          "beatType": "SETUP",
+          "timeStart": 57.809,
+          "timeEnd": 65.249,
+          "duration": 7.44,
+          "keywordTrigger": "Kate Moss",
+          "keywordTimestamp": 64.8,
+          "narrationSnippet": "If we rewind to the 90s and early 2000s, we had an era affectionately dubbed “Heroin Chick.” This was pioneered by models like Kate Moss,",
+          "camera": {
+            "x": 1150,
+            "y": 540,
+            "zoom": 1.08,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_classic",
+            "pose": "default",
+            "gaze": {
+              "x": 0.6,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host introduces the 90s fashion icon"
+          },
+          "stageAssets": [
+            {
+              "id": "cast_kate_moss",
+              "type": "stick_figure_cast",
+              "x": 1350,
+              "y": 550,
+              "scale": 1.25,
+              "state": "runway_strut",
+              "description": "Kate Moss in minimalist 90s slip dress, pale skin, dark smokey eye shadow, under overhead runway cone spotlight"
+            }
+          ],
+          "comedicAction": "Kate Moss struts onto the runway illuminated by a stark solitary spotlight."
+        },
+        {
+          "beatNumber": 2,
+          "beatType": "ESCALATION",
+          "timeStart": 65.249,
+          "timeEnd": 73.874,
+          "duration": 8.625,
+          "keywordTrigger": "Diet Coke, Parliament cigarettes, and pure, unfiltered apathy",
+          "keywordTimestamp": 69.52,
+          "narrationSnippet": "and the overarching goal was to look like you sustained yourself entirely on Diet Coke, Parliament cigarettes, and pure, unfiltered apathy.",
+          "camera": {
+            "x": 1320,
+            "y": 480,
+            "zoom": 1.22,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_side_glance",
+            "pose": "hands_on_hips",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.3
+            },
+            "isTalking": true,
+            "actionDescription": "Host tracks each ridiculous food group as it slams in"
+          },
+          "stageAssets": [
+            {
+              "id": "pyramid_tier_1_coke",
+              "type": "vector_prop_tier",
+              "x": 1320,
+              "y": 355,
+              "scale": 1.0,
+              "state": "slammed",
+              "description": "Red Diet Coke can slamming into top apex tier with carbonation bubbles (t=69.52s)"
+            },
+            {
+              "id": "pyramid_tier_2_parliaments",
+              "type": "vector_prop_tier",
+              "x": 1320,
+              "y": 450,
+              "scale": 1.0,
+              "state": "slammed",
+              "description": "Two navy Parliament cigarette packs slamming into middle tier with rising smoke wisps (t=70.39s)"
+            },
+            {
+              "id": "pyramid_tier_3_apathy",
+              "type": "vector_prop_tier",
+              "x": 1320,
+              "y": 590,
+              "scale": 1.0,
+              "state": "slammed",
+              "description": "Glowing green foundation banner 'PURE UNFILTERED APATHY' slamming down (t=72.21s)"
+            }
+          ],
+          "comedicAction": "Strict 1-2-3 progressive reveal of the iconic 90s supermodel diet pyramid."
+        },
+        {
+          "beatNumber": 3,
+          "beatType": "CONTRAST",
+          "timeStart": 73.874,
+          "timeEnd": 79.634,
+          "duration": 5.76,
+          "keywordTrigger": "minor Victorian wasting disease",
+          "keywordTimestamp": 77.13,
+          "narrationSnippet": "You were supposed to look like you were perpetually recovering from a minor Victorian wasting disease,",
+          "camera": {
+            "x": 1320,
+            "y": 560,
+            "zoom": 1.2,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "smug_sipping_tea",
+            "pose": "default",
+            "gaze": {
+              "x": 0.7,
+              "y": -0.1
+            },
+            "isTalking": true,
+            "actionDescription": "Host sips English tea in sophisticated solidarity"
+          },
+          "stageAssets": [
+            {
+              "id": "victorian_chaise_lounge",
+              "type": "vector_furniture_prop",
+              "x": 1320,
+              "y": 600,
+              "scale": 1.0,
+              "state": "active",
+              "description": "Velvet burgundy Victorian fainting chaise lounge with ornate brass cabriole legs, lace doily, and vintage amber tonic bottle"
+            }
+          ],
+          "comedicAction": "Victorian fainting couch glides in; Kate Moss character dramatically collapses onto the chaise with back of hand to forehead."
+        },
+        {
+          "beatNumber": 4,
+          "beatType": "PUNCHLINE",
+          "timeStart": 79.634,
+          "timeEnd": 80.457,
+          "duration": 0.823,
+          "keywordTrigger": "in a cool, fashionable way.",
+          "keywordTimestamp": 79.634,
+          "narrationSnippet": "but in a cool, fashionable way.",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.06,
+            "snap": true,
+            "transition": "punch_out"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "smug_rock_eyebrow",
+            "pose": "point_camera",
+            "gaze": {
+              "x": 0.1,
+              "y": 0.0
+            },
+            "isTalking": true,
+            "actionDescription": "Host gives knowing nod to the camera"
+          },
+          "stageAssets": [
+            {
+              "id": "deal_with_it_shades",
+              "type": "animated_vfx",
+              "x": 1320,
+              "y": 500,
+              "scale": 1.0,
+              "state": "snagged",
+              "description": "Pixel sunglasses snap onto fainting Victorian character with a comic 'DEAL WITH IT' chime"
+            }
+          ],
+          "comedicAction": "Fast punchline delivery: a fatal 19th-century disease reframed as haute couture."
+        }
+      ]
+    },
+    {
+      "sceneId": "scene_08_pixarmom",
+      "sceneNumber": 8,
+      "name": "2010s BBL & Pixar Mom Gravitational Field",
+      "startTime": 80.457,
+      "endTime": 108.199,
+      "duration": 27.742,
+      "cueRange": [
+        29,
+        38
+      ],
+      "transcript": "Then, as the 2010s rolled around, the pendulum swung violently in the opposite direction. We entered the era of the BBL, or Brazilian Butt Lift, where the ideal body type shifted to what biologists might classify as “Pixar Mom.” Celebrities were suddenly buying curves, and the internet was flooded with fitness influencers who insisted their new, localized gravitational pull was entirely due to doing a lot of squats, despite the fact that their calves and forearms remained the exact same size.",
+      "comedyConcept": "Extreme cartoon physics: BBL curves expand until creating a localized gravitational field with orbiting iPhones and dumbbells, exposed by a budget 1-way flight to Miami.",
+      "beats": [
+        {
+          "beatNumber": 1,
+          "beatType": "SETUP",
+          "timeStart": 80.457,
+          "timeEnd": 85.42,
+          "duration": 4.963,
+          "keywordTrigger": "pendulum swung violently",
+          "keywordTimestamp": 82.81,
+          "narrationSnippet": "Then, as the 2010s rolled around, the pendulum swung violently in the opposite direction.",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.05,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "confused_double_take",
+            "pose": "shrug",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.6
+            },
+            "isTalking": true,
+            "actionDescription": "Host tracks the pendulum hurtling back across screen"
+          },
+          "stageAssets": [
+            {
+              "id": "pendulum_reverse_swing",
+              "type": "vector_physics_prop",
+              "x": 960,
+              "y": 400,
+              "scale": 1.0,
+              "state": "fast_reversal",
+              "description": "Wrecking ball tears across top frame in opposite direction at Mach 2 with comic red speed lines"
+            }
+          ],
+          "comedicAction": "Sudden whiplash camera and host head-snap as beauty trends reverse at lightspeed."
+        },
+        {
+          "beatNumber": 2,
+          "beatType": "ESCALATION",
+          "timeStart": 85.42,
+          "timeEnd": 94.511,
+          "duration": 9.091,
+          "keywordTrigger": "Pixar Mom",
+          "keywordTimestamp": 93.23,
+          "narrationSnippet": "We entered the era of the BBL, or Brazilian Butt Lift, where the ideal body type shifted to what biologists might classify as “Pixar Mom.”",
+          "camera": {
+            "x": 1320,
+            "y": 520,
+            "zoom": 1.22,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "confused_squint",
+            "pose": "hands_on_hips",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host watches the anatomical inflation in disbelief"
+          },
+          "stageAssets": [
+            {
+              "id": "cast_pixar_mom_inflation",
+              "type": "stick_figure_cast",
+              "x": 1320,
+              "y": 520,
+              "scale": 1.5,
+              "state": "fully_inflated",
+              "description": "Pixar Mom stick figure character reaches astronomical proportions (1.5x scale) with golden ratio HUD measurement calipers"
+            }
+          ],
+          "comedicAction": "Snap punch-in on 'Pixar Mom' utterance at 93.23s with golden ratio measurement caliper grid."
+        },
+        {
+          "beatNumber": 3,
+          "beatType": "CONTRAST",
+          "timeStart": 94.511,
+          "timeEnd": 104.111,
+          "duration": 9.6,
+          "keywordTrigger": "localized gravitational pull",
+          "keywordTimestamp": 100.75,
+          "narrationSnippet": "Celebrities were suddenly buying curves, and the internet was flooded with fitness influencers who insisted their new, localized gravitational pull was entirely due to doing a lot of squats,",
+          "camera": {
+            "x": 1320,
+            "y": 500,
+            "zoom": 1.28,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "mind_blown_galaxy_brain",
+            "pose": "mind_blown",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host brain explodes at the astronomical physics distortion"
+          },
+          "stageAssets": [
+            {
+              "id": "gravitational_orbit_system",
+              "type": "animated_orbit_system",
+              "x": 1320,
+              "y": 520,
+              "scale": 1.0,
+              "state": "orbiting",
+              "description": "Gravitational spacetime warp ellipses with trapped orbiting objects: iPhone 14 Pro, 2kg pink dumbbell, protein shaker cup + neon sign '100% SQUATS (WE PROMISE)'"
+            }
+          ],
+          "comedicAction": "Objects literally orbit the influencer's hips with physics trails while galaxy brain sparks radiate from Host."
+        },
+        {
+          "beatNumber": 4,
+          "beatType": "PUNCHLINE",
+          "timeStart": 104.111,
+          "timeEnd": 107.631,
+          "duration": 3.52,
+          "keywordTrigger": "calves and forearms remained the exact same size",
+          "keywordTimestamp": 105.46,
+          "narrationSnippet": ", despite the fact that their calves and forearms remained the exact same size.",
+          "camera": {
+            "x": 1380,
+            "y": 480,
+            "zoom": 1.18,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "smug_rock_eyebrow",
+            "pose": "point_camera",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.3
+            },
+            "isTalking": true,
+            "actionDescription": "Host points out the glaring anatomical impossibility"
+          },
+          "stageAssets": [
+            {
+              "id": "miami_clinic_billboard",
+              "type": "vector_billboard_prop",
+              "x": 1450,
+              "y": 400,
+              "scale": 1.0,
+              "state": "active",
+              "description": "Billboard: 'MIAMI CLINIC: 1-WAY FLIGHT $299 (Definitely Not Squats)' + swaying palm trees + cartoon jet taking off with contrail"
+            }
+          ],
+          "comedicAction": "Snap cut reveals the commercial truth: a budget flight to south Florida."
+        },
+        {
+          "beatNumber": 5,
+          "beatType": "REACTION",
+          "timeStart": 107.631,
+          "timeEnd": 108.199,
+          "duration": 0.568,
+          "keywordTrigger": "[Audio pause before Cue 39]",
+          "keywordTimestamp": 107.631,
+          "narrationSnippet": "[Comedic Pause]",
+          "camera": {
+            "x": 520,
+            "y": 680,
+            "zoom": 1.15,
+            "snap": true,
+            "transition": "punch_out"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "smug_rock_eyebrow",
+            "pose": "hands_on_hips",
+            "gaze": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "isTalking": false,
+            "actionDescription": "Host deadpan smirk into camera"
+          },
+          "stageAssets": [],
+          "comedicAction": "Smug deadpan hold before introducing the hourglass paradox."
+        }
+      ]
+    },
+    {
+      "sceneId": "scene_09_hourglass_pr",
+      "sceneNumber": 9,
+      "name": "Overfilled Hourglass & Corporate PR Body Positivity",
+      "startTime": 108.199,
+      "endTime": 129.384,
+      "duration": 21.185,
+      "cueRange": [
+        39,
+        45
+      ],
+      "transcript": "For about ten years, the ultimate flex was looking like an hourglass that had been overfilled at the bottom. During this exact same time, society also pushed heavily for “body positivity.” We were told by countless brands and PR agencies that all bodies are beautiful, that you don’t have to be a size zero to be a leading lady, and that Hollywood was finally progressing past its shallow, aesthetic-obsessed roots.",
+      "comedyConcept": "Satirizes the tension between extreme body modification and corporate 'body positivity' marketing campaigns as structural scaffolding on a cracking glass hourglass.",
+      "beats": [
+        {
+          "beatNumber": 1,
+          "beatType": "SETUP",
+          "timeStart": 108.199,
+          "timeEnd": 113.398,
+          "duration": 5.199,
+          "keywordTrigger": "overfilled at the bottom",
+          "keywordTimestamp": 112.02,
+          "narrationSnippet": "For about ten years, the ultimate flex was looking like an hourglass that had been overfilled at the bottom.",
+          "camera": {
+            "x": 1320,
+            "y": 500,
+            "zoom": 1.15,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "confused_tilted_head",
+            "pose": "shrug",
+            "gaze": {
+              "x": 0.7,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host introduces the impossible hourglass geometry"
+          },
+          "stageAssets": [
+            {
+              "id": "overfilled_hourglass_prop",
+              "type": "vector_physics_prop",
+              "x": 1320,
+              "y": 500,
+              "scale": 1.0,
+              "state": "cracking",
+              "description": "Brass Victorian hourglass: empty top bulb, bottom bulb bulged out 5x width with overflowing gold sand and animated stress fracture cracks"
+            }
+          ],
+          "comedicAction": "Hourglass creaks under massive structural strain as bottom bulb bulges outwards."
+        },
+        {
+          "beatNumber": 2,
+          "beatType": "ESCALATION",
+          "timeStart": 113.398,
+          "timeEnd": 120.598,
+          "duration": 7.2,
+          "keywordTrigger": "brands and PR agencies",
+          "keywordTimestamp": 119.87,
+          "narrationSnippet": "During this exact same time, society also pushed heavily for “body positivity.” We were told by countless brands and PR agencies",
+          "camera": {
+            "x": 1320,
+            "y": 500,
+            "zoom": 1.18,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "skeptical_side_eye",
+            "pose": "hands_on_hips",
+            "gaze": {
+              "x": 0.7,
+              "y": -0.3
+            },
+            "isTalking": true,
+            "actionDescription": "Host watches the clumsy corporate whitewash"
+          },
+          "stageAssets": [
+            {
+              "id": "pr_scaffolding_banner",
+              "type": "vector_construction_prop",
+              "x": 1320,
+              "y": 500,
+              "scale": 1.0,
+              "state": "clamped",
+              "description": "Rickety wooden scaffolding clamped onto hourglass labeled 'STRUCTURAL INTEGRITY: 12%' + pastel pink PR banner 'EVERY BODY IS BEAUTIFUL!*'"
+            }
+          ],
+          "comedicAction": "Corporate brands frantically bandage the breaking aesthetic trend with marketing tape and smiling emojis."
+        },
+        {
+          "beatNumber": 3,
+          "beatType": "CONTRAST",
+          "timeStart": 120.598,
+          "timeEnd": 126.038,
+          "duration": 5.44,
+          "keywordTrigger": "size zero to be a leading lady",
+          "keywordTimestamp": 123.4,
+          "narrationSnippet": "that all bodies are beautiful, that you don’t have to be a size zero to be a leading lady,",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.08,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_side_glance",
+            "pose": "point_camera",
+            "gaze": {
+              "x": 0.5,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host delivers the sanitized PR lines with complete skepticism"
+          },
+          "stageAssets": [
+            {
+              "id": "leading_lady_asterisk",
+              "type": "vector_billboard_prop",
+              "x": 1320,
+              "y": 480,
+              "scale": 1.0,
+              "state": "active",
+              "description": "Movie star gown mannequin holding Oscar trophy with giant asterisk '*' -> Footnote: '*Offer valid only until Q4 pharmaceutical rollout'"
+            }
+          ],
+          "comedicAction": "Host points at the asterisk on the billboard as the PR illusion begins to crack."
+        },
+        {
+          "beatNumber": 4,
+          "beatType": "PUNCHLINE",
+          "timeStart": 126.038,
+          "timeEnd": 128.838,
+          "duration": 2.8,
+          "keywordTrigger": "progressing past its shallow, aesthetic-obsessed roots",
+          "keywordTimestamp": 126.04,
+          "narrationSnippet": "and that Hollywood was finally progressing past its shallow, aesthetic-obsessed roots.",
+          "camera": {
+            "x": 1320,
+            "y": 500,
+            "zoom": 1.25,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "cringe_teeth_grit",
+            "pose": "facepalm",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.1
+            },
+            "isTalking": true,
+            "actionDescription": "Host grinds teeth in painful recognition of corporate hypocrisy"
+          },
+          "stageAssets": [
+            {
+              "id": "pr_sticker_peel_revenue",
+              "type": "animated_prop_peel",
+              "x": 1320,
+              "y": 500,
+              "scale": 1.0,
+              "state": "peeling",
+              "description": "Pink PR sticker violently peels back revealing glowing green cash register: 'BIG PHARMA REVENUE: $$$$$$$$' and 'SHORTCUT INVENTED IN 0.001s'"
+            }
+          ],
+          "comedicAction": "Punch-in snap zoom as the moralizing PR sticker peels off to reveal raw pharmaceutical profits."
+        },
+        {
+          "beatNumber": 5,
+          "beatType": "REACTION",
+          "timeStart": 128.838,
+          "timeEnd": 129.384,
+          "duration": 0.546,
+          "keywordTrigger": "[Audio pause before Scene 10]",
+          "keywordTimestamp": 128.838,
+          "narrationSnippet": "[Comedic Pause]",
+          "camera": {
+            "x": 520,
+            "y": 680,
+            "zoom": 1.15,
+            "snap": true,
+            "transition": "punch_out"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "cringe_full",
+            "pose": "facepalm",
+            "gaze": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "isTalking": false,
+            "actionDescription": "Host rubs temples in second-hand embarrassment"
+          },
+          "stageAssets": [],
+          "comedicAction": "Host groans at the inevitable rug-pull."
+        }
+      ]
+    },
+    {
+      "sceneId": "scene_10_boss_closes_tab",
+      "sceneNumber": 10,
+      "name": "Fidget Spinner, Podcast & Boss Closes Tab",
+      "startTime": 129.384,
+      "endTime": 150.857,
+      "duration": 21.473,
+      "cueRange": [
+        46,
+        52
+      ],
+      "transcript": "Well, it turns out, body positivity was less of a permanent cultural shift and more of a temporary trend—kind of like fidget spinners, or pretending to care about your friend’s podcast. As soon as a pharmaceutical shortcut dropped that allowed rich people to just opt out of their natural body weight, the industry abandoned the “every body is beautiful” narrative with the swiftness of someone closing a browser tab when their boss walks by.",
+      "comedyConcept": "The sudden abandonment of body positivity compared to closing a meme tab when your boss walks by, climaxing with a colossal red Ctrl+W key slamming down like an anvil.",
+      "beats": [
+        {
+          "beatNumber": 1,
+          "beatType": "SETUP",
+          "timeStart": 129.384,
+          "timeEnd": 135.384,
+          "duration": 6.0,
+          "keywordTrigger": "fidget spinners",
+          "keywordTimestamp": 134.85,
+          "narrationSnippet": "Well, it turns out, body positivity was less of a permanent cultural shift and more of a temporary trend—kind of like fidget spinners,",
+          "camera": {
+            "x": 1380,
+            "y": 460,
+            "zoom": 1.18,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_classic",
+            "pose": "default",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.3
+            },
+            "isTalking": true,
+            "actionDescription": "Host watches the neon fidget spinner spin out of control"
+          },
+          "stageAssets": [
+            {
+              "id": "fidget_spinner_prop",
+              "type": "animated_kinetic_prop",
+              "x": 1380,
+              "y": 440,
+              "scale": 1.0,
+              "state": "spinning_fast",
+              "description": "Tri-blade neon fidget spinner (cyan, amber, pink) rotating at 3,600 RPM with rainbow motion trails and label '3600 RPM SPEEDRUN'"
+            }
+          ],
+          "comedicAction": "Fidget spinner spins with jet engine turbine sound FX."
+        },
+        {
+          "beatNumber": 2,
+          "beatType": "ESCALATION",
+          "timeStart": 135.384,
+          "timeEnd": 138.188,
+          "duration": 2.804,
+          "keywordTrigger": "friend’s podcast",
+          "keywordTimestamp": 136.94,
+          "narrationSnippet": ", or pretending to care about your friend’s podcast.",
+          "camera": {
+            "x": 1380,
+            "y": 500,
+            "zoom": 1.22,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_side_glance",
+            "pose": "crossed_arms",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host glances at the pathetic podcast setup"
+          },
+          "stageAssets": [
+            {
+              "id": "podcast_mic_zero_listeners",
+              "type": "vector_prop_set",
+              "x": 1380,
+              "y": 500,
+              "scale": 1.0,
+              "state": "active",
+              "description": "Studio Shure microphone on boom arm + red neon box 'ON AIR: EPISODE 89 (0 LIVE LISTENERS)' with flatlined zero decibel audio waveform"
+            }
+          ],
+          "comedicAction": "Studio mic drops in with complete silence and zero audience engagement."
+        },
+        {
+          "beatNumber": 3,
+          "beatType": "CONTRAST",
+          "timeStart": 138.188,
+          "timeEnd": 146.5,
+          "duration": 8.312,
+          "keywordTrigger": "pharmaceutical shortcut dropped... abandoned the narrative",
+          "keywordTimestamp": 139.28,
+          "narrationSnippet": "As soon as a pharmaceutical shortcut dropped that allowed rich people to just opt out of their natural body weight, the industry abandoned the “every body is beautiful” narrative",
+          "camera": {
+            "x": 1150,
+            "y": 520,
+            "zoom": 1.15,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "fear_sweat_freeze",
+            "pose": "facepalm",
+            "gaze": {
+              "x": 0.7,
+              "y": -0.5
+            },
+            "isTalking": true,
+            "actionDescription": "Host freezes in pure terror as colossal boss shadow approaches"
+          },
+          "stageAssets": [
+            {
+              "id": "cast_boss_shadow",
+              "type": "animated_silhouette_cast",
+              "x": 1380,
+              "y": 220,
+              "scale": 1.0,
+              "state": "looming",
+              "description": "14-foot menacing black silhouette of corporate Boss looming with glowing yellow eyes, '#1 BOSS' coffee mug steaming, heavy footstep floor vibration"
+            }
+          ],
+          "comedicAction": "Suspense builds as the terrifying corporate boss shadow walks up behind the worker's desk."
+        },
+        {
+          "beatNumber": 4,
+          "beatType": "PUNCHLINE",
+          "timeStart": 146.5,
+          "timeEnd": 150.268,
+          "duration": 3.768,
+          "keywordTrigger": "closing a browser tab when their boss walks by",
+          "keywordTimestamp": 147.85,
+          "narrationSnippet": "with the swiftness of someone closing a browser tab when their boss walks by.",
+          "camera": {
+            "x": 1320,
+            "y": 500,
+            "zoom": 1.3,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "shock_home_alone",
+            "pose": "mind_blown",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host screams in terror as the key slams down"
+          },
+          "stageAssets": [
+            {
+              "id": "browser_tab_meme",
+              "type": "vector_ui_window",
+              "x": 1320,
+              "y": 260,
+              "scale": 1.0,
+              "state": "open",
+              "description": "Browser window: reddit.com/r/memes with red close X button"
+            },
+            {
+              "id": "ctrl_w_emergency_slam",
+              "type": "animated_tool_slam",
+              "x": 1320,
+              "y": 540,
+              "scale": 1.0,
+              "state": "slammed",
+              "description": "Colossal red 3D 'Ctrl + W' keyboard keycap slamming down like a hydraulic press with dust explosion and screen flash"
+            }
+          ],
+          "comedicAction": "Massive red keyboard key slams with hydraulic anvil force, deleting the tab in 0.02s flat."
+        },
+        {
+          "beatNumber": 5,
+          "beatType": "REACTION",
+          "timeStart": 150.268,
+          "timeEnd": 150.857,
+          "duration": 0.589,
+          "keywordTrigger": "[Audio pause before Scene 11]",
+          "keywordTimestamp": 150.268,
+          "narrationSnippet": "[Comedic Pause]",
+          "camera": {
+            "x": 520,
+            "y": 680,
+            "zoom": 1.15,
+            "snap": true,
+            "transition": "punch_out"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "exhausted_melting",
+            "pose": "facepalm",
+            "gaze": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "isTalking": false,
+            "actionDescription": "Host wipes forehead in relief after surviving the boss encounter"
+          },
+          "stageAssets": [],
+          "comedicAction": "Host exhales a gigantic comic sigh of relief before the Y2K fashion onslaught begins."
+        }
+      ]
+    },
+    {
+      "sceneId": "scene_11_y2k_fashion",
+      "sceneNumber": 11,
+      "name": "Y2K Organ-Hostile Fashion & Miu Miu Micro-Belt",
+      "startTime": 150.857,
+      "endTime": 183.851,
+      "duration": 32.994,
+      "cueRange": [
+        53,
+        63
+      ],
+      "transcript": "Because right alongside the medical advancements, the fashion industry decided it was time to bring back Y2K fashion. And for those of you who don’t know, Y2K fashion is incredibly hostile to anyone who possesses internal organs. We are talking about low-rise jeans that sit below the pelvic bone, baby tees that offer the coverage of a moderately sized napkin, and the infamous Miu Miu micro-skirt, which is essentially just a belt that costs two thousand dollars. You physically cannot participate in this trend if you have a functioning digestive tract that occasionally needs to process solid food.",
+      "comedyConcept": "Y2K fashion's extreme impracticality portrayed as internal organs packing suitcases and being evicted, followed by the Miu Miu micro-skirt shrinking to a 1-inch leather belt with a $2,400 price tag.",
+      "beats": [
+        {
+          "beatNumber": 1,
+          "beatType": "SETUP",
+          "timeStart": 150.857,
+          "timeEnd": 157.1,
+          "duration": 6.243,
+          "keywordTrigger": "bring back Y2K fashion",
+          "keywordTimestamp": 155.91,
+          "narrationSnippet": "Because right alongside the medical advancements, the fashion industry decided it was time to bring back Y2K fashion.",
+          "camera": {
+            "x": 1150,
+            "y": 520,
+            "zoom": 1.08,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "smug_glasses_push",
+            "pose": "hands_on_hips",
+            "gaze": {
+              "x": 0.6,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host adjusts futuristic silver Y2K sunglasses"
+          },
+          "stageAssets": [
+            {
+              "id": "y2k_cyber_backdrop",
+              "type": "vector_hologram_backdrop",
+              "x": 1380,
+              "y": 520,
+              "scale": 1.0,
+              "state": "active",
+              "description": "Cyber-metallic gradient backdrop with holographic Y2K starbursts, floating wireframe denim blueprint, typography 'YEAR 2000 ARCHIVES // RESTORED'"
+            }
+          ],
+          "comedicAction": "Host dons chrome sunglasses as the retro cyber-futurist world materializes."
+        },
+        {
+          "beatNumber": 2,
+          "beatType": "ESCALATION",
+          "timeStart": 157.1,
+          "timeEnd": 163.683,
+          "duration": 6.583,
+          "keywordTrigger": "hostile to anyone who possesses internal organs",
+          "keywordTimestamp": 160.3,
+          "narrationSnippet": "And for those of you who don’t know, Y2K fashion is incredibly hostile to anyone who possesses internal organs.",
+          "camera": {
+            "x": 1380,
+            "y": 540,
+            "zoom": 1.22,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "disgust_shudder",
+            "pose": "shrug",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.1
+            },
+            "isTalking": true,
+            "actionDescription": "Host shudders in visceral disgust as organs pack their bags"
+          },
+          "stageAssets": [
+            {
+              "id": "cast_evicted_organs",
+              "type": "stick_figure_cast",
+              "x": 1380,
+              "y": 620,
+              "scale": 1.0,
+              "state": "walking_away",
+              "description": "Cute cartoon Liver with bowler hat & brown suitcase and crying Stomach with handkerchief walking out on stick legs + red 'EVICTION NOTICE' stamp"
+            }
+          ],
+          "comedicAction": "Internal organs are literally evicted from the human body to fit into 2000s low-rise denim."
+        },
+        {
+          "beatNumber": 3,
+          "beatType": "CONTRAST",
+          "timeStart": 163.683,
+          "timeEnd": 170.243,
+          "duration": 6.56,
+          "keywordTrigger": "low-rise jeans... baby tees... moderately sized napkin",
+          "keywordTimestamp": 164.88,
+          "narrationSnippet": "We are talking about low-rise jeans that sit below the pelvic bone, baby tees that offer the coverage of a moderately sized napkin,",
+          "camera": {
+            "x": 1380,
+            "y": 540,
+            "zoom": 1.2,
+            "snap": true,
+            "transition": "instant_snap"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "confused_squint",
+            "pose": "hands_on_hips",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.2
+            },
+            "isTalking": true,
+            "actionDescription": "Host points out the zero coverage fashion items"
+          },
+          "stageAssets": [
+            {
+              "id": "mannequin_low_rise_napkin",
+              "type": "vector_mannequin_prop",
+              "x": 1380,
+              "y": 620,
+              "scale": 1.0,
+              "state": "napkin_tee",
+              "description": "Mannequin with jeans sitting 6 inches below pelvic line (red hazard dotted line) and baby tee shrunk to a 3x3 inch paper dinner napkin"
+            }
+          ],
+          "comedicAction": "Clothing shrinks in real time to microscopic napkin dimensions."
+        },
+        {
+          "beatNumber": 4,
+          "beatType": "PUNCHLINE",
+          "timeStart": 170.243,
+          "timeEnd": 176.771,
+          "duration": 6.528,
+          "keywordTrigger": "just a belt that costs two thousand dollars",
+          "keywordTimestamp": 174.42,
+          "narrationSnippet": "and the infamous Miu Miu micro-skirt, which is essentially just a belt that costs two thousand dollars.",
+          "camera": {
+            "x": 1380,
+            "y": 500,
+            "zoom": 1.35,
+            "snap": true,
+            "transition": "punch_in"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "shock_eye_pop",
+            "pose": "mind_blown",
+            "gaze": {
+              "x": 0.8,
+              "y": -0.1
+            },
+            "isTalking": true,
+            "actionDescription": "Host eye-pop shock as the $2,400 price tag drops"
+          },
+          "stageAssets": [
+            {
+              "id": "miu_miu_micro_belt",
+              "type": "vector_mannequin_prop",
+              "x": 1380,
+              "y": 620,
+              "scale": 1.0,
+              "state": "one_inch_belt",
+              "description": "Skirt collapses into a 1-inch brown leather belt with gold buckle"
+            },
+            {
+              "id": "designer_price_tag",
+              "type": "animated_physics_tag",
+              "x": 1435,
+              "y": 600,
+              "scale": 1.0,
+              "state": "dangling_swing",
+              "description": "Massive gold foil designer price tag drops swinging on string: 'MIU MIU MICRO-BELT: $2,400.00 (ORGANS SOLD SEPARATELY)'"
+            }
+          ],
+          "comedicAction": "Punch-in snap zoom on the 1-inch leather strap with dangling $2,400 price tag."
+        },
+        {
+          "beatNumber": 5,
+          "beatType": "REACTION",
+          "timeStart": 176.771,
+          "timeEnd": 183.851,
+          "duration": 7.08,
+          "keywordTrigger": "process solid food",
+          "keywordTimestamp": 182.851,
+          "narrationSnippet": "You physically cannot participate in this trend if you have a functioning digestive tract that occasionally needs to process solid food.",
+          "camera": {
+            "x": 960,
+            "y": 540,
+            "zoom": 1.05,
+            "snap": true,
+            "transition": "punch_out"
+          },
+          "host": {
+            "x": 520,
+            "y": 680,
+            "scale": 1.15,
+            "expression": "deadpan_soul_stare",
+            "pose": "crossed_arms",
+            "gaze": {
+              "x": 0.0,
+              "y": 0.0
+            },
+            "isTalking": true,
+            "actionDescription": "Host gives classic 1000-yard Casually Explained soul stare directly into camera"
+          },
+          "stageAssets": [
+            {
+              "id": "error_404_digestion_warning",
+              "type": "vector_hud_element",
+              "x": 1380,
+              "y": 480,
+              "scale": 1.0,
+              "state": "active",
+              "description": "Warning sign: '[ERROR 404: DIGESTIVE SYSTEM INCOMPATIBLE WITH CURRENT FASHION META]' + lone saltine cracker floating in water"
+            }
+          ],
+          "comedicAction": "Resolves to wide 2-shot reaction. Host gives the ultimate deadpan stare to wrap up Chapter 1."
+        }
+      ]
+    }
+  ]
+}

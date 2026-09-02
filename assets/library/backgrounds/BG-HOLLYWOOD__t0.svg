@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.14"/></filter>
+    <filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity="0.3"/></filter>
+  </defs>
+
+        <rect x="-4000" y="-4000" width="10000" height="10000" fill="#0f172a"/>
+        <!-- Night Sky & Distant Hollywood Hills -->
+        <path d="M -1000 480 Q 400 320 1000 440 T 2600 360 L 2600 740 L -1000 740 Z" fill="#1e293b"/>
+        <!-- Distant Palm Trees Silhouettes -->
+        <g opacity="0.5">
+          <path d="M 220 740 L 225 450 Q 180 410 140 430 M 225 450 Q 220 390 225 380 M 225 450 Q 270 400 310 420" stroke="#090d16" stroke-width="6" fill="none"/>
+          <path d="M 1720 740 L 1715 440 Q 1670 400 1630 420 M 1715 440 Q 1720 380 1715 370 M 1715 440 Q 1760 390 1800 410" stroke="#090d16" stroke-width="6" fill="none"/>
+        </g>
+        <!-- Hollywood Step-and-Repeat Media Sponsor Wall -->
+        <rect x="250" y="320" width="1420" height="420" fill="#18181b" stroke="#27272a" stroke-width="6"/>
+        <g fill="#71717a" font-family="'Impact', sans-serif" font-size="22" letter-spacing="4" text-anchor="middle" opacity="0.4">
+          <text x="500" y="400">HOLLYWOOD</text>
+          <text x="960" y="400">AWARDS 2026</text>
+          <text x="1420" y="400">HOLLYWOOD</text>
+          <text x="730" y="520">GLOBAL PREMIERE</text>
+          <text x="1190" y="520">CELEBRITY GALA</text>
+          <text x="500" y="640">MET GALA</text>
+          <text x="960" y="640">RED CARPET</text>
+          <text x="1420" y="640">MET GALA</text>
+        </g>
+        <!-- Ground Plane -->
+        <rect x="-4000" y="740" width="10000" height="4000" fill="#09090b"/>
+        <line x1="-4000" y1="740" x2="6000" y2="740" stroke="#27272a" stroke-width="4"/>
+        <!-- Red Carpet Runway (Perspective) -->
+        <polygon points="300,1080 820,680 1100,680 1620,1080" fill="#dc2626"/>
+        <line x1="300" y1="1080" x2="820" y2="680" stroke="#991b1b" stroke-width="6"/>
+        <line x1="1620" y1="1080" x2="1100" y2="680" stroke="#991b1b" stroke-width="6"/>
+        <!-- Golden Brass Stanchions & Velvet Ropes -->
+        <line x1="260" y1="720" x2="520" y2="690" stroke="#991b1b" stroke-width="8"/>
+        <line x1="1660" y1="690" x2="1400" y2="720" stroke="#991b1b" stroke-width="8"/>
+        <circle cx="260" cy="620" r="16" fill="#facc15" stroke="#ca8a04" stroke-width="4"/>
+        <line x1="260" y1="620" x2="260" y2="820" stroke="#facc15" stroke-width="8"/>
+        <circle cx="1660" cy="620" r="16" fill="#facc15" stroke="#ca8a04" stroke-width="4"/>
+        <line x1="1660" y1="620" x2="1660" y2="820" stroke="#facc15" stroke-width="8"/>
+        <!-- Paparazzi Camera Flash Strobe Starbursts -->
+        
+        
+          <circle cx="1740" cy="560" r="80" fill="#ffffff" opacity="0.85" filter="url(#glow)"/>
+          <line x1="1740" y1="460" x2="1740" y2="660" stroke="#ffffff" stroke-width="6"/>
+          <line x1="1640" y1="560" x2="1840" y2="560" stroke="#ffffff" stroke-width="6"/>
+        
+      
+</svg>

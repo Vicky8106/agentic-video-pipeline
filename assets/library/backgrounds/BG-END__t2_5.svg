@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.14"/></filter>
+    <filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity="0.3"/></filter>
+  </defs>
+
+        <rect x="-4000" y="-4000" width="10000" height="10000" fill="#0f172a"/>
+        <rect x="-4000" y="760" width="10000" height="4000" fill="#020617"/>
+        <line x1="-4000" y1="760" x2="6000" y2="760" stroke="#334155" stroke-width="6"/>
+        <!-- Video Card Frame Left -->
+        <g transform="translate(560, 420)">
+          <rect x="-240" y="-140" width="480" height="280" rx="16" fill="#1e293b" stroke="#3b82f6" stroke-width="6"/>
+          <text x="0" y="10" font-family="'Impact', sans-serif" font-size="28" fill="#ffffff" text-anchor="middle">PREVIOUS VIDEO</text>
+        </g>
+        <!-- Subscribe Card Frame Right -->
+        <g transform="translate(1360, 420)">
+          <rect x="-240" y="-140" width="480" height="280" rx="16" fill="#1e293b" stroke="#ef4444" stroke-width="6"/>
+          <circle cx="0" cy="-20" r="45" fill="#dc2626"/>
+          <polygon points="-12,-35 18,-20 -12,-5" fill="#ffffff"/>
+          <text x="0" y="60" font-family="'Impact', sans-serif" font-size="26" fill="#ffffff" text-anchor="middle">SUBSCRIBE</text>
+        </g>
+      
+</svg>

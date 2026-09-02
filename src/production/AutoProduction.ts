@@ -13,6 +13,8 @@ import { parseSrt } from "../subtitles/SrtParser.js";
 import { cameraAt, traumaAt, shakeAt, flashAt } from "../camera/CameraTrack.js";
 import { STYLE_REGISTRY, resolveStyle } from "../styles/index.js";
 import { buildStageObjects, stageAtTime, type StageObject, type StageObjectState } from "./SceneMemory.js";
+import { renderSitcomLayer } from "./SitcomCast.js";
+import { pickPunchWord, impactWordState, renderImpactWord } from "./ImpactTypography.js";
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
 const smooth = t => t * t * (3 - 2 * t);
@@ -184,7 +186,9 @@ export function createAutoProduction(srtText, styleId = "casually-procedural") {
     const cues = parseSrt(srtText);
     const transcript = buildTranscript(cues);
     const style = resolveStyle(STYLE_REGISTRY, styleId);
-    const plan = direct(transcript, { minShot: .48, maxShot: style.edit.maximumShotSec, punchlineHold: style.edit.punchlineHoldSec, maxSentencesPerScene: 3 });
+    // Sitcom doctrine: every sentence is its own scene (its own joke unit with
+    // setup -> punchline inside it). ~89-100 scenes for a 10-minute script.
+    const plan = direct(transcript, { minShot: .48, maxShot: style.edit.maximumShotSec, punchlineHold: style.edit.punchlineHoldSec, maxSentencesPerScene: 1 });
     const productionPlan = compileProductionPlan(transcript, plan, style.id);
     // Persistent stage: concepts accumulate, persist, and retire over time.
     const stageObjects = buildStageObjects(productionPlan.beats.map(b => ({
@@ -243,17 +247,34 @@ export function renderAutoSvgFrame({ production, timeSec, width = 1920, height =
     const env = style.renderEnvironment(timeSec, { beatRole: beat?.role, energy: beat?.energy ?? .3, shotKind: shot?.kind });
     const stage = renderPersistentVisuals(transcript, production, timeSec, style);
     const host = style.renderActor({ actorId: "auto-host", state: hostState, timeSec });
+    // Sitcom layer: co-star (female/male cast) sharing the stage with the host.
+    // Two-shot blocking; reactions timed to the punch moment.
+    const punchAction = active.find(a => a.type === "camera" && (a.payload?.move === "punch" || a.payload?.move === "impact"));
+    const punchAt = punchAction ? punchAction.start : (beat && (beat.role === "punchline") ? beat.start + (beat.end - beat.start) * 0.55 : null);
+    const sitcom = beat ? renderSitcomLayer(timeSec, beat, punchAt, style.renderActor) : "";
+    // Impact typography: the punch word SLAMS in exactly as spoken.
+    const beatText = beat?.visual?.semantic ?? "";
+    const impactSvg = (() => {
+      if (!beat || (beat.role !== "punchline" && beat.role !== "escalation" && !punchAction)) return "";
+      const pw = pickPunchWord(beatText);
+      if (!pw) return "";
+      const st = impactWordState(pw.word, timeSec, punchAt ?? beat.start + 0.3, beat.energy ?? .5);
+      return renderImpactWord(st);
+    })();
     // No burned-in subtitles: the user asked for a clean video. The caption
     // layer was also the source of the legs/shadow-through-box compositing
     // glitch, so removing it fixes that at the root.
     const flashLayer = flash > 0 ? `<rect x="0" y="0" width="1920" height="1080" fill="${style.palette.foreground}" opacity="${flash * .45}"/>` : "";
     const traumaLayer = trauma > .03 ? `<rect x="0" y="0" width="1920" height="1080" fill="${style.palette.shadow}" opacity="${trauma * .035}"/>` : "";
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="${width}" height="${height}">
+    <defs><filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity="0.3"/></filter></defs>
     <g transform="${worldTransform}">
       ${env}
       ${stage}
+      ${sitcom}
       <g>${host}</g>
     </g>
+    ${impactSvg}
     ${flashLayer}${traumaLayer}
   </svg>`;
     return { svg, viewBox: "0 0 1920 1080", shotId: shot.id, mode: beat?.visual?.topic ?? "explain", beatId: beat?.id ?? null };

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 540" width="480" height="540">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.14"/></filter>
+    <filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity="0.3"/></filter>
+  </defs>
+<g id="PROP-TEARS" transform="translate(240, 270) rotate(0) scale(0.85)">
+        <path d="M -25 -10 Q -60 40 -40 120 Q -70 180 -50 240 L -25 240 Z" fill="#38bdf8" opacity="0.85"/>
+        <path d="M 25 -10 Q 60 40 40 120 Q 70 180 50 240 L 25 240 Z" fill="#38bdf8" opacity="0.85"/>
+      </g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 540" width="480" height="540">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.14"/></filter>
+    <filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity="0.3"/></filter>
+  </defs>
+<g id="PROP-FOOD" transform="translate(240, 270) rotate(0) scale(0.85)">
+        <!-- Bread Loaf with Big Red Cancel X -->
+        <ellipse cx="0" cy="0" rx="90" ry="50" fill="#d97706" stroke="#92400e" stroke-width="6" filter="url(#cardShadow)"/>
+        <path d="M -50 -15 Q -40 15 -30 -15 M -10 -20 Q 0 20 10 -20 M 30 -15 Q 40 15 50 -15" stroke="#78350f" stroke-width="5" stroke-linecap="round"/>
+        <!-- Giant Red Cancel Slash -->
+        <circle cx="0" cy="0" r="75" fill="none" stroke="#dc2626" stroke-width="12"/>
+        <line x1="-55" y1="-55" x2="55" y2="55" stroke="#dc2626" stroke-width="12"/>
+        <text x="0" y="75" font-family="'Impact', sans-serif" font-size="18" fill="#dc2626" text-anchor="middle">0 CARBS ALLOWED</text>
+      </g>
+</svg>

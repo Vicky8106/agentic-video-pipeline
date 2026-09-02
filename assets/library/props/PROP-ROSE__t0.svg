@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 540" width="480" height="540">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.14"/></filter>
+    <filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity="0.3"/></filter>
+  </defs>
+<g id="PROP-ROSE" transform="translate(240, 270) rotate(0) scale(0.85)">
+        <path d="M 0 60 Q 25 10 0 -40" fill="none" stroke="#15803d" stroke-width="6"/>
+        <g transform="translate(0, -40)">
+          <circle cx="0" cy="0" r="22" fill="#881337" stroke="#4c0519" stroke-width="4"/>
+          <path d="M -10 -8 Q 0 -20 10 -8 Q 15 5 0 12 Q -15 5 -10 -8 Z" fill="#9f1239"/>
+        </g>
+        <!-- Falling Petal -->
+        <ellipse cx="25" cy="30" rx="8" ry="12" fill="#9f1239" transform="rotate(25)"/>
+      </g>
+</svg>

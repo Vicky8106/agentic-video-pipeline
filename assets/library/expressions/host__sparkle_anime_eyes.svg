@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.14"/></filter>
+    <filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity="0.3"/></filter>
+  </defs>
+
+  <rect x="8" y="8" width="464" height="464" rx="18" fill="#ffffff" stroke="#e2e8f0" stroke-width="4" filter="url(#cardShadow)"/>
+  <g transform="translate(240 300)">
+    <g id="asset-host-sparkle_anime_eyes" class="stick-figure" data-gender="male" data-expression="sparkle_anime_eyes" data-pose="default" transform="translate(0, 3.0015999256791646) rotate(0) scale(0.95)" opacity="1">
+      <!-- Floor Drop Shadow -->
+      <ellipse cx="0" cy="215.1010907860176" rx="65" ry="14" fill="#111111" opacity="0.16"/>
+
+      <!-- Legs (Back to Front) -->
+      <g id="legs" stroke="#111111" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <line x1="0" y1="55" x2="-39.905082836800695" y2="130.0505453930088"/>
+        <line x1="-39.905082836800695" y1="130.0505453930088" x2="-79.81016567360139" y2="205.1010907860176"/>
+
+        <line x1="0" y1="55" x2="39.90508283680072" y2="130.0505453930088"/>
+        <line x1="39.90508283680072" y1="130.0505453930088" x2="79.81016567360145" y2="205.1010907860176"/>
+      </g>
+
+      <!-- Spine & Torso with arms -->
+      <g id="torso" transform="rotate(-1.0595234934310993 0 55)">
+        <line x1="0" y1="-120" x2="0" y2="55" stroke="#111111" stroke-width="8" stroke-linecap="round"/>
+
+        
+
+        <!-- Left Arm with 2-finger V hand -->
+        <g id="left-arm" class="arms" stroke="#111111" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+          <line x1="0" y1="-95" x2="-73.18134471636112" y2="-49.260327069027404"/>
+          <line x1="-73.18134471636112" y1="-49.260327069027404" x2="-111.6569359564131" y2="18.589719937061226"/>
+          <!-- 2-finger open V hand -->
+          <line x1="-111.6569359564131" y1="18.589719937061226" x2="-133.6569359564131" y2="6.589719937061226"/>
+          <line x1="-111.6569359564131" y1="18.589719937061226" x2="-129.6569359564131" y2="38.589719937061226"/>
+          
+        </g>
+
+        <!-- Right Arm with 2-finger V hand -->
+        <g id="right-arm" class="arms" stroke="#111111" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+          <line x1="0" y1="-95" x2="79.44703100972168" y2="-59.48789102383873"/>
+          <line x1="79.44703100972168" y1="-59.48789102383873" x2="141.05135216510212" y2="-11.645361669876394"/>
+          <!-- 2-finger open V hand -->
+          <line x1="141.05135216510212" y1="-11.645361669876394" x2="163.05135216510212" y2="-25.645361669876394"/>
+          <line x1="141.05135216510212" y1="-11.645361669876394" x2="161.05135216510212" y2="6.354638330123606"/>
+          
+        </g>
+
+        <!-- HEAD GROUP (Crisp Casually Explained / Alex Meyers proportions) -->
+        <g id="head" transform="translate(0, -120) rotate(-7.347710571570985) scale(0.72)">
+          
+          <!-- 1. Back Hair Layer (Flows behind head and shoulders) -->
+          
+          <!-- Iconic Host Classic Curly Mop -->
+          <path id="hair-back" d="
+            M -75 25
+            C -115 15 -125 -45 -85 -70
+            C -115 -115 -60 -160 -15 -152
+            C 15 -185 85 -175 105 -130
+            C 145 -110 160 -45 130 -5
+            C 160 45 135 110 90 95
+            C 80 55 75 25 65 -5
+            L -65 0 Z"
+            fill="#0d0d0d" stroke="#0d0d0d" stroke-width="6" stroke-linejoin="round"/>
+        
+
+          <!-- 2. Warm Creamy Peach Head Skin (tilted egg/oval shape) -->
+          <path id="head-skin" d="
+            M -68 15
+            C -82 -40 -68 -80 -18 -85
+            C 38 -87 76 -50 78 15
+            C 78 68 48 88 5 88
+            C -40 88 -68 70 -68 15 Z"
+            fill="#fed89b" stroke="#111111" stroke-width="8" stroke-linejoin="round"/>
+
+          <!-- Nose/Cheek Tick Mark (from reference image) -->
+          <path d="M -12 8 L -10 20" fill="none" stroke="#111111" stroke-width="5" stroke-linecap="round"/>
+
+          <!-- 3. Facial Features -->
+          <g id="face">
+            
+    <path d="M -45 -48 Q -25 -62 -5 -48" fill="none" stroke="#111111" stroke-width="6" stroke-linecap="round"/>
+    <path d="M 22 -44 Q 42 -58 62 -44" fill="none" stroke="#111111" stroke-width="6" stroke-linecap="round"/>
+  
+            
+      <path d="M -44 -34 Q -28 -44 -12 -36" fill="none" stroke="#111111" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="-24" cy="-16" rx="21" ry="25" fill="#ffffff" stroke="#111111" stroke-width="6"/>
+      <path d="M -17.471468395622704 -36.957450672180514 C -5.471468395622703 -36.957450672180514 0.5285316043772967 -24.957450672180517 -5.471468395622703 -6.957450672180516 C -11.471468395622704 7.042549327819484 -23.471468395622704 5.042549327819484 -23.471468395622704 -8.957450672180515 C -23.471468395622704 -24.957450672180517 -23.471468395622704 -36.957450672180514 -17.471468395622704 -36.957450672180514 Z" fill="#111111"/>
+      <ellipse cx="38" cy="-14" rx="17" ry="26" fill="#ffffff" stroke="#111111" stroke-width="6"/>
+      <path d="M 44.5285316043773 -34.957450672180514 C 56.5285316043773 -34.957450672180514 60.5285316043773 -22.957450672180517 56.5285316043773 -4.957450672180516 C 51.5285316043773 9.042549327819485 41.5285316043773 7.042549327819484 41.5285316043773 -6.957450672180516 C 41.5285316043773 -22.957450672180517 40.5285316043773 -34.957450672180514 44.5285316043773 -34.957450672180514 Z" fill="#111111"/>
+    
+            
+            
+      <g id="mouth" transform="translate(0, 32) rotate(4)">
+        <path d="M -30 -13 L 24 -11 L 18 13 L -28 11 Z" fill="#ffffff" stroke="#111111" stroke-width="6" stroke-linejoin="round"/>
+        
+      </g>
+    
+          </g>
+
+          <!-- 4. Front Hair Layer (Bangs, Strands, Clips sit in front of Face) -->
+          
+          <!-- Front Forehead Curl Tufts (High on forehead above brows y=-65..-45) -->
+          <path d="M -45 -50 C -35 -65 -15 -65 -5 -50 C 5 -65 30 -65 40 -50" fill="none" stroke="#0d0d0d" stroke-width="5" stroke-linecap="round"/>
+        
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

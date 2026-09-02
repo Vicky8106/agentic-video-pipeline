@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.14"/></filter>
+    <filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity="0.3"/></filter>
+  </defs>
+
+        <rect x="-4000" y="-4000" width="10000" height="10000" fill="#18181b"/>
+        <!-- Gym Wall Motivational Poster & Full Length Mirror -->
+        <rect x="360" y="240" width="340" height="460" rx="10" fill="#27272a" stroke="#3f3f46" stroke-width="8"/>
+        <text x="530" y="320" font-family="'Impact', sans-serif" font-size="34" fill="#ef4444" text-anchor="middle">DISCIPLINE</text>
+        <text x="530" y="370" font-family="sans-serif" font-size="16" font-weight="bold" fill="#e4e4e7" text-anchor="middle">CHICKEN &amp; BROCCOLI</text>
+        <text x="530" y="410" font-family="sans-serif" font-size="16" font-weight="bold" fill="#e4e4e7" text-anchor="middle">4:00 AM EVERY DAY</text>
+        <!-- Rubber Floor Mats -->
+        <rect x="-4000" y="740" width="10000" height="4000" fill="#09090b"/>
+        <line x1="-4000" y1="740" x2="6000" y2="740" stroke="#3f3f46" stroke-width="6"/>
+        <!-- Heavy Steel Squat Power Rack (Stage Right) -->
+        <g transform="translate(1520, 560)">
+          <!-- Upright Pillars -->
+          <line x1="-120" y1="-260" x2="-120" y2="200" stroke="#dc2626" stroke-width="16"/>
+          <line x1="120" y1="-260" x2="120" y2="200" stroke="#dc2626" stroke-width="16"/>
+          <line x1="-120" y1="-240" x2="120" y2="-240" stroke="#475569" stroke-width="12"/>
+          <!-- Olympic Barbell Loaded on J-Hooks -->
+          <line x1="-180" y1="-60" x2="180" y2="-60" stroke="#cbd5e1" stroke-width="12"/>
+          <!-- 45lb Plates -->
+          <rect x="-170" y="-120" width="24" height="120" rx="6" fill="#0f172a" stroke="#475569" stroke-width="4"/>
+          <rect x="-140" y="-100" width="20" height="80" rx="4" fill="#0f172a" stroke="#475569" stroke-width="4"/>
+          <rect x="146" y="-120" width="24" height="120" rx="6" fill="#0f172a" stroke="#475569" stroke-width="4"/>
+          <rect x="120" y="-100" width="20" height="80" rx="4" fill="#0f172a" stroke="#475569" stroke-width="4"/>
+        </g>
+      
+</svg>

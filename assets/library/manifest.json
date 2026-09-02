@@ -1,0 +1,3137 @@
+{
+  "generator": "casually_engine_v7 AssetLibrary",
+  "count": 310,
+  "generatedAt": "2026-09-02T13:44:55.919Z",
+  "entries": [
+    {
+      "id": "cohost__deadpan_classic",
+      "category": "characters",
+      "file": "cohost__deadpan_classic.svg",
+      "meta": {
+        "archetype": "ponytail_cohost",
+        "gender": "female",
+        "hair": "female_ponytail",
+        "clothes": "dress_pink",
+        "expression": "deadpan_classic"
+      }
+    },
+    {
+      "id": "cohost__skeptical_side_eye",
+      "category": "characters",
+      "file": "cohost__skeptical_side_eye.svg",
+      "meta": {
+        "archetype": "ponytail_cohost",
+        "gender": "female",
+        "hair": "female_ponytail",
+        "clothes": "dress_pink",
+        "expression": "skeptical_side_eye"
+      }
+    },
+    {
+      "id": "cohost__shock_jaw_drop",
+      "category": "characters",
+      "file": "cohost__shock_jaw_drop.svg",
+      "meta": {
+        "archetype": "ponytail_cohost",
+        "gender": "female",
+        "hair": "female_ponytail",
+        "clothes": "dress_pink",
+        "expression": "shock_jaw_drop"
+      }
+    },
+    {
+      "id": "cohost__confused_tilted_head",
+      "category": "characters",
+      "file": "cohost__confused_tilted_head.svg",
+      "meta": {
+        "archetype": "ponytail_cohost",
+        "gender": "female",
+        "hair": "female_ponytail",
+        "clothes": "dress_pink",
+        "expression": "confused_tilted_head"
+      }
+    },
+    {
+      "id": "cohost__smug_rock_eyebrow",
+      "category": "characters",
+      "file": "cohost__smug_rock_eyebrow.svg",
+      "meta": {
+        "archetype": "ponytail_cohost",
+        "gender": "female",
+        "hair": "female_ponytail",
+        "clothes": "dress_pink",
+        "expression": "smug_rock_eyebrow"
+      }
+    },
+    {
+      "id": "cohost__frustration_eye_roll",
+      "category": "characters",
+      "file": "cohost__frustration_eye_roll.svg",
+      "meta": {
+        "archetype": "ponytail_cohost",
+        "gender": "female",
+        "hair": "female_ponytail",
+        "clothes": "dress_pink",
+        "expression": "frustration_eye_roll"
+      }
+    },
+    {
+      "id": "cohost__laughing_fountain_tears",
+      "category": "characters",
+      "file": "cohost__laughing_fountain_tears.svg",
+      "meta": {
+        "archetype": "ponytail_cohost",
+        "gender": "female",
+        "hair": "female_ponytail",
+        "clothes": "dress_pink",
+        "expression": "laughing_fountain_tears"
+      }
+    },
+    {
+      "id": "cohost__mind_blown_explosion",
+      "category": "characters",
+      "file": "cohost__mind_blown_explosion.svg",
+      "meta": {
+        "archetype": "ponytail_cohost",
+        "gender": "female",
+        "hair": "female_ponytail",
+        "clothes": "dress_pink",
+        "expression": "mind_blown_explosion"
+      }
+    },
+    {
+      "id": "blonde__deadpan_classic",
+      "category": "characters",
+      "file": "blonde__deadpan_classic.svg",
+      "meta": {
+        "archetype": "redcarpet_star",
+        "gender": "female",
+        "hair": "female_blonde_curls",
+        "clothes": "dress_red_carpet",
+        "expression": "deadpan_classic"
+      }
+    },
+    {
+      "id": "blonde__skeptical_side_eye",
+      "category": "characters",
+      "file": "blonde__skeptical_side_eye.svg",
+      "meta": {
+        "archetype": "redcarpet_star",
+        "gender": "female",
+        "hair": "female_blonde_curls",
+        "clothes": "dress_red_carpet",
+        "expression": "skeptical_side_eye"
+      }
+    },
+    {
+      "id": "blonde__shock_jaw_drop",
+      "category": "characters",
+      "file": "blonde__shock_jaw_drop.svg",
+      "meta": {
+        "archetype": "redcarpet_star",
+        "gender": "female",
+        "hair": "female_blonde_curls",
+        "clothes": "dress_red_carpet",
+        "expression": "shock_jaw_drop"
+      }
+    },
+    {
+      "id": "blonde__confused_tilted_head",
+      "category": "characters",
+      "file": "blonde__confused_tilted_head.svg",
+      "meta": {
+        "archetype": "redcarpet_star",
+        "gender": "female",
+        "hair": "female_blonde_curls",
+        "clothes": "dress_red_carpet",
+        "expression": "confused_tilted_head"
+      }
+    },
+    {
+      "id": "blonde__smug_rock_eyebrow",
+      "category": "characters",
+      "file": "blonde__smug_rock_eyebrow.svg",
+      "meta": {
+        "archetype": "redcarpet_star",
+        "gender": "female",
+        "hair": "female_blonde_curls",
+        "clothes": "dress_red_carpet",
+        "expression": "smug_rock_eyebrow"
+      }
+    },
+    {
+      "id": "blonde__frustration_eye_roll",
+      "category": "characters",
+      "file": "blonde__frustration_eye_roll.svg",
+      "meta": {
+        "archetype": "redcarpet_star",
+        "gender": "female",
+        "hair": "female_blonde_curls",
+        "clothes": "dress_red_carpet",
+        "expression": "frustration_eye_roll"
+      }
+    },
+    {
+      "id": "blonde__laughing_fountain_tears",
+      "category": "characters",
+      "file": "blonde__laughing_fountain_tears.svg",
+      "meta": {
+        "archetype": "redcarpet_star",
+        "gender": "female",
+        "hair": "female_blonde_curls",
+        "clothes": "dress_red_carpet",
+        "expression": "laughing_fountain_tears"
+      }
+    },
+    {
+      "id": "blonde__mind_blown_explosion",
+      "category": "characters",
+      "file": "blonde__mind_blown_explosion.svg",
+      "meta": {
+        "archetype": "redcarpet_star",
+        "gender": "female",
+        "hair": "female_blonde_curls",
+        "clothes": "dress_red_carpet",
+        "expression": "mind_blown_explosion"
+      }
+    },
+    {
+      "id": "goth__deadpan_classic",
+      "category": "characters",
+      "file": "goth__deadpan_classic.svg",
+      "meta": {
+        "archetype": "goth_deadpan",
+        "gender": "female",
+        "hair": "female_gothic_waves",
+        "clothes": "dress_black",
+        "expression": "deadpan_classic"
+      }
+    },
+    {
+      "id": "goth__skeptical_side_eye",
+      "category": "characters",
+      "file": "goth__skeptical_side_eye.svg",
+      "meta": {
+        "archetype": "goth_deadpan",
+        "gender": "female",
+        "hair": "female_gothic_waves",
+        "clothes": "dress_black",
+        "expression": "skeptical_side_eye"
+      }
+    },
+    {
+      "id": "goth__shock_jaw_drop",
+      "category": "characters",
+      "file": "goth__shock_jaw_drop.svg",
+      "meta": {
+        "archetype": "goth_deadpan",
+        "gender": "female",
+        "hair": "female_gothic_waves",
+        "clothes": "dress_black",
+        "expression": "shock_jaw_drop"
+      }
+    },
+    {
+      "id": "goth__confused_tilted_head",
+      "category": "characters",
+      "file": "goth__confused_tilted_head.svg",
+      "meta": {
+        "archetype": "goth_deadpan",
+        "gender": "female",
+        "hair": "female_gothic_waves",
+        "clothes": "dress_black",
+        "expression": "confused_tilted_head"
+      }
+    },
+    {
+      "id": "goth__smug_rock_eyebrow",
+      "category": "characters",
+      "file": "goth__smug_rock_eyebrow.svg",
+      "meta": {
+        "archetype": "goth_deadpan",
+        "gender": "female",
+        "hair": "female_gothic_waves",
+        "clothes": "dress_black",
+        "expression": "smug_rock_eyebrow"
+      }
+    },
+    {
+      "id": "goth__frustration_eye_roll",
+      "category": "characters",
+      "file": "goth__frustration_eye_roll.svg",
+      "meta": {
+        "archetype": "goth_deadpan",
+        "gender": "female",
+        "hair": "female_gothic_waves",
+        "clothes": "dress_black",
+        "expression": "frustration_eye_roll"
+      }
+    },
+    {
+      "id": "goth__laughing_fountain_tears",
+      "category": "characters",
+      "file": "goth__laughing_fountain_tears.svg",
+      "meta": {
+        "archetype": "goth_deadpan",
+        "gender": "female",
+        "hair": "female_gothic_waves",
+        "clothes": "dress_black",
+        "expression": "laughing_fountain_tears"
+      }
+    },
+    {
+      "id": "goth__mind_blown_explosion",
+      "category": "characters",
+      "file": "goth__mind_blown_explosion.svg",
+      "meta": {
+        "archetype": "goth_deadpan",
+        "gender": "female",
+        "hair": "female_gothic_waves",
+        "clothes": "dress_black",
+        "expression": "mind_blown_explosion"
+      }
+    },
+    {
+      "id": "pixie__deadpan_classic",
+      "category": "characters",
+      "file": "pixie__deadpan_classic.svg",
+      "meta": {
+        "archetype": "y2k_pixie",
+        "gender": "female",
+        "hair": "female_pixie_y2k",
+        "clothes": "y2k_crop_top_low_rise",
+        "expression": "deadpan_classic"
+      }
+    },
+    {
+      "id": "pixie__skeptical_side_eye",
+      "category": "characters",
+      "file": "pixie__skeptical_side_eye.svg",
+      "meta": {
+        "archetype": "y2k_pixie",
+        "gender": "female",
+        "hair": "female_pixie_y2k",
+        "clothes": "y2k_crop_top_low_rise",
+        "expression": "skeptical_side_eye"
+      }
+    },
+    {
+      "id": "pixie__shock_jaw_drop",
+      "category": "characters",
+      "file": "pixie__shock_jaw_drop.svg",
+      "meta": {
+        "archetype": "y2k_pixie",
+        "gender": "female",
+        "hair": "female_pixie_y2k",
+        "clothes": "y2k_crop_top_low_rise",
+        "expression": "shock_jaw_drop"
+      }
+    },
+    {
+      "id": "pixie__confused_tilted_head",
+      "category": "characters",
+      "file": "pixie__confused_tilted_head.svg",
+      "meta": {
+        "archetype": "y2k_pixie",
+        "gender": "female",
+        "hair": "female_pixie_y2k",
+        "clothes": "y2k_crop_top_low_rise",
+        "expression": "confused_tilted_head"
+      }
+    },
+    {
+      "id": "pixie__smug_rock_eyebrow",
+      "category": "characters",
+      "file": "pixie__smug_rock_eyebrow.svg",
+      "meta": {
+        "archetype": "y2k_pixie",
+        "gender": "female",
+        "hair": "female_pixie_y2k",
+        "clothes": "y2k_crop_top_low_rise",
+        "expression": "smug_rock_eyebrow"
+      }
+    },
+    {
+      "id": "pixie__frustration_eye_roll",
+      "category": "characters",
+      "file": "pixie__frustration_eye_roll.svg",
+      "meta": {
+        "archetype": "y2k_pixie",
+        "gender": "female",
+        "hair": "female_pixie_y2k",
+        "clothes": "y2k_crop_top_low_rise",
+        "expression": "frustration_eye_roll"
+      }
+    },
+    {
+      "id": "pixie__laughing_fountain_tears",
+      "category": "characters",
+      "file": "pixie__laughing_fountain_tears.svg",
+      "meta": {
+        "archetype": "y2k_pixie",
+        "gender": "female",
+        "hair": "female_pixie_y2k",
+        "clothes": "y2k_crop_top_low_rise",
+        "expression": "laughing_fountain_tears"
+      }
+    },
+    {
+      "id": "pixie__mind_blown_explosion",
+      "category": "characters",
+      "file": "pixie__mind_blown_explosion.svg",
+      "meta": {
+        "archetype": "y2k_pixie",
+        "gender": "female",
+        "hair": "female_pixie_y2k",
+        "clothes": "y2k_crop_top_low_rise",
+        "expression": "mind_blown_explosion"
+      }
+    },
+    {
+      "id": "bun__deadpan_classic",
+      "category": "characters",
+      "file": "bun__deadpan_classic.svg",
+      "meta": {
+        "archetype": "gym_bun",
+        "gender": "female",
+        "hair": "female_messy_bun",
+        "clothes": "crop_top_leggings",
+        "expression": "deadpan_classic"
+      }
+    },
+    {
+      "id": "bun__skeptical_side_eye",
+      "category": "characters",
+      "file": "bun__skeptical_side_eye.svg",
+      "meta": {
+        "archetype": "gym_bun",
+        "gender": "female",
+        "hair": "female_messy_bun",
+        "clothes": "crop_top_leggings",
+        "expression": "skeptical_side_eye"
+      }
+    },
+    {
+      "id": "bun__shock_jaw_drop",
+      "category": "characters",
+      "file": "bun__shock_jaw_drop.svg",
+      "meta": {
+        "archetype": "gym_bun",
+        "gender": "female",
+        "hair": "female_messy_bun",
+        "clothes": "crop_top_leggings",
+        "expression": "shock_jaw_drop"
+      }
+    },
+    {
+      "id": "bun__confused_tilted_head",
+      "category": "characters",
+      "file": "bun__confused_tilted_head.svg",
+      "meta": {
+        "archetype": "gym_bun",
+        "gender": "female",
+        "hair": "female_messy_bun",
+        "clothes": "crop_top_leggings",
+        "expression": "confused_tilted_head"
+      }
+    },
+    {
+      "id": "bun__smug_rock_eyebrow",
+      "category": "characters",
+      "file": "bun__smug_rock_eyebrow.svg",
+      "meta": {
+        "archetype": "gym_bun",
+        "gender": "female",
+        "hair": "female_messy_bun",
+        "clothes": "crop_top_leggings",
+        "expression": "smug_rock_eyebrow"
+      }
+    },
+    {
+      "id": "bun__frustration_eye_roll",
+      "category": "characters",
+      "file": "bun__frustration_eye_roll.svg",
+      "meta": {
+        "archetype": "gym_bun",
+        "gender": "female",
+        "hair": "female_messy_bun",
+        "clothes": "crop_top_leggings",
+        "expression": "frustration_eye_roll"
+      }
+    },
+    {
+      "id": "bun__laughing_fountain_tears",
+      "category": "characters",
+      "file": "bun__laughing_fountain_tears.svg",
+      "meta": {
+        "archetype": "gym_bun",
+        "gender": "female",
+        "hair": "female_messy_bun",
+        "clothes": "crop_top_leggings",
+        "expression": "laughing_fountain_tears"
+      }
+    },
+    {
+      "id": "bun__mind_blown_explosion",
+      "category": "characters",
+      "file": "bun__mind_blown_explosion.svg",
+      "meta": {
+        "archetype": "gym_bun",
+        "gender": "female",
+        "hair": "female_messy_bun",
+        "clothes": "crop_top_leggings",
+        "expression": "mind_blown_explosion"
+      }
+    },
+    {
+      "id": "bob__deadpan_classic",
+      "category": "characters",
+      "file": "bob__deadpan_classic.svg",
+      "meta": {
+        "archetype": "doctor_bob",
+        "gender": "female",
+        "hair": "female_bob_bangs",
+        "clothes": "doctor_scrubs",
+        "expression": "deadpan_classic"
+      }
+    },
+    {
+      "id": "bob__skeptical_side_eye",
+      "category": "characters",
+      "file": "bob__skeptical_side_eye.svg",
+      "meta": {
+        "archetype": "doctor_bob",
+        "gender": "female",
+        "hair": "female_bob_bangs",
+        "clothes": "doctor_scrubs",
+        "expression": "skeptical_side_eye"
+      }
+    },
+    {
+      "id": "bob__shock_jaw_drop",
+      "category": "characters",
+      "file": "bob__shock_jaw_drop.svg",
+      "meta": {
+        "archetype": "doctor_bob",
+        "gender": "female",
+        "hair": "female_bob_bangs",
+        "clothes": "doctor_scrubs",
+        "expression": "shock_jaw_drop"
+      }
+    },
+    {
+      "id": "bob__confused_tilted_head",
+      "category": "characters",
+      "file": "bob__confused_tilted_head.svg",
+      "meta": {
+        "archetype": "doctor_bob",
+        "gender": "female",
+        "hair": "female_bob_bangs",
+        "clothes": "doctor_scrubs",
+        "expression": "confused_tilted_head"
+      }
+    },
+    {
+      "id": "bob__smug_rock_eyebrow",
+      "category": "characters",
+      "file": "bob__smug_rock_eyebrow.svg",
+      "meta": {
+        "archetype": "doctor_bob",
+        "gender": "female",
+        "hair": "female_bob_bangs",
+        "clothes": "doctor_scrubs",
+        "expression": "smug_rock_eyebrow"
+      }
+    },
+    {
+      "id": "bob__frustration_eye_roll",
+      "category": "characters",
+      "file": "bob__frustration_eye_roll.svg",
+      "meta": {
+        "archetype": "doctor_bob",
+        "gender": "female",
+        "hair": "female_bob_bangs",
+        "clothes": "doctor_scrubs",
+        "expression": "frustration_eye_roll"
+      }
+    },
+    {
+      "id": "bob__laughing_fountain_tears",
+      "category": "characters",
+      "file": "bob__laughing_fountain_tears.svg",
+      "meta": {
+        "archetype": "doctor_bob",
+        "gender": "female",
+        "hair": "female_bob_bangs",
+        "clothes": "doctor_scrubs",
+        "expression": "laughing_fountain_tears"
+      }
+    },
+    {
+      "id": "bob__mind_blown_explosion",
+      "category": "characters",
+      "file": "bob__mind_blown_explosion.svg",
+      "meta": {
+        "archetype": "doctor_bob",
+        "gender": "female",
+        "hair": "female_bob_bangs",
+        "clothes": "doctor_scrubs",
+        "expression": "mind_blown_explosion"
+      }
+    },
+    {
+      "id": "suit__deadpan_classic",
+      "category": "characters",
+      "file": "suit__deadpan_classic.svg",
+      "meta": {
+        "archetype": "corporate_suit",
+        "gender": "male",
+        "hair": "male_short",
+        "clothes": "suit",
+        "expression": "deadpan_classic"
+      }
+    },
+    {
+      "id": "suit__skeptical_side_eye",
+      "category": "characters",
+      "file": "suit__skeptical_side_eye.svg",
+      "meta": {
+        "archetype": "corporate_suit",
+        "gender": "male",
+        "hair": "male_short",
+        "clothes": "suit",
+        "expression": "skeptical_side_eye"
+      }
+    },
+    {
+      "id": "suit__shock_jaw_drop",
+      "category": "characters",
+      "file": "suit__shock_jaw_drop.svg",
+      "meta": {
+        "archetype": "corporate_suit",
+        "gender": "male",
+        "hair": "male_short",
+        "clothes": "suit",
+        "expression": "shock_jaw_drop"
+      }
+    },
+    {
+      "id": "suit__confused_tilted_head",
+      "category": "characters",
+      "file": "suit__confused_tilted_head.svg",
+      "meta": {
+        "archetype": "corporate_suit",
+        "gender": "male",
+        "hair": "male_short",
+        "clothes": "suit",
+        "expression": "confused_tilted_head"
+      }
+    },
+    {
+      "id": "suit__smug_rock_eyebrow",
+      "category": "characters",
+      "file": "suit__smug_rock_eyebrow.svg",
+      "meta": {
+        "archetype": "corporate_suit",
+        "gender": "male",
+        "hair": "male_short",
+        "clothes": "suit",
+        "expression": "smug_rock_eyebrow"
+      }
+    },
+    {
+      "id": "suit__frustration_eye_roll",
+      "category": "characters",
+      "file": "suit__frustration_eye_roll.svg",
+      "meta": {
+        "archetype": "corporate_suit",
+        "gender": "male",
+        "hair": "male_short",
+        "clothes": "suit",
+        "expression": "frustration_eye_roll"
+      }
+    },
+    {
+      "id": "suit__laughing_fountain_tears",
+      "category": "characters",
+      "file": "suit__laughing_fountain_tears.svg",
+      "meta": {
+        "archetype": "corporate_suit",
+        "gender": "male",
+        "hair": "male_short",
+        "clothes": "suit",
+        "expression": "laughing_fountain_tears"
+      }
+    },
+    {
+      "id": "suit__mind_blown_explosion",
+      "category": "characters",
+      "file": "suit__mind_blown_explosion.svg",
+      "meta": {
+        "archetype": "corporate_suit",
+        "gender": "male",
+        "hair": "male_short",
+        "clothes": "suit",
+        "expression": "mind_blown_explosion"
+      }
+    },
+    {
+      "id": "techbro__deadpan_classic",
+      "category": "characters",
+      "file": "techbro__deadpan_classic.svg",
+      "meta": {
+        "archetype": "tech_bro",
+        "gender": "male",
+        "hair": "male_tech_bro",
+        "clothes": "tech_fleece_vest",
+        "expression": "deadpan_classic"
+      }
+    },
+    {
+      "id": "techbro__skeptical_side_eye",
+      "category": "characters",
+      "file": "techbro__skeptical_side_eye.svg",
+      "meta": {
+        "archetype": "tech_bro",
+        "gender": "male",
+        "hair": "male_tech_bro",
+        "clothes": "tech_fleece_vest",
+        "expression": "skeptical_side_eye"
+      }
+    },
+    {
+      "id": "techbro__shock_jaw_drop",
+      "category": "characters",
+      "file": "techbro__shock_jaw_drop.svg",
+      "meta": {
+        "archetype": "tech_bro",
+        "gender": "male",
+        "hair": "male_tech_bro",
+        "clothes": "tech_fleece_vest",
+        "expression": "shock_jaw_drop"
+      }
+    },
+    {
+      "id": "techbro__confused_tilted_head",
+      "category": "characters",
+      "file": "techbro__confused_tilted_head.svg",
+      "meta": {
+        "archetype": "tech_bro",
+        "gender": "male",
+        "hair": "male_tech_bro",
+        "clothes": "tech_fleece_vest",
+        "expression": "confused_tilted_head"
+      }
+    },
+    {
+      "id": "techbro__smug_rock_eyebrow",
+      "category": "characters",
+      "file": "techbro__smug_rock_eyebrow.svg",
+      "meta": {
+        "archetype": "tech_bro",
+        "gender": "male",
+        "hair": "male_tech_bro",
+        "clothes": "tech_fleece_vest",
+        "expression": "smug_rock_eyebrow"
+      }
+    },
+    {
+      "id": "techbro__frustration_eye_roll",
+      "category": "characters",
+      "file": "techbro__frustration_eye_roll.svg",
+      "meta": {
+        "archetype": "tech_bro",
+        "gender": "male",
+        "hair": "male_tech_bro",
+        "clothes": "tech_fleece_vest",
+        "expression": "frustration_eye_roll"
+      }
+    },
+    {
+      "id": "techbro__laughing_fountain_tears",
+      "category": "characters",
+      "file": "techbro__laughing_fountain_tears.svg",
+      "meta": {
+        "archetype": "tech_bro",
+        "gender": "male",
+        "hair": "male_tech_bro",
+        "clothes": "tech_fleece_vest",
+        "expression": "laughing_fountain_tears"
+      }
+    },
+    {
+      "id": "techbro__mind_blown_explosion",
+      "category": "characters",
+      "file": "techbro__mind_blown_explosion.svg",
+      "meta": {
+        "archetype": "tech_bro",
+        "gender": "male",
+        "hair": "male_tech_bro",
+        "clothes": "tech_fleece_vest",
+        "expression": "mind_blown_explosion"
+      }
+    },
+    {
+      "id": "hoodie__deadpan_classic",
+      "category": "characters",
+      "file": "hoodie__deadpan_classic.svg",
+      "meta": {
+        "archetype": "hoodie_bro",
+        "gender": "male",
+        "hair": "male_host_curly",
+        "clothes": "hoodie",
+        "expression": "deadpan_classic"
+      }
+    },
+    {
+      "id": "hoodie__skeptical_side_eye",
+      "category": "characters",
+      "file": "hoodie__skeptical_side_eye.svg",
+      "meta": {
+        "archetype": "hoodie_bro",
+        "gender": "male",
+        "hair": "male_host_curly",
+        "clothes": "hoodie",
+        "expression": "skeptical_side_eye"
+      }
+    },
+    {
+      "id": "hoodie__shock_jaw_drop",
+      "category": "characters",
+      "file": "hoodie__shock_jaw_drop.svg",
+      "meta": {
+        "archetype": "hoodie_bro",
+        "gender": "male",
+        "hair": "male_host_curly",
+        "clothes": "hoodie",
+        "expression": "shock_jaw_drop"
+      }
+    },
+    {
+      "id": "hoodie__confused_tilted_head",
+      "category": "characters",
+      "file": "hoodie__confused_tilted_head.svg",
+      "meta": {
+        "archetype": "hoodie_bro",
+        "gender": "male",
+        "hair": "male_host_curly",
+        "clothes": "hoodie",
+        "expression": "confused_tilted_head"
+      }
+    },
+    {
+      "id": "hoodie__smug_rock_eyebrow",
+      "category": "characters",
+      "file": "hoodie__smug_rock_eyebrow.svg",
+      "meta": {
+        "archetype": "hoodie_bro",
+        "gender": "male",
+        "hair": "male_host_curly",
+        "clothes": "hoodie",
+        "expression": "smug_rock_eyebrow"
+      }
+    },
+    {
+      "id": "hoodie__frustration_eye_roll",
+      "category": "characters",
+      "file": "hoodie__frustration_eye_roll.svg",
+      "meta": {
+        "archetype": "hoodie_bro",
+        "gender": "male",
+        "hair": "male_host_curly",
+        "clothes": "hoodie",
+        "expression": "frustration_eye_roll"
+      }
+    },
+    {
+      "id": "hoodie__laughing_fountain_tears",
+      "category": "characters",
+      "file": "hoodie__laughing_fountain_tears.svg",
+      "meta": {
+        "archetype": "hoodie_bro",
+        "gender": "male",
+        "hair": "male_host_curly",
+        "clothes": "hoodie",
+        "expression": "laughing_fountain_tears"
+      }
+    },
+    {
+      "id": "hoodie__mind_blown_explosion",
+      "category": "characters",
+      "file": "hoodie__mind_blown_explosion.svg",
+      "meta": {
+        "archetype": "hoodie_bro",
+        "gender": "male",
+        "hair": "male_host_curly",
+        "clothes": "hoodie",
+        "expression": "mind_blown_explosion"
+      }
+    },
+    {
+      "id": "scrubs__deadpan_classic",
+      "category": "characters",
+      "file": "scrubs__deadpan_classic.svg",
+      "meta": {
+        "archetype": "surgeon",
+        "gender": "male",
+        "hair": "male_doctor_cap",
+        "clothes": "doctor_scrubs",
+        "expression": "deadpan_classic"
+      }
+    },
+    {
+      "id": "scrubs__skeptical_side_eye",
+      "category": "characters",
+      "file": "scrubs__skeptical_side_eye.svg",
+      "meta": {
+        "archetype": "surgeon",
+        "gender": "male",
+        "hair": "male_doctor_cap",
+        "clothes": "doctor_scrubs",
+        "expression": "skeptical_side_eye"
+      }
+    },
+    {
+      "id": "scrubs__shock_jaw_drop",
+      "category": "characters",
+      "file": "scrubs__shock_jaw_drop.svg",
+      "meta": {
+        "archetype": "surgeon",
+        "gender": "male",
+        "hair": "male_doctor_cap",
+        "clothes": "doctor_scrubs",
+        "expression": "shock_jaw_drop"
+      }
+    },
+    {
+      "id": "scrubs__confused_tilted_head",
+      "category": "characters",
+      "file": "scrubs__confused_tilted_head.svg",
+      "meta": {
+        "archetype": "surgeon",
+        "gender": "male",
+        "hair": "male_doctor_cap",
+        "clothes": "doctor_scrubs",
+        "expression": "confused_tilted_head"
+      }
+    },
+    {
+      "id": "scrubs__smug_rock_eyebrow",
+      "category": "characters",
+      "file": "scrubs__smug_rock_eyebrow.svg",
+      "meta": {
+        "archetype": "surgeon",
+        "gender": "male",
+        "hair": "male_doctor_cap",
+        "clothes": "doctor_scrubs",
+        "expression": "smug_rock_eyebrow"
+      }
+    },
+    {
+      "id": "scrubs__frustration_eye_roll",
+      "category": "characters",
+      "file": "scrubs__frustration_eye_roll.svg",
+      "meta": {
+        "archetype": "surgeon",
+        "gender": "male",
+        "hair": "male_doctor_cap",
+        "clothes": "doctor_scrubs",
+        "expression": "frustration_eye_roll"
+      }
+    },
+    {
+      "id": "scrubs__laughing_fountain_tears",
+      "category": "characters",
+      "file": "scrubs__laughing_fountain_tears.svg",
+      "meta": {
+        "archetype": "surgeon",
+        "gender": "male",
+        "hair": "male_doctor_cap",
+        "clothes": "doctor_scrubs",
+        "expression": "laughing_fountain_tears"
+      }
+    },
+    {
+      "id": "scrubs__mind_blown_explosion",
+      "category": "characters",
+      "file": "scrubs__mind_blown_explosion.svg",
+      "meta": {
+        "archetype": "surgeon",
+        "gender": "male",
+        "hair": "male_doctor_cap",
+        "clothes": "doctor_scrubs",
+        "expression": "mind_blown_explosion"
+      }
+    },
+    {
+      "id": "host__disgust_subtle",
+      "category": "expressions",
+      "file": "host__disgust_subtle.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "disgust_subtle"
+      }
+    },
+    {
+      "id": "host__disgust_gag",
+      "category": "expressions",
+      "file": "host__disgust_gag.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "disgust_gag"
+      }
+    },
+    {
+      "id": "host__disgust_side_glance",
+      "category": "expressions",
+      "file": "host__disgust_side_glance.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "disgust_side_glance"
+      }
+    },
+    {
+      "id": "host__cringe_full",
+      "category": "expressions",
+      "file": "host__cringe_full.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "cringe_full"
+      }
+    },
+    {
+      "id": "host__cringe_teeth_grit",
+      "category": "expressions",
+      "file": "host__cringe_teeth_grit.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "cringe_teeth_grit"
+      }
+    },
+    {
+      "id": "host__disgust_eyebrow_raise",
+      "category": "expressions",
+      "file": "host__disgust_eyebrow_raise.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "disgust_eyebrow_raise"
+      }
+    },
+    {
+      "id": "host__disgust_shudder",
+      "category": "expressions",
+      "file": "host__disgust_shudder.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "disgust_shudder"
+      }
+    },
+    {
+      "id": "host__disgust_vomit_rainbow",
+      "category": "expressions",
+      "file": "host__disgust_vomit_rainbow.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "disgust_vomit_rainbow"
+      }
+    },
+    {
+      "id": "host__disgust_look_down",
+      "category": "expressions",
+      "file": "host__disgust_look_down.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "disgust_look_down"
+      }
+    },
+    {
+      "id": "host__disgust_pinched_nose",
+      "category": "expressions",
+      "file": "host__disgust_pinched_nose.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "disgust_pinched_nose"
+      }
+    },
+    {
+      "id": "host__fear_sweat_freeze",
+      "category": "expressions",
+      "file": "host__fear_sweat_freeze.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "fear_sweat_freeze"
+      }
+    },
+    {
+      "id": "host__fear_trembling",
+      "category": "expressions",
+      "file": "host__fear_trembling.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "fear_trembling"
+      }
+    },
+    {
+      "id": "host__fear_hiding",
+      "category": "expressions",
+      "file": "host__fear_hiding.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "fear_hiding"
+      }
+    },
+    {
+      "id": "host__fear_screaming",
+      "category": "expressions",
+      "file": "host__fear_screaming.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "fear_screaming"
+      }
+    },
+    {
+      "id": "host__fear_panic_run",
+      "category": "expressions",
+      "file": "host__fear_panic_run.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "fear_panic_run"
+      }
+    },
+    {
+      "id": "host__fear_soul_leaving",
+      "category": "expressions",
+      "file": "host__fear_soul_leaving.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "fear_soul_leaving"
+      }
+    },
+    {
+      "id": "host__fear_goosebumps",
+      "category": "expressions",
+      "file": "host__fear_goosebumps.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "fear_goosebumps"
+      }
+    },
+    {
+      "id": "host__fear_wide_eyed_frozen",
+      "category": "expressions",
+      "file": "host__fear_wide_eyed_frozen.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "fear_wide_eyed_frozen"
+      }
+    },
+    {
+      "id": "host__fear_crying_plea",
+      "category": "expressions",
+      "file": "host__fear_crying_plea.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "fear_crying_plea"
+      }
+    },
+    {
+      "id": "host__fear_surrender",
+      "category": "expressions",
+      "file": "host__fear_surrender.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "fear_surrender"
+      }
+    },
+    {
+      "id": "host__frustration_facepalm",
+      "category": "expressions",
+      "file": "host__frustration_facepalm.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "frustration_facepalm"
+      }
+    },
+    {
+      "id": "host__frustration_double_facepalm",
+      "category": "expressions",
+      "file": "host__frustration_double_facepalm.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "frustration_double_facepalm"
+      }
+    },
+    {
+      "id": "host__frustration_groan",
+      "category": "expressions",
+      "file": "host__frustration_groan.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "frustration_groan"
+      }
+    },
+    {
+      "id": "host__frustration_rubbing_temples",
+      "category": "expressions",
+      "file": "host__frustration_rubbing_temples.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "frustration_rubbing_temples"
+      }
+    },
+    {
+      "id": "host__frustration_sigh",
+      "category": "expressions",
+      "file": "host__frustration_sigh.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "frustration_sigh"
+      }
+    },
+    {
+      "id": "host__frustration_eye_roll",
+      "category": "expressions",
+      "file": "host__frustration_eye_roll.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "frustration_eye_roll"
+      }
+    },
+    {
+      "id": "host__frustration_teeth_grind",
+      "category": "expressions",
+      "file": "host__frustration_teeth_grind.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "frustration_teeth_grind"
+      }
+    },
+    {
+      "id": "host__frustration_slumping",
+      "category": "expressions",
+      "file": "host__frustration_slumping.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "frustration_slumping"
+      }
+    },
+    {
+      "id": "host__frustration_head_in_hands",
+      "category": "expressions",
+      "file": "host__frustration_head_in_hands.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "frustration_head_in_hands"
+      }
+    },
+    {
+      "id": "host__frustration_why_god_why",
+      "category": "expressions",
+      "file": "host__frustration_why_god_why.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "frustration_why_god_why"
+      }
+    },
+    {
+      "id": "host__rage_furious_screaming",
+      "category": "expressions",
+      "file": "host__rage_furious_screaming.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "rage_furious_screaming"
+      }
+    },
+    {
+      "id": "host__rage_laser_eyes",
+      "category": "expressions",
+      "file": "host__rage_laser_eyes.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "rage_laser_eyes"
+      }
+    },
+    {
+      "id": "host__rage_steam_ears",
+      "category": "expressions",
+      "file": "host__rage_steam_ears.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "rage_steam_ears"
+      }
+    },
+    {
+      "id": "host__rage_clenched_fists",
+      "category": "expressions",
+      "file": "host__rage_clenched_fists.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "rage_clenched_fists"
+      }
+    },
+    {
+      "id": "host__rage_table_flip",
+      "category": "expressions",
+      "file": "host__rage_table_flip.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "rage_table_flip"
+      }
+    },
+    {
+      "id": "host__rage_vein_pop",
+      "category": "expressions",
+      "file": "host__rage_vein_pop.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "rage_vein_pop"
+      }
+    },
+    {
+      "id": "host__rage_flame_aura",
+      "category": "expressions",
+      "file": "host__rage_flame_aura.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "rage_flame_aura"
+      }
+    },
+    {
+      "id": "host__rage_biting_fist",
+      "category": "expressions",
+      "file": "host__rage_biting_fist.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "rage_biting_fist"
+      }
+    },
+    {
+      "id": "host__rage_finger_jabbing",
+      "category": "expressions",
+      "file": "host__rage_finger_jabbing.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "rage_finger_jabbing"
+      }
+    },
+    {
+      "id": "host__rage_eye_twitch",
+      "category": "expressions",
+      "file": "host__rage_eye_twitch.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "rage_eye_twitch"
+      }
+    },
+    {
+      "id": "host__deadpan_classic",
+      "category": "expressions",
+      "file": "host__deadpan_classic.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "deadpan_classic"
+      }
+    },
+    {
+      "id": "host__deadpan_slow_blink",
+      "category": "expressions",
+      "file": "host__deadpan_slow_blink.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "deadpan_slow_blink"
+      }
+    },
+    {
+      "id": "host__deadpan_soul_stare",
+      "category": "expressions",
+      "file": "host__deadpan_soul_stare.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "deadpan_soul_stare"
+      }
+    },
+    {
+      "id": "host__deadpan_sipping_coffee",
+      "category": "expressions",
+      "file": "host__deadpan_sipping_coffee.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "deadpan_sipping_coffee"
+      }
+    },
+    {
+      "id": "host__deadpan_shrug",
+      "category": "expressions",
+      "file": "host__deadpan_shrug.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "deadpan_shrug"
+      }
+    },
+    {
+      "id": "host__deadpan_chin_rest",
+      "category": "expressions",
+      "file": "host__deadpan_chin_rest.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "deadpan_chin_rest"
+      }
+    },
+    {
+      "id": "host__deadpan_subtle_nod",
+      "category": "expressions",
+      "file": "host__deadpan_subtle_nod.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "deadpan_subtle_nod"
+      }
+    },
+    {
+      "id": "host__deadpan_side_glance",
+      "category": "expressions",
+      "file": "host__deadpan_side_glance.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "deadpan_side_glance"
+      }
+    },
+    {
+      "id": "host__deadpan_phone_scroll",
+      "category": "expressions",
+      "file": "host__deadpan_phone_scroll.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "deadpan_phone_scroll"
+      }
+    },
+    {
+      "id": "host__deadpan_unbothered",
+      "category": "expressions",
+      "file": "host__deadpan_unbothered.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "deadpan_unbothered"
+      }
+    },
+    {
+      "id": "host__smug_rock_eyebrow",
+      "category": "expressions",
+      "file": "host__smug_rock_eyebrow.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "smug_rock_eyebrow"
+      }
+    },
+    {
+      "id": "host__smug_finger_guns",
+      "category": "expressions",
+      "file": "host__smug_finger_guns.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "smug_finger_guns"
+      }
+    },
+    {
+      "id": "host__smug_peace_sign",
+      "category": "expressions",
+      "file": "host__smug_peace_sign.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "smug_peace_sign"
+      }
+    },
+    {
+      "id": "host__smug_hands_behind_head",
+      "category": "expressions",
+      "file": "host__smug_hands_behind_head.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "smug_hands_behind_head"
+      }
+    },
+    {
+      "id": "host__smug_glasses_push",
+      "category": "expressions",
+      "file": "host__smug_glasses_push.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "smug_glasses_push"
+      }
+    },
+    {
+      "id": "host__smug_chuckle",
+      "category": "expressions",
+      "file": "host__smug_chuckle.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "smug_chuckle"
+      }
+    },
+    {
+      "id": "host__smug_thumbs_up",
+      "category": "expressions",
+      "file": "host__smug_thumbs_up.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "smug_thumbs_up"
+      }
+    },
+    {
+      "id": "host__smug_sipping_tea",
+      "category": "expressions",
+      "file": "host__smug_sipping_tea.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "smug_sipping_tea"
+      }
+    },
+    {
+      "id": "host__smug_sarcastic_clap",
+      "category": "expressions",
+      "file": "host__smug_sarcastic_clap.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "smug_sarcastic_clap"
+      }
+    },
+    {
+      "id": "host__smug_chef_kiss",
+      "category": "expressions",
+      "file": "host__smug_chef_kiss.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "smug_chef_kiss"
+      }
+    },
+    {
+      "id": "host__confused_tilted_head",
+      "category": "expressions",
+      "file": "host__confused_tilted_head.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "confused_tilted_head"
+      }
+    },
+    {
+      "id": "host__confused_squint",
+      "category": "expressions",
+      "file": "host__confused_squint.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "confused_squint"
+      }
+    },
+    {
+      "id": "host__confused_chin_scratch",
+      "category": "expressions",
+      "file": "host__confused_chin_scratch.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "confused_chin_scratch"
+      }
+    },
+    {
+      "id": "host__confused_math_equations",
+      "category": "expressions",
+      "file": "host__confused_math_equations.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "confused_math_equations"
+      }
+    },
+    {
+      "id": "host__confused_magnifier",
+      "category": "expressions",
+      "file": "host__confused_magnifier.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "confused_magnifier"
+      }
+    },
+    {
+      "id": "host__skeptical_side_eye",
+      "category": "expressions",
+      "file": "host__skeptical_side_eye.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "skeptical_side_eye"
+      }
+    },
+    {
+      "id": "host__skeptical_raised_brow",
+      "category": "expressions",
+      "file": "host__skeptical_raised_brow.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "skeptical_raised_brow"
+      }
+    },
+    {
+      "id": "host__skeptical_hand_on_hip",
+      "category": "expressions",
+      "file": "host__skeptical_hand_on_hip.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "skeptical_hand_on_hip"
+      }
+    },
+    {
+      "id": "host__confused_double_take",
+      "category": "expressions",
+      "file": "host__confused_double_take.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "confused_double_take"
+      }
+    },
+    {
+      "id": "host__confused_shrug_what",
+      "category": "expressions",
+      "file": "host__confused_shrug_what.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "confused_shrug_what"
+      }
+    },
+    {
+      "id": "host__shock_jaw_drop",
+      "category": "expressions",
+      "file": "host__shock_jaw_drop.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "shock_jaw_drop"
+      }
+    },
+    {
+      "id": "host__shock_eye_pop",
+      "category": "expressions",
+      "file": "host__shock_eye_pop.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "shock_eye_pop"
+      }
+    },
+    {
+      "id": "host__shock_lightning_bolt",
+      "category": "expressions",
+      "file": "host__shock_lightning_bolt.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "shock_lightning_bolt"
+      }
+    },
+    {
+      "id": "host__shock_spit_take",
+      "category": "expressions",
+      "file": "host__shock_spit_take.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "shock_spit_take"
+      }
+    },
+    {
+      "id": "host__shock_home_alone",
+      "category": "expressions",
+      "file": "host__shock_home_alone.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "shock_home_alone"
+      }
+    },
+    {
+      "id": "host__shock_exclamation",
+      "category": "expressions",
+      "file": "host__shock_exclamation.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "shock_exclamation"
+      }
+    },
+    {
+      "id": "host__shock_hair_stand",
+      "category": "expressions",
+      "file": "host__shock_hair_stand.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "shock_hair_stand"
+      }
+    },
+    {
+      "id": "host__shock_monocle_drop",
+      "category": "expressions",
+      "file": "host__shock_monocle_drop.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "shock_monocle_drop"
+      }
+    },
+    {
+      "id": "host__shock_faint_backward",
+      "category": "expressions",
+      "file": "host__shock_faint_backward.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "shock_faint_backward"
+      }
+    },
+    {
+      "id": "host__shock_speed_zoom",
+      "category": "expressions",
+      "file": "host__shock_speed_zoom.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "shock_speed_zoom"
+      }
+    },
+    {
+      "id": "host__mind_blown_explosion",
+      "category": "expressions",
+      "file": "host__mind_blown_explosion.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "mind_blown_explosion"
+      }
+    },
+    {
+      "id": "host__mind_blown_galaxy_brain",
+      "category": "expressions",
+      "file": "host__mind_blown_galaxy_brain.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "mind_blown_galaxy_brain"
+      }
+    },
+    {
+      "id": "host__sparkle_anime_eyes",
+      "category": "expressions",
+      "file": "host__sparkle_anime_eyes.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "sparkle_anime_eyes"
+      }
+    },
+    {
+      "id": "host__dollar_eyes_greed",
+      "category": "expressions",
+      "file": "host__dollar_eyes_greed.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "dollar_eyes_greed"
+      }
+    },
+    {
+      "id": "host__euphoria_angel_wings",
+      "category": "expressions",
+      "file": "host__euphoria_angel_wings.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "euphoria_angel_wings"
+      }
+    },
+    {
+      "id": "host__laughing_fountain_tears",
+      "category": "expressions",
+      "file": "host__laughing_fountain_tears.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "laughing_fountain_tears"
+      }
+    },
+    {
+      "id": "host__manic_laughter",
+      "category": "expressions",
+      "file": "host__manic_laughter.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "manic_laughter"
+      }
+    },
+    {
+      "id": "host__hypnotized_spirals",
+      "category": "expressions",
+      "file": "host__hypnotized_spirals.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "hypnotized_spirals"
+      }
+    },
+    {
+      "id": "host__laser_burst_prismatic",
+      "category": "expressions",
+      "file": "host__laser_burst_prismatic.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "laser_burst_prismatic"
+      }
+    },
+    {
+      "id": "host__blissful_serenity",
+      "category": "expressions",
+      "file": "host__blissful_serenity.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "blissful_serenity"
+      }
+    },
+    {
+      "id": "host__crying_waterfalls",
+      "category": "expressions",
+      "file": "host__crying_waterfalls.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "crying_waterfalls"
+      }
+    },
+    {
+      "id": "host__sad_pout",
+      "category": "expressions",
+      "file": "host__sad_pout.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "sad_pout"
+      }
+    },
+    {
+      "id": "host__exhausted_melting",
+      "category": "expressions",
+      "file": "host__exhausted_melting.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "exhausted_melting"
+      }
+    },
+    {
+      "id": "host__sleepy_yawn",
+      "category": "expressions",
+      "file": "host__sleepy_yawn.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "sleepy_yawn"
+      }
+    },
+    {
+      "id": "host__sleeping_drool",
+      "category": "expressions",
+      "file": "host__sleeping_drool.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "sleeping_drool"
+      }
+    },
+    {
+      "id": "host__defeated_face_down",
+      "category": "expressions",
+      "file": "host__defeated_face_down.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "defeated_face_down"
+      }
+    },
+    {
+      "id": "host__tiny_violin",
+      "category": "expressions",
+      "file": "host__tiny_violin.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "tiny_violin"
+      }
+    },
+    {
+      "id": "host__dark_circles_insomnia",
+      "category": "expressions",
+      "file": "host__dark_circles_insomnia.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "dark_circles_insomnia"
+      }
+    },
+    {
+      "id": "host__sad_rain_cloud",
+      "category": "expressions",
+      "file": "host__sad_rain_cloud.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "sad_rain_cloud"
+      }
+    },
+    {
+      "id": "host__knocked_out_stars",
+      "category": "expressions",
+      "file": "host__knocked_out_stars.svg",
+      "meta": {
+        "gender": "male",
+        "hair": "host_classic",
+        "expression": "knocked_out_stars"
+      }
+    },
+    {
+      "id": "male__pose__default",
+      "category": "poses",
+      "file": "male__pose__default.svg",
+      "meta": {
+        "gender": "male",
+        "pose": "default"
+      }
+    },
+    {
+      "id": "female__pose__default",
+      "category": "poses",
+      "file": "female__pose__default.svg",
+      "meta": {
+        "gender": "female",
+        "pose": "default"
+      }
+    },
+    {
+      "id": "male__pose__shrug",
+      "category": "poses",
+      "file": "male__pose__shrug.svg",
+      "meta": {
+        "gender": "male",
+        "pose": "shrug"
+      }
+    },
+    {
+      "id": "female__pose__shrug",
+      "category": "poses",
+      "file": "female__pose__shrug.svg",
+      "meta": {
+        "gender": "female",
+        "pose": "shrug"
+      }
+    },
+    {
+      "id": "male__pose__point_camera",
+      "category": "poses",
+      "file": "male__pose__point_camera.svg",
+      "meta": {
+        "gender": "male",
+        "pose": "point_camera"
+      }
+    },
+    {
+      "id": "female__pose__point_camera",
+      "category": "poses",
+      "file": "female__pose__point_camera.svg",
+      "meta": {
+        "gender": "female",
+        "pose": "point_camera"
+      }
+    },
+    {
+      "id": "male__pose__facepalm",
+      "category": "poses",
+      "file": "male__pose__facepalm.svg",
+      "meta": {
+        "gender": "male",
+        "pose": "facepalm"
+      }
+    },
+    {
+      "id": "female__pose__facepalm",
+      "category": "poses",
+      "file": "female__pose__facepalm.svg",
+      "meta": {
+        "gender": "female",
+        "pose": "facepalm"
+      }
+    },
+    {
+      "id": "male__pose__hands_on_hips",
+      "category": "poses",
+      "file": "male__pose__hands_on_hips.svg",
+      "meta": {
+        "gender": "male",
+        "pose": "hands_on_hips"
+      }
+    },
+    {
+      "id": "female__pose__hands_on_hips",
+      "category": "poses",
+      "file": "female__pose__hands_on_hips.svg",
+      "meta": {
+        "gender": "female",
+        "pose": "hands_on_hips"
+      }
+    },
+    {
+      "id": "male__pose__crossed_arms",
+      "category": "poses",
+      "file": "male__pose__crossed_arms.svg",
+      "meta": {
+        "gender": "male",
+        "pose": "crossed_arms"
+      }
+    },
+    {
+      "id": "female__pose__crossed_arms",
+      "category": "poses",
+      "file": "female__pose__crossed_arms.svg",
+      "meta": {
+        "gender": "female",
+        "pose": "crossed_arms"
+      }
+    },
+    {
+      "id": "male__pose__mind_blown",
+      "category": "poses",
+      "file": "male__pose__mind_blown.svg",
+      "meta": {
+        "gender": "male",
+        "pose": "mind_blown"
+      }
+    },
+    {
+      "id": "female__pose__mind_blown",
+      "category": "poses",
+      "file": "female__pose__mind_blown.svg",
+      "meta": {
+        "gender": "female",
+        "pose": "mind_blown"
+      }
+    },
+    {
+      "id": "male__pose__waving",
+      "category": "poses",
+      "file": "male__pose__waving.svg",
+      "meta": {
+        "gender": "male",
+        "pose": "waving"
+      }
+    },
+    {
+      "id": "female__pose__waving",
+      "category": "poses",
+      "file": "female__pose__waving.svg",
+      "meta": {
+        "gender": "female",
+        "pose": "waving"
+      }
+    },
+    {
+      "id": "BG-STUDIO__t0",
+      "category": "backgrounds",
+      "file": "BG-STUDIO__t0.svg",
+      "meta": {
+        "bg": "BG-STUDIO",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-STUDIO__t2_5",
+      "category": "backgrounds",
+      "file": "BG-STUDIO__t2_5.svg",
+      "meta": {
+        "bg": "BG-STUDIO",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-HOLLYWOOD__t0",
+      "category": "backgrounds",
+      "file": "BG-HOLLYWOOD__t0.svg",
+      "meta": {
+        "bg": "BG-HOLLYWOOD",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-HOLLYWOOD__t2_5",
+      "category": "backgrounds",
+      "file": "BG-HOLLYWOOD__t2_5.svg",
+      "meta": {
+        "bg": "BG-HOLLYWOOD",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-CINEMA__t0",
+      "category": "backgrounds",
+      "file": "BG-CINEMA__t0.svg",
+      "meta": {
+        "bg": "BG-CINEMA",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-CINEMA__t2_5",
+      "category": "backgrounds",
+      "file": "BG-CINEMA__t2_5.svg",
+      "meta": {
+        "bg": "BG-CINEMA",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-90S__t0",
+      "category": "backgrounds",
+      "file": "BG-90S__t0.svg",
+      "meta": {
+        "bg": "BG-90S",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-90S__t2_5",
+      "category": "backgrounds",
+      "file": "BG-90S__t2_5.svg",
+      "meta": {
+        "bg": "BG-90S",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-Y2K__t0",
+      "category": "backgrounds",
+      "file": "BG-Y2K__t0.svg",
+      "meta": {
+        "bg": "BG-Y2K",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-Y2K__t2_5",
+      "category": "backgrounds",
+      "file": "BG-Y2K__t2_5.svg",
+      "meta": {
+        "bg": "BG-Y2K",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-GYM__t0",
+      "category": "backgrounds",
+      "file": "BG-GYM__t0.svg",
+      "meta": {
+        "bg": "BG-GYM",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-GYM__t2_5",
+      "category": "backgrounds",
+      "file": "BG-GYM__t2_5.svg",
+      "meta": {
+        "bg": "BG-GYM",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-CLINIC__t0",
+      "category": "backgrounds",
+      "file": "BG-CLINIC__t0.svg",
+      "meta": {
+        "bg": "BG-CLINIC",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-CLINIC__t2_5",
+      "category": "backgrounds",
+      "file": "BG-CLINIC__t2_5.svg",
+      "meta": {
+        "bg": "BG-CLINIC",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-RETRO__t0",
+      "category": "backgrounds",
+      "file": "BG-RETRO__t0.svg",
+      "meta": {
+        "bg": "BG-RETRO",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-RETRO__t2_5",
+      "category": "backgrounds",
+      "file": "BG-RETRO__t2_5.svg",
+      "meta": {
+        "bg": "BG-RETRO",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-GOTHIC__t0",
+      "category": "backgrounds",
+      "file": "BG-GOTHIC__t0.svg",
+      "meta": {
+        "bg": "BG-GOTHIC",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-GOTHIC__t2_5",
+      "category": "backgrounds",
+      "file": "BG-GOTHIC__t2_5.svg",
+      "meta": {
+        "bg": "BG-GOTHIC",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-TRIBUNAL__t0",
+      "category": "backgrounds",
+      "file": "BG-TRIBUNAL__t0.svg",
+      "meta": {
+        "bg": "BG-TRIBUNAL",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-TRIBUNAL__t2_5",
+      "category": "backgrounds",
+      "file": "BG-TRIBUNAL__t2_5.svg",
+      "meta": {
+        "bg": "BG-TRIBUNAL",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-OFFICE__t0",
+      "category": "backgrounds",
+      "file": "BG-OFFICE__t0.svg",
+      "meta": {
+        "bg": "BG-OFFICE",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-OFFICE__t2_5",
+      "category": "backgrounds",
+      "file": "BG-OFFICE__t2_5.svg",
+      "meta": {
+        "bg": "BG-OFFICE",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-KITCHEN__t0",
+      "category": "backgrounds",
+      "file": "BG-KITCHEN__t0.svg",
+      "meta": {
+        "bg": "BG-KITCHEN",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-KITCHEN__t2_5",
+      "category": "backgrounds",
+      "file": "BG-KITCHEN__t2_5.svg",
+      "meta": {
+        "bg": "BG-KITCHEN",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-AUDIENCE__t0",
+      "category": "backgrounds",
+      "file": "BG-AUDIENCE__t0.svg",
+      "meta": {
+        "bg": "BG-AUDIENCE",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-AUDIENCE__t2_5",
+      "category": "backgrounds",
+      "file": "BG-AUDIENCE__t2_5.svg",
+      "meta": {
+        "bg": "BG-AUDIENCE",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "BG-END__t0",
+      "category": "backgrounds",
+      "file": "BG-END__t0.svg",
+      "meta": {
+        "bg": "BG-END",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "BG-END__t2_5",
+      "category": "backgrounds",
+      "file": "BG-END__t2_5.svg",
+      "meta": {
+        "bg": "BG-END",
+        "phase": "2.5"
+      }
+    },
+    {
+      "id": "PROP-PHONE__t0",
+      "category": "props",
+      "file": "PROP-PHONE__t0.svg",
+      "meta": {
+        "prop": "PROP-PHONE",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-PHONE__t1_2",
+      "category": "props",
+      "file": "PROP-PHONE__t1_2.svg",
+      "meta": {
+        "prop": "PROP-PHONE",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-CAM__t0",
+      "category": "props",
+      "file": "PROP-CAM__t0.svg",
+      "meta": {
+        "prop": "PROP-CAM",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-CAM__t1_2",
+      "category": "props",
+      "file": "PROP-CAM__t1_2.svg",
+      "meta": {
+        "prop": "PROP-CAM",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-RED__t0",
+      "category": "props",
+      "file": "PROP-RED__t0.svg",
+      "meta": {
+        "prop": "PROP-RED",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-RED__t1_2",
+      "category": "props",
+      "file": "PROP-RED__t1_2.svg",
+      "meta": {
+        "prop": "PROP-RED",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-SCREEN__t0",
+      "category": "props",
+      "file": "PROP-SCREEN__t0.svg",
+      "meta": {
+        "prop": "PROP-SCREEN",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-SCREEN__t1_2",
+      "category": "props",
+      "file": "PROP-SCREEN__t1_2.svg",
+      "meta": {
+        "prop": "PROP-SCREEN",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-PEND__t0",
+      "category": "props",
+      "file": "PROP-PEND__t0.svg",
+      "meta": {
+        "prop": "PROP-PEND",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-PEND__t1_2",
+      "category": "props",
+      "file": "PROP-PEND__t1_2.svg",
+      "meta": {
+        "prop": "PROP-PEND",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-FOOD__t0",
+      "category": "props",
+      "file": "PROP-FOOD__t0.svg",
+      "meta": {
+        "prop": "PROP-FOOD",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-FOOD__t1_2",
+      "category": "props",
+      "file": "PROP-FOOD__t1_2.svg",
+      "meta": {
+        "prop": "PROP-FOOD",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-MONEY__t0",
+      "category": "props",
+      "file": "PROP-MONEY__t0.svg",
+      "meta": {
+        "prop": "PROP-MONEY",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-MONEY__t1_2",
+      "category": "props",
+      "file": "PROP-MONEY__t1_2.svg",
+      "meta": {
+        "prop": "PROP-MONEY",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-MED__t0",
+      "category": "props",
+      "file": "PROP-MED__t0.svg",
+      "meta": {
+        "prop": "PROP-MED",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-MED__t1_2",
+      "category": "props",
+      "file": "PROP-MED__t1_2.svg",
+      "meta": {
+        "prop": "PROP-MED",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-BROWSER__t0",
+      "category": "props",
+      "file": "PROP-BROWSER__t0.svg",
+      "meta": {
+        "prop": "PROP-BROWSER",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-BROWSER__t1_2",
+      "category": "props",
+      "file": "PROP-BROWSER__t1_2.svg",
+      "meta": {
+        "prop": "PROP-BROWSER",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-CLOCK__t0",
+      "category": "props",
+      "file": "PROP-CLOCK__t0.svg",
+      "meta": {
+        "prop": "PROP-CLOCK",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-CLOCK__t1_2",
+      "category": "props",
+      "file": "PROP-CLOCK__t1_2.svg",
+      "meta": {
+        "prop": "PROP-CLOCK",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-GYM__t0",
+      "category": "props",
+      "file": "PROP-GYM__t0.svg",
+      "meta": {
+        "prop": "PROP-GYM",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-GYM__t1_2",
+      "category": "props",
+      "file": "PROP-GYM__t1_2.svg",
+      "meta": {
+        "prop": "PROP-GYM",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-FACE__t0",
+      "category": "props",
+      "file": "PROP-FACE__t0.svg",
+      "meta": {
+        "prop": "PROP-FACE",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-FACE__t1_2",
+      "category": "props",
+      "file": "PROP-FACE__t1_2.svg",
+      "meta": {
+        "prop": "PROP-FACE",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-GAME__t0",
+      "category": "props",
+      "file": "PROP-GAME__t0.svg",
+      "meta": {
+        "prop": "PROP-GAME",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-GAME__t1_2",
+      "category": "props",
+      "file": "PROP-GAME__t1_2.svg",
+      "meta": {
+        "prop": "PROP-GAME",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-BAT__t0",
+      "category": "props",
+      "file": "PROP-BAT__t0.svg",
+      "meta": {
+        "prop": "PROP-BAT",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-BAT__t1_2",
+      "category": "props",
+      "file": "PROP-BAT__t1_2.svg",
+      "meta": {
+        "prop": "PROP-BAT",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-EMAIL__t0",
+      "category": "props",
+      "file": "PROP-EMAIL__t0.svg",
+      "meta": {
+        "prop": "PROP-EMAIL",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-EMAIL__t1_2",
+      "category": "props",
+      "file": "PROP-EMAIL__t1_2.svg",
+      "meta": {
+        "prop": "PROP-EMAIL",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-BELL__t0",
+      "category": "props",
+      "file": "PROP-BELL__t0.svg",
+      "meta": {
+        "prop": "PROP-BELL",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-BELL__t1_2",
+      "category": "props",
+      "file": "PROP-BELL__t1_2.svg",
+      "meta": {
+        "prop": "PROP-BELL",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-SCALE__t0",
+      "category": "props",
+      "file": "PROP-SCALE__t0.svg",
+      "meta": {
+        "prop": "PROP-SCALE",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-SCALE__t1_2",
+      "category": "props",
+      "file": "PROP-SCALE__t1_2.svg",
+      "meta": {
+        "prop": "PROP-SCALE",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-WATER__t0",
+      "category": "props",
+      "file": "PROP-WATER__t0.svg",
+      "meta": {
+        "prop": "PROP-WATER",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-WATER__t1_2",
+      "category": "props",
+      "file": "PROP-WATER__t1_2.svg",
+      "meta": {
+        "prop": "PROP-WATER",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-WALK__t0",
+      "category": "props",
+      "file": "PROP-WALK__t0.svg",
+      "meta": {
+        "prop": "PROP-WALK",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-WALK__t1_2",
+      "category": "props",
+      "file": "PROP-WALK__t1_2.svg",
+      "meta": {
+        "prop": "PROP-WALK",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-BOT__t0",
+      "category": "props",
+      "file": "PROP-BOT__t0.svg",
+      "meta": {
+        "prop": "PROP-BOT",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-BOT__t1_2",
+      "category": "props",
+      "file": "PROP-BOT__t1_2.svg",
+      "meta": {
+        "prop": "PROP-BOT",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-TEARS__t0",
+      "category": "props",
+      "file": "PROP-TEARS__t0.svg",
+      "meta": {
+        "prop": "PROP-TEARS",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-TEARS__t1_2",
+      "category": "props",
+      "file": "PROP-TEARS__t1_2.svg",
+      "meta": {
+        "prop": "PROP-TEARS",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-SUB__t0",
+      "category": "props",
+      "file": "PROP-SUB__t0.svg",
+      "meta": {
+        "prop": "PROP-SUB",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-SUB__t1_2",
+      "category": "props",
+      "file": "PROP-SUB__t1_2.svg",
+      "meta": {
+        "prop": "PROP-SUB",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-CARB__t0",
+      "category": "props",
+      "file": "PROP-CARB__t0.svg",
+      "meta": {
+        "prop": "PROP-CARB",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-CARB__t1_2",
+      "category": "props",
+      "file": "PROP-CARB__t1_2.svg",
+      "meta": {
+        "prop": "PROP-CARB",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-BILLBOARD__t0",
+      "category": "props",
+      "file": "PROP-BILLBOARD__t0.svg",
+      "meta": {
+        "prop": "PROP-BILLBOARD",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-BILLBOARD__t1_2",
+      "category": "props",
+      "file": "PROP-BILLBOARD__t1_2.svg",
+      "meta": {
+        "prop": "PROP-BILLBOARD",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-LOOP__t0",
+      "category": "props",
+      "file": "PROP-LOOP__t0.svg",
+      "meta": {
+        "prop": "PROP-LOOP",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-LOOP__t1_2",
+      "category": "props",
+      "file": "PROP-LOOP__t1_2.svg",
+      "meta": {
+        "prop": "PROP-LOOP",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-SHIELD__t0",
+      "category": "props",
+      "file": "PROP-SHIELD__t0.svg",
+      "meta": {
+        "prop": "PROP-SHIELD",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-SHIELD__t1_2",
+      "category": "props",
+      "file": "PROP-SHIELD__t1_2.svg",
+      "meta": {
+        "prop": "PROP-SHIELD",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-MIRROR__t0",
+      "category": "props",
+      "file": "PROP-MIRROR__t0.svg",
+      "meta": {
+        "prop": "PROP-MIRROR",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-MIRROR__t1_2",
+      "category": "props",
+      "file": "PROP-MIRROR__t1_2.svg",
+      "meta": {
+        "prop": "PROP-MIRROR",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-MARVEL__t0",
+      "category": "props",
+      "file": "PROP-MARVEL__t0.svg",
+      "meta": {
+        "prop": "PROP-MARVEL",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-MARVEL__t1_2",
+      "category": "props",
+      "file": "PROP-MARVEL__t1_2.svg",
+      "meta": {
+        "prop": "PROP-MARVEL",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-SURGERY__t0",
+      "category": "props",
+      "file": "PROP-SURGERY__t0.svg",
+      "meta": {
+        "prop": "PROP-SURGERY",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-SURGERY__t1_2",
+      "category": "props",
+      "file": "PROP-SURGERY__t1_2.svg",
+      "meta": {
+        "prop": "PROP-SURGERY",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-DELI__t0",
+      "category": "props",
+      "file": "PROP-DELI__t0.svg",
+      "meta": {
+        "prop": "PROP-DELI",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-DELI__t1_2",
+      "category": "props",
+      "file": "PROP-DELI__t1_2.svg",
+      "meta": {
+        "prop": "PROP-DELI",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-CONTRACT__t0",
+      "category": "props",
+      "file": "PROP-CONTRACT__t0.svg",
+      "meta": {
+        "prop": "PROP-CONTRACT",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-CONTRACT__t1_2",
+      "category": "props",
+      "file": "PROP-CONTRACT__t1_2.svg",
+      "meta": {
+        "prop": "PROP-CONTRACT",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-QUESTION__t0",
+      "category": "props",
+      "file": "PROP-QUESTION__t0.svg",
+      "meta": {
+        "prop": "PROP-QUESTION",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-QUESTION__t1_2",
+      "category": "props",
+      "file": "PROP-QUESTION__t1_2.svg",
+      "meta": {
+        "prop": "PROP-QUESTION",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-OUTSOURCE__t0",
+      "category": "props",
+      "file": "PROP-OUTSOURCE__t0.svg",
+      "meta": {
+        "prop": "PROP-OUTSOURCE",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-OUTSOURCE__t1_2",
+      "category": "props",
+      "file": "PROP-OUTSOURCE__t1_2.svg",
+      "meta": {
+        "prop": "PROP-OUTSOURCE",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-TRIAL__t0",
+      "category": "props",
+      "file": "PROP-TRIAL__t0.svg",
+      "meta": {
+        "prop": "PROP-TRIAL",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-TRIAL__t1_2",
+      "category": "props",
+      "file": "PROP-TRIAL__t1_2.svg",
+      "meta": {
+        "prop": "PROP-TRIAL",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-ROSE__t0",
+      "category": "props",
+      "file": "PROP-ROSE__t0.svg",
+      "meta": {
+        "prop": "PROP-ROSE",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-ROSE__t1_2",
+      "category": "props",
+      "file": "PROP-ROSE__t1_2.svg",
+      "meta": {
+        "prop": "PROP-ROSE",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "PROP-GRID__t0",
+      "category": "props",
+      "file": "PROP-GRID__t0.svg",
+      "meta": {
+        "prop": "PROP-GRID",
+        "phase": "0"
+      }
+    },
+    {
+      "id": "PROP-GRID__t1_2",
+      "category": "props",
+      "file": "PROP-GRID__t1_2.svg",
+      "meta": {
+        "prop": "PROP-GRID",
+        "phase": "1.2"
+      }
+    },
+    {
+      "id": "twoshot_host_left",
+      "category": "staging",
+      "file": "twoshot_host_left.svg",
+      "meta": {
+        "layout": "host-left",
+        "label": "Host left, co-star stage-right"
+      }
+    },
+    {
+      "id": "twoshot_host_right",
+      "category": "staging",
+      "file": "twoshot_host_right.svg",
+      "meta": {
+        "layout": "host-right",
+        "label": "Host right, co-star stage-left"
+      }
+    },
+    {
+      "id": "twoshot_both_center",
+      "category": "staging",
+      "file": "twoshot_both_center.svg",
+      "meta": {
+        "layout": "center",
+        "label": "Both center — sit-down bit"
+      }
+    },
+    {
+      "id": "twoshot_reveal_right",
+      "category": "staging",
+      "file": "twoshot_reveal_right.svg",
+      "meta": {
+        "layout": "reveal",
+        "label": "Co-star reveals prop"
+      }
+    },
+    {
+      "id": "twoshot_reaction_cut",
+      "category": "staging",
+      "file": "twoshot_reaction_cut.svg",
+      "meta": {
+        "layout": "reaction",
+        "label": "Reaction cut to co-star"
+      }
+    },
+    {
+      "id": "twoshot_escalation",
+      "category": "staging",
+      "file": "twoshot_escalation.svg",
+      "meta": {
+        "layout": "escalation",
+        "label": "Escalation lean-in"
+      }
+    },
+    {
+      "id": "twoshot_punchline",
+      "category": "staging",
+      "file": "twoshot_punchline.svg",
+      "meta": {
+        "layout": "punchline",
+        "label": "Punchline hold"
+      }
+    },
+    {
+      "id": "twoshot_walk_in",
+      "category": "staging",
+      "file": "twoshot_walk_in.svg",
+      "meta": {
+        "layout": "walkin",
+        "label": "Co-star walk-in entrance"
+      }
+    },
+    {
+      "id": "twoshot_walk_out",
+      "category": "staging",
+      "file": "twoshot_walk_out.svg",
+      "meta": {
+        "layout": "walkout",
+        "label": "Co-star walk-off exit"
+      }
+    },
+    {
+      "id": "twoshot_group",
+      "category": "staging",
+      "file": "twoshot_group.svg",
+      "meta": {
+        "layout": "group",
+        "label": "Group shot with props"
+      }
+    },
+    {
+      "id": "twoshot_lean_back",
+      "category": "staging",
+      "file": "twoshot_lean_back.svg",
+      "meta": {
+        "layout": "leanback",
+        "label": "Both lean back shocked"
+      }
+    },
+    {
+      "id": "twoshot_face_off",
+      "category": "staging",
+      "file": "twoshot_face_off.svg",
+      "meta": {
+        "layout": "faceoff",
+        "label": "Face-off standoff"
+      }
+    },
+    {
+      "id": "twoshot_sit_desk",
+      "category": "staging",
+      "file": "twoshot_sit_desk.svg",
+      "meta": {
+        "layout": "desk",
+        "label": "Sitcom desk bit"
+      }
+    },
+    {
+      "id": "twoshot_split_screen",
+      "category": "staging",
+      "file": "twoshot_split_screen.svg",
+      "meta": {
+        "layout": "split",
+        "label": "Split-screen compare"
+      }
+    }
+  ]
+}

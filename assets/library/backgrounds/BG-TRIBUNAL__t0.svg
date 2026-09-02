@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
+  <defs>
+    <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.14"/></filter>
+    <filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity="0.3"/></filter>
+  </defs>
+
+        <rect x="-4000" y="-4000" width="10000" height="10000" fill="#0f172a"/>
+        <!-- Courtroom Mahogany Wall Paneling -->
+        <rect x="200" y="220" width="1520" height="520" fill="#1e1b18" stroke="#3e2723" stroke-width="10"/>
+        <!-- Elevated Judge's Bench (Stage Right) -->
+        <g transform="translate(1420, 620)">
+          <rect x="-220" y="-120" width="440" height="240" rx="12" fill="#3e2723" stroke="#1b0000" stroke-width="8"/>
+          <text x="0" y="-60" font-family="'Impact', sans-serif" font-size="24" fill="#facc15" text-anchor="middle">TIKTOK TRIBUNAL</text>
+          <!-- Sound Block -->
+          <rect x="-60" y="-10" width="120" height="25" rx="4" fill="#5d4037" stroke="#271406" stroke-width="4"/>
+        </g>
+        <!-- Courtroom Floor -->
+        <rect x="-4000" y="740" width="10000" height="4000" fill="#0c0a09"/>
+        <line x1="-4000" y1="740" x2="6000" y2="740" stroke="#44403c" stroke-width="6"/>
+      
+</svg>

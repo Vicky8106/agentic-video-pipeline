@@ -22,11 +22,16 @@ export function topicFor(text: string): VisualPlan["topic"] {
   return "explain";
 }
 
-function roleFor(s: Sentence, index: number, count: number): ProductionBeat["role"] {
+function roleFor(s: Sentence, index: number, count: number, globalIndex?: number, totalCount?: number): ProductionBeat["role"] {
   const x = norm(s.text);
-  if (/[!?]/.test(s.text)) return index === count - 1 ? "punchline" : "escalation";
+  const gi = globalIndex ?? index;
+  const gc = totalCount ?? count;
+  const isLast = gi === gc - 1;
+  if (/[!?]/.test(s.text)) return isLast || index === count - 1 ? "punchline" : "escalation";
   if (/\b(but|however|actually|suddenly|except|until|then|literally|somehow|apparently)\b/.test(x)) return "escalation";
   if (/\b(because|therefore|means|causes|leads|so)\b/.test(x)) return "explanation";
+  // Short punchy fragments at a scene end land as punchlines.
+  if (index === count - 1 && s.words.length <= 9) return "punchline";
   return index === 0 ? "setup" : "explanation";
 }
 
@@ -68,7 +73,18 @@ export function compileProductionPlan(transcript: Transcript, direction: Directi
     sentences.forEach((s, i) => {
       const matching = direction.resolved.filter(sh => sh.start < s.end && sh.end > s.start);
       const shotId = matching[0]?.id ?? direction.resolved[0]?.id ?? "shot-0";
-      const role = roleFor(s, i, sentences.length);
+      // Role is computed against the WHOLE transcript, not the per-scene index:
+      // with sitcom 1-sentence scenes the in-scene index is always 0 and every
+      // beat would collapse to "setup". A sentence is a punchline when it is
+      // the final sentence of its scene AND carries punch signals (!, ?,
+      // contrast, or the end of a run of sentences).
+      const role = roleFor(s, i, sentences.length, s.index, transcript.sentences.length);
+      const nextS = transcript.sentences[s.index + 1];
+      const prevS = transcript.sentences[s.index - 1];
+      const isSceneEnd = i === sentences.length - 1;
+      const beatRole = (isSceneEnd && (/[!?]/.test(s.text) || nextS === undefined || (nextS.start - s.end) > 1.2))
+        ? (role === "escalation" ? "escalation" : "punchline")
+        : role;
       const e = energy(s.text, role);
       const visualTopic = topicFor(s.text);
       const target = `visual-${scene.index}-${s.index}`;
@@ -123,7 +139,7 @@ export function compileProductionPlan(transcript: Transcript, direction: Directi
         id: `scene-${scene.index}-beat-${i}`,
         start: s.start,
         end: s.end,
-        role,
+        role: beatRole,
         triggerWord,
         bits,
         actions,

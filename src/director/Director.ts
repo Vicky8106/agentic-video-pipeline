@@ -243,6 +243,27 @@ function findTriggers(sentence: Sentence, lex: DirectorLexicon): Trigger[] {
     }
   }
 
+  // SEMANTIC CAP: at most TWO camera-triggering moments per sentence — the
+  // earliest number/name (the setup's concrete hook) and the earliest concept
+  // (the visual joke). Everything else stays host-framed. Uncapped triggers
+  // made the camera punch in every ~1.5s, which reads as random crash zooms.
+  if (out.length > 2) {
+    const firstHook = out.find(t => t.kind === "number" || t.kind === "name");
+    const firstConcept = out.find(t => t.kind === "concept");
+    const kept = new Set<Trigger>();
+    if (firstHook) kept.add(firstHook);
+    if (firstConcept && kept.size < 2) kept.add(firstConcept);
+    if (kept.size === 0) kept.add(out[0]);
+    if (kept.size === 1 && out.indexOf([...kept][0]) < out.length - 1 && out.length > 1) {
+      // keep one more later trigger so the punch still gets a visual
+      const rest = out.filter(t => !kept.has(t));
+      if (rest.length) kept.add(rest[rest.length - 1]);
+    }
+    out.length = 0;
+    for (const t of kept) out.push(t);
+    out.sort((a, b) => a.word.start - b.word.start);
+  }
+
   return out;
 }
 
@@ -398,7 +419,7 @@ export function direct(transcript: Transcript, options: DirectorOptions = {}): D
       shots.push({
         id: nextId("host"), start: sentence.start, end: setupEnd,
         kind: "host", center: FRAMING.hostLeft.center, zoom: FRAMING.hostLeft.zoom,
-        move: "punch", approach: 0.18, ease: "expoOut", screenSide: -1,
+        move: "cut", screenSide: -1,
       });
       events.push({
         t: sentence.start, kind: "expression", target: "host",
@@ -433,18 +454,23 @@ export function direct(transcript: Transcript, options: DirectorOptions = {}): D
             side = (side * -1) as -1 | 1;
           }
           const anchor = anchors[subjectId];
-          const macro = escalation >= 1;
-          const zoom = Math.min(2.15, macro ? 1.88 + escalation * 0.05 : 1.48 + escalation * 0.08);
+          // CAMERA GRAMMAR: a reveal is a CUT to a slightly tighter frame —
+          // the prop's pop-in entrance carries the energy, not the camera.
+          // Macro (1.55x smooth push) is reserved for escalation beats; the
+          // old 1.48-2.15x backOut crash on every concept read as random
+          // crash zooming.
+          const macro = escalation >= 2;
+          const zoom = macro ? 1.55 : 1.28;
 
           shots.push({
             id: nextId(macro ? "macro" : "subject"),
             start: triggerAt, end: Math.max(triggerAt + opts.minShot, w.end),
             kind: macro ? "macro" : "subject",
             center: macro ? [anchor[0] + 60, anchor[1] - 40] : anchor,
-            zoom, move: macro ? "punch" : "whip",
-            approach: macro ? 0.13 : 0.1,
-            ease: macro ? "backOut" : "expoOut",
-            overshoot: macro ? 0.06 : 0,
+            zoom, move: macro ? "drift" : "cut",
+            approach: macro ? 0.3 : 0,
+            ease: "cubicInOut",
+            overshoot: 0,
             screenSide: anchor[0] > 960 ? 1 : -1,
             tag: subjectId,
           });
@@ -466,8 +492,8 @@ export function direct(transcript: Transcript, options: DirectorOptions = {}): D
             id: nextId("insert"),
             start: triggerAt, end: Math.max(triggerAt + opts.minShot, w.end + 0.12),
             kind: "insert", center: anchorForSide(side),
-            zoom: 2.02 + escalation * 0.04,
-            move: "punch", approach: 0.11, ease: "backOut", overshoot: 0.08,
+            zoom: 1.42,
+            move: "cut", approach: 0, ease: "cubicInOut", overshoot: 0,
             tag: `readout:${w.text}`,
           });
           events.push({
@@ -475,19 +501,14 @@ export function direct(transcript: Transcript, options: DirectorOptions = {}): D
             duration: Math.max(0.5, w.end - triggerAt + 0.35),
             payload: { value: w.text }, reason: `number:${w.text}`,
           });
-          events.push({
-            t: triggerAt, kind: "flash",
-            payload: { strength: 0.55, decay: 0.34, flash: true },
-            reason: "punchline",
-          });
           lastEnd = Math.max(lastEnd, w.end + 0.12);
         } else if (trig.kind === "comparison") {
           shots.push({
             id: nextId("morph"),
             start: triggerAt, end: Math.max(triggerAt + opts.minShot, w.end + 0.2),
             kind: "subject", center: side > 0 ? FRAMING.subjectRight.center : FRAMING.subjectLeft.center,
-            zoom: 1.56 + escalation * 0.06,
-            move: "punch", approach: 0.16, ease: "cubicInOut", tag: `morph:${w.token}`,
+            zoom: 1.35,
+            move: "drift", approach: 0.25, ease: "cubicInOut", tag: `morph:${w.token}`,
           });
           events.push({
             t: triggerAt, kind: "morph", target: "subject",

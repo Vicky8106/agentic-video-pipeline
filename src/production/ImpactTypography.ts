@@ -64,7 +64,7 @@ export interface ImpactWordState {
  * Timeline: silent -> SLAM (0-0.14s, spring in, rotate) -> hold w/ decay
  * wobble (0.14-1.1s) -> fade (last 0.25s).
  */
-export function impactWordState(word: string, t: number, punchAt: number, energy = 0.5): ImpactWordState | null {
+export function impactWordState(word: string, t: number, punchAt: number, energy = 0.5, beatIndex = 0): ImpactWordState | null {
   if (!word) return null;
   const dt = t - punchAt;
   if (dt < -0.05) return null;
@@ -78,9 +78,13 @@ export function impactWordState(word: string, t: number, punchAt: number, energy
   const holdEnd = 1.05 + energy * 0.4;
   const fade = dt > holdEnd ? clamp(1 - (dt - holdEnd) / 0.3) : 1;
   if (fade <= 0) return null;
+  // Position rotates across three slots so the composition doesn't repeat
+  const slot = Math.abs(Math.floor(beatIndex)) % 3;
+  const y = slot === 0 ? 250 : slot === 1 ? 205 : 295;
+  const x = slot === 1 ? 860 : 960;
   return {
     word,
-    x: 960, y: 250,
+    x, y,
     scale: spring,
     rotation: wobble * 5 + (hash(word) - 0.5) * 6,
     opacity: fade,

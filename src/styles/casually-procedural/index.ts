@@ -1,6 +1,6 @@
 import { renderStickFigure } from "../../character/StickFigure";
 import { renderBackground, BackgroundId } from "../../assets/BackgroundLibrary";
-import { renderProp } from "../../assets/PropLibrary";
+import { renderProceduralAsset } from "../procedural/assetLibrary";
 import type { StylePack } from "../StylePack";
 
 const esc = (s: unknown) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -117,21 +117,19 @@ function asset(request: Parameters<StylePack["renderAsset"]>[0], state: Record<s
     return "";
   }
 
-  const fullKey = (semantic + " " + label).toLowerCase();
-  let matchedProp = "PROP-PHONE";
-  for (const [kw, propId] of Object.entries(PROP_MAP)) {
-    if (fullKey.includes(kw)) {
-      matchedProp = propId;
-      break;
-    }
-  }
-
-  return renderProp(matchedProp, {
-    x,
-    y,
+  // Route through the procedural asset library: handcrafted gag puppets first,
+  // then rich per-family vector drawers. Every concept gets a drawing that
+  // MEANS what the sentence says — never a generic fallback prop.
+  return renderProceduralAsset({
+    x, y,
     scale: scale * 1.15,
-    timeSec: t,
-    label,
+    entry: Math.max(0, Math.min(1, Number(state.entry ?? 1))),
+    exit: Math.max(0, Math.min(1, Number(state.exit ?? 0))),
+    age: t,
+    energy: Number(state.energy ?? 0.5),
+    concept: semantic || label || request.id,
+    kind: String(state.kind ?? "generic"),
+    slot: Number(state.slot ?? 0),
   });
 }
 

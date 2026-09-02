@@ -257,13 +257,14 @@ export function renderAutoSvgFrame({ production, timeSec, width = 1920, height =
     const punchAction = active.find(a => a.type === "camera" && (a.payload?.move === "punch" || a.payload?.move === "impact"));
     const punchAt = punchAction ? punchAction.start : (beat && (beat.role === "punchline") ? beat.start + (beat.end - beat.start) * 0.55 : null);
     const sitcom = beat ? renderSitcomLayer(timeSec, beat, punchAt, style.renderActor, production.coStarPresence) : "";
-    // Impact typography: the punch word SLAMS in exactly as spoken.
+    // Impact typography: the punch word SLAMS in exactly as spoken. Slot
+    // rotates per beat so the composition varies.
     const beatText = beat?.visual?.semantic ?? "";
     const impactSvg = (() => {
       if (!beat || (beat.role !== "punchline" && beat.role !== "escalation" && !punchAction)) return "";
       const pw = pickPunchWord(beatText);
       if (!pw) return "";
-      const st = impactWordState(pw.word, timeSec, punchAt ?? beat.start + 0.3, beat.energy ?? .5);
+      const st = impactWordState(pw.word, timeSec, punchAt ?? beat.start + 0.3, beat.energy ?? .5, beatIndex);
       return renderImpactWord(st);
     })();
     // No burned-in subtitles: the user asked for a clean video. The caption

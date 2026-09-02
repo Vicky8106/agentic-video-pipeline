@@ -133,6 +133,9 @@ export interface CoStarState {
  * Compute co-star state for time t within a beat window.
  * Walk-in: a real entrance (legs cycle + horizontal travel + a little hop at
  * the settle), not a teleport. Reactions are timed to the punch moment.
+ * Staging varies by ~20s block so compositions don't repeat every beat:
+ * the co-star alternates between downstage-right (close, large) and a
+ * further, smaller placement — like real sitcom blocking.
  */
 export function coStarState(
   member: CastMember,
@@ -148,7 +151,12 @@ export function coStarState(
   // After settle: idle life (breathing sway), no frozen frames.
   const idle = Math.max(0, t - settleAt);
   const walking = entrance < 0.9;
-  const travelX = HOST_X + (CO_STAR_X - HOST_X) * smoothstep(entrance);
+  // Staging block: changes every ~20s, deterministic.
+  const block = Math.floor(beat.start / 20) % 3;
+  const starX = block === 0 ? CO_STAR_X : block === 1 ? 1440 : 1090;
+  const starScale = block === 0 ? 1.22 : block === 1 ? 1.08 : 1.14;
+  const starY = block === 1 ? 640 : 652;
+  const travelX = HOST_X + (starX - HOST_X) * smoothstep(entrance);
   // Punch reaction: quick lean-back + head snap, decaying over 0.45s.
   let punchReact = 0;
   if (punchAt !== null && t >= punchAt) {
@@ -165,8 +173,8 @@ export function coStarState(
     role: beat.role,
     state: {
       x: travelX,
-      y: 650 + Math.sin(t * 1.6 + hash(member.actorId.length * 13.7)) * 1.8,
-      scale: 1.22,
+      y: starY + Math.sin(t * 1.6 + hash(member.actorId.length * 13.7)) * 1.8,
+      scale: starScale,
       rotation: 0,
       gender: member.gender,
       hairStyle: member.hairStyle as StickFigureState["hairStyle"],

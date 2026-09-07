@@ -1,4 +1,8 @@
 node_modules/
 output/
-dist/assets/audio.mp3
+dist/
 *.mp4
+*.bak
+*.log
+*.tmp
+.DS_Store

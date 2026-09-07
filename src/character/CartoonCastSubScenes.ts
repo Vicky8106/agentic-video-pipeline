@@ -195,7 +195,7 @@ export function renderCouchForagingLoot(x: number, y: number, timeSec: number = 
       <!-- Loot Badge -->
       <rect x="-210" y="90" width="420" height="55" rx="10" fill="#0f172a" stroke="#f59e0b" stroke-width="4"/>
       <text x="0" y="126" font-family="'Impact', sans-serif" font-size="20" fill="#fde68a" text-anchor="middle">
-        COUCH FORAGING: +$0.03 & 1 CHEETO
+        COUCH FORAGING: +$0.03 &amp; 1 CHEETO
       </text>
     </g>
   `;
@@ -284,7 +284,7 @@ export function renderAlarmClockTRT(x: number, y: number, timeSec: number = 0): 
       <!-- "DISCIPLINE" Banner -->
       <rect x="-210" y="100" width="420" height="52" rx="10" fill="#064e3b" stroke="#34d399" stroke-width="4"/>
       <text x="0" y="134" font-family="'Impact', sans-serif" font-size="22" fill="#6ee7b7" text-anchor="middle">
-        "JUST DISCIPLINE & TRT"
+        "JUST DISCIPLINE &amp; TRT"
       </text>
     </g>
   `;
@@ -346,6 +346,338 @@ export function renderYouAreNotLazyCard(x: number, y: number, timeSec: number = 
       <text x="0" y="80" font-family="'Impact', sans-serif" font-size="18" fill="#facc15" text-anchor="middle">
         [ SO DO NOT FEEL BAD ABOUT YOURSELF ]
       </text>
+    </g>
+  `;
+}
+
+/**
+ * 15. SHRINK-WRAPPED LEFTOVER HAM IN SUPERHERO CAPE
+ * "Skin wraps around their muscles like shrink wrap on a leftover ham"
+ */
+export function renderShrinkWrappedHam(x: number, y: number, timeSec: number = 0): string {
+  const hover = Math.sin(timeSec * 4) * 10;
+  return `
+    <g id="asset-shrink-wrap-ham" transform="translate(${x}, ${y + hover}) scale(1.5)" filter="url(#cardShadow)">
+      <!-- Flowing Red Superhero Cape -->
+      <path d="M -80 -40 Q -180 ${-20 + Math.sin(timeSec * 8) * 25} -220 ${100 + Math.cos(timeSec * 8) * 30} L -140 140 Q -90 40 -40 20 Z" fill="#dc2626" stroke="#991b1b" stroke-width="6"/>
+      
+      <!-- Big Pink Grocery Easter Ham Body -->
+      <path d="M -80 0 C -90 -80 60 -110 120 -40 C 160 10 140 80 70 100 C -10 120 -80 60 -80 0 Z" fill="#f472b6" stroke="#db2777" stroke-width="8"/>
+      
+      <!-- Cross-Hatch Glaze Score Lines -->
+      <g stroke="#be185d" stroke-width="4" opacity="0.6">
+        <line x1="-30" y1="-50" x2="80" y2="60"/>
+        <line x1="-50" y1="-20" x2="60" y2="80"/>
+        <line x1="-10" y1="-70" x2="110" y2="40"/>
+        <line x1="40" y1="-60" x2="-60" y2="40"/>
+        <line x1="70" y1="-30" x2="-40" y2="70"/>
+        <line x1="100" y1="0" x2="-10" y2="90"/>
+      </g>
+
+      <!-- Tight Plastic Cling Wrap Highlights & Glints -->
+      <path d="M -70 -20 Q 20 -90 100 -30" fill="none" stroke="#ffffff" stroke-width="7" opacity="0.8" stroke-linecap="round"/>
+      <path d="M -50 40 Q 30 100 100 60" fill="none" stroke="#ffffff" stroke-width="5" opacity="0.7" stroke-linecap="round"/>
+      <circle cx="-10" cy="-30" r="8" fill="#ffffff" opacity="0.9"/>
+      <line x1="70" y1="20" x2="95" y2="45" stroke="#ffffff" stroke-width="4" opacity="0.8"/>
+
+      <!-- Golden Superhero Utility Belt -->
+      <rect x="-70" y="10" width="160" height="24" rx="4" fill="#facc15" stroke="#ca8a04" stroke-width="4"/>
+      <circle cx="10" cy="22" r="18" fill="#eab308" stroke="#854d0e" stroke-width="4"/>
+      <text x="10" y="28" font-family="'Impact', sans-serif" font-size="18" fill="#78350f" font-weight="bold" text-anchor="middle">A</text>
+
+      <!-- Supermarket Price & Calorie Tag -->
+      <g transform="translate(130, -50) rotate(14)">
+        <rect x="-60" y="-30" width="120" height="60" rx="6" fill="#fef08a" stroke="#ca8a04" stroke-width="3" filter="url(#cardShadow)"/>
+        <text x="0" y="-8" font-family="'Courier New', monospace" font-size="14" font-weight="bold" fill="#78350f" text-anchor="middle">LEFTOVER HAM</text>
+        <text x="0" y="16" font-family="'Impact', sans-serif" font-size="18" fill="#dc2626" text-anchor="middle">99% SHRINKWRAP</text>
+      </g>
+
+      <!-- Title Badge -->
+      <rect x="-190" y="120" width="380" height="50" rx="12" fill="#0f172a" stroke="#ef4444" stroke-width="4"/>
+      <text x="0" y="153" font-family="'Impact', sans-serif" font-size="22" fill="#f87171" letter-spacing="1" text-anchor="middle">
+        MCU DEHYDRATION PROTOCOL
+      </text>
+    </g>
+  `;
+}
+
+/**
+ * 16. DELI MEAT CHEEKBONE SLICER
+ * "Cheekbones sharp enough to slice deli meat"
+ */
+export function renderDeliCheekboneSlicer(x: number, y: number, timeSec: number = 0): string {
+  const sliceSlide = Math.sin(timeSec * 8) * 30;
+  return `
+    <g id="asset-deli-cheek-slicer" transform="translate(${x}, ${y}) scale(1.45)" filter="url(#cardShadow)">
+      <!-- Butcher Block Wooden Table Base -->
+      <rect x="-240" y="100" width="480" height="60" rx="8" fill="#78350f" stroke="#451a03" stroke-width="6"/>
+      <line x1="-220" y1="125" x2="220" y2="125" stroke="#92400e" stroke-width="4"/>
+
+      <!-- Giant Wooden Cutting Board -->
+      <rect x="-180" y="70" width="360" height="35" rx="6" fill="#d97706" stroke="#92400e" stroke-width="4"/>
+
+      <!-- Razor-Sharp Titanium Cheekbone Blade -->
+      <g transform="translate(-60, 20)">
+        <path d="M -40 -120 Q 20 -40 80 60 L 50 70 Q 0 -20 -50 -100 Z" fill="#e2e8f0" stroke="#0284c7" stroke-width="5" filter="url(#glow)"/>
+        <!-- Knife Blade Sparkle -->
+        <polygon points="20,-30 25,-45 30,-30 45,-25 30,-20 25,-5 20,-20 5,-25" fill="#ffffff"/>
+      </g>
+
+      <!-- Italian Salami / Pastrami Roll Slicing Across Blade -->
+      <g transform="translate(${20 + sliceSlide}, ${10 - sliceSlide * 0.4}) rotate(-25)">
+        <rect x="-70" y="-30" width="140" height="60" rx="30" fill="#991b1b" stroke="#7f1d1d" stroke-width="6"/>
+        <!-- Peppercorns & Fat Marbling -->
+        <circle cx="-30" cy="-10" r="4" fill="#ffffff"/>
+        <circle cx="10" cy="5" r="5" fill="#ffffff"/>
+        <circle cx="35" cy="-8" r="3" fill="#ffffff"/>
+        <circle cx="-10" cy="12" r="3" fill="#ffffff"/>
+        <circle cx="-45" cy="8" r="2" fill="#000000"/>
+        <circle cx="20" cy="-15" r="2" fill="#000000"/>
+      </g>
+
+      <!-- Flying Paper-Thin Slices Falling Onto Cutting Board -->
+      ${[0, 1, 2].map(idx => {
+        const dropY = 40 + idx * 16 + Math.sin(timeSec * 8 + idx) * 5;
+        const dropX = -20 + idx * 35;
+        return `
+          <ellipse cx="${dropX}" cy="${dropY}" rx="28" ry="10" fill="#dc2626" stroke="#991b1b" stroke-width="3" transform="rotate(${idx * 15} ${dropX} ${dropY})"/>
+        `;
+      }).join("")}
+
+      <!-- Italian Deli Sign -->
+      <g transform="translate(0, -110)">
+        <rect x="-210" y="-35" width="420" height="70" rx="14" fill="#0f172a" stroke="#ef4444" stroke-width="5" filter="url(#cardShadow)"/>
+        <text x="0" y="2" font-family="'Impact', sans-serif" font-size="24" fill="#f87171" letter-spacing="2" text-anchor="middle">
+          ★ GINO'S DELI &amp; CHEEKBONES ★
+        </text>
+        <text x="0" y="24" font-family="'Courier New', monospace" font-size="14" font-weight="bold" fill="#fef08a" text-anchor="middle">
+          0.001mm PASTRAMI SLICES
+        </text>
+      </g>
+    </g>
+  `;
+}
+
+/**
+ * 17. FROZEN BOTOX DIVORCE TEARS MELODRAMA
+ * "Forehead remains completely smooth and stationary while they cry through a divorce"
+ */
+export function renderFrozenForeheadDivorce(x: number, y: number, timeSec: number = 0): string {
+  const squirt = Math.sin(timeSec * 16) > 0;
+  return `
+    <g id="asset-frozen-forehead" transform="translate(${x}, ${y}) scale(1.45)" filter="url(#cardShadow)">
+      <!-- Melodrama Table with Divorce Settlement -->
+      <rect x="-230" y="110" width="460" height="50" rx="8" fill="#1e293b" stroke="#0f172a" stroke-width="5"/>
+      
+      <!-- Official Divorce Papers -->
+      <g transform="translate(-110, 80) rotate(-8)">
+        <rect x="-60" y="-45" width="120" height="90" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="3" filter="url(#cardShadow)"/>
+        <text x="0" y="-20" font-family="'Impact', sans-serif" font-size="12" fill="#ef4444" text-anchor="middle">DIVORCE PETITION</text>
+        <line x1="-45" y1="-5" x2="45" y2="-5" stroke="#cbd5e1" stroke-width="3"/>
+        <line x1="-45" y1="10" x2="45" y2="10" stroke="#cbd5e1" stroke-width="3"/>
+        <line x1="-45" y1="25" x2="15" y2="25" stroke="#cbd5e1" stroke-width="3"/>
+        <circle cx="35" cy="25" r="10" fill="#facc15" stroke="#ca8a04" stroke-width="3"/> <!-- Gold Ring -->
+      </g>
+
+      <!-- Glass-Smooth Frozen Forehead Barrier (Plexiglas Plate) -->
+      <g transform="translate(80, -30)">
+        <!-- Face Outline -->
+        <circle cx="0" cy="0" r="75" fill="#fed7aa" stroke="#0f172a" stroke-width="6"/>
+        
+        <!-- FROZEN GLASS FOREHEAD OVERLAY -->
+        <path d="M -60 -20 Q 0 -60 60 -20 L 60 -60 Q 0 -85 -60 -60 Z" fill="#bae6fd" opacity="0.6" stroke="#0284c7" stroke-width="4"/>
+        <text x="0" y="-38" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#0369a1" text-anchor="middle">[0 WRINKLES]</text>
+
+        <!-- Straining Eyebrows (Stuck Straight) -->
+        <line x1="-45" y1="-15" x2="-15" y2="-15" stroke="#0f172a" stroke-width="7" stroke-linecap="round"/>
+        <line x1="15" y1="-15" x2="45" y2="-15" stroke="#0f172a" stroke-width="7" stroke-linecap="round"/>
+
+        <!-- Panicked Wide Eyes -->
+        <circle cx="-30" cy="10" r="14" fill="#ffffff" stroke="#0f172a" stroke-width="4"/>
+        <circle cx="-30" cy="10" r="6" fill="#0f172a"/>
+        <circle cx="30" cy="10" r="14" fill="#ffffff" stroke="#0f172a" stroke-width="4"/>
+        <circle cx="30" cy="10" r="6" fill="#0f172a"/>
+
+        <!-- Open Weeping Mouth Trying to Frown -->
+        <path d="M -30 48 Q 0 32 30 48 Q 0 72 -30 48 Z" fill="#991b1b" stroke="#0f172a" stroke-width="5"/>
+
+        <!-- HORIZONTAL SQUIRT TEARS (Water Guns Shooting Sideways) -->
+        ${squirt ? `
+          <path d="M -44 10 Q -100 0 -160 20" fill="none" stroke="#38bdf8" stroke-width="7" stroke-linecap="round" filter="url(#glow)"/>
+          <path d="M 44 10 Q 100 0 160 20" fill="none" stroke="#38bdf8" stroke-width="7" stroke-linecap="round" filter="url(#glow)"/>
+          <circle cx="-165" cy="22" r="6" fill="#38bdf8"/>
+          <circle cx="165" cy="22" r="6" fill="#38bdf8"/>
+        ` : `
+          <path d="M -44 10 Q -80 5 -120 15" fill="none" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+          <path d="M 44 10 Q 80 5 120 15" fill="none" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/>
+        `}
+      </g>
+
+      <!-- Satirical Caption Banner -->
+      <g transform="translate(0, -125)">
+        <rect x="-220" y="-30" width="440" height="60" rx="12" fill="#0f172a" stroke="#a855f7" stroke-width="5" filter="url(#cardShadow)"/>
+        <text x="0" y="8" font-family="'Impact', sans-serif" font-size="22" fill="#c084fc" letter-spacing="1" text-anchor="middle">
+          TRAGIC DIVORCE: 100% STATIONARY FOREHEAD
+        </text>
+      </g>
+    </g>
+  `;
+}
+
+/**
+ * 18. STANDARD BUSINESS ENVELOPE (FITS COMFORTABLY)
+ * "Celebrity looking like they could comfortably fit inside a standard business envelope"
+ */
+export function renderBusinessEnvelope(x: number, y: number, timeSec: number = 0): string {
+  const wiggle = Math.sin(timeSec * 6) * 8;
+  return `
+    <g id="asset-business-envelope" transform="translate(${x}, ${y}) scale(1.5)" filter="url(#cardShadow)">
+      <!-- Giant Crisp White #10 Business Envelope -->
+      <rect x="-190" y="-100" width="380" height="200" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="6"/>
+      
+      <!-- Envelope Flap Creases -->
+      <path d="M -190 -100 L 0 20 L 190 -100" fill="none" stroke="#cbd5e1" stroke-width="4"/>
+      <path d="M -190 100 L -50 0" fill="none" stroke="#cbd5e1" stroke-width="4"/>
+      <path d="M 190 100 L 50 0" fill="none" stroke="#cbd5e1" stroke-width="4"/>
+
+      <!-- Postage Stamp (American Flag 68¢) -->
+      <g transform="translate(130, -65)">
+        <rect x="-25" y="-20" width="50" height="40" rx="3" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
+        <line x1="-20" y1="-8" x2="20" y2="-8" stroke="#dc2626" stroke-width="3"/>
+        <line x1="-20" y1="4" x2="20" y2="4" stroke="#dc2626" stroke-width="3"/>
+        <rect x="-20" y="-18" width="16" height="15" fill="#1e3a8a"/>
+        <text x="12" y="14" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1e293b">68¢</text>
+      </g>
+
+      <!-- Circular Postmark Stamp -->
+      <g transform="translate(90, -65) rotate(15)" opacity="0.6">
+        <circle cx="0" cy="0" r="22" fill="none" stroke="#0f172a" stroke-width="2"/>
+        <text x="0" y="-4" font-family="'Courier New', monospace" font-size="7" font-weight="bold" fill="#0f172a" text-anchor="middle">HOLLYWOOD</text>
+        <text x="0" y="6" font-family="'Courier New', monospace" font-size="7" font-weight="bold" fill="#0f172a" text-anchor="middle">OCT 2024</text>
+      </g>
+
+      <!-- Delivery Address Lines -->
+      <g transform="translate(-130, 0)">
+        <text x="0" y="-10" font-family="'Courier New', monospace" font-size="13" font-weight="bold" fill="#334155">TO: HOLLYWOOD PRESS TOUR</text>
+        <text x="0" y="10" font-family="'Courier New', monospace" font-size="12" fill="#64748b">100 OZEMPIC WAY, SUITE 0</text>
+        <text x="0" y="30" font-family="'Courier New', monospace" font-size="12" fill="#64748b">LOS ANGELES, CA 90210</text>
+      </g>
+
+      <!-- Stick Figure Squeezed Inside Envelope, Head & Hands Poking Out -->
+      <g transform="translate(0, ${-100 + wiggle})">
+        <!-- Stick Head Poking Out -->
+        <circle cx="0" cy="-35" r="28" fill="#ffffff" stroke="#0f172a" stroke-width="5"/>
+        <!-- Hair / Sunglasses -->
+        <path d="M -26 -45 Q 0 -68 26 -45" stroke="#0f172a" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <rect x="-20" y="-40" width="18" height="12" rx="2" fill="#0f172a"/>
+        <rect x="2" y="-40" width="18" height="12" rx="2" fill="#0f172a"/>
+        <line x1="-2" y1="-34" x2="2" y2="-34" stroke="#0f172a" stroke-width="3"/>
+        <!-- Cheerful Grin -->
+        <path d="M -12 -22 Q 0 -12 12 -22" stroke="#0f172a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- Two Tiny Stick Hands Clinging to Envelope Rim -->
+        <circle cx="-42" cy="-4" r="6" fill="#ffffff" stroke="#0f172a" stroke-width="4"/>
+        <circle cx="42" cy="-4" r="6" fill="#ffffff" stroke="#0f172a" stroke-width="4"/>
+      </g>
+
+      <!-- Title Badge -->
+      <rect x="-190" y="115" width="380" height="48" rx="10" fill="#0f172a" stroke="#22c55e" stroke-width="4"/>
+      <text x="0" y="146" font-family="'Impact', sans-serif" font-size="22" fill="#4ade80" letter-spacing="1" text-anchor="middle">
+        "COMFORTABLY FITS IN ENVELOPE"
+      </text>
+    </g>
+  `;
+}
+
+/**
+ * 19. OBAMA LAST CARBOHYDRATE (CIRCA 2012)
+ * "Gaunt cyborg who hasn't encountered a complex carbohydrate since the Obama administration"
+ */
+export function renderObamaLastCarb2012(x: number, y: number, timeSec: number = 0): string {
+  return `
+    <g id="asset-obama-carb" transform="translate(${x}, ${y}) scale(1.45)" filter="url(#cardShadow)">
+      <!-- Ornate Gold Museum Frame -->
+      <rect x="-180" y="-120" width="360" height="240" rx="14" fill="#1e1b4b" stroke="#ca8a04" stroke-width="10"/>
+      <rect x="-165" y="-105" width="330" height="210" rx="8" fill="#312e81" stroke="#eab308" stroke-width="3"/>
+
+      <!-- Oval Office Blue Wallpaper & Seal -->
+      <circle cx="0" cy="-20" r="70" fill="#1e3a8a" stroke="#ca8a04" stroke-width="4"/>
+      <text x="0" y="-55" font-family="'Impact', sans-serif" font-size="16" fill="#facc15" text-anchor="middle">OVAL OFFICE 2012</text>
+
+      <!-- Warm Golden Blueberry Muffin Prop (The Extinct Carb) -->
+      <g transform="translate(0, -10)">
+        <!-- Muffin Top -->
+        <path d="M -50 0 C -60 -40 60 -40 50 0 Z" fill="#d97706" stroke="#92400e" stroke-width="6"/>
+        <!-- Blueberries -->
+        <circle cx="-20" cy="-18" r="7" fill="#1e3a8a"/>
+        <circle cx="15" cy="-22" r="6" fill="#1e3a8a"/>
+        <circle cx="2" cy="-8" r="6" fill="#1e3a8a"/>
+        <!-- Paper Cup Base -->
+        <polygon points="-40,0 40,0 30,35 -30,35" fill="#fef08a" stroke="#ca8a04" stroke-width="4"/>
+        <!-- Rising Steam Vectors -->
+        <path d="M -15 -35 Q -25 -55 -15 -70" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.7"/>
+        <path d="M 15 -35 Q 25 -55 15 -70" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.7"/>
+      </g>
+
+      <!-- Museum Brass Plaque -->
+      <g transform="translate(0, 75)">
+        <rect x="-150" y="-20" width="300" height="40" rx="6" fill="#ca8a04" stroke="#854d0e" stroke-width="3"/>
+        <text x="0" y="6" font-family="'Courier New', monospace" font-size="12" font-weight="bold" fill="#451a03" text-anchor="middle">
+          LAST KNOWN CARB (CIRCA 2012)
+        </text>
+      </g>
+    </g>
+  `;
+}
+
+/**
+ * 20. TIKTOK DUET JURY & FORENSIC JAWLINE SPEC
+ */
+export function renderTikTokDuetJury(x: number, y: number, timeSec: number = 0): string {
+  const alertBlink = Math.sin(timeSec * 8) > 0;
+  return `
+    <g id="asset-tiktok-jury" transform="translate(${x}, ${y}) scale(1.45)" filter="url(#cardShadow)">
+      <!-- Smartphone Housing -->
+      <rect x="-140" y="-200" width="280" height="400" rx="32" fill="#000000" stroke="#334155" stroke-width="7"/>
+      <rect x="-125" y="-180" width="250" height="360" rx="16" fill="#09090b"/>
+
+      <!-- 2x2 TikTok Duet Split Screen Grid -->
+      <line x1="0" y1="-180" x2="0" y2="180" stroke="#27272a" stroke-width="3"/>
+      <line x1="-125" y1="0" x2="125" y2="0" stroke="#27272a" stroke-width="3"/>
+
+      <!-- Creator 1 (Shocked Pointing) -->
+      <g transform="translate(-62, -90)">
+        <circle cx="0" cy="-20" r="22" fill="#ffffff" stroke="#ef4444" stroke-width="3"/>
+        <ellipse cx="0" cy="-14" rx="8" ry="12" fill="#991b1b"/> <!-- Open Mouth Screaming -->
+        <text x="0" y="32" font-family="'Impact', sans-serif" font-size="12" fill="#f87171" text-anchor="middle">@pop_tea</text>
+      </g>
+
+      <!-- Creator 2 (Forensic Caliper) -->
+      <g transform="translate(62, -90)">
+        <circle cx="0" cy="-20" r="22" fill="#ffffff" stroke="#38bdf8" stroke-width="3"/>
+        <line x1="-15" y1="-8" x2="15" y2="-8" stroke="#0284c7" stroke-width="4"/>
+        <text x="0" y="32" font-family="'Impact', sans-serif" font-size="12" fill="#38bdf8" text-anchor="middle">@jawline_doc</text>
+      </g>
+
+      <!-- Creator 3 (Zapruder Stills) -->
+      <g transform="translate(-62, 90)">
+        <rect x="-40" y="-45" width="80" height="55" rx="4" fill="#27272a" stroke="#eab308" stroke-width="2"/>
+        <circle cx="0" cy="-18" r="14" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="4 3"/>
+        <text x="0" y="32" font-family="'Impact', sans-serif" font-size="12" fill="#facc15" text-anchor="middle">@forensic_tea</text>
+      </g>
+
+      <!-- Creator 4 (Reaction Face) -->
+      <g transform="translate(62, 90)">
+        <circle cx="0" cy="-20" r="22" fill="#ffffff" stroke="#a855f7" stroke-width="3"/>
+        <text x="0" y="32" font-family="'Impact', sans-serif" font-size="12" fill="#c084fc" text-anchor="middle">@viral_cuts</text>
+      </g>
+
+      <!-- TikTok Top Header Banner -->
+      <g transform="translate(0, -220)">
+        <rect x="-160" y="-25" width="320" height="50" rx="12" fill="#0f172a" stroke="${alertBlink ? "#ef4444" : "#ec4899"}" stroke-width="4"/>
+        <text x="0" y="8" font-family="'Impact', sans-serif" font-size="20" fill="#ffffff" letter-spacing="1" text-anchor="middle">
+          TIKTOK JAWLINE TRIBUNAL 🚨
+        </text>
+      </g>
     </g>
   `;
 }

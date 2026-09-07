@@ -5,6 +5,7 @@ import {
 } from "../character/CartoonComedyPuppets";
 import {
   renderNintendoGLP1Cartridge,
+  renderChainedStomachPadlock,
   renderSaltineCrackerPlatter,
   renderSeductiveBaguette,
 } from "../character/CartoonCastSubScenes";
@@ -151,8 +152,8 @@ export const Scene12_GLP1CheatCode: Scene = {
     // SUB-SCENE 3: DIAL-UP STOMACH (18.48s - 23.74s)
     // =========================================================================
     else if (isSub3) {
-      camera.cutTo(1260, 500, 1.30);
-      hostX = 380;
+      camera.setTarget(960, 520, 1.08);
+      hostX = 400;
       hostLean = -16;
       hostExpr = "cringe_teeth_grit";
 
@@ -163,7 +164,7 @@ export const Scene12_GLP1CheatCode: Scene = {
         <rect x="150" y="80" width="1620" height="720" rx="14" fill="#0f172a" stroke="#38bdf8" stroke-width="8"/>
         
         <!-- Dial-Up Gastric Emptying Progress Bar -->
-        <g transform="translate(1260, 200)">
+        <g transform="translate(1260, 180)">
           <rect x="-260" y="-30" width="520" height="60" rx="10" fill="#0f172a" stroke="#f59e0b" stroke-width="4"/>
           <rect x="-240" y="-10" width="${Math.min(480, (sceneTime - 18.48) * 90)}" height="20" rx="4" fill="#f59e0b"/>
           <text x="0" y="22" font-family="'Courier New', monospace" font-size="14" font-weight="bold" fill="#fef08a" text-anchor="middle">
@@ -176,6 +177,8 @@ export const Scene12_GLP1CheatCode: Scene = {
         <line x1="-4000" y1="800" x2="6000" y2="800" stroke="#38bdf8" stroke-width="8"/>
       `;
 
+      bg += renderChainedStomachPadlock(1260, 480, sceneTime);
+
       stickFiguresList.push(
         {
           id: "host_stick",
@@ -185,34 +188,20 @@ export const Scene12_GLP1CheatCode: Scene = {
             scale: 1.30,
             timeSec: sceneTime,
             spineLean: hostLean,
-            pointTarget: { x: 1260, y: 520 },
+            pointTarget: { x: 1260, y: 480 },
             expression: hostExpr,
-          },
-        },
-        {
-          id: "patient_stomach_shiver",
-          state: {
-            x: 1260,
-            y: 640,
-            scale: 1.25,
-            gender: "male",
-            hairStyle: "male_short",
-            clothes: "patient_gown",
-            expression: "disgust_shudder",
-            pose: "hands_on_hips",
-            timeSec: sceneTime,
           },
         }
       );
-      overlays += renderHandDrawnArrow({ x: 740, y: 520 }, { x: 1080, y: 480 }, sceneTime, "0 MOTILITY");
+      overlays += renderHandDrawnArrow({ x: 650, y: 520 }, { x: 1060, y: 480 }, sceneTime, "0 MOTILITY");
     }
 
     // =========================================================================
     // SUB-SCENE 4: HALF-SALTINE CRACKER FAINT (23.74s - 26.99s)
     // =========================================================================
     else if (isSub4) {
-      camera.cutTo(1260, 520, 1.25);
-      hostX = 380;
+      camera.setTarget(960, 520, 1.08);
+      hostX = 400;
       hostLean = 10;
       hostExpr = "confused_squint";
 
@@ -226,6 +215,8 @@ export const Scene12_GLP1CheatCode: Scene = {
         <line x1="-4000" y1="800" x2="6000" y2="800" stroke="#ca8a04" stroke-width="8"/>
       `;
 
+      bg += renderSaltineCrackerPlatter(1260, 480, sceneTime);
+
       stickFiguresList.push(
         {
           id: "host_stick",
@@ -235,26 +226,12 @@ export const Scene12_GLP1CheatCode: Scene = {
             scale: 1.30,
             timeSec: sceneTime,
             spineLean: hostLean,
-            pointTarget: { x: 1260, y: 520 },
+            pointTarget: { x: 1260, y: 480 },
             expression: hostExpr,
-          },
-        },
-        {
-          id: "cracker_fainter",
-          state: {
-            x: 1260,
-            y: 640,
-            scale: 1.25,
-            gender: "female",
-            hairStyle: "female_ponytail",
-            clothes: "dress_pink",
-            expression: "exhausted_melting",
-            spineLean: -20,
-            timeSec: sceneTime,
           },
         }
       );
-      overlays += renderHandDrawnCircle({ x: 1260, y: 520 }, 140, 100, sceneTime, "ENTIRE MEAL");
+      overlays += renderHandDrawnCircle({ x: 1260, y: 480 }, 160, 120, sceneTime, "ENTIRE MEAL");
     }
 
     // =========================================================================
@@ -431,8 +408,8 @@ export const Scene12_GLP1CheatCode: Scene = {
     // SUB-SCENE 8: PARISIAN BAKERY & FRENCH BAGUETTE (51.88s - 54.82s)
     // =========================================================================
     else {
-      camera.cutTo(1260, 500, 1.22);
-      hostX = 380;
+      camera.setTarget(960, 520, 1.08);
+      hostX = 400;
       hostLean = 0;
       hostExpr = "smug_finger_guns";
 
@@ -453,6 +430,8 @@ export const Scene12_GLP1CheatCode: Scene = {
         <line x1="-4000" y1="800" x2="6000" y2="800" stroke="#d97706" stroke-width="8"/>
       `;
 
+      bg += renderSeductiveBaguette(1260, 480, sceneTime);
+
       stickFiguresList.push(
         {
           id: "host_stick",
@@ -462,21 +441,8 @@ export const Scene12_GLP1CheatCode: Scene = {
             scale: 1.30,
             timeSec: sceneTime,
             spineLean: hostLean,
+            pointTarget: { x: 1260, y: 480 },
             expression: hostExpr,
-          },
-        },
-        {
-          id: "french_baker_female",
-          state: {
-            x: 1260,
-            y: 640,
-            scale: 1.28,
-            gender: "female",
-            hairStyle: "female_long",
-            clothes: "dress_pink",
-            rightHandProp: "bread",
-            expression: "smug_chef_kiss",
-            timeSec: sceneTime,
           },
         }
       );

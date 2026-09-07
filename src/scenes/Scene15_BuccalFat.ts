@@ -1,5 +1,8 @@
 import { Scene, SceneRenderContext, SceneRenderOutput } from "./SceneTypes";
-import { renderBuccalBossFightBanner } from "../character/CartoonCastSubScenes";
+import {
+  renderBuccalBossFightBanner,
+  renderDeliCheekboneSlicer,
+} from "../character/CartoonCastSubScenes";
 import { renderHandDrawnCircle, renderActionLines } from "../anim/ComicMarkups";
 
 export const Scene15_BuccalFat: Scene = {
@@ -21,32 +24,37 @@ export const Scene15_BuccalFat: Scene = {
     let stickFiguresList: Array<{ id: string; state: any }> = [];
 
     // =========================================================================
-    // SUB-SCENE 1: OPERATING THEATER BOSS FIGHT (0.0s - 5.76s)
+    // SUB-SCENE 1: GLAMOUR RED CARPET CLOSEUP (0.0s - 5.76s)
     // =========================================================================
     if (isSub1) {
-      camera.setTarget(960, 500, 1.22);
+      camera.setTarget(960, 520, 1.15);
 
       bg = `
-        <!-- Operating Theater Backdrop -->
-        <rect x="-4000" y="-4000" width="10000" height="10000" fill="#042f2e"/>
-        <rect x="150" y="80" width="1620" height="720" rx="14" fill="#0f766e" stroke="#115e59" stroke-width="8"/>
+        <!-- High-Glamour Vanity Mirror Backdrop -->
+        <rect x="-4000" y="-4000" width="10000" height="10000" fill="#18181b"/>
+        <rect x="150" y="80" width="1620" height="720" rx="14" fill="#27272a" stroke="#f472b6" stroke-width="8"/>
+        
+        <!-- Vanity Bulbs -->
+        ${[200, 320, 440, 560, 680].map(vy => `
+          <circle cx="200" cy="${vy}" r="16" fill="#fef08a" filter="url(#glow)"/>
+          <circle cx="1720" cy="${vy}" r="16" fill="#fef08a" filter="url(#glow)"/>
+        `).join("")}
+
         <!-- Floor -->
-        <rect x="-4000" y="800" width="10000" height="4000" fill="#0f172a"/>
-        <line x1="-4000" y1="800" x2="6000" y2="800" stroke="#14b8a6" stroke-width="8"/>
+        <rect x="-4000" y="800" width="10000" height="4000" fill="#991b1b"/>
+        <line x1="-4000" y1="800" x2="6000" y2="800" stroke="#f472b6" stroke-width="8"/>
       `;
-      bg += renderBuccalBossFightBanner(960, 450, sceneTime);
-      overlays += renderHandDrawnCircle({ x: 960, y: 450 }, 220, 130, sceneTime, "BOSS FIGHT");
 
       stickFiguresList.push({
-        id: "surgeon_actor",
+        id: "glamour_actress",
         state: {
           x: 960,
-          y: 650,
+          y: 640,
           scale: 1.34,
-          gender: "doctor",
-          hairStyle: "male_doctor_cap",
-          clothes: "doctor_scrubs",
-          expression: "smug_rock_eyebrow",
+          gender: "female",
+          hairStyle: "female_glamour_waves",
+          clothes: "dress_red",
+          expression: "smug_chef_kiss",
           timeSec: sceneTime,
         },
       });
@@ -56,32 +64,24 @@ export const Scene15_BuccalFat: Scene = {
     // SUB-SCENE 2: CLINIC CONSULTATION & CHEEKBONE DIAGRAM (5.76s - 18.09s)
     // =========================================================================
     else if (isSub2) {
-      camera.setTarget(960, 500, 1.25);
+      camera.setTarget(960, 500, 1.08);
 
       bg = `
         <!-- Medical Clinic Chalkboard -->
         <rect x="-4000" y="-4000" width="10000" height="10000" fill="#022c22"/>
         <rect x="150" y="80" width="1620" height="720" rx="14" fill="#064e3b" stroke="#10b981" stroke-width="8"/>
         
-        <!-- Chalkboard Anatomy Drawing -->
-        <g transform="translate(1260, 440)">
-          <circle cx="0" cy="0" r="120" fill="#064e3b" stroke="#ffffff" stroke-width="4" stroke-dasharray="8 6"/>
-          <!-- Cheek Hollow Dotted Target Lines -->
-          <path d="M -70 20 Q -40 60 -10 20" stroke="#ef4444" stroke-width="5" fill="none"/>
-          <path d="M 70 20 Q 40 60 10 20" stroke="#ef4444" stroke-width="5" fill="none"/>
-          <text x="0" y="-70" font-family="'Impact', sans-serif" font-size="22" fill="#facc15" text-anchor="middle">BUCCAL REMOVAL</text>
-          <text x="0" y="80" font-family="sans-serif" font-size="16" fill="#ef4444" text-anchor="middle">-100% FAT PAD</text>
-        </g>
-
         <!-- Floor -->
         <rect x="-4000" y="800" width="10000" height="4000" fill="#0f172a"/>
         <line x1="-4000" y1="800" x2="6000" y2="800" stroke="#10b981" stroke-width="8"/>
       `;
 
+      bg += renderBuccalBossFightBanner(1260, 440, sceneTime);
+
       stickFiguresList.push({
         id: "patient_actor",
         state: {
-          x: 680,
+          x: 580,
           y: 640,
           scale: 1.32,
           gender: "female",
@@ -95,10 +95,10 @@ export const Scene15_BuccalFat: Scene = {
     }
 
     // =========================================================================
-    // SUB-SCENE 3: CRAZED SURGEON WITH SCOOP & DELI SLICER (18.09s - 30.27s)
+    // SUB-SCENE 3: CRAZED SURGEON & DELI MEAT CHEEKBONE SLICER (18.09s - 30.27s)
     // =========================================================================
     else if (isSub3) {
-      camera.cutTo(960, 480, 1.45);
+      camera.setTarget(960, 500, 1.08);
 
       bg = `
         <!-- Operating Theater with Surgical Light -->
@@ -112,33 +112,25 @@ export const Scene15_BuccalFat: Scene = {
           <polygon points="-50,140 50,140 320,800 -320,800" fill="#ccfbf1" opacity="0.25"/>
         </g>
 
-        <!-- Giant Ice Cream Scoop Prop with Scoop of Yellow Fat Pad -->
-        <g transform="translate(${1200 + Math.sin(sceneTime * 6) * 15}, ${480 + Math.cos(sceneTime * 6) * 10}) rotate(${Math.sin(sceneTime * 6) * 20})">
-          <line x1="-50" y1="0" x2="30" y2="0" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/>
-          <circle cx="45" cy="0" r="24" fill="#cbd5e1" stroke="#64748b" stroke-width="4"/>
-          <!-- Yellow Fat Pad in Scoop -->
-          <circle cx="45" cy="-8" r="15" fill="#facc15" stroke="#ca8a04" stroke-width="3" filter="url(#glow)"/>
-          <text x="45" y="-30" font-family="'Impact', sans-serif" font-size="16" fill="#ef4444" text-anchor="middle">DELI SCOOP</text>
-        </g>
-
         <!-- Floor -->
         <rect x="-4000" y="800" width="10000" height="4000" fill="#0f172a"/>
         <line x1="-4000" y1="800" x2="6000" y2="800" stroke="#14b8a6" stroke-width="8"/>
       `;
 
-      overlays += renderActionLines({ x: 960, y: 480 }, 220, sceneTime);
+      bg += renderDeliCheekboneSlicer(1260, 480, sceneTime);
+      overlays += renderActionLines({ x: 1260, y: 480 }, 220, sceneTime);
 
       stickFiguresList.push({
         id: "surgeon_actor",
         state: {
-          x: 720,
+          x: 580,
           y: 640,
           scale: 1.35,
           gender: "doctor",
           hairStyle: "male_doctor_cap",
           clothes: "doctor_scrubs",
           expression: "smug_chef_kiss",
-          pointTarget: { x: 1200, y: 480 },
+          pointTarget: { x: 1260, y: 480 },
           timeSec: sceneTime,
         },
       });

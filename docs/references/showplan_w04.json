@@ -1,0 +1,4391 @@
+{
+ "show": "chapter-1",
+ "windows": [
+  {
+   "windowId": "W01",
+   "startSec": 0,
+   "endSec": 32.405,
+   "beats": [
+    {
+     "beatId": 1,
+     "startSec": 0,
+     "endSec": 8,
+     "beatType": "comparison",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 897,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 5.6,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 0,
+        "end": 0
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 0.3,
+        "end": 1.3
+       },
+       "expression": "deadpan_line"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 1.5,
+        "end": 2.5
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [
+      {
+       "builder": "flashBurst",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 0.5,
+        "act": 4.8,
+        "settle": 8
+       }
+      }
+     ],
+     "srt": "Ifyou've you’ve looked at a red carpet, a movie screen, or your Instagram feed anytime in the last eighteen months, you might have noticed a slight shift in the local Hollywood ecosystem."
+    },
+    {
+     "beatId": 2,
+     "startSec": 8.62,
+     "endSec": 18.534,
+     "beatType": "comparison",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 8.62,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 8.62,
+        "end": 8.62
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 8.92,
+        "end": 9.92
+       },
+       "expression": "deadpan_line"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 10.12,
+        "end": 11.12
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [
+      {
+       "builder": "terminal",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 9.12,
+        "act": 14.568399999999999,
+        "settle": 18.534
+       }
+      }
+     ],
+     "srt": "The timeline has gone from “Thicc” to “stick” faster than a tech bro pivoting from crypto to artificial intelligence. Suddenly, everywhere you look, celebrities like Jenna Ortega"
+    },
+    {
+     "beatId": 3,
+     "startSec": 18.694,
+     "endSec": 32.405,
+     "beatType": "comparison",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 897,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 28.2917,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 18.694,
+        "end": 18.694
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 18.994,
+        "end": 19.994
+       },
+       "expression": "deadpan_line"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 20.194,
+        "end": 21.194
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [
+      {
+       "builder": "bigSandwich",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 19.194,
+        "act": 26.9206,
+        "settle": 32.405
+       }
+      }
+     ],
+     "srt": "Emma Stone, and Ariana Grande are looking noticeably leaner. It seems like overnight, the entire entertainment industry decided to collectively unsubscribe from carbohydrates and cancel their biological subscription to t"
+    }
+   ]
+  },
+  {
+   "windowId": "W02",
+   "startSec": 32.405,
+   "endSec": 65.249,
+   "beats": [
+    {
+     "beatId": 4,
+     "startSec": 32.967,
+     "endSec": 41.927,
+     "beatType": "reversal",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 39.239,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 32.967,
+        "end": 32.967
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 33.266999999999996,
+        "end": 34.266999999999996
+       },
+       "expression": "shock_eye_pop"
+      }
+     ],
+     "props": [],
+     "srt": "But why is everyone suddenly speedrunning the Tim Burton aesthetic The aggressive return of the 90s, and why your favorite actors are starting to look likethey're they’re rendered in low-poly"
+    },
+    {
+     "beatId": 5,
+     "startSec": 41.927,
+     "endSec": 50.746,
+     "beatType": "escalation",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 41.927,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 41.927,
+        "end": 41.927
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 42.227,
+        "end": 43.227
+       },
+       "expression": "fear_trembling"
+      }
+     ],
+     "props": [
+      {
+       "builder": "pendulumRig",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 42.427,
+        "act": 47.2184,
+        "settle": 50.746
+       }
+      }
+     ],
+     "srt": "PS1 graphics. To understand where we are right now, we have to look at where we've we’ve been. Human beauty standards operate on a giant, terrifying pendulum"
+    },
+    {
+     "beatId": 6,
+     "startSec": 50.746,
+     "endSec": 65.249,
+     "beatType": "superlative",
+     "shot": "macro",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.6
+     },
+     "punchAt": 60.8981,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 50.746,
+        "end": 50.746
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 51.046,
+        "end": 52.046
+       },
+       "expression": "smug_chuckle"
+      }
+     ],
+     "props": [
+      {
+       "builder": "pendulumRig",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 51.246,
+        "act": 59.4478,
+        "settle": 65.249
+       }
+      }
+     ],
+     "srt": "that swings wildly depending on whatever makes regular, working class people feel the absolute worst about themselves at any given time. If we rewind to the 90s and early 2000s, we had an era affectionately dubbed “Heroi"
+    }
+   ]
+  },
+  {
+   "windowId": "W03",
+   "startSec": 65.249,
+   "endSec": 97.231,
+   "beats": [
+    {
+     "beatId": 7,
+     "startSec": 65.249,
+     "endSec": 73.329,
+     "beatType": "list",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 65.249,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 65.249,
+        "end": 65.249
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 65.54899999999999,
+        "end": 66.54899999999999
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 66.749,
+        "end": 67.749
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest3",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1620,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 67.949,
+        "end": 68.949
+       },
+       "expression": "sparkle_anime_eyes"
+      }
+     ],
+     "props": [
+      {
+       "builder": "scaleProp",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 65.749,
+        "act": 70.097,
+        "settle": 73.329
+       }
+      }
+     ],
+     "srt": "Moss, and the overarching goal was to look like you sustained yourself entirely on Diet Coke, Parliament cigarettes, and pure unfiltered apathy."
+    },
+    {
+     "beatId": 8,
+     "startSec": 73.874,
+     "endSec": 83.817,
+     "beatType": "reversal",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 80.83409999999999,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 73.874,
+        "end": 73.874
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 74.17399999999999,
+        "end": 75.17399999999999
+       },
+       "expression": "shock_eye_pop"
+      }
+     ],
+     "props": [
+      {
+       "builder": "pendulumRig",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 74.374,
+        "act": 79.8398,
+        "settle": 83.817
+       }
+      }
+     ],
+     "srt": "You were supposed to look like you were perpetually recovering from a minor Victorian wasting disease, but in a cool, fashionable way. Then, as the 2010s rolled around, the pendulum swung violently"
+    },
+    {
+     "beatId": 9,
+     "startSec": 83.817,
+     "endSec": 92.86,
+     "beatType": "comparison",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 83.817,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 83.817,
+        "end": 83.817
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 84.11699999999999,
+        "end": 85.11699999999999
+       },
+       "expression": "deadpan_line"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 85.317,
+        "end": 86.317
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [],
+     "srt": "in the opposite direction. We entered the era of the BBL, or Brazilian Butt Lift, where the ideal body type shifted to what biologists might classify"
+    },
+    {
+     "beatId": 10,
+     "startSec": 92.86,
+     "endSec": 97.231,
+     "beatType": "process",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 95.91969999999999,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 92.86,
+        "end": 92.86
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 93.16,
+        "end": 94.16
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [
+      {
+       "builder": "moneyBag",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 93.36,
+        "act": 95.48259999999999,
+        "settle": 97.231
+       }
+      }
+     ],
+     "srt": "as “Pixar Mom.” Celebrities were suddenly buying curves, and the internet was"
+    }
+   ]
+  },
+  {
+   "windowId": "W04",
+   "startSec": 97.231,
+   "endSec": 128.838,
+   "beats": [
+    {
+     "beatId": 11,
+     "startSec": 97.231,
+     "endSec": 106.591,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 97.231,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 97.231,
+        "end": 97.231
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [],
+     "srt": "flooded with fitness influencers who insisted their new, localized gravitational pull was entirely due to doing a lot of squats despite the fact that their calves and forearms remained the",
+     "override": "inline:TBD"
+    },
+    {
+     "beatId": 12,
+     "startSec": 106.591,
+     "endSec": 116.598,
+     "beatType": "superlative",
+     "shot": "macro",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.6
+     },
+     "punchAt": 113.5959,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 106.591,
+        "end": 106.591
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 106.89099999999999,
+        "end": 107.89099999999999
+       },
+       "expression": "smug_chuckle"
+      }
+     ],
+     "props": [],
+     "srt": "exact same size. For about ten years, the ultimate flex was looking like an hourglass that had been overfilled at the bottom. During this exact same time, society also pushed heavily for"
+    },
+    {
+     "beatId": 13,
+     "startSec": 116.598,
+     "endSec": 128.838,
+     "beatType": "personification",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 116.598,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 116.598,
+        "end": 116.598
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 116.898,
+        "end": 117.898
+       },
+       "expression": "smug_finger_guns"
+      }
+     ],
+     "props": [],
+     "srt": "“body positivity.” We were told by countless brands and PR agencies that all bodies are beautiful, that youdon't don’t have to be a size zero to be a leading lady, and that Hollywood was finally progressing past its shal"
+    }
+   ]
+  },
+  {
+   "windowId": "W05",
+   "startSec": 128.838,
+   "endSec": 160.3,
+   "beats": [
+    {
+     "beatId": 14,
+     "startSec": 129.384,
+     "endSec": 137.384,
+     "beatType": "comparison",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 897,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 134.98399999999998,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 129.384,
+        "end": 129.384
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 129.684,
+        "end": 130.684
+       },
+       "expression": "deadpan_line"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 130.884,
+        "end": 131.884
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [],
+     "srt": "Well, it turns out, body positivity was less of a permanent cultural shift and more of a temporary trend - kind of like fidget spinners or pretending to care about yourfriend's friend’s podcast."
+    },
+    {
+     "beatId": 15,
+     "startSec": 138.188,
+     "endSec": 147.308,
+     "beatType": "escalation",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 138.188,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 138.188,
+        "end": 138.188
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 138.488,
+        "end": 139.488
+       },
+       "expression": "fear_trembling"
+      }
+     ],
+     "props": [
+      {
+       "builder": "scaleProp",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 138.688,
+        "act": 143.66,
+        "settle": 147.308
+       }
+      }
+     ],
+     "srt": "As soon as a pharmaceutical shortcut dropped that allowed rich people to just opt out of their natural body weight, the industry abandoned the “every body is beautiful” narrative with the swiftness"
+    },
+    {
+     "beatId": 16,
+     "startSec": 147.308,
+     "endSec": 160.3,
+     "beatType": "personification",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 156.4024,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 147.308,
+        "end": 147.308
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 147.608,
+        "end": 148.608
+       },
+       "expression": "smug_finger_guns"
+      }
+     ],
+     "props": [],
+     "srt": "of someone closing a browser tab when their boss walks by. Because right alongside the medical advancements, the fashion industry decided it was time to bring back Y2K fashion. And for those of you whodon't don’t know, Y"
+    }
+   ]
+  },
+  {
+   "windowId": "W06",
+   "startSec": 160.3,
+   "endSec": 191.7,
+   "beats": [
+    {
+     "beatId": 17,
+     "startSec": 160.3,
+     "endSec": 170.243,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 160.3,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 160.3,
+        "end": 160.3
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [
+      {
+       "builder": "couch",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 160.8,
+        "act": 166.2658,
+        "settle": 170.243
+       }
+      },
+      {
+       "builder": "babyBundle",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 160.8,
+        "act": 166.2658,
+        "settle": 170.243
+       }
+      }
+     ],
+     "srt": "hostile to anyone who possesses internal organs. We are talking about low-rise jeans that sit below the pelvic bone, baby tees that offer the coverage of a moderately sized"
+    },
+    {
+     "beatId": 18,
+     "startSec": 170.243,
+     "endSec": 179.731,
+     "beatType": "list",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 170.243,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 170.243,
+        "end": 170.243
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 170.543,
+        "end": 171.543
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 171.743,
+        "end": 172.743
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest3",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1620,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 172.943,
+        "end": 173.943
+       },
+       "expression": "sparkle_anime_eyes"
+      }
+     ],
+     "props": [],
+     "srt": "napkin, and the infamous Miu Miu micro-skirt, which is essentially just a belt that costs two thousand dollars. You physically cannot participate in this trend if you have a"
+    },
+    {
+     "beatId": 19,
+     "startSec": 179.731,
+     "endSec": 191.7,
+     "beatType": "process",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 188.1093,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 179.731,
+        "end": 179.731
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 180.031,
+        "end": 181.031
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [
+      {
+       "builder": "wheel",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 180.231,
+        "act": 186.9124,
+        "settle": 191.7
+       }
+      }
+     ],
+     "srt": "functioning digestive tract that occasionally needs to process solid food. The fashion demanded thinness, and the medical industry provided the cheat code. The main driver of this current leanness is, of course, the GLP"
+    }
+   ]
+  },
+  {
+   "windowId": "W07",
+   "startSec": 191.7,
+   "endSec": 222.113,
+   "beats": [
+    {
+     "beatId": 20,
+     "startSec": 191.7,
+     "endSec": 201.416,
+     "beatType": "escalation",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 198.50119999999998,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 191.7,
+        "end": 191.7
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 192,
+        "end": 193
+       },
+       "expression": "fear_trembling"
+      }
+     ],
+     "props": [],
+     "srt": "1 receptor agonist, more commonly known by brand names like Ozempic, Wegovy, or Mounjaro. Originally developed to manage type 2 diabetes, these drugs slow"
+    },
+    {
+     "beatId": 21,
+     "startSec": 201.416,
+     "endSec": 210.462,
+     "beatType": "personification",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 201.416,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 201.416,
+        "end": 201.416
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 201.716,
+        "end": 202.716
+       },
+       "expression": "smug_finger_guns"
+      }
+     ],
+     "props": [],
+     "srt": "down gastric emptying and basically hack yourbrain's brain’s reward system to tell you that you are completely full after eating half a saltine cracker. For a celebrity, this is the holy grail."
+    },
+    {
+     "beatId": 22,
+     "startSec": 210.913,
+     "endSec": 222.113,
+     "beatType": "personification",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 218.75300000000001,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 210.913,
+        "end": 210.913
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 211.21300000000002,
+        "end": 212.21300000000002
+       },
+       "expression": "smug_finger_guns"
+      }
+     ],
+     "props": [],
+     "srt": "In an industry where looking good is literally your job description why would you eat kale, hire a personal chef, and run on a treadmill for two hours a day when you can just take a single shot once a week and completely"
+    }
+   ]
+  },
+  {
+   "windowId": "W08",
+   "startSec": 222.113,
+   "endSec": 253.21,
+   "beats": [
+    {
+     "beatId": 23,
+     "startSec": 222.113,
+     "endSec": 230.247,
+     "beatType": "comparison",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 897,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 227.8068,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 222.113,
+        "end": 222.113
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 222.413,
+        "end": 223.413
+       },
+       "expression": "deadpan_line"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 223.613,
+        "end": 224.613
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [],
+     "srt": "anything other than oxygen and public attention? Before this, celebrities actually had to work out, or at least pretend to. Now, the hunger is just gone."
+    },
+    {
+     "beatId": 24,
+     "startSec": 230.766,
+     "endSec": 241.775,
+     "beatType": "reversal",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 230.766,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 230.766,
+        "end": 230.766
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 231.066,
+        "end": 232.066
+       },
+       "expression": "shock_eye_pop"
+      }
+     ],
+     "props": [
+      {
+       "builder": "scaleProp",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 231.266,
+        "act": 237.3714,
+        "settle": 241.775
+       }
+      }
+     ],
+     "srt": "Imagine if you could take a pill that made you stop wanting to procrastinate, or stop wanting to text your exThat's. That’s what this does, but for bread. Because of this, we are seeing rapid, dramatic weight loss across"
+    },
+    {
+     "beatId": 25,
+     "startSec": 241.775,
+     "endSec": 253.21,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 241.775,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 241.775,
+        "end": 241.775
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [],
+     "srt": "the board. Actresses who previously championed body positivity and wrote entire essay collections about “loving your curves” are suddenly showing up to premieres looking like they could use a strong gust of wind as a pri",
+     "override": "inline:TBD"
+    }
+   ]
+  },
+  {
+   "windowId": "W09",
+   "startSec": 253.21,
+   "endSec": 283.494,
+   "beats": [
+    {
+     "beatId": 26,
+     "startSec": 253.78,
+     "endSec": 264.18,
+     "beatType": "comparison",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 897,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 261.06,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 253.78,
+        "end": 253.78
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 254.08,
+        "end": 255.08
+       },
+       "expression": "deadpan_line"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 255.28,
+        "end": 256.28000000000003
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [
+      {
+       "builder": "scaleProp",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 254.28,
+        "act": 260.02,
+        "settle": 264.18
+       }
+      }
+     ],
+     "srt": "Mindy Kaling, for example, went from posting about not needing to be a size zero to showing up practically unrecognizable after slimming down, which she attributed strictly to “diet and exercise.”"
+    },
+    {
+     "beatId": 27,
+     "startSec": 264.777,
+     "endSec": 272.967,
+     "beatType": "superlative",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 264.777,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 264.777,
+        "end": 264.777
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 265.077,
+        "end": 266.077
+       },
+       "expression": "smug_chuckle"
+      }
+     ],
+     "props": [
+      {
+       "builder": "couch",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 265.277,
+        "act": 269.691,
+        "settle": 272.967
+       }
+      }
+     ],
+     "srt": "Which, in Hollywood speak, is kind of like saying you got rich by finding loose change in your couch cushions. The gaslighting is honestly the most impressive part of the whole"
+    },
+    {
+     "beatId": 28,
+     "startSec": 272.967,
+     "endSec": 283.494,
+     "beatType": "process",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 280.33590000000004,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 272.967,
+        "end": 272.967
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 273.267,
+        "end": 274.267
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [],
+     "srt": "phenomenon. We are currently living through a golden age of celebrity denial. When asked how they lost thirty pounds in four weeks, celebrities will look a reporter dead in the eye and say something like"
+    }
+   ]
+  },
+  {
+   "windowId": "W10",
+   "startSec": 283.494,
+   "endSec": 313.621,
+   "beats": [
+    {
+     "beatId": 29,
+     "startSec": 283.734,
+     "endSec": 293.882,
+     "beatType": "escalation",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 290.8376,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 283.734,
+        "end": 283.734
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 284.034,
+        "end": 285.034
+       },
+       "expression": "fear_trembling"
+      }
+     ],
+     "props": [],
+     "srt": "“I just started drinking more water, going on long walks, and getting eight hours of sleep,” as if they just discovered the concept of hydration. Some of them claimit's it’s a “gut reset,” or that they cut out"
+    },
+    {
+     "beatId": 30,
+     "startSec": 293.882,
+     "endSec": 302.103,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 293.882,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 293.882,
+        "end": 293.882
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [],
+     "srt": "dairy, completely ignoring the fact that cutting out cheese doesn't doesn’t suddenly alter your entire skeletal structure. And it is very important to point out that this is not just a",
+     "override": "inline:TBD"
+    },
+    {
+     "beatId": 31,
+     "startSec": 302.103,
+     "endSec": 313.621,
+     "beatType": "personification",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 310.1656,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 302.103,
+        "end": 302.103
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 302.403,
+        "end": 303.403
+       },
+       "expression": "smug_finger_guns"
+      }
+     ],
+     "props": [],
+     "srt": "women's women’s issue. The men in Hollywood are doing the exact same thing, just with different marketing. While the actresses are getting dangerously thin for high fashion the actors are getting dangerously shredded for"
+    }
+   ]
+  },
+  {
+   "windowId": "W11",
+   "startSec": 313.621,
+   "endSec": 344.291,
+   "beats": [
+    {
+     "beatId": 32,
+     "startSec": 313.621,
+     "endSec": 323.538,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 313.621,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 313.621,
+        "end": 313.621
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [],
+     "srt": "Cinematic Universe. If you look at the male beauty standard, actors are dehydrating themselves for three days before a shirtless scene so their skin wraps around their muscles like shrink wrap on a leftover",
+     "override": "inline:TBD"
+    },
+    {
+     "beatId": 33,
+     "startSec": 323.538,
+     "endSec": 333.159,
+     "beatType": "list",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 323.538,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 323.538,
+        "end": 323.538
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 323.838,
+        "end": 324.838
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 325.038,
+        "end": 326.038
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest3",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1620,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 326.238,
+        "end": 327.238
+       },
+       "expression": "sparkle_anime_eyes"
+      }
+     ],
+     "props": [],
+     "srt": "ham. Actors have completely transformed their bodies in their late forties, and their PR teams always claimit's it’s just from eating unseasoned chicken breast, steamed broccoli, and doing"
+    },
+    {
+     "beatId": 34,
+     "startSec": 333.159,
+     "endSec": 344.291,
+     "beatType": "reversal",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 340.9514,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 333.159,
+        "end": 333.159
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 333.459,
+        "end": 334.459
+       },
+       "expression": "shock_eye_pop"
+      }
+     ],
+     "props": [],
+     "srt": "two-a-day workouts. The reality is that the male side of Hollywood is swimming in testosterone replacement therapy, steroids, and human growth hormone, but they just brand it as “discipline” and “waking up at 4 AM.”"
+    }
+   ]
+  },
+  {
+   "windowId": "W12",
+   "startSec": 344.291,
+   "endSec": 375.93,
+   "beats": [
+    {
+     "beatId": 35,
+     "startSec": 344.738,
+     "endSec": 353.215,
+     "beatType": "reversal",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 350.6719,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 344.738,
+        "end": 344.738
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 345.038,
+        "end": 346.038
+       },
+       "expression": "shock_eye_pop"
+      }
+     ],
+     "props": [],
+     "srt": "But going back to the women, extreme thinnessisn't isn’t the only thing making everyone look different lately. There is a secondary boss fight in the modern aesthetic meta"
+    },
+    {
+     "beatId": 36,
+     "startSec": 353.215,
+     "endSec": 362.002,
+     "beatType": "list",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 353.215,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 353.215,
+        "end": 353.215
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 353.515,
+        "end": 354.515
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 354.715,
+        "end": 355.715
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest3",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1620,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 355.91499999999996,
+        "end": 356.91499999999996
+       },
+       "expression": "sparkle_anime_eyes"
+      }
+     ],
+     "props": [
+      {
+       "builder": "scaleProp",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 353.715,
+        "act": 358.4872,
+        "settle": 362.002
+       }
+      }
+     ],
+     "srt": "and it is called Buccal Fat Removal. For those whodon't don’t know, buccal fat is the natural padding in your cheeks that gives you a youthful, normal, human appearance"
+    },
+    {
+     "beatId": 37,
+     "startSec": 362.162,
+     "endSec": 370.73,
+     "beatType": "reversal",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 368.1596,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 362.162,
+        "end": 362.162
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 362.462,
+        "end": 363.462
+       },
+       "expression": "shock_eye_pop"
+      }
+     ],
+     "props": [],
+     "srt": "It's. It’s what makes a face look alive. But apparently, looking like a living human is out this season. Instead, celebrities are paying thousands of dollars to have"
+    },
+    {
+     "beatId": 38,
+     "startSec": 370.73,
+     "endSec": 375.93,
+     "beatType": "comparison",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 370.73,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 370.73,
+        "end": 370.73
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 371.03000000000003,
+        "end": 372.03000000000003
+       },
+       "expression": "deadpan_line"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 372.23,
+        "end": 373.23
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [
+      {
+       "builder": "scaleProp",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 371.23,
+        "act": 373.85,
+        "settle": 375.93
+       }
+      }
+     ],
+     "srt": "plastic surgeons slice open the inside of their mouths and physically scoop out these fat pads likethey're they’re hollowing out a"
+    }
+   ]
+  },
+  {
+   "windowId": "W13",
+   "startSec": 375.93,
+   "endSec": 406.067,
+   "beats": [
+    {
+     "beatId": 39,
+     "startSec": 375.93,
+     "endSec": 386.534,
+     "beatType": "list",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 375.93,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 375.93,
+        "end": 375.93
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 376.23,
+        "end": 377.23
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 377.43,
+        "end": 378.43
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest3",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1620,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 378.63,
+        "end": 379.63
+       },
+       "expression": "sparkle_anime_eyes"
+      }
+     ],
+     "props": [
+      {
+       "builder": "scaleProp",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 376.43,
+        "act": 382.2924,
+        "settle": 386.534
+       }
+      }
+     ],
+     "srt": "pumpkin, all so they can achieve cheekbones sharp enough to slice deli meat. When you combine buccal fat removal with the rapid, systemic fat loss from Ozempic, you get what the internet has affectionately"
+    },
+    {
+     "beatId": 40,
+     "startSec": 386.534,
+     "endSec": 396.971,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 386.534,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 386.534,
+        "end": 386.534
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [
+      {
+       "builder": "scaleProp",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 387.034,
+        "act": 392.7962,
+        "settle": 396.971
+       }
+      }
+     ],
+     "srt": "dubbed “Ozempic Face.” Because you are losing fat so quickly, your skindoesn't doesn’t have time to bounce back. This leads to a sudden loss of facial volume that can make a healthy 25-year-old look like they are activel"
+    },
+    {
+     "beatId": 41,
+     "startSec": 396.971,
+     "endSec": 406.067,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 396.971,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 396.971,
+        "end": 396.971
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [],
+     "srt": "mourning a lost lover in a Victorian gothic novel. The overall effect on the red carpet is a sea of faces that look highly manufactured and bodies that are dramatically thin. Commentators",
+     "override": "inline:TBD"
+    }
+   ]
+  },
+  {
+   "windowId": "W14",
+   "startSec": 406.067,
+   "endSec": 436.934,
+   "beats": [
+    {
+     "beatId": 42,
+     "startSec": 406.067,
+     "endSec": 416.451,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 406.067,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 406.067,
+        "end": 406.067
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [],
+     "srt": "have noted it looks slightly uncanny and unnatural - like the humans have been replaced by smooth replicas. This brings us perfectly to Jenna Ortega. The internet has been heavily scrutinizing her recent appearances",
+     "override": "inline:TBD"
+    },
+    {
+     "beatId": 43,
+     "startSec": 416.451,
+     "endSec": 427.074,
+     "beatType": "comparison",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 897,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 423.88710000000003,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 416.451,
+        "end": 416.451
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 416.75100000000003,
+        "end": 417.75100000000003
+       },
+       "expression": "deadpan_line"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 417.951,
+        "end": 418.951
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [],
+     "srt": "pointing out that she is looking significantly leaner than she did a couple of years ago. Now, nobody actually knows if she is on anything, or if she is just stressed, working constantly, and aging out of her teenage"
+    },
+    {
+     "beatId": 44,
+     "startSec": 427.074,
+     "endSec": 436.934,
+     "beatType": "list",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 427.074,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 427.074,
+        "end": 427.074
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 427.374,
+        "end": 428.374
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 428.574,
+        "end": 429.574
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest3",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1620,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 429.774,
+        "end": 430.774
+       },
+       "expression": "sparkle_anime_eyes"
+      }
+     ],
+     "props": [],
+     "srt": "years into her twenties. Plusshe's, she’s literally the star of Wednesday, and if your entire personal brand is built around the Tim Burton universe looking a little bit pale and gaunt is practically in the contract."
+    }
+   ]
+  },
+  {
+   "windowId": "W15",
+   "startSec": 436.934,
+   "endSec": 470.056,
+   "beats": [
+    {
+     "beatId": 45,
+     "startSec": 437.607,
+     "endSec": 447.607,
+     "beatType": "reversal",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 444.607,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 437.607,
+        "end": 437.607
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 437.90700000000004,
+        "end": 438.90700000000004
+       },
+       "expression": "shock_eye_pop"
+      }
+     ],
+     "props": [
+      {
+       "builder": "scaleProp",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 438.107,
+        "act": 443.607,
+        "settle": 447.607
+       }
+      }
+     ],
+     "srt": "But because Hollywood has created a macro-environment where unnatural medically induced weight loss is the new baseline, every single celebrity who drops five pounds is immediately subjected to"
+    },
+    {
+     "beatId": 46,
+     "startSec": 447.607,
+     "endSec": 456.483,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 447.607,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 447.607,
+        "end": 447.607
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [],
+     "srt": "a digital tribunal. TikTok users will stitch together side-by-side photos and analyze their jawlines and collarbones likeit's it’s the Zapruder film.",
+     "override": "inline:TBD"
+    },
+    {
+     "beatId": 47,
+     "startSec": 457.038,
+     "endSec": 470.056,
+     "beatType": "list",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 457.038,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 457.038,
+        "end": 457.038
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 457.338,
+        "end": 458.338
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 458.538,
+        "end": 459.538
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest3",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1620,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 459.738,
+        "end": 460.738
+       },
+       "expression": "sparkle_anime_eyes"
+      }
+     ],
+     "props": [],
+     "srt": "This is creating a bizarre, inescapable feedback loop. Because so many people are using medical interventions, the standard for what is considered “thin” keeps dropping lower and lower. A size four used to be normal; now"
+    }
+   ]
+  },
+  {
+   "windowId": "W16",
+   "startSec": 470.056,
+   "endSec": 502.896,
+   "beats": [
+    {
+     "beatId": 48,
+     "startSec": 470.056,
+     "endSec": 480.473,
+     "beatType": "comparison",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 897,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 477.3479,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 470.056,
+        "end": 470.056
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 470.356,
+        "end": 471.356
+       },
+       "expression": "deadpan_line"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 471.556,
+        "end": 472.556
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [],
+     "srt": "“curvy” by Los Angeles standards, which is objectively insane. We are seeing a shift to an aesthetic that feels almost entirely digitalPeople's. People’s bodies are becoming smaller and sharper"
+    },
+    {
+     "beatId": 49,
+     "startSec": 480.473,
+     "endSec": 489.556,
+     "beatType": "escalation",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 480.473,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 480.473,
+        "end": 480.473
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 480.773,
+        "end": 481.773
+       },
+       "expression": "fear_trembling"
+      }
+     ],
+     "props": [],
+     "srt": "looking less like something lived in and more like something engineered in a character creation screen before you start a role-playing game. Theydon't don’t look like people who eat food; they look like"
+    },
+    {
+     "beatId": 50,
+     "startSec": 489.556,
+     "endSec": 502.896,
+     "beatType": "personification",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 498.894,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 489.556,
+        "end": 489.556
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 489.856,
+        "end": 490.856
+       },
+       "expression": "smug_finger_guns"
+      }
+     ],
+     "props": [],
+     "srt": "they run on a lithium-ion battery. And this actually presents a massive, structural problem for the entertainment industry itself. The fundamental point of movies and television is that actors are supposed to reflect rea"
+    }
+   ]
+  },
+  {
+   "windowId": "W17",
+   "startSec": 502.896,
+   "endSec": 536.264,
+   "beats": [
+    {
+     "beatId": 51,
+     "startSec": 502.976,
+     "endSec": 511.492,
+     "beatType": "reversal",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 508.9372,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 502.976,
+        "end": 502.976
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 503.276,
+        "end": 504.276
+       },
+       "expression": "shock_eye_pop"
+      }
+     ],
+     "props": [],
+     "srt": "roughly like us, just with better lighting, vast amounts of wealth, and slightly superior genetics. But when everyone on screen looks like a gaunt, hollow-cheeked"
+    },
+    {
+     "beatId": 52,
+     "startSec": 511.492,
+     "endSec": 521.339,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 511.492,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 511.492,
+        "end": 511.492
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [],
+     "srt": "cyborg whohasn't hasn’t encountered a complex carbohydrate since the Obama administration, it becomes inherently alienating. We want our favorite stars to be relatable. We want to project",
+     "override": "inline:TBD"
+    },
+    {
+     "beatId": 53,
+     "startSec": 521.339,
+     "endSec": 536.264,
+     "beatType": "reversal",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 531.7865,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 521.339,
+        "end": 521.339
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 521.639,
+        "end": 522.639
+       },
+       "expression": "shock_eye_pop"
+      }
+     ],
+     "props": [
+      {
+       "builder": "couch",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 521.839,
+        "act": 530.294,
+        "settle": 536.264
+       }
+      }
+     ],
+     "srt": "ourselves onto them. But as critics have pointed out, movie stars have tweaked their faces and bodies into a startling sameness. It'sIt’s a monoculture of extreme thinness, perfectly symmetrical features, and absolutely "
+    }
+   ]
+  },
+  {
+   "windowId": "W18",
+   "startSec": 536.264,
+   "endSec": 566.418,
+   "beats": [
+    {
+     "beatId": 54,
+     "startSec": 536.264,
+     "endSec": 547.429,
+     "beatType": "process",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 544.0794999999999,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 536.264,
+        "end": 536.264
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 536.564,
+        "end": 537.564
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [],
+     "srt": "emotion. Faces are literally losing their ability to convey natural feeling becausethey've they’ve been Botoxed, lifted, tucked, and drained of all organic matter. It is really hard to emotionally connect with a characte"
+    },
+    {
+     "beatId": 55,
+     "startSec": 547.429,
+     "endSec": 556.34,
+     "beatType": "superlative",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 547.429,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 547.429,
+        "end": 547.429
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 547.7289999999999,
+        "end": 548.7289999999999
+       },
+       "expression": "smug_chuckle"
+      }
+     ],
+     "props": [],
+     "srt": "through a tragic divorce on screen when their forehead remains completely smooth and stationary while they cry. Ultimately, the reason celebrities are getting so lean, and doing"
+    },
+    {
+     "beatId": 56,
+     "startSec": 556.34,
+     "endSec": 566.418,
+     "beatType": "list",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 556.34,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 556.34,
+        "end": 556.34
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 556.64,
+        "end": 557.64
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 557.84,
+        "end": 558.84
+       },
+       "expression": "sparkle_anime_eyes"
+      },
+      {
+       "id": "guest3",
+       "role": "guest",
+       "gender": "female",
+       "hairStyle": "female_long",
+       "clothes": "dress_pink",
+       "mark": {
+        "x": 1620,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 559.04,
+        "end": 560.04
+       },
+       "expression": "sparkle_anime_eyes"
+      }
+     ],
+     "props": [],
+     "srt": "it so fast, is that the barrier to extreme thinness has finally been removed for those who can afford it. We live in a culture that associates morality, discipline, and health with being thin."
+    }
+   ]
+  },
+  {
+   "windowId": "W19",
+   "startSec": 566.418,
+   "endSec": 597.231,
+   "beats": [
+    {
+     "beatId": 57,
+     "startSec": 566.962,
+     "endSec": 578.322,
+     "beatType": "reversal",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 574.914,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 566.962,
+        "end": 566.962
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 567.262,
+        "end": 568.262
+       },
+       "expression": "shock_eye_pop"
+      }
+     ],
+     "props": [],
+     "srt": "The body positivity movement was a really nice idea, and maybe it helped some regular people feel better about themselves for a few years, but it was always fighting a losing battle against a society that inherently valu"
+    },
+    {
+     "beatId": 58,
+     "startSec": 578.847,
+     "endSec": 587.887,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 578.847,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 578.847,
+        "end": 578.847
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [
+      {
+       "builder": "scaleProp",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 579.347,
+        "act": 584.271,
+        "settle": 587.887
+       }
+      }
+     ],
+     "srt": "Once the rich and famous found a way to opt out of the biological struggle of weight management, they did exactly what you would expect them to do: they took the shortcut and then lied about"
+    },
+    {
+     "beatId": 59,
+     "startSec": 587.887,
+     "endSec": 597.231,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 587.887,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 587.887,
+        "end": 587.887
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [],
+     "srt": "it. And they left the rest of us behind to wonder why wecan't can’t look like them, completely ignoring the fact that it costs about twelve hundred dollars a month in off-label diabetes medication",
+     "override": "inline:TBD"
+    }
+   ]
+  },
+  {
+   "windowId": "W20",
+   "startSec": 597.231,
+   "endSec": 629.701,
+   "beats": [
+    {
+     "beatId": 60,
+     "startSec": 597.231,
+     "endSec": 606.385,
+     "beatType": "personification",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 603.6388,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 597.231,
+        "end": 597.231
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 597.531,
+        "end": 598.531
+       },
+       "expression": "smug_finger_guns"
+      }
+     ],
+     "props": [],
+     "srt": "to achieve it. It creates a massive economic divide that now includes basic biological urges. Rich people no longer have to feel hungryThey've. They’ve outsourced"
+    },
+    {
+     "beatId": 61,
+     "startSec": 606.465,
+     "endSec": 615.448,
+     "beatType": "process",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 606.465,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 606.465,
+        "end": 606.465
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 606.765,
+        "end": 607.765
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [
+      {
+       "builder": "bigSandwich",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 606.965,
+        "act": 611.8548,
+        "settle": 615.448
+       }
+      },
+      {
+       "builder": "wheel",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 606.965,
+        "act": 611.8548,
+        "settle": 615.448
+       }
+      }
+     ],
+     "srt": "appetite control to big pharma, the same way they outsource their driving, their cleaning, and their child-rearing. So, the next time you see a celebrity on a press tour looking"
+    },
+    {
+     "beatId": 62,
+     "startSec": 615.448,
+     "endSec": 623.941,
+     "beatType": "comparison",
+     "shot": "punch",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 897,
+      "cy": 570,
+      "zoom": 1.5
+     },
+     "punchAt": 621.3931,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 615.448,
+        "end": 615.448
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 615.7479999999999,
+        "end": 616.7479999999999
+       },
+       "expression": "deadpan_line"
+      },
+      {
+       "id": "guest2",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 1300,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 616.948,
+        "end": 617.948
+       },
+       "expression": "deadpan_line"
+      }
+     ],
+     "props": [
+      {
+       "builder": "envelope",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 615.948,
+        "act": 620.5438,
+        "settle": 623.941
+       }
+      }
+     ],
+     "srt": "like they could comfortably fit inside a standard business envelope please do not feel bad about yourself. You are not lacking discipline. You are not lazy. You are just"
+    },
+    {
+     "beatId": 63,
+     "startSec": 623.941,
+     "endSec": 629.701,
+     "beatType": "escalation",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 623.941,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 623.941,
+        "end": 623.941
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 624.241,
+        "end": 625.241
+       },
+       "expression": "fear_trembling"
+      }
+     ],
+     "props": [
+      {
+       "builder": "moneyBag",
+       "at": {
+        "x": 1250,
+        "y": 640
+       },
+       "cue": {
+        "appear": 624.441,
+        "act": 627.397,
+        "settle": 629.701
+       }
+      }
+     ],
+     "srt": "lacking a concierge doctor, an endless budget, and a casual disregard for your own gastric emptying process."
+    }
+   ]
+  },
+  {
+   "windowId": "W21",
+   "startSec": 629.701,
+   "endSec": 643.531,
+   "beats": [
+    {
+     "beatId": 64,
+     "startSec": 630.335,
+     "endSec": 638.81,
+     "beatType": "superlative",
+     "shot": "macro",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 700,
+      "cy": 570,
+      "zoom": 1.6
+     },
+     "punchAt": 636.2674999999999,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 630.335,
+        "end": 630.335
+       },
+       "expression": "deadpan_classic"
+      },
+      {
+       "id": "guest1",
+       "role": "guest",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "hoodie",
+       "mark": {
+        "x": 990,
+        "y": 665
+       },
+       "entrance": {
+        "from": "right",
+        "start": 630.635,
+        "end": 631.635
+       },
+       "expression": "smug_chuckle"
+      }
+     ],
+     "props": [],
+     "srt": "Hollywoodhasn't hasn’t progressed past its toxic beauty standards they just got access to better drugs and better surgeons. That'sThat’s my first video on YouTube."
+    },
+    {
+     "beatId": 65,
+     "startSec": 639.451,
+     "endSec": 643.531,
+     "beatType": "tableau",
+     "shot": "wide",
+     "wide": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "tight": {
+      "cx": 960,
+      "cy": 560,
+      "zoom": 1.25
+     },
+     "punchAt": 639.451,
+     "cast": [
+      {
+       "id": "host",
+       "role": "host",
+       "gender": "male",
+       "hairStyle": "male_short",
+       "clothes": "none",
+       "mark": {
+        "x": 400,
+        "y": 670
+       },
+       "entrance": {
+        "from": "left",
+        "start": 639.451,
+        "end": 639.451
+       },
+       "expression": "deadpan_classic",
+       "fx": "question_marks"
+      }
+     ],
+     "props": [],
+     "srt": "Subscribe if you want to. Ordon'tI'm don’t. I’m not your dad and frankly, Idon't don’t care.",
+     "override": "inline:TBD"
+    }
+   ]
+  }
+ ],
+ "generatedAt": "2026-09-05T21:00:19.506Z",
+ "generator": "compile-plan v1 (deterministic rules)"
+}

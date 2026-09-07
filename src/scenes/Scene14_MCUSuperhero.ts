@@ -2,6 +2,7 @@ import { Scene, SceneRenderContext, SceneRenderOutput } from "./SceneTypes";
 import {
   renderUnseasonedChickenBroccoli,
   renderAlarmClockTRT,
+  renderShrinkWrappedHam,
 } from "../character/CartoonCastSubScenes";
 import { renderHandDrawnArrow, renderHandDrawnCircle, renderActionLines } from "../anim/ComicMarkups";
 
@@ -81,10 +82,10 @@ export const Scene14_MCUSuperhero: Scene = {
     }
 
     // =========================================================================
-    // SUB-SCENE 2: IRON DUNGEON BODYBUILDING GYM (6.46s - 16.32s)
+    // SUB-SCENE 2: SHRINK-WRAPPED LEFTOVER HAM (6.46s - 16.32s)
     // =========================================================================
     else if (isSub2) {
-      camera.setTarget(960, 520, 1.25);
+      camera.setTarget(960, 520, 1.08);
 
       bg = `
         <!-- Iron Dungeon Gym Backdrop -->
@@ -96,10 +97,10 @@ export const Scene14_MCUSuperhero: Scene = {
         <line x1="200" y1="620" x2="1700" y2="620" stroke="#52525b" stroke-width="12"/>
 
         <!-- Dehydration Protocol Warning Sign -->
-        <g transform="translate(960, 180)">
-          <rect x="-260" y="-35" width="520" height="70" rx="14" fill="#0f172a" stroke="#f59e0b" stroke-width="5" filter="url(#cardShadow)"/>
-          <text x="0" y="10" font-family="'Impact', sans-serif" font-size="28" fill="#fbbf24" letter-spacing="2" text-anchor="middle">
-            DEHYDRATION PROTOCOL: 72 HOURS
+        <g transform="translate(600, 180)">
+          <rect x="-220" y="-35" width="440" height="70" rx="14" fill="#0f172a" stroke="#f59e0b" stroke-width="5" filter="url(#cardShadow)"/>
+          <text x="0" y="10" font-family="'Impact', sans-serif" font-size="24" fill="#fbbf24" letter-spacing="2" text-anchor="middle">
+            DEHYDRATION: 72 HOURS
           </text>
         </g>
 
@@ -108,19 +109,20 @@ export const Scene14_MCUSuperhero: Scene = {
         <line x1="-4000" y1="800" x2="6000" y2="800" stroke="#ef4444" stroke-width="8"/>
       `;
 
-      overlays += renderActionLines({ x: 960, y: 540 }, 240, sceneTime);
+      bg += renderShrinkWrappedHam(1260, 480, sceneTime);
+      overlays += renderActionLines({ x: 1260, y: 480 }, 240, sceneTime);
 
       stickFiguresList.push({
         id: "gym_bro_actor",
         state: {
-          x: 960,
+          x: 580,
           y: 640,
           scale: 1.35,
           gender: "bodybuilder",
           hairStyle: "male_bodybuilder_bald",
           clothes: "bodybuilder_tank",
           expression: "rage_clenched_fists",
-          spineLean: Math.sin(sceneTime * 6) * 6,
+          pointTarget: { x: 1260, y: 480 },
           timeSec: sceneTime,
         },
       });

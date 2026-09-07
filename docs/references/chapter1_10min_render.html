@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Chapter 1 — 10:43 Full Render (gag-sample player)</title>
+<style>
+body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#0f172a;color:#f8fafc;margin:0;padding:20px}
+.film{max-width:1100px;margin:0 auto}
+.topbar{display:flex;gap:12px;align-items:center;background:#1e293b;border:1px solid #334155;border-radius:12px;padding:10px 14px}
+.topbar b{color:#38bdf8}.topbar #clock{font-variant-numeric:tabular-nums;color:#94a3b8}
+.topbar button{background:#38bdf8;border:0;border-radius:8px;padding:6px 12px;font-weight:700;cursor:pointer}
+.viewport{position:relative;margin-top:12px;background:#000;border-radius:14px;overflow:hidden;border:1px solid #334155;aspect-ratio:16/9}
+.viewport img#visual{width:100%;height:100%;object-fit:contain;background:#111;display:block}
+.subtitle{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);max-width:90%;background:rgba(0,0,0,.78);padding:8px 14px;border-radius:8px;font-size:18px;line-height:1.35;text-align:center}
+.beat{position:absolute;left:12px;top:10px;background:rgba(0,0,0,.7);padding:6px 10px;border-radius:8px;font-size:12px;color:#fcd34d;font-family:monospace}
+.progress{display:flex;gap:10px;align-items:center;margin-top:10px}
+.progress input{flex:1}
+.note{color:#94a3b8;font-size:13px;margin-top:10px;line-height:1.5}
+.missing{color:#fca5a5}
+</style>
+</head>
+<body>
+<div class="film">
+<div class="topbar"><b>CHAPTER 1 — 10:43 FULL RENDER</b><span id="clock">00:00 / 10:43</span><button id="play">▶ Play</button><button id="restart">↻ Restart</button><span id="beatlabel"></span></div>
+<div class="viewport"><img id="visual" alt="chapter visual"><div class="beat" id="beat"></div><div class="subtitle" id="subtitle">Press Play — same player style as the gag samples.</div></div>
+<div class="progress"><input id="seek" type="range" min="0" max="643" step="0.1" value="0"><span id="tlabel">00:00</span></div>
+<div class="note" id="note"></div>
+</div>
+<script>
+const DUR=643;
+const BASE="chapter_1_full_timestamped_final/";
+const BEATS=[
+[0,"00m00s-00m03s_P0_jNSMuYIMuPhn.jpg","opening red-carpet premise"],
+[3,"00m03s-00m10s_P1_asDVjYVAUHos.jpg","Instagram / celebrity feed"],
+[10,"00m10s-00m16s_P1_Xgkbcktr24OF.jpg","wider Hollywood ecosystem"],
+[16,"00m16s-00m23s_P0_dE2sYmsioUfQ.jpg","Jenna Ortega red-carpet ref"],
+[23,"00m23s-00m32s_P1_Cnu1VBm6CjgF.jpg","celebrities looking leaner"],
+[32,"00m32s-00m42s_P1_sOcn3DSdXH3p.jpg","90s gaunt aesthetic bridge"],
+[42,"00m42s-00m46s_P1_KRMezIIsHgN4.jpg","size-zero fashion history"],
+[46,"00m46s-00m57s_P0_KJ7ASUmM1AuC.jpg","beauty-standard pendulum"],
+[57,"00m57s-01m05s_P0_rdCuAj7HPqpT.jpg","Kate Moss heroin-chic"],
+[65,"01m05s-01m12s_P0_KgXDujRAfM45.jpg","Diet Coke joke"],
+[72,"01m12s-01m24s_P1_p9PtEq5Y57TR.jpg","apathy fashion callback"],
+[85,"01m25s-01m33s_P0_BNcYNEsHPmPt.jpg","BBL boom context"],
+[93,"01m33s-01m40s_P1_HvCAhEVoWRYN.jpg","squat / influencer joke"],
+[100,"01m40s-01m50s_P1_qDNWZoSAhSoJ.jpg","business of bottoms"],
+[110,"01m50s-02m00s_P1_M0nfsCnDdPY8.jpg","hourglass transition"],
+[120,"02m00s-02m09s_P0_3EzcHHw9HEc2.jpg","body-positivity promise"],
+[129,"02m09s-02m21s_P1_OTEVtw483MAv.jpg","real-body campaign"],
+[141,"02m21s-02m24s_P1_F85FvDOBkgNy.jpg","positivity reversal punchline"],
+[142,"02m22s-02m31s_P0_tcVkmZihKdAe.webp","GLP-1 comparison"],
+[151,"02m31s-02m41s_P1_lCjXRUP5yfZ0.jpg","drug comparison"],
+[161,"02m41s-02m50s_P0_eB45IBS3jFAC.jpg","low-rise hostility"],
+[170,"02m50s-03m00s_P1_oXnvbtznT5VD.jpg","baby-tee joke"],
+[180,"03m00s-03m06s_P0_jzB3tix5WANh.jpg","Miu Miu micro-skirt"],
+[186,"03m06s-03m13s_P1_ycsbEbR6Tk2a.jpeg","injection-pen cheat code"],
+[200,"03m20s-03m35s_P1_ljUO8dnZ184V.jpeg","GLP-1 chart"],
+[215,"03m35s-03m52s_P1_Y8l8IyB58IsV.jpg","treadmill contrast"],
+[232,"03m52s-04m05s_P1_WeZYarV65xoG.png","appetite meme artifact"],
+[245,"04m05s-04m11s_P1_RkDIUcaNxt9f.jpg","bread / chicken-broccoli"],
+[251,"04m11s-04m24s_P0_MHuQtVBbibvA.png","celebrity denial headline"],
+[264,"04m24s-04m40s_P1_QmCYBQsuhFL4.jpg","denial media context"],
+[284,"04m44s-04m59s_P1_Bz2nV2T1PW9t.jpg","water + walks joke"],
+[300,"05m00s-05m14s_P1_FkE17tCLf2IC.jpg","denial collage"],
+[314,"05m14s-05m26s_P0_ymcYJ1F683k2.jpg","Marvel standard"],
+[326,"05m26s-05m34s_P0_mqgRxY2Jrd6n.jpg","dehydration gag"],
+[334,"05m34s-05m45s_P1_GBcOGT3JfxG1.jpg","chicken-broccoli formula"],
+[345,"05m45s-05m57s_P1_XJ1JfFnmNG9s.jpg","steroid context"],
+[357,"05m57s-06m04s_P1_P747yak2y1eg.jpg","trainer context"],
+[364,"06m04s-06m13s_P0_BkLXd9yFTnoE.jpg","buccal-fat anatomy"],
+[373,"06m13s-06m21s_P1_1Gyoeu0QjeYk.jpg","surgical access"],
+[381,"06m21s-06m35s_P1_rAE5OFIELS1K.jpg","buccal explainer"],
+[395,"06m35s-06m44s_P0_3cAeztN2nyQT.jpg","Ozempic Face headline"],
+[404,"06m44s-06m59s_P1_2zBV6fkHpdA9.png","volume-loss explainer"],
+[419,"06m59s-07m10s_P1_LuI0HVfHvWA4.jpg","manufactured-face editorial"],
+[430,"07m10s-07m16s_P0_dE2sYmsioUfQ.jpg","Jenna return"],
+[436,"07m16s-07m23s_P1_oriZpeKMYZSr.jpg","Jenna / Burton callback"],
+[443,"07m23s-07m35s_P1_cACRviPaYX4D.jpg","Wednesday frame"],
+[462,"07m42s-07m50s_P0_70nITgu48UA5.jpg","side-by-side scrutiny"],
+[470,"07m50s-07m57s_P1_WeZYarV65xoG.png","edited-body artifact"],
+[477,"07m57s-08m03s_P1_VqwpZvTVqdYu.jpg","low-rise flare-up"],
+[483,"08m03s-08m10s_P1_wD7s1bckhMIj.jpg","micro-mini escalation"],
+[490,"08m10s-08m16s_P1_HqgTpQ2IQj7U.jpg","low-rise visual"],
+[496,"08m16s-08m23s_P1_Cme80uOCw6GE.webp","Y2K character creation"],
+[503,"08m23s-08m33s_P1_gIRntCmZS7nv.png","engineered-fashion visual"],
+[514,"08m34s-08m43s_P0_LuI0HVfHvWA4.jpg","uncanny valley editorial"],
+[523,"08m43s-08m57s_P1_zXgpIG761EI9.jpeg","copy-paste discussion"],
+[537,"08m57s-09m07s_P1_2Xj5CpRqXK8P.jpg","Botox backlash"],
+[547,"09m07s-09m20s_P1_7wRRh5TY0Sd2.jpg","frozen-face joke"],
+[560,"09m20s-09m30s_P1_LuI0HVfHvWA4.jpg","faces losing emotion"],
+[570,"09m30s-09m41s_P1_zXgpIG761EI9.jpeg","same-face callback"],
+[581,"09m41s-09m57s_P1_rksySTaOXGcf.jpg","surgery-fails contrast"],
+[598,"09m58s-10m04s_P0_1bjJROSvdabm.png","pricing context"],
+[604,"10m04s-10m17s_P1_HMPBpTukGQdU.jpg","concierge access"],
+[617,"10m17s-10m25s_P0_Vgqt6iVBsuYV.png","cost comparison"],
+[625,"10m25s-10m32s_P0_hZ87ubedglFA.png","concierge doctor"],
+[632,"10m32s-10m39s_P0_gE64F9fbRGXR.jpg","inequality editorial"],
+[639,"10m39s-10m47s_P1_5LOM8JNLCS6I.jpg","press-tour contrast"],
+[647,"10m47s-10m54s_P1_Q21XDNsPKQR3.jpg","boat-tox joke"],
+[654,"10m54s-10m57s_P1_jOTpwxWvP2Fn.jpg","red-carpet sign-off"]
+];
+const FALLBACK=[
+"stick_figure_assets/disgust/disgust_gag.svg",
+"stick_figure_assets/shock/shock_jaw_drop.svg",
+"stick_figure_assets/smug/smug_rock_eyebrow.svg",
+"stick_figure_assets/deadpan/deadpan_classic.svg",
+"stick_figure_assets/rage/rage_table_flip.svg",
+"stick_figure_assets/confused/confused_tilted_head.svg",
+"stick_figure_assets/fear/fear_screaming.svg",
+"stick_figure_assets/mind_blown/mind_blown_explosion.svg",
+"stick_figure_assets/sadness/crying_waterfalls.svg",
+"stick_figure_assets/frustration/frustration_facepalm.svg"
+];
+let cues=[],t=0,playing=false,lastTs=0,curBeat=-1;
+const vis=document.getElementById('visual'),sub=document.getElementById('subtitle'),
+beatEl=document.getElementById('beat'),clock=document.getElementById('clock'),
+seek=document.getElementById('seek'),tlabel=document.getElementById('tlabel'),
+beatlabel=document.getElementById('beatlabel'),note=document.getElementById('note');
+function fmt(s){s=Math.max(0,Math.floor(s));return String(Math.floor(s/60)).padStart(2,'0')+":"+String(s%60).padStart(2,'0');}
+function parseSRT(txt){const out=[];const blocks=txt.replace(/\r/g,'').split(/\n\s*\n/);
+for(const b of blocks){const l=b.split('\n').map(x=>x.trim()).filter(Boolean);if(l.length<2)continue;
+const m=l[1].match(/(\d+):(\d+):([\d.]+)\s*-->\s*(\d+):(\d+):([\d.,]+)/);if(!m)continue;
+const toS=(h,mi,s)=>+h*3600+ +mi*60+parseFloat(String(s).replace(',','.'));
+out.push({s:toS(m[1],m[2],m[3]),e:toS(m[4],m[5],m[6]),text:l.slice(2).join(' ').replace(/\s+/g,' ').slice(0,220)});}return out;}
+function beatAt(s){let bi=0;for(let i=0;i<BEATS.length;i++)if(s>=BEATS[i][0])bi=i;return bi;}
+function render(){clock.textContent=fmt(t)+" / 10:43";tlabel.textContent=fmt(t);seek.value=t;
+const bi=beatAt(t);const b=BEATS[bi];
+beatEl.textContent=(bi+1)+"/68 "+fmt(b[0])+" "+b[1].slice(0,28);
+beatlabel.textContent=" — beat "+(bi+1)+"/68";
+let line=b[2];for(const c of cues)if(t>=c.s&&t<=c.e){line=c.text;break;}
+sub.textContent=line;
+if(bi!==curBeat){curBeat=bi;const primary=BASE+b[1];vis.onerror=()=>{vis.onerror=null;vis.src=FALLBACK[bi%FALLBACK.length];};
+vis.src=primary;vis.alt=b[2];}}
+function tick(ts){if(!playing)return;if(lastTs)t+=(ts-lastTs)/1000;lastTs=ts;
+if(t>=DUR){t=DUR;playing=false;document.getElementById('play').textContent="▶ Play";}
+render();requestAnimationFrame(tick);}
+document.getElementById('play').onclick=e=>{playing=!playing;e.target.textContent=playing?"⏸ Pause":"▶ Play";lastTs=0;if(playing)requestAnimationFrame(ts=>{lastTs=ts;requestAnimationFrame(tick);});};
+document.getElementById('restart').onclick=()=>{t=0;curBeat=-1;render();};
+seek.oninput=e=>{t=+e.target.value;render();};
+fetch("0-chapter-1.srt").then(r=>{if(!r.ok)throw 0;return r.text();}).then(txt=>{cues=parseSRT(txt);
+note.textContent="Loaded "+cues.length+" subtitle cues from 0-chapter-1.srt. "+BEATS.length+" beats.";render();})
+.catch(()=>{note.innerHTML='Could not fetch <b>0-chapter-1.srt</b> (open via http for auto-subs). Showing 68 beat purposes as captions. Chapter photos in <span class="missing">chapter_1_full_timestamped_final/</span> are not downloaded yet — missing ones fall back to local stick-figure gag SVGs in the same gag-sample style.';render();});
+render();
+</script>
+</body>
+</html>

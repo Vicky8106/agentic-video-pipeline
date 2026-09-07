@@ -1,5 +1,8 @@
 import { Scene, SceneRenderContext, SceneRenderOutput } from "./SceneTypes";
-import { renderLithiumBatteryPack } from "../character/CartoonCastSubScenes";
+import {
+  renderLithiumBatteryPack,
+  renderObamaLastCarb2012,
+} from "../character/CartoonCastSubScenes";
 import { renderHandDrawnArrow, renderHandDrawnCircle, renderActionLines } from "../anim/ComicMarkups";
 
 export const Scene17_CyborgMonoculture: Scene = {
@@ -72,7 +75,7 @@ export const Scene17_CyborgMonoculture: Scene = {
     // SUB-SCENE 2: FROZEN FOREHEAD & LITHIUM BATTERY (18.2s - 38.5s)
     // =========================================================================
     else if (isBotox) {
-      camera.cutTo(960, 480, 1.45);
+      camera.setTarget(960, 500, 1.08);
 
       bg = `
         <!-- High-Tech Battery Lab -->
@@ -85,12 +88,12 @@ export const Scene17_CyborgMonoculture: Scene = {
       `;
 
       bg += renderLithiumBatteryPack(1260, 460, sceneTime);
-      overlays += renderHandDrawnCircle({ x: 960, y: 450 }, 180, 110, sceneTime, "FROZEN FOREHEAD");
+      overlays += renderHandDrawnCircle({ x: 1260, y: 460 }, 180, 110, sceneTime, "LITHIUM ION");
 
       stickFiguresList.push({
         id: "botox_actor",
         state: {
-          x: 720,
+          x: 580,
           y: 640,
           scale: 1.34,
           gender: "female",
@@ -104,10 +107,10 @@ export const Scene17_CyborgMonoculture: Scene = {
     }
 
     // =========================================================================
-    // SUB-SCENE 3: CLONE ARMY OF IDENTICAL PORCELAIN FACES (38.5s - 66.01s)
+    // SUB-SCENE 3: LAST KNOWN CARBOHYDRATE (OBAMA 2012) (38.5s - 66.01s)
     // =========================================================================
     else {
-      camera.setTarget(960, 520, 1.15);
+      camera.setTarget(960, 520, 1.08);
 
       bg = `
         <!-- Matrix Clone Production Line -->
@@ -115,34 +118,29 @@ export const Scene17_CyborgMonoculture: Scene = {
         <rect x="150" y="80" width="1620" height="720" rx="14" fill="#111827" stroke="#22c55e" stroke-width="8"/>
         
         <!-- Clone Vats in Background -->
-        ${[400, 750, 1100, 1450].map(vx => `
+        ${[300, 500].map(vx => `
           <rect x="${vx - 70}" y="200" width="140" height="380" rx="14" fill="#064e3b" stroke="#10b981" stroke-width="4"/>
           <ellipse cx="${vx}" cy="230" rx="50" ry="15" fill="#34d399" opacity="0.4"/>
         `).join("")}
-
-        <!-- Title Banner -->
-        <g transform="translate(960, 150)">
-          <rect x="-260" y="-30" width="520" height="60" rx="12" fill="#0f172a" stroke="#22c55e" stroke-width="4" filter="url(#glow)"/>
-          <text x="0" y="10" font-family="'Impact', sans-serif" font-size="26" fill="#4ade80" letter-spacing="2" text-anchor="middle">
-            PORCELAIN REPLICAS ASSEMBLED
-          </text>
-        </g>
 
         <!-- Floor -->
         <rect x="-4000" y="800" width="10000" height="4000" fill="#000000"/>
         <line x1="-4000" y1="800" x2="6000" y2="800" stroke="#22c55e" stroke-width="8"/>
       `;
 
+      bg += renderObamaLastCarb2012(1260, 460, sceneTime);
+
       stickFiguresList.push({
         id: "prime_clone",
         state: {
-          x: 960,
+          x: 580,
           y: 640,
           scale: 1.34,
           gender: "female",
           hairStyle: "female_bob_bangs",
           clothes: "dress_black",
           expression: "deadpan_soul_stare",
+          pointTarget: { x: 1260, y: 460 },
           timeSec: sceneTime,
         },
       });

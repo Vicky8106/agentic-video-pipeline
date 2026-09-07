@@ -11,6 +11,8 @@ export interface SvgRenderOptions {
   camera: Camera;
   width?: number;
   height?: number;
+  /** Director beat sheet override (default: baked ShotTimeline). */
+  beats?: import("../director/ShotTimeline").MovieBeat[];
 }
 
 export function getActiveSubtitle(subtitles: SubtitleItem[], timeSec: number): SubtitleItem | null {
@@ -27,10 +29,10 @@ import { renderDirectedMovieFrame } from "../director/MovieDirectorEngine";
 export function renderCompleteSvgFrame(
   opts: SvgRenderOptions
 ): { svg: string; viewBox: string; sceneId: string; subText: string } {
-  const { timeSec, subtitles, camera, width = 1920, height = 1080 } = opts;
+  const { timeSec, subtitles, camera, width = 1920, height = 1080, beats } = opts;
 
   // 1. Direct Movie Frame via 231-Shot Director
-  const output = renderDirectedMovieFrame(timeSec);
+  const output = beats ? renderDirectedMovieFrame(timeSec, beats) : renderDirectedMovieFrame(timeSec);
   const activeSub = getActiveSubtitle(subtitles, timeSec);
   const isSpeaking = activeSub !== null;
 

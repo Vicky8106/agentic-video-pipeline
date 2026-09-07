@@ -3,14 +3,26 @@ import { renderProp } from "../assets/PropLibrary";
 import { HairstyleId } from "../character/Hairstyles";
 import { OutfitId } from "../character/Outfits";
 import { renderActionLines } from "../anim/ComicMarkups";
-import { getActiveBeat, MovieBeat } from "./ShotTimeline";
+import { getActiveBeat, MOVIE_BEATS, MovieBeat } from "./ShotTimeline";
 
-export function renderDirectedMovieFrame(timeSec: number): {
+export function activeBeatIn(beats: MovieBeat[], timeSec: number): MovieBeat {
+  if (timeSec < beats[0].startSec) return beats[0];
+  for (let i = 0; i < beats.length - 1; i++) {
+    const b = beats[i];
+    const nextB = beats[i + 1];
+    if (timeSec >= b.startSec && timeSec < nextB.startSec) {
+      return b;
+    }
+  }
+  return beats[beats.length - 1];
+}
+
+export function renderDirectedMovieFrame(timeSec: number, beats: MovieBeat[] = MOVIE_BEATS): {
   backgroundSvg: string;
   stickFigures: Array<{ id: string; state: any }>;
   cameraTarget: { x: number; y: number; zoom: number; isCut?: boolean };
 } {
-  const beat = getActiveBeat(timeSec);
+  const beat = beats === MOVIE_BEATS ? getActiveBeat(timeSec) : activeBeatIn(beats, timeSec);
   const beatElapsed = timeSec - beat.startSec;
   const isCut = beatElapsed < 0.12; // Instant hard cut on every new beat!
 
@@ -99,6 +111,29 @@ export function renderDirectedMovieFrame(timeSec: number): {
       leftArmAngle1 = 110 + Math.sin(timeSec * 12) * 40;
       rightArmAngle1 = 70 + Math.cos(timeSec * 12) * 40;
       spineLean = Math.sin(timeSec * 6) * 10;
+      break;
+    case "shrugging":
+      leftArmAngle1 = 125;
+      leftArmAngle2 = 150;
+      rightArmAngle1 = 55;
+      rightArmAngle2 = 30;
+      spineLean = -3;
+      break;
+    case "holding_prop":
+      rightArmAngle1 = 90;
+      rightArmAngle2 = 100;
+      leftArmAngle1 = 160;
+      leftArmAngle2 = 170;
+      spineLean = -4;
+      break;
+    case "slamming_gavel":
+      rightArmAngle1 = 145 + Math.sin(timeSec * 9) * 25;
+      rightArmAngle2 = 150;
+      leftArmAngle1 = 165;
+      spineLean = 8;
+      break;
+    case "neutral":
+    default:
       break;
   }
 

@@ -1,131 +1,125 @@
+# Casually Explained / Alex Meyers 2D Animation Engine & Production Pipeline
 
-## Autonomous audio + SRT production
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+[![FFmpeg](https://img.shields.io/badge/FFmpeg-6.0+-orange.svg)](https://ffmpeg.org/)
+[![Resvg](https://img.shields.io/badge/Resvg-Rust%20SVG-red.svg)](https://github.com/RazrFalcon/resvg)
 
-The primary workflow is now procedural rather than scene-authoring based. Give the engine only a narration file and its SRT:
+A broadcast-ready, procedural 2D vector animation engine and end-to-end production pipeline in TypeScript. Renders animated comedy videos in the authentic style of **Casually Explained** and **Alex Meyers**, incorporating deep insights from **Muse Spark** on hand-driven staging, continuous actor performance, anti-statue gating, and full 10-minute feature compilation.
 
-```bash
-pnpm generate --audio narration.mp3 --srt narration.srt --out output/video.mp4
-```
+---
 
-The production compiler derives word-level timing, comedy beats, camera shots and continuous host performance from the transcript. It is explicitly designed to prevent the long-video failure mode where the first minute is animated and later sections become a slideshow. See `AUTONOMOUS_PRODUCTION.md` and `skills/casually-explained-director/SKILL.md`.
+## 🌟 Highlights & Capabilities
 
-The existing authored scenes remain useful as a visual vocabulary/reference library; they are no longer required to define the movie's duration or structure.
+- **Complete 10-Minute Feature Workflow**: Render full-length chapter videos (10m 44s / 15,458 frames @ 24fps HD) with sub-100ms comedic audio sync and fixed-GOP lossless chunk stitching.
+- **The "Hand-Driven" Discipline (Learned from Muse Spark)**: Every frame is a pure mathematical function $f(t, lt)$ of timeline and local beat seconds. Zero hidden state, bit-exact reproducibility, and zero statue frames.
+- **Full Vector Character Rigging**:
+  - `StickFigure.ts`: Forward/inverse kinematics, walking locomotion, index finger pointing gestures, speech phonemes, organic breathing cycles, and 80+ facial expressions.
+  - `CartoonCastSubScenes.ts`: 25+ procedural celebrity puppets (Jenna Ortega, Emma Stone, Ariana Grande, Mindy Kaling, PS1 low-poly models, Victorian candelabras).
+- **Dynamic 16:9 Virtual Camera**: Smooth eased lerp glide, per-sentence dollies, punchline snap cuts (1.50x–1.65x), living-frame breath, and Liang-Barsky line clipping against camera viewports.
+- **Strict Quality Verification Gates**: 7-channel motion auditing (`audit-motion.ts`), staging coverage/collision checks (`critic-plan.ts`), and pixel-difference motion proofing (`measure-motion.mjs`).
+- **Low-Memory Optimization**: Fully compatible with resource-constrained environments (runs smoothly within < 800MB Node heap limits).
 
-# Casually Explained / Alex Meyers 2D Animation Engine
-
-A high-performance, procedural 2D vector animation engine built in TypeScript that renders broadcast-ready animated comedy videos in the authentic style of **Casually Explained** and **Alex Meyers**.
-
-## 🚀 Key Architectural Pillars
-
-1. **Alex Meyers Directing Grammar & Cumulative 1-2-3 Staging**:
-   - Progressive reveal where visual assets accumulate, persist, and interact together on a 16:9 stage as spoken entities are mentioned.
-   - Word-level subtitle audio synchronization (< 100ms tolerance).
-   - Dynamic camera choreography: establishing 2-shots (1.05x), subject punch-ins (1.50x–1.65x), macro punchline zooms (1.75x–1.95x), hard 1-frame jump cuts (1.45x), and kinetic screen shakes.
-
-2. **Procedural Vector Character Rigging**:
-   - Full-featured stick figure host (`StickFigure.ts`) with forward/inverse kinematics, walking locomotion, and 80+ comic expressions.
-   - 25+ modular procedural cartoon vector puppets and slapstick rigs (`CartoonCastSubScenes.ts` & `CartoonComedyPuppets.ts`).
-
-3. **Multi-Core Parallel Rendering Pipeline**:
-   - Resilient worker architecture (`scripts/render-parallel.mjs` and `scripts/render-chunk.mjs`).
-   - Fixed-GOP encoding (`-g 24 -keyint_min 24 -sc_threshold 0`) and zero PTS alignment (`-avoid_negative_ts make_zero`) ensuring bit-exact frame boundaries and 0ms audio sync drift.
-
-4. **Automated Quality Verification**:
-   - On-device ONNX RapidOCR frame auditing (`scripts/ocr_frame_auditor.py`) verifying 16:9 text safety, legibility, and visual scale.
-
-## 🛠️ Tech Stack
-
-- **Language**: TypeScript / Node.js
-- **Rendering**: Procedural SVG to PNG (via `@resvg/resvg-js`)
-- **Video & Audio Encoding**: FFmpeg / libx264 / AAC
-- **Bundler**: esbuild
-- **Quality Assurance**: Python 3 / RapidOCR (ONNX Runtime)
+---
 
 ## 📁 Repository Structure
 
 ```
+├── docs/                           # Architecture, Research & Muse Spark Learnings
+│   ├── HAND_DRIVEN_APPROACH.md     # The 5 layers, time model, failure catalog & verification
+│   ├── PRODUCTION_BIBLE.md         # 9-phase production order & canonical asset specs
+│   ├── FULL_10MIN_WORKFLOW.md      # Step-by-step master 10-minute reproduction guide
+│   └── references/                 # Original reference PDFs & interactive beat player
+│       ├── hand_driven_approach.pdf
+│       ├── document(9).pdf
+│       └── chapter1_10min_render.html
 ├── src/
-│   ├── anim/           # Motion easing, pop-in squashes, comic markups
-│   ├── camera/         # Virtual 16:9 unconstrained camera & shake engine
-│   ├── character/      # Host rig, celebrity puppets, slapstick props
-│   ├── engine/         # SVG renderer & compositor
-│   └── scenes/         # 18 complete narrative comedy scenes
+│   ├── anim/                       # Comic markups (arrows, circles), squashes, eases
+│   ├── camera/                     # Virtual 16:9 Camera & autonomous CameraAgent
+│   ├── character/                  # StickFigure IK host, CartoonCast puppets, outfits
+│   ├── director/                   # MovieDirectorEngine, ShotTimeline, ShowPlan
+│   ├── engine/                     # SvgRenderer & procedural compositing core
+│   ├── motion/                     # Motion math, springs, smoothstep easing
+│   ├── production/                 # Production compilers & ImpactTypography
+│   ├── scenes/                     # 18 complete narrative comedy scenes (Scenes 01-18)
+│   ├── styles/                     # Visual styles & themes
+│   └── subtitles/                  # SRT parser, Transcript compiler, phonetic bobs
 ├── scripts/
-│   ├── render-parallel.mjs   # Multi-worker video chunk renderer & concat
-│   ├── render-chunk.mjs      # Single-chunk frame generator & encoder
-│   ├── ocr_frame_auditor.py  # RapidOCR frame quality auditor
-│   └── test-all-scenes.mjs   # Full-timeline snapshot test harness
-├── public/             # Subtitles (.srt), audio track (.mp3), and font assets
-└── PLAN.md             # Directorial blueprints and acceptance gates
+│   ├── gag-lib.ts                  # Shared Hand-Driven grammar (stage, walkers, camera)
+│   ├── render-gag-w01.ts..w04.ts   # Hand-driven gag window renderers (Windows 1-4)
+│   ├── render-gag-part1..part3.ts  # Master chunk renderers (Parts 1, 2, 3)
+│   ├── render-gag-last2min.ts      # Master chunk renderer (Last 2 minutes)
+│   ├── render_all_master.sh        # Orchestrated end-to-end 10-minute master render script
+│   ├── render_gold_pipeline.sh     # 2-worker parallel render & audio mux pipeline
+│   ├── audit-motion.ts             # 7-channel anti-statue verification gate
+│   ├── critic-plan.ts              # Staging gates (collision, coverage, shot budget)
+│   ├── compile-plan.ts             # Compiles raw SRT into structured ShowPlan
+│   ├── measure-motion.mjs          # Frame-by-frame pixel difference motion proof
+│   └── GAG_WINDOWS.md              # Chapter 1 cue map (0.00s -> 643.53s) & staging rules
+└── public/                         # Chapter 1 SRT, master audio.mp3, fonts & blueprints
 ```
 
-## 🎬 Quick Start
+---
 
-### 1. Install Dependencies
+## 🚀 Quick Start
+
+### 1. Requirements
+- Node.js 18+
+- pnpm or npm
+- FFmpeg 6.0+ with `libx264` and `aac`
+- (Optional) Python 3 for ONNX OCR audits
+
+### 2. Install Dependencies
 ```bash
 pnpm install
 ```
 
-### 2. Build SvgRenderer Bundle
+### 3. Typecheck & Build Core Bundle
 ```bash
+# Type check all engine modules
+NODE_OPTIONS="--max-old-space-size=512" npx tsc --noEmit
+
+# Bundle SvgRenderer for Node execution
 npx esbuild src/engine/SvgRenderer.ts --bundle --format=esm --platform=node --outfile=scripts/SvgRenderer.bundle.mjs
 ```
 
-### 3. Run Scene Snapshot Verification
+---
+
+## 🎬 How to Generate Videos
+
+### 1. Render a Single 30-Second Hand-Driven Proof Window
+To render Window 1 (`0.00s` to `32.41s`) with audio sync:
 ```bash
-node scripts/test-all-scenes.mjs
+NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/render-gag-w01.ts --out output/w01.mp4
 ```
 
-### 4. Run Parallel Video Render
+### 2. Run Quality & Anti-Statue Verification Gates
 ```bash
-node scripts/render-parallel.mjs --concurrency 2 --duration 644.1 --chunk-size 60 --out ./casually_explained_master_10min.mp4
+# Verify staging rules (coverage, collision, shot budgets)
+npx tsx scripts/critic-plan.ts
+
+# Run the 7-channel motion audit (verifies every beat has active life)
+npx tsx scripts/audit-motion.ts
 ```
+
+### 3. Render the Complete 10-Minute Master Video
+Execute the full master pipeline:
+```bash
+bash scripts/render_all_master.sh
+```
+This script renders the 8 master chunks (`c01_w01` to `c08_last2min`), performs lossless fixed-GOP stream concatenation, muxes master narration audio, and verifies non-zero pixel motion deltas.
 
 ---
-*Created with the Alex Meyers / Casually Explained Animation Pipeline.*
 
-## Autonomous audio + SRT production
+## 📖 Deep Dives & Documentation
 
-The intended product workflow is now:
+- [The Hand-Driven Approach](docs/HAND_DRIVEN_APPROACH.md): How pure-function `fn(t, lt)` skits eliminate statue figures and how failures are diagnosed.
+- [Stickman Production Bible](docs/PRODUCTION_BIBLE.md): Asset-first specifications and the 9-phase production order.
+- [Full 10-Minute Workflow](docs/FULL_10MIN_WORKFLOW.md): Complete guide to rendering and stitching the 10-minute master.
+- [Gag Windows Cue Map](scripts/GAG_WINDOWS.md): Exact breakdown of all 231 cues across the 643.53-second feature.
+- [House Style Guide](HOUSE_STYLE.md): Directorial rules for stickman comedy, hard cuts, and comedic timing.
 
-```bash
-pnpm generate --audio narration.mp3 --srt narration.srt --out output/video.mp4
-```
+---
 
-The autonomous path is procedural SVG. It treats the stick figure as a continuously performing actor and uses the SRT to drive comedy beats, expressions, gestures, visual metaphors and editorial camera changes. Raster reference images are not used as generated visuals.
-
-See `AUTONOMOUS_PRODUCTION.md`, `VISUAL_AUDIT.md`, and `skills/casually-explained-director/SKILL.md`.
-
-## Style-pack architecture
-
-The production engine is style-neutral. The director produces semantic intent (beats, actions, actors, targets, shots and timing); a `StylePack` decides how those instructions are drawn and how the style moves. The first built-in pack is `casually-explained`.
-
-```bash
-pnpm generate --audio narration.mp3 --srt narration.srt --style casually-explained --out output/video.mp4
-```
-
-Future styles should implement the same `StylePack` contract rather than changing the director. This is what allows a future original cartoon, infographic, or other house style to reuse the same transcript/comedy/acting/editing pipeline while replacing character design, asset language, palette, transitions and motion grammar.
-
-See `STYLE_ARCHITECTURE.md`.
-
-## Autonomous production engine (v7)
-
-The production engine is style-neutral at its core. Its contract is:
-
-`audio + SRT + style -> transcript -> comedy beats -> choreography -> style rendering -> SVG -> FFmpeg`
-
-The atomic unit is an action, not an image. A beat can contain setup, anticipation, reveal, interaction, escalation, punchline and reaction bits. The stick-figure actor consumes these actions and can look at, point to, walk toward and react to semantic visual targets.
-
-The `StylePack` owns visual identity and style-specific motion/edit grammar. This keeps the director independent from any one creator's artwork.
-
-Example:
-
-```bash
-pnpm generate --audio narration.mp3 --srt narration.srt --style casually-explained --out output/video.mp4
-```
-
-Quality gate:
-
-```bash
-node scripts/quality-gate.mjs
-```
+## 📄 License
+MIT

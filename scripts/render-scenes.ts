@@ -17,6 +17,7 @@ import { spawn } from "node:child_process";
 import { Resvg } from "@resvg/resvg-js";
 import { getActiveScene } from "../src/scenes/SceneRegistry";
 import { Camera } from "../src/camera/Camera";
+import { CameraAgent } from "../src/camera/CameraAgent";
 import { renderStickFigure } from "../src/character/StickFigure";
 import { parseSrt, getActiveSubtitle } from "../src/engine/SvgRenderer";
 import { buildTranscript } from "../src/subtitles/Transcript";
@@ -35,8 +36,9 @@ const startSec = parseFloat(arg("start", "0"));
 const endSec = parseFloat(arg("end", "643.53"));
 const WITH_SLAMS = arg("slams", "1") === "1";
 
-const BASE_W = 1280, BASE_H = 720;
+const BASE_W = 1920, BASE_H = 1080;
 const camera = new Camera(BASE_W, BASE_H);
+const cameraAgent = new CameraAgent(camera);
 const srtContent = fs.readFileSync(path.join(root, "public", "0-chapter-1.srt"), "utf8");
 const subtitles = parseSrt(srtContent);
 const transcript = buildTranscript(subtitles);
@@ -62,7 +64,7 @@ function slamAt(t: number): Slam | null {
 const HIGHLIGHT_RE = /(Thicc|stick|Jenna Ortega|Emma Stone|Ariana Grande|unsubscribe|lunch|Tim Burton|PS1 graphics|Heroin Chick|Kate Moss|Diet Coke|apathy|Victorian|BBL|Pixar Mom|squats|hourglass|body positivity|fidget spinners|podcast|pharmaceutical|boss|Y2K|low-rise|Miu Miu|two thousand dollars|digestive tract|Ozempic|GLP-1|carbs|carbohydrates|instagram|Instagram)/gi;
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-function subtitleBand(text: string): string {
+function subtitleBand(text: string, minX: number, minY: number, vw: number, vh: number): string {
   if (!text) return "";
   // word-wrap to <=2 lines of ~58 chars
   const words = text.split(/\s+/);
@@ -75,105 +77,99 @@ function subtitleBand(text: string): string {
   if (cur) lines.push(cur.trim());
   const shown = lines.slice(0, 2);
   if (!shown.length) return "";
-  const fs_ = 30, lh = 40;
-  const cy = 1010 - (shown.length - 1) * lh;
+  const fs_ = Math.round(30 * (vw / 1920));
+  const lh = Math.round(42 * (vw / 1920));
+  const sw = Math.max(3, Math.round(6 * (vw / 1920)));
+  const cx = minX + vw / 2;
+  const cy = (minY + vh - vh * 0.08) - (shown.length - 1) * lh;
   let tspans = "";
   shown.forEach((ln, i) => {
     // highlight per line (escape first, then wrap matches)
     const safe = esc(ln).replace(HIGHLIGHT_RE, `<tspan font-weight="900" fill="#b91c1c">$1</tspan>`);
-    tspans += `<text x="960" y="${cy + i * lh}" text-anchor="middle" font-family="'Noto Sans', Arial, sans-serif" font-size="${fs_}" font-weight="700" fill="#0f172a" stroke="#ffffff" stroke-width="6" paint-order="stroke" stroke-linejoin="round">${safe}</text>`;
+    tspans += `<text x="${cx}" y="${cy + i * lh}" text-anchor="middle" font-family="'Noto Sans', Arial, sans-serif" font-size="${fs_}" font-weight="700" fill="#0f172a" stroke="#ffffff" stroke-width="${sw}" paint-order="stroke" stroke-linejoin="round">${safe}</text>`;
   });
   return `<g id="subtitle-band">${tspans}</g>`;
 }
 
 const IMPACT_DEFS = `<filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.3"/></filter>`;
 
-/**
- * Clip every <line> to the camera viewport (+margin). resvg 2.6.2 panics on
- * lines with element opacity that end up >900px outside the viewBox while
- * spanning it (zero-width isolated layer -> geom.rs unwrap). Clipping is
- * visually identical: geometry beyond the viewport never rasterizes.
- * Liang-Barsky parametric clip; fully-outside lines are dropped.
- */
+// Clamps SVG <line> coordinates to within [minX-m, maxX+m] x [minY-m, maxY+m].
+// Resvg's tiny-skia layer panics with "assertion `left <= right` failed" when
+// drawing anti-aliased stroked lines whose endpoints extend thousands of pixels
+// beyond the viewport (e.g. x1="-4000" x2="6000").
 function clipLinesToViewport(svg: string, minX: number, minY: number, maxX: number, maxY: number): string {
   const m = 60; // margin covers any stroke cap/join overhang
   const a = minX - m, b = minY - m, c = maxX + m, d = maxY + m;
-  return svg.replace(/<line\b([^>]*?)\/>/g, (tag0, attrs) => {
-    const g = (n: string) => { const mm = attrs.match(new RegExp(`${n}="([-\\d.eE+]+)"`)); return mm ? parseFloat(mm[1]) : null; };
-    const x1 = g("x1"), y1 = g("y1"), x2 = g("x2"), y2 = g("y2");
-    if (x1 === null || y1 === null || x2 === null || y2 === null) return tag0;
-    // Liang-Barsky
+  return svg.replace(/<line\b([^>]*)\/>/g, (tag0, attrs) => {
+    const x1m = attrs.match(/\bx1="([^"]+)"/);
+    const y1m = attrs.match(/\by1="([^"]+)"/);
+    const x2m = attrs.match(/\bx2="([^"]+)"/);
+    const y2m = attrs.match(/\by2="([^"]+)"/);
+    if (!x1m || !y1m || !x2m || !y2m) return tag0;
+    const x1 = parseFloat(x1m[1]), y1 = parseFloat(y1m[1]);
+    const x2 = parseFloat(x2m[1]), y2 = parseFloat(y2m[1]);
+    if (!Number.isFinite(x1) || !Number.isFinite(y1) || !Number.isFinite(x2) || !Number.isFinite(y2)) return tag0;
+    if (x1 >= a && x1 <= c && x2 >= a && x2 <= c && y1 >= b && y1 <= d && y2 >= b && y2 <= d) return tag0;
+
     let t0 = 0, t1 = 1;
     const dx = x2 - x1, dy = y2 - y1;
-    const checks: Array<[number, number]> = [[-dx, x1 - a], [dx, c - x1], [-dy, y1 - b], [dy, d - y1]];
-    for (const [p, q] of checks) {
-      if (p === 0) { if (q < 0) return ""; continue; }
-      const r = q / p;
-      if (p < 0) { if (r > t1) return ""; if (r > t0) t0 = r; }
-      else { if (r < t0) return ""; if (r < t1) t1 = r; }
+    const p = [-dx, dx, -dy, dy];
+    const q = [x1 - a, c - x1, y1 - b, d - y1];
+    for (let k = 0; k < 4; k++) {
+      if (p[k] === 0) {
+        if (q[k] < 0) return "";
+      } else {
+        const r = q[k] / p[k];
+        if (p[k] < 0) { if (r > t1) return ""; if (r > t0) t0 = r; }
+        else { if (r < t0) return ""; if (r < t1) t1 = r; }
+      }
     }
-    const nx1 = x1 + t0 * dx, ny1 = y1 + t0 * dy, nx2 = x1 + t1 * dx, ny2 = y1 + t1 * dy;
-    const f = (v: number) => v.toFixed(2);
-    const rest = attrs.replace(/\s(x1|x2|y1|y2)="[^"]*"/g, "");
+    const nx1 = x1 + t0 * dx, ny1 = y1 + t0 * dy;
+    const nx2 = x1 + t1 * dx, ny2 = y1 + t1 * dy;
+    let rest = attrs
+      .replace(/\bx1="[^"]*"/, "")
+      .replace(/\by1="[^"]*"/, "")
+      .replace(/\bx2="[^"]*"/, "")
+      .replace(/\by2="[^"]*"/, "");
+    const f = (n: number) => n.toFixed(1);
     return `<line x1="${f(nx1)}" y1="${f(ny1)}" x2="${f(nx2)}" y2="${f(ny2)}"${rest}/>`;
   });
 }
 
-function renderFrame(t: number, prevTargetRef: { key: string; lastChange: number }): string {
+function renderFrame(t: number): string {
   const scene = getActiveScene(t);
   const sceneElapsed = t - scene.startTime;
   const progress = Math.min(1, Math.max(0, sceneElapsed / Math.max(0.1, scene.endTime - scene.startTime)));
   const activeSub = getActiveSubtitle(subtitles, t);
   const talkingFlap = activeSub ? (Math.sin(t * 16) * 0.5 + 0.5) : 0;
 
-  // 1. Scene renders and drives the camera (setTarget = glide phase,
-  //    cutTo = hard cut) — exactly as the browser player's tick loop.
+  // 1. Scene renders (may propose cameraTarget or stick figures)
   const output = scene.render({ timeSec: t, sceneTime: sceneElapsed, progress, talkingFlap, camera });
 
-  // 2. Track target changes (for the living-frame breath).
-  const tkey = `${camera.target.centerX.toFixed(1)},${camera.target.centerY.toFixed(1)},${camera.target.zoom.toFixed(2)}`;
-  if (tkey !== prevTargetRef.key) { prevTargetRef.key = tkey; prevTargetRef.lastChange = t; }
+  // 2. Transcript context
+  const sent = transcript.sentences.find(s => t >= s.start && t <= s.end) ?? null;
+  const slam = WITH_SLAMS ? slamAt(t) : null;
 
-  // 3. Camera AGENT step: exponential glide toward the authored target.
-  //    Snappiness converted for 24fps so the glide speed matches the
-  //    player's 60fps/0.28 feel (same continuous-time constant).
-  camera.update(Math.round(t * 1000), 0.56);
-
-  // 4. Living-frame breath: while the authored framing holds (>1.2s since
-  //    last change), a very slow ±0.8% zoom sine keeps the frame alive
-  //    without ever reading as a move. Resets to 0 right after each change.
-  const hold = t - prevTargetRef.lastChange;
-  if (hold > 1.2) {
-    const breath = 0.008 * Math.min(1, (hold - 1.2) / 2) * Math.sin((t - prevTargetRef.lastChange) * 2 * Math.PI / 11);
-    camera.current.zoom *= 1 + breath;
-  }
-
-  // 5. Per-sentence DOLLY: the Ce signature — the camera pushes in slowly
-  //    while a sentence is spoken (+6% by its end), then resets at the next
-  //    sentence's start (reads as a fresh setup). Multiplied on top of the
-  //    lerped base zoom; the base is restored after the viewBox so the lerp
-  //    never compounds.
-  const sent = transcript.sentences.find(s => t >= s.start && t <= s.end)
-    ?? transcript.sentences.slice().reverse().find(s => s.start <= t);
-  let push = 1;
-  if (sent) {
-    const bp = Math.min(1, Math.max(0, (t - sent.start) / Math.max(0.4, sent.end - sent.start)));
-    push = 1 + 0.06 * (1 - (1 - bp) * (1 - bp)); // easeOutQuad
-  }
-  const baseZoom = camera.current.zoom;
-  camera.current.zoom = baseZoom * push;
+  // 3. Camera AGENT drives dynamic cinematic camera choreography
+  cameraAgent.updateFrame(t, scene.id, sceneElapsed, progress, sent, slam?.punchAt ?? null, output.cameraTarget);
   const viewBox = camera.getViewBox(t);
-  camera.current.zoom = baseZoom;
 
   const figures = output.stickFigures?.length
     ? output.stickFigures.map(sf => renderStickFigure(sf.id, sf.state)).join("\n")
     : output.hostState ? renderStickFigure("host-figure", output.hostState) : "";
 
-  const slam = WITH_SLAMS ? slamAt(t) : null;
+  const vbNums = viewBox.split(/[ ,]+/).map(Number);
+  const minX = vbNums[0], minY = vbNums[1], vw = vbNums[2], vh = vbNums[3];
+
   let slamSvg = "";
   if (slam) {
     const st = impactWordState(slam.word, t, slam.punchAt, 0.6, slam.slot);
-    slamSvg = renderImpactWord(st);
+    if (st) {
+      st.x = minX + vw * (st.slot === 1 ? 0.48 : 0.52);
+      st.y = minY + vh * (st.slot === 0 ? 0.28 : st.slot === 1 ? 0.22 : 0.32);
+      st.scale *= (vw / 1920);
+      slamSvg = renderImpactWord(st);
+    }
   }
 
   const svgOut = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" width="${width}" height="${height}">
@@ -187,11 +183,10 @@ function renderFrame(t: number, prevTargetRef: { key: string; lastChange: number
   <g id="scene-character">${figures}</g>
   <g id="scene-foreground">${output.foregroundSvg || ""}</g>
   ${slamSvg}
-  ${subtitleBand(activeSub?.cleanText ?? "")}
+  ${subtitleBand(activeSub?.cleanText ?? "", minX, minY, vw, vh)}
 </svg>`.replace(/&(?!(amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)/g, "&amp;");
   // resvg panic guard: clip lines to the camera viewport (no visual change)
-  const vbNums = viewBox.split(/[ ,]+/).map(Number);
-  return clipLinesToViewport(svgOut, vbNums[0], vbNums[1], vbNums[0] + vbNums[2], vbNums[1] + vbNums[3]);
+  return clipLinesToViewport(svgOut, minX, minY, minX + vw, minY + vh);
 }
 
 // --- Stream to ffmpeg --------------------------------------------------------
@@ -206,6 +201,7 @@ const ff = spawn("/usr/bin/ffmpeg", [
   "-y", "-hide_banner", "-loglevel", "error",
   "-f", "rawvideo", "-pix_fmt", "rgba", "-s", `${width}x${height}`, "-r", String(fps), "-i", "-",
   "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+  "-g", "24", "-keyint_min", "24", "-sc_threshold", "0", "-flags", "+cgop",
   "-pix_fmt", "yuv420p", "-movflags", "+faststart",
   outFile,
 ], { stdio: ["pipe", "inherit", "inherit"] });
@@ -213,10 +209,9 @@ const ff = spawn("/usr/bin/ffmpeg", [
 const frames = Math.round((finalEnd - startSec) * fps);
 const t0 = Date.now();
 let rssPeak = 0;
-const prevTargetRef = { key: "", lastChange: startSec };
 for (let i = 0; i < frames; i++) {
   const t = Math.min(finalEnd - 1e-6, startSec + i / fps);
-  const svg = renderFrame(t, prevTargetRef);
+  const svg = renderFrame(t);
   const pixels = new Resvg(svg, { fitTo: { mode: "width", value: width }, font: { fontFiles, defaultFontFamily: "Noto Sans", loadSystemFonts: false } }).render().pixels;
   if (!ff.stdin.write(pixels)) await new Promise(r => ff.stdin.once("drain", r));
   if (i % (fps * 10) === 0) {

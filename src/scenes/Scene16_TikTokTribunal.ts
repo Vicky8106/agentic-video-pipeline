@@ -1,4 +1,5 @@
 import { Scene, SceneRenderContext, SceneRenderOutput } from "./SceneTypes";
+import { renderTikTokDuetJury } from "../character/CartoonCastSubScenes";
 import { renderHandDrawnArrow, renderHandDrawnCircle, renderActionLines } from "../anim/ComicMarkups";
 
 export const Scene16_TikTokTribunal: Scene = {
@@ -22,49 +23,41 @@ export const Scene16_TikTokTribunal: Scene = {
     // SUB-SCENE 1: TIKTOK COURTROOM TRIBUNAL (0.0s - 13.5s)
     // =========================================================================
     if (isJudgeGavel) {
-      camera.setTarget(960, 520, 1.25);
+      camera.setTarget(960, 520, 1.08);
 
       bg = `
         <!-- Forensic Courtroom Wood Paneling -->
         <rect x="-4000" y="-4000" width="10000" height="10000" fill="#2d1508"/>
         <rect x="150" y="80" width="1620" height="720" rx="14" fill="#451a03" stroke="#b45309" stroke-width="8"/>
         
-        <!-- Judge's Bench -->
-        <polygon points="500,800 1420,800 1360,600 560,600" fill="#78350f" stroke="#b45309" stroke-width="8"/>
-        <rect x="760" y="580" width="400" height="40" rx="6" fill="#92400e" stroke="#f59e0b" stroke-width="4"/>
+        <!-- Judge's Bench on Left -->
+        <polygon points="300,800 860,800 800,600 360,600" fill="#78350f" stroke="#b45309" stroke-width="8"/>
+        <rect x="420" y="580" width="340" height="40" rx="6" fill="#92400e" stroke="#f59e0b" stroke-width="4"/>
 
         <!-- Courtroom Scales of Justice Seal -->
-        <circle cx="960" cy="220" r="50" fill="#78350f" stroke="#f59e0b" stroke-width="4"/>
-        <text x="960" y="235" font-family="'Impact', sans-serif" font-size="44" fill="#fbbf24" text-anchor="middle">⚖</text>
-
-        <!-- Floating TikTok Comments in Air -->
-        <g transform="translate(1380, ${320 + Math.sin(sceneTime * 3) * 15})">
-          <rect x="-140" y="-30" width="280" height="60" rx="12" fill="#0f172a" stroke="#ec4899" stroke-width="4"/>
-          <text x="0" y="8" font-family="sans-serif" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">"She definitely had it done"</text>
-        </g>
-        <g transform="translate(540, ${360 + Math.cos(sceneTime * 3) * 15})">
-          <rect x="-130" y="-30" width="260" height="60" rx="12" fill="#0f172a" stroke="#06b6d4" stroke-width="4"/>
-          <text x="0" y="8" font-family="sans-serif" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">"Before/After analysis 🚨"</text>
-        </g>
+        <circle cx="580" cy="220" r="50" fill="#78350f" stroke="#f59e0b" stroke-width="4"/>
+        <text x="580" y="235" font-family="'Impact', sans-serif" font-size="44" fill="#fbbf24" text-anchor="middle">⚖</text>
 
         <!-- Floor -->
         <rect x="-4000" y="800" width="10000" height="4000" fill="#1c1917"/>
         <line x1="-4000" y1="800" x2="6000" y2="800" stroke="#f59e0b" stroke-width="8"/>
       `;
 
+      bg += renderTikTokDuetJury(1320, 480, sceneTime);
+
       // Judge banging gavel
       const gavelDown = Math.sin(sceneTime * 8) > 0;
       stickFiguresList.push({
         id: "judge_actor",
         state: {
-          x: 960,
+          x: 580,
           y: 560,
           scale: 1.34,
           gender: "male",
           hairStyle: "male_tech_bro",
           clothes: "judge_robes",
           expression: "rage_clenched_fists",
-          pointTarget: gavelDown ? { x: 1060, y: 600 } : { x: 1060, y: 520 },
+          pointTarget: gavelDown ? { x: 680, y: 600 } : { x: 680, y: 520 },
           timeSec: sceneTime,
         },
       });

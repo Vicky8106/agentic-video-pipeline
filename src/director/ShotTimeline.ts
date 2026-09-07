@@ -200,7 +200,7 @@ export const MOVIE_BEATS: MovieBeat[] = [
     "startSec": 36.887,
     "endSec": 43.127,
     "dur": 6.24,
-    "bgId": "BG-KITCHEN",
+    "bgId": "BG-GOTHIC",
     "actor": {
       "id": "actor_6",
       "x": 650,
@@ -214,17 +214,17 @@ export const MOVIE_BEATS: MovieBeat[] = [
     },
     "camera": {
       "x": 960,
-      "y": 520,
-      "zoom": 1.35
+      "y": 500,
+      "zoom": 1.55
     },
     "activeProp": {
-      "id": "PROP-FOOD",
-      "x": 1280,
-      "y": 480,
-      "scale": 1.4
+      "id": "PROP-GAME",
+      "x": 1360,
+      "y": 440,
+      "scale": 1.3
     },
-    "bannerText": "CANCEL CARBOHYDRATES",
-    "graphicType": "STAMP",
+    "bannerText": "PS1 GRAPHICS",
+    "graphicType": "POPUP",
     "text": "? The aggressive return of the 90s, and why your favorite actors are starting to look likethey're they\u2019re rendered in low-poly PS1 graphics."
   },
   {
@@ -296,30 +296,25 @@ export const MOVIE_BEATS: MovieBeat[] = [
     "startSec": 56.666,
     "endSec": 65.249,
     "dur": 8.583,
-    "bgId": "BG-RETRO",
+    "bgId": "BG-90S",
     "actor": {
       "id": "actor_9",
-      "x": 960,
+      "x": 780,
       "y": 640,
       "scale": 1.34,
-      "gender": "male",
-      "hairStyle": "host_classic",
-      "clothes": "none",
-      "expression": "confused_squint",
-      "pose": "shrugging"
+      "gender": "female",
+      "hairStyle": "female_blonde",
+      "clothes": "dress_black",
+      "expression": "deadpan_soul_stare",
+      "pose": "neutral"
     },
     "camera": {
       "x": 960,
-      "y": 520,
-      "zoom": 1.4
+      "y": 500,
+      "zoom": 1.6
     },
-    "activeProp": {
-      "id": "PROP-GAME",
-      "x": 1360,
-      "y": 440,
-      "scale": 1.3
-    },
-    "bannerText": "PS1 CHARACTER CREATOR: 4% VOLUME",
+    "activeProp": null,
+    "bannerText": "HEROIN CHIC",
     "graphicType": null,
     "text": "given time. If we rewind to the 90s and early 2000s, we had an era affectionately dubbed \u201cHeroin Chick.\u201d This was pioneered by models like Kate"
   },
@@ -331,14 +326,14 @@ export const MOVIE_BEATS: MovieBeat[] = [
     "bgId": "BG-STUDIO",
     "actor": {
       "id": "actor_10",
-      "x": 960,
+      "x": 780,
       "y": 640,
       "scale": 1.34,
-      "gender": "male",
-      "hairStyle": "host_classic",
-      "clothes": "none",
-      "expression": "fear_sweat_freeze",
-      "pose": "flail"
+      "gender": "female",
+      "hairStyle": "female_blonde",
+      "clothes": "dress_black",
+      "expression": "deadpan_soul_stare",
+      "pose": "neutral"
     },
     "camera": {
       "x": 960,
@@ -351,7 +346,7 @@ export const MOVIE_BEATS: MovieBeat[] = [
       "y": 300,
       "scale": 1.6
     },
-    "bannerText": "BEAUTY STANDARD PENDULUM",
+    "bannerText": "DIET COKE & APATHY",
     "graphicType": null,
     "text": "Moss, and the overarching goal was to look like you sustained yourself entirely on Diet Coke, Parliament cigarettes, and pure"
   },
@@ -360,17 +355,17 @@ export const MOVIE_BEATS: MovieBeat[] = [
     "startSec": 72.209,
     "endSec": 79.634,
     "dur": 7.425,
-    "bgId": "BG-STUDIO",
+    "bgId": "BG-GOTHIC",
     "actor": {
       "id": "actor_11",
-      "x": 960,
+      "x": 780,
       "y": 640,
       "scale": 1.34,
-      "gender": "male",
-      "hairStyle": "host_classic",
-      "clothes": "none",
-      "expression": "fear_sweat_freeze",
-      "pose": "flail"
+      "gender": "female",
+      "hairStyle": "female_gothic_waves",
+      "clothes": "victorian_mourning",
+      "expression": "deadpan_soul_stare",
+      "pose": "neutral"
     },
     "camera": {
       "x": 960,
@@ -383,7 +378,7 @@ export const MOVIE_BEATS: MovieBeat[] = [
       "y": 300,
       "scale": 1.6
     },
-    "bannerText": "BEAUTY STANDARD PENDULUM",
+    "bannerText": "VICTORIAN CHIC",
     "graphicType": null,
     "text": ", unfiltered apathy. You were supposed to look like you were perpetually recovering from a minor Victorian wasting disease, but in a cool, fashionable"
   },
@@ -424,7 +419,7 @@ export const MOVIE_BEATS: MovieBeat[] = [
     "startSec": 89.5,
     "endSec": 97.231,
     "dur": 7.731,
-    "bgId": "BG-90S",
+    "bgId": "BG-CLINIC",
     "actor": {
       "id": "actor_13",
       "x": 780,
@@ -442,12 +437,12 @@ export const MOVIE_BEATS: MovieBeat[] = [
       "zoom": 1.35
     },
     "activeProp": {
-      "id": "PROP-FOOD",
-      "x": 1300,
-      "y": 460,
+      "id": "PROP-SURGERY",
+      "x": 1320,
+      "y": 440,
       "scale": 1.3
     },
-    "bannerText": "1990s EDITORIAL HEROIN CHIC",
+    "bannerText": "BUYING CURVES",
     "graphicType": null,
     "text": "the ideal body type shifted to what biologists might classify as \u201cPixar Mom.\u201d Celebrities were suddenly buying curves, and the internet was"
   },
@@ -456,7 +451,7 @@ export const MOVIE_BEATS: MovieBeat[] = [
     "startSec": 97.231,
     "endSec": 103.871,
     "dur": 6.64,
-    "bgId": "BG-90S",
+    "bgId": "BG-GYM",
     "actor": {
       "id": "actor_14",
       "x": 780,
@@ -474,12 +469,12 @@ export const MOVIE_BEATS: MovieBeat[] = [
       "zoom": 1.35
     },
     "activeProp": {
-      "id": "PROP-FOOD",
-      "x": 1300,
-      "y": 460,
+      "id": "PROP-GYM",
+      "x": 1360,
+      "y": 440,
       "scale": 1.3
     },
-    "bannerText": "1990s EDITORIAL HEROIN CHIC",
+    "bannerText": "SQUATS (SURE)",
     "graphicType": null,
     "text": "flooded with fitness influencers who insisted their new, localized gravitational pull was entirely due to doing a lot of squats"
   },
@@ -488,7 +483,7 @@ export const MOVIE_BEATS: MovieBeat[] = [
     "startSec": 104.111,
     "endSec": 111.399,
     "dur": 7.288,
-    "bgId": "BG-90S",
+    "bgId": "BG-CLINIC",
     "actor": {
       "id": "actor_15",
       "x": 780,
@@ -498,7 +493,7 @@ export const MOVIE_BEATS: MovieBeat[] = [
       "hairStyle": "female_blonde_curls",
       "clothes": "dress_black",
       "expression": "smug_rock_eyebrow",
-      "pose": "waving"
+      "pose": "flexing"
     },
     "camera": {
       "x": 960,
@@ -506,12 +501,12 @@ export const MOVIE_BEATS: MovieBeat[] = [
       "zoom": 1.35
     },
     "activeProp": {
-      "id": "PROP-FOOD",
-      "x": 1300,
-      "y": 460,
+      "id": "PROP-MIRROR",
+      "x": 1360,
+      "y": 440,
       "scale": 1.3
     },
-    "bannerText": "1990s EDITORIAL HEROIN CHIC",
+    "bannerText": "ULTIMATE FLEX",
     "graphicType": null,
     "text": ", despite the fact that their calves and forearms remained the exact same size. For about ten years, the ultimate flex was looking like an hourglass"
   },

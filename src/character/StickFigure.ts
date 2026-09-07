@@ -135,6 +135,9 @@ export interface StickFigureState {
   x: number;
   y: number;
   scale?: number;
+  /** Non-uniform squash & stretch; default to uniform `scale`. See src/motion/squash.ts. */
+  scaleX?: number;
+  scaleY?: number;
   rotation?: number; // degrees
   gender?: CharacterGender;
   hairStyle?: HairStyleId;
@@ -193,6 +196,8 @@ export function renderStickFigure(id: string, state: StickFigureState): string {
     x = 0,
     y = 0,
     scale = 1,
+    scaleX,
+    scaleY,
     rotation = 0,
     expression,
     timeSec = 0,
@@ -832,8 +837,13 @@ export function renderStickFigure(id: string, state: StickFigureState): string {
     `;
   }
 
+  // Non-uniform scale keeps the exact legacy string when uniform.
+  const sx = scaleX ?? scale;
+  const sy = scaleY ?? scale;
+  const scaleStr = sx === sy ? `${sx}` : `${sx} ${sy}`;
+
   return `
-    <g id="${id}" class="stick-figure" data-gender="${charGender}" data-expression="${expression ?? 'default'}" data-pose="${pose ?? 'default'}" transform="translate(${x}, ${y}) rotate(${rotation}) scale(${scale})" opacity="${alpha}">
+    <g id="${id}" class="stick-figure" data-gender="${charGender}" data-expression="${expression ?? 'default'}" data-pose="${pose ?? 'default'}" transform="translate(${x}, ${y}) rotate(${rotation}) scale(${scaleStr})" opacity="${alpha}">
       <!-- Floor Drop Shadow -->
       <ellipse cx="0" cy="${footLY > footRY ? footLY + 10 : footRY + 10}" rx="65" ry="14" fill="#111111" opacity="0.16"/>
 
@@ -852,23 +862,25 @@ export function renderStickFigure(id: string, state: StickFigureState): string {
 
         ${clothesMarkup}
 
-        <!-- Left Arm with 2-finger V hand -->
+        <!-- Left Arm: index-finger point when IK-reaching, else 2-finger V hand -->
         <g id="left-arm" class="arms" stroke="#111111" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
           <line x1="0" y1="${shoulderY}" x2="${elbowLX}" y2="${elbowLY}"/>
           <line x1="${elbowLX}" y1="${elbowLY}" x2="${handLX}" y2="${handLY}"/>
-          <!-- 2-finger open V hand -->
-          <line x1="${handLX}" y1="${handLY}" x2="${handLX - 22}" y2="${handLY - 12}"/>
-          <line x1="${handLX}" y1="${handLY}" x2="${handLX - 18}" y2="${handLY + 20}"/>
+          ${leftHandTarget
+            ? `<line x1="${handLX}" y1="${handLY}" x2="${(handLX + Math.cos(radL2) * 36).toFixed(1)}" y2="${(handLY + Math.sin(radL2) * 36).toFixed(1)}"/>`
+            : `<line x1="${handLX}" y1="${handLY}" x2="${handLX - 22}" y2="${handLY - 12}"/>
+          <line x1="${handLX}" y1="${handLY}" x2="${handLX - 18}" y2="${handLY + 20}"/>`}
           ${renderProp(leftHandProp, handLX, handLY, leftArmAngle1 + leftArmAngle2)}
         </g>
 
-        <!-- Right Arm with 2-finger V hand -->
+        <!-- Right Arm: index-finger point when IK-reaching, else 2-finger V hand -->
         <g id="right-arm" class="arms" stroke="#111111" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
           <line x1="0" y1="${shoulderY}" x2="${elbowRX}" y2="${elbowRY}"/>
           <line x1="${elbowRX}" y1="${elbowRY}" x2="${handRX}" y2="${handRY}"/>
-          <!-- 2-finger open V hand -->
-          <line x1="${handRX}" y1="${handRY}" x2="${handRX + 22}" y2="${handRY - 14}"/>
-          <line x1="${handRX}" y1="${handRY}" x2="${handRX + 20}" y2="${handRY + 18}"/>
+          ${pointTarget
+            ? `<line x1="${handRX}" y1="${handRY}" x2="${(handRX + Math.cos(radR2) * 36).toFixed(1)}" y2="${(handRY + Math.sin(radR2) * 36).toFixed(1)}"/>`
+            : `<line x1="${handRX}" y1="${handRY}" x2="${handRX + 22}" y2="${handRY - 14}"/>
+          <line x1="${handRX}" y1="${handRY}" x2="${handRX + 20}" y2="${handRY + 18}"/>`}
           ${renderProp(rightHandProp, handRX, handRY, rightArmAngle1 + rightArmAngle2)}
         </g>
 

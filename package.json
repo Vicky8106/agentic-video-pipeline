@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "generate": "tsx scripts/generate-auto.ts",
+    "direct": "tsx scripts/direct.ts",
     "generate:preview": "tsx scripts/generate-auto.ts --audio public/audio.mp3 --srt public/0-chapter-1.srt --out output/preview.mp4 --width 640 --fps 12",
     "test:auto": "node scripts/test-autonomous-production.mjs",
     "analyze:auto": "node scripts/test-autonomous-production.mjs",

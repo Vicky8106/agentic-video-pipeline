@@ -3,7 +3,7 @@
  * auto-video: script + voice in, finished video out. No per-video tuning.
  *
  *   NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/auto-video.ts \
- *     --script story.srt --audio voice.mp3 --out video.mp4
+ *     --script story.srt --audio voice.mp3 --out video.mp4 --jobs 2
  *
  * What it figures out by itself:
  * - Story beats, staging, props, expressions: from the script sentences
@@ -14,19 +14,36 @@
  * - Timing master: the audio duration (plain .txt/.md scripts are timed
  *   against it automatically).
  *
+ * Speed without quality loss (all pixel-identical to single-process):
+ * - Font subsetting: resvg re-parses ~1.4MB of TTF per frame (~90% of frame
+ *   cost). Subsetting to the script's glyphs + fixed repertoire once per
+ *   run removes it. Falls back to full fonts if subsetting fails.
+ * - Parallel chunks: --jobs 2 renders beat-aligned chunks in 2 worker
+ *   processes (pure camera track => seamless). 720p+ auto-caps to 1 worker:
+ *   measured ~270MB/worker at <=540p vs ~470MB at 720p, and the device
+ *   budget is 800MB. Scale out across machines past that.
+ * - Envelope cache + text-free frames skip font loading entirely.
+ *
  * Defaults: punch-word impact typography stays OFF (opt in with
  * --impact-words); style-pack environmental labels (signage, prop tags)
  * remain, since blank signboards read as broken. Deterministic
- * pure-function frames, sequential chunked render under a 512MB heap.
+ * pure-function frames, sequential-per-worker 512MB heaps.
  */
 import fs from "node:fs";
 import path from "node:path";
-import { spawn, spawnSync, execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import { spawn, spawnSync, execFileSync, type ChildProcess } from "node:child_process";
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 import { Resvg } from "@resvg/resvg-js";
 import { createAutoProduction, renderAutoSvgFrame } from "../src/production/AutoProduction.js";
 import { loadScript } from "../src/auto/script.js";
 import { probeDuration, buildEnvelope, findPeaks, type AudioEnvelope } from "../src/auto/audio.js";
 import type { SubtitleItem } from "../src/subtitles/SrtParser.js";
+
+// Bump when renderer code changes so stale chunks never pass resume.
+const PIPELINE_VERSION = 6;
+const MAX_JOBS = 2;
 
 const args = process.argv.slice(2);
 const get = (name: string, fallback = "") => {
@@ -35,27 +52,7 @@ const get = (name: string, fallback = "") => {
 };
 const flag = (name: string) => args.includes(name);
 
-const scriptArg = get("--script");
-const audioArg = get("--audio");
-const outArg = get("--out", "output/auto-video.mp4");
-const fps = Number(get("--fps", "24"));
-const width = Number(get("--width", "1280"));
-const style = get("--style", "casually-procedural");
-const chunkSec = Number(get("--chunk-sec", "60"));
-const capDur = get("--duration") ? Number(get("--duration")) : 0;
-const impactWords = flag("--impact-words");
-const keepChunks = flag("--keep-chunks");
-const stillCount = Number(get("--stills", "6"));
-
-if (!scriptArg || !audioArg) {
-  console.error("Usage: tsx scripts/auto-video.ts --script <file.srt|txt|md> --audio <voice.mp3> --out <video.mp4> [--width 1280] [--fps 24] [--chunk-sec 60] [--duration N] [--impact-words]");
-  process.exit(2);
-}
-if (!fs.existsSync(scriptArg)) throw new Error(`Script not found: ${scriptArg}`);
-if (!fs.existsSync(audioArg)) throw new Error(`Audio not found: ${audioArg}`);
-
-const height = Math.round((width * 9) / 16);
-const fontFiles = [
+const FULL_FONTS = [
   "/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf",
   "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
   "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
@@ -79,8 +76,29 @@ function ffprobeDuration(file: string): number {
   return Number(out);
 }
 
-async function renderChunk(production: unknown, t0: number, t1: number, file: string, tag: string): Promise<void> {
+interface WorkerPlan {
+  version: number;
+  script: string;
+  audioDur: number;
+  out: string;
+  chunkDir: string;
+  chunkFiles: string[];
+  width: number;
+  fps: number;
+  style: string;
+  impactWords: boolean;
+  bounds: number[];
+  finalDuration: number;
+  envelopeFile: string;
+  fontFiles: string[];
+}
+
+async function renderChunk(
+  production: unknown, t0: number, t1: number, file: string, tag: string,
+  width: number, height: number, fps: number, fontFiles: string[], impactWords: boolean,
+): Promise<void> {
   fs.mkdirSync(path.dirname(file), { recursive: true });
+  const baseFont = { defaultFontFamily: "Noto Sans", loadSystemFonts: false as const };
   const ff = spawn("/usr/bin/ffmpeg", [
     "-y", "-hide_banner", "-loglevel", "error",
     "-f", "rawvideo", "-pix_fmt", "rgba", "-s", `${width}x${height}`, "-r", String(fps), "-i", "-",
@@ -89,11 +107,12 @@ async function renderChunk(production: unknown, t0: number, t1: number, file: st
     "-pix_fmt", "yuv420p", "-movflags", "+faststart", file,
   ], { stdio: ["pipe", "inherit", "inherit"] });
   const frames = Math.max(1, Math.round((t1 - t0) * fps));
-  const resvgOpts = { fitTo: { mode: "width" as const, value: width }, font: { fontFiles, defaultFontFamily: "Noto Sans", loadSystemFonts: false } };
   for (let i = 0; i < frames; i++) {
     const t = Math.min(t1 - 1e-6, t0 + i / fps);
     const { svg } = renderAutoSvgFrame({ production, timeSec: t, width, height, impactWords });
-    const pixels = new Resvg(svg, resvgOpts).render().pixels;
+    // Text-free frames skip font loading: identical pixels, ~10x faster.
+    const font = svg.includes("<text") ? { ...baseFont, fontFiles } : baseFont;
+    const pixels = new Resvg(svg, { fitTo: { mode: "width" as const, value: width }, font }).render().pixels;
     if (!ff.stdin.write(pixels)) await new Promise((r) => ff.stdin.once("drain", r));
     if (i % (fps * 5) === 0) console.log(`[${tag}] ${(100 * i / frames).toFixed(0)}% t=${t.toFixed(1)}s`);
   }
@@ -101,63 +120,212 @@ async function renderChunk(production: unknown, t0: number, t1: number, file: st
   await new Promise<void>((res, rej) => ff.on("close", (c) => (c === 0 ? res() : rej(new Error(`ffmpeg exit ${c}`)))));
 }
 
-async function main(): Promise<void> {
-  console.log(`[auto-video] script=${scriptArg} audio=${audioArg}`);
-  const audioDur = probeDuration(audioArg);
-  const cues = loadScript(scriptArg, audioDur);
-  const srtText = toSrt(cues);
-  console.log(`[auto-video] cues=${cues.length} audio=${audioDur.toFixed(2)}s`);
-
-  let envelope: AudioEnvelope = buildEnvelope(audioArg);
-  console.log(`[auto-video] envelope buckets=${envelope.values.length}`);
-
-  const production = createAutoProduction(srtText, style, { envelope }) as {
-    transcript: { duration: number };
+/**
+ * Voice-driven emphasis: loud peaks inside punchline/escalation beats
+ * become shake events (screen energy follows the performance). Capped at
+ * one per beat, >=2s apart, so it can never turn into zoom spam.
+ * Deterministic: parent and workers compute the same injection.
+ */
+function injectVoicePeaks(
+  production: {
     plan: { events: Array<{ t: number; kind: string; payload: Record<string, unknown>; reason?: string }> };
     productionPlan: { beats: Array<{ start: number; end: number; role: string; energy: number }> };
-    envelope: AudioEnvelope;
-  };
-
-  let finalDuration = Math.max(audioDur, production.transcript.duration);
-  if (capDur > 0) finalDuration = Math.min(finalDuration, capDur);
-  // Trim the voice curve to the rendered range.
-  const keep = Math.min(envelope.values.length, Math.ceil(finalDuration / envelope.hop));
-  production.envelope = { ...envelope, values: envelope.values.slice(0, keep), duration: finalDuration };
-
-  // Voice-driven emphasis: loud peaks inside punchline/escalation beats
-  // become shake events (screen energy follows the performance). Capped at
-  // one per beat, >=2s apart, so it can never turn into zoom spam.
+  },
+  envelope: AudioEnvelope, finalDuration: number,
+): number {
   const peaks = findPeaks(envelope, 0.55, 2.0).filter((t) => t < finalDuration);
   const existing = production.plan.events.filter((e) => e.kind === "shake" || e.kind === "flash").map((e) => e.t);
   let injected = 0;
   for (const t of peaks) {
     const beat = production.productionPlan.beats.find((b) => t >= b.start && t <= b.end);
     if (!beat || (beat.role !== "punchline" && beat.role !== "escalation")) continue;
-    if (production.plan.events.some((e) => e.kind === "shake" && Math.abs(e.t - t) < 1.0)) continue;
     if (existing.some((e) => Math.abs(e - t) < 1.0)) continue;
     production.plan.events.push({ t, kind: "shake", payload: { strength: 0.3, decay: 0.3 }, reason: "voice-peak" });
     existing.push(t);
     injected++;
   }
   production.plan.events.sort((a, b) => a.t - b.t);
-  console.log(`[auto-video] beats=${production.productionPlan.beats.length} voice-peaks=${peaks.length} injected=${injected}`);
+  return injected;
+}
 
-  // Chunk at beat boundaries: every boundary lands on a hard cut, so the
-  // fixed-GOP concat never slices mid-shot and the pure camera track makes
-  // boundaries seamless by construction.
-  const starts = production.productionPlan.beats.map((b) => b.start).filter((s) => s > 0.5 && s < finalDuration - 1);
-  const bounds = [0];
-  let acc = 0;
-  for (const s of starts) {
-    if (s - bounds[bounds.length - 1] >= chunkSec) bounds.push(s);
-    acc = s;
+/**
+ * Subset the fonts to this video's glyphs. resvg parses the font files on
+ * EVERY frame, so 1.4MB of TTF is ~90% of frame cost; a few-KB subset with
+ * identical outlines renders identical pixels. Falls back to full fonts.
+ */
+function subsetFonts(scriptText: string, chunkDir: string): string[] {
+  const dir = path.join(chunkDir, "fonts");
+  try {
+    const seen = new Set<string>();
+    for (const ch of scriptText) {
+      const cp = ch.codePointAt(0)!;
+      if (cp >= 0x20 && cp <= 0x10ffff) seen.add(cp.toString(16).toUpperCase());
+    }
+    const ranges = [
+      "0020-007E", "00A0-00FF", "2000-206F", "20A0-20CF",
+      "2100-214F", "2190-21FF", "2200-22FF", "25A0-25FF", "2600-26FF", "1F300-1FAFF",
+    ];
+    const unicodes = [...ranges, ...[...seen].map((h) => `U+${h}`)].join(",");
+    fs.mkdirSync(dir, { recursive: true });
+    const out: string[] = [];
+    for (const f of FULL_FONTS) {
+      const base = path.basename(f, ".ttf") + "-sub.ttf";
+      const target = path.join(dir, base);
+      const r = spawnSync("pyftsubset", [f, `--unicodes=${unicodes}`, `--output-file=${target}`], { encoding: "utf8" });
+      if (r.status !== 0 || !fs.existsSync(target)) throw new Error(`pyftsubset failed for ${f}`);
+      out.push(target);
+    }
+    const before = FULL_FONTS.reduce((a, f) => a + fs.statSync(f).size, 0);
+    const after = out.reduce((a, f) => a + fs.statSync(f).size, 0);
+    console.log(`[auto-video] fonts subset ${(before / 1024).toFixed(0)}KB -> ${(after / 1024).toFixed(0)}KB`);
+    return out;
+  } catch (err) {
+    console.warn(`[auto-video] font subsetting failed, using full fonts: ${(err as Error).message}`);
+    return FULL_FONTS;
   }
-  void acc;
-  bounds.push(finalDuration);
-  console.log(`[auto-video] chunks=${bounds.length - 1} bounds=[${bounds.map((b) => b.toFixed(1)).join(", ")}]`);
+}
 
-  // Bump when renderer code changes so stale chunks never pass resume.
-  const PIPELINE_VERSION = 5;
+function loadOrBuildEnvelope(audio: string, chunkDir: string, hopMs = 20): AudioEnvelope {
+  const cache = path.join(chunkDir, "envelope.json");
+  try {
+    const st = fs.statSync(audio);
+    const prev = JSON.parse(fs.readFileSync(cache, "utf8"));
+    if (prev.audioPath === path.resolve(audio) && prev.mtimeMs === st.mtimeMs && prev.size === st.size && prev.hopMs === hopMs) {
+      console.log(`[auto-video] envelope cache hit (${prev.envelope.values.length} buckets)`);
+      return prev.envelope;
+    }
+  } catch { /* rebuild */ }
+  const envelope = buildEnvelope(audio, hopMs);
+  try {
+    const st = fs.statSync(audio);
+    fs.writeFileSync(cache, JSON.stringify({ audioPath: path.resolve(audio), mtimeMs: st.mtimeMs, size: st.size, hopMs, envelope }));
+  } catch { /* cache is best-effort */ }
+  return envelope;
+}
+
+function rssMb(pid: number): number {
+  try {
+    const txt = fs.readFileSync(`/proc/${pid}/status`, "utf8");
+    const m = txt.match(/VmRSS:\s+(\d+)\s+kB/);
+    return m ? Number(m[1]) / 1024 : 0;
+  } catch {
+    return 0;
+  }
+}
+
+/** Whole subtree: workers spawn their own ffmpeg, which must count too. */
+function treeRss(pid: number): number {
+  let sum = rssMb(pid);
+  let kids: number[] = [];
+  try {
+    for (const d of fs.readdirSync("/proc")) {
+      if (!/^\d+$/.test(d)) continue;
+      try {
+        const txt = fs.readFileSync(`/proc/${d}/status`, "utf8");
+        const m = txt.match(/PPid:\s+(\d+)/);
+        if (m && Number(m[1]) === pid) kids.push(Number(d));
+      } catch { /* raced exit */ }
+    }
+  } catch { /* no procfs: direct RSS only */ }
+  for (const k of kids) sum += treeRss(k);
+  return sum;
+}
+
+async function runPool(items: number[], jobs: number, spawnOne: (i: number) => ChildProcess): Promise<number> {
+  const pending = [...items];
+  const running = new Map<number, ChildProcess>();
+  let failed = 0;
+  let peakMb = 0;
+  let samples = 0;
+  const sample = () => {
+    let sum = 0;
+    for (const c of running.values()) {
+      if (c.pid) sum += treeRss(c.pid);
+    }
+    samples++;
+    if (sum > peakMb) peakMb = sum;
+  };
+  await new Promise<void>((resolve) => {
+    const pump = () => {
+      sample();
+      if (failed > 0) {
+        for (const c of running.values()) try { c.kill(); } catch { /* already out */ }
+      }
+      if (pending.length === 0 && running.size === 0) return resolve();
+      while (failed === 0 && pending.length > 0 && running.size < jobs) {
+        const i = pending.shift()!;
+        const child = spawnOne(i);
+        running.set(i, child);
+        child.on("close", (code) => {
+          running.delete(i);
+          if (code !== 0) failed++;
+          pump();
+        });
+      }
+      if (running.size > 0) setTimeout(pump, 2000);
+      else resolve();
+    };
+    pump();
+  });
+  sample();
+  console.log(`[auto-video] workers peak combined RSS=${peakMb.toFixed(0)}MB over ${samples} samples (device budget 800MB)`);
+  return failed;
+}
+
+async function workerMain(planFile: string, index: number): Promise<void> {
+  const plan = JSON.parse(fs.readFileSync(planFile, "utf8")) as WorkerPlan;
+  if (plan.version !== PIPELINE_VERSION) {
+    console.error(`[worker] stale plan (want v${PIPELINE_VERSION}), rerun the parent`);
+    process.exit(2);
+  }
+  const cues = loadScript(plan.script, plan.audioDur);
+  const envelope = JSON.parse(fs.readFileSync(plan.envelopeFile, "utf8")) as AudioEnvelope;
+  const production = createAutoProduction(toSrt(cues), plan.style, { envelope }) as Parameters<typeof injectVoicePeaks>[0] & { transcript: { duration: number } };
+  injectVoicePeaks(production, envelope, plan.finalDuration);
+  const height = Math.round((plan.width * 9) / 16);
+  await renderChunk(production, plan.bounds[index], plan.bounds[index + 1], plan.chunkFiles[index],
+    `chunk ${index + 1}/${plan.bounds.length - 1}`, plan.width, height, plan.fps, plan.fontFiles, plan.impactWords);
+  console.log(`[worker] CHUNK_COMPLETE ${plan.chunkFiles[index]}`);
+}
+
+async function parentMain(): Promise<void> {
+  const scriptArg = get("--script");
+  const audioArg = get("--audio");
+  const outArg = get("--out", "output/auto-video.mp4");
+  const fps = Number(get("--fps", "24"));
+  const width = Number(get("--width", "1280"));
+  const style = get("--style", "casually-procedural");
+  const chunkSec = Number(get("--chunk-sec", "60"));
+  const capDur = get("--duration") ? Number(get("--duration")) : 0;
+  const impactWords = flag("--impact-words");
+  const keepChunks = flag("--keep-chunks");
+  const stillCount = Number(get("--stills", "6"));
+  let jobs = Number(get("--jobs", "2"));
+  if (!scriptArg || !audioArg) {
+    console.error("Usage: tsx scripts/auto-video.ts --script <file.srt|txt|md> --audio <voice.mp3> --out <video.mp4> [--jobs 2] [--width 1280] [--fps 24] [--chunk-sec 60] [--duration N] [--impact-words]");
+    process.exit(2);
+  }
+  if (!Number.isFinite(jobs) || jobs < 1) jobs = 1;
+  // Measured on this device (Termux/Android, 800MB budget): a worker subtree
+  // holds ~270MB at <=540p and ~470MB at 720p. Two workers + parent fit under
+  // 800MB at <=540p (~640MB); at 720p even two workers exceed it (~1GB).
+  if (width >= 1280 && jobs > 1) {
+    console.log("[auto-video] 720p+ capped to 1 worker on the 800MB device (measured ~470MB/worker); split chunks across machines for more");
+    jobs = 1;
+  }
+  if (jobs > MAX_JOBS) {
+    console.error(`[auto-video] --jobs capped at ${MAX_JOBS} on this device (800MB RAM budget); split chunks across machines for more`);
+    process.exit(2);
+  }
+  if (!fs.existsSync(scriptArg)) throw new Error(`Script not found: ${scriptArg}`);
+  if (!fs.existsSync(audioArg)) throw new Error(`Audio not found: ${audioArg}`);
+
+  console.log(`[auto-video] script=${scriptArg} audio=${audioArg} jobs=${jobs}`);
+  const audioDur = probeDuration(audioArg);
+  const cues = loadScript(scriptArg, audioDur);
+  const srtText = toSrt(cues);
+  console.log(`[auto-video] cues=${cues.length} audio=${audioDur.toFixed(2)}s`);
+
   const chunkDir = path.join(path.dirname(outArg), ".chunks-" + path.basename(outArg, path.extname(outArg)));
   fs.mkdirSync(chunkDir, { recursive: true });
   const metaFile = path.join(chunkDir, "meta.json");
@@ -170,22 +338,66 @@ async function main(): Promise<void> {
     }
   } catch { /* fresh */ }
   fs.writeFileSync(metaFile, JSON.stringify(meta));
-  const chunkFiles: string[] = [];
+
+  const envelope = loadOrBuildEnvelope(audioArg, chunkDir);
+  console.log(`[auto-video] envelope buckets=${envelope.values.length}`);
+
+  const production = createAutoProduction(srtText, style, { envelope }) as Parameters<typeof injectVoicePeaks>[0] & { transcript: { duration: number }; plan: { resolved: unknown[] } };
+
+  let finalDuration = Math.max(audioDur, production.transcript.duration);
+  if (capDur > 0) finalDuration = Math.min(finalDuration, capDur);
+  const keep = Math.min(envelope.values.length, Math.ceil(finalDuration / envelope.hop));
+  const trimmed: AudioEnvelope = { ...envelope, values: envelope.values.slice(0, keep), duration: finalDuration };
+  const envelopeFile = path.join(chunkDir, "envelope-trimmed.json");
+  fs.writeFileSync(envelopeFile, JSON.stringify(trimmed));
+
+  const injected = injectVoicePeaks(production, trimmed, finalDuration);
+  console.log(`[auto-video] beats=${production.productionPlan.beats.length} injected=${injected}`);
+
+  // Chunk at beat boundaries: every boundary lands on a hard cut, so the
+  // fixed-GOP concat never slices mid-shot and the pure camera track makes
+  // boundaries seamless by construction.
+  const starts = production.productionPlan.beats.map((b) => b.start).filter((s) => s > 0.5 && s < finalDuration - 1);
+  const bounds = [0];
+  for (const s of starts) {
+    if (s - bounds[bounds.length - 1] >= chunkSec) bounds.push(s);
+  }
+  bounds.push(finalDuration);
+  console.log(`[auto-video] chunks=${bounds.length - 1} bounds=[${bounds.map((b) => b.toFixed(1)).join(", ")}]`);
+
+  const fontFiles = subsetFonts(cues.map((c) => c.text).join(" "), chunkDir);
+
+  const chunkFiles = bounds.slice(0, -1).map((_, i) => path.join(chunkDir, `c${String(i + 1).padStart(3, "0")}.mp4`));
+  const plan: WorkerPlan = {
+    version: PIPELINE_VERSION, script: path.resolve(scriptArg), audioDur,
+    out: path.resolve(outArg), chunkDir: path.resolve(chunkDir), chunkFiles: chunkFiles.map((f) => path.resolve(f)),
+    width, fps, style, impactWords, bounds, finalDuration, envelopeFile: path.resolve(envelopeFile), fontFiles,
+  };
+  const planFile = path.join(chunkDir, "plan.json");
+  fs.writeFileSync(planFile, JSON.stringify(plan));
+
+  const todo: number[] = [];
   for (let i = 0; i < bounds.length - 1; i++) {
-    const file = path.join(chunkDir, `c${String(i + 1).padStart(3, "0")}.mp4`);
-    chunkFiles.push(file);
     const expected = bounds[i + 1] - bounds[i];
-    if (fs.existsSync(file)) {
+    let ok = false;
+    if (fs.existsSync(chunkFiles[i])) {
       try {
-        const d = ffprobeDuration(file);
-        if (Math.abs(d - expected) < 0.6) {
-          console.log(`[chunk ${i + 1}/${bounds.length - 1}] resume ${file} (${d.toFixed(1)}s)`);
-          continue;
-        }
-      } catch { /* re-render */ }
+        ok = Math.abs(ffprobeDuration(chunkFiles[i]) - expected) < 0.6;
+      } catch { ok = false; }
     }
-    console.log(`[chunk ${i + 1}/${bounds.length - 1}] ${bounds[i].toFixed(1)}s -> ${bounds[i + 1].toFixed(1)}s`);
-    await renderChunk(production, bounds[i], bounds[i + 1], file, `chunk ${i + 1}/${bounds.length - 1}`);
+    if (ok) console.log(`[chunk ${i + 1}/${bounds.length - 1}] resume ${chunkFiles[i]}`);
+    else todo.push(i);
+  }
+  if (todo.length > 0) {
+    console.log(`[auto-video] rendering ${todo.length} chunk(s) with ${jobs} worker(s)`);
+    const failed = await runPool(todo, jobs, (i) => {
+      const child = spawn(process.execPath, [path.join(ROOT, "node_modules", "tsx", "dist", "cli.mjs"), path.join(ROOT, "scripts", "auto-video.ts"), "--plan", planFile, "--worker-index", String(i)], {
+        cwd: ROOT, stdio: ["ignore", "inherit", "inherit"],
+        env: { ...process.env, NODE_OPTIONS: "--max-old-space-size=512" },
+      });
+      return child;
+    });
+    if (failed > 0) throw new Error(`${failed} chunk(s) failed`);
   }
 
   const listFile = path.join(chunkDir, "list.txt");
@@ -207,15 +419,27 @@ async function main(): Promise<void> {
     spawnSync("/usr/bin/ffmpeg", ["-y", "-v", "error", "-ss", String(t.toFixed(2)), "-i", outArg, "-frames:v", "1", path.join(stillDir, `still_${i + 1}.png`)]);
   }
   if (!keepChunks) {
-    for (const f of chunkFiles) fs.rmSync(f, { force: true });
-    fs.rmSync(silent, { force: true });
-    fs.rmSync(listFile, { force: true });
+    for (const f of [...chunkFiles, silent, listFile, planFile, envelopeFile]) fs.rmSync(f, { force: true });
   }
   const got = ffprobeDuration(outArg);
-  console.log(`[auto-video] DONE ${outArg} duration=${got.toFixed(2)}s stills=${stillDir}`);
+  let hwm = 0;
+  try {
+    const m = fs.readFileSync("/proc/self/status", "utf8").match(/VmHWM:\s+(\d+)\s+kB/);
+    if (m) hwm = Number(m[1]) / 1024;
+  } catch { /* no procfs */ }
+  console.log(`[auto-video] DONE ${outArg} duration=${got.toFixed(2)}s stills=${stillDir} parent-peak=${hwm.toFixed(0)}MB`);
 }
 
-main().catch((err) => {
-  console.error(`[auto-video] FAIL ${err?.message ?? err}`);
-  process.exit(1);
-});
+const planArg = get("--plan");
+const workerArg = get("--worker-index");
+if (planArg && workerArg !== "") {
+  workerMain(planArg, Number(workerArg)).catch((err) => {
+    console.error(`[worker] FAIL ${err?.message ?? err}`);
+    process.exit(1);
+  });
+} else {
+  parentMain().catch((err) => {
+    console.error(`[auto-video] FAIL ${err?.message ?? err}`);
+    process.exit(1);
+  });
+}

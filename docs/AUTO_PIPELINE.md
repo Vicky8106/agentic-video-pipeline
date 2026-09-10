@@ -38,8 +38,29 @@ resume of finished chunks, and a `PIPELINE_VERSION` cache-buster in
 `scripts/auto-video.ts` — **bump it whenever renderer code changes**, or
 stale chunks will pass resume.
 
-Useful flags: `--width`, `--fps`, `--style`, `--chunk-sec` (default 60),
-`--duration N` (bounded smoke runs), `--stills N`, `--keep-chunks`.
+Useful flags: `--width`, `--fps`, `--style`, `--jobs` (default 2),
+`--chunk-sec` (default 60), `--duration N` (bounded smoke runs),
+`--stills N`, `--keep-chunks`.
+
+## Speed (measured on-device, Termux/Android, 800MB budget)
+
+Per-frame cost used to be ~90% font re-parsing (resvg parses its fonts on
+every frame). The pipeline subsets the fonts to the video's glyphs once per
+run (1.4MB → ~290KB, byte-identical pixels — verified 13/13 frames at
+720p), skips font loading on text-free frames, and renders beat-aligned
+chunks in parallel workers. 45s-video wall clock:
+
+| setting | time | peak RSS |
+|---|---|---|
+| 640×360/12fps, `--jobs 1` | 48s | ~290MB workers + ~100MB parent |
+| 640×360/12fps, `--jobs 2` | 36s | ~535MB workers + ~100MB parent |
+| 1280×720/24fps (auto-capped to 1 worker) | 75s | ~520MB workers + ~100MB parent |
+
+Rules enforced by the CLI: max `--jobs 2`, and 720p+ always renders with
+1 worker (2×720p workers measured ~950MB — over budget). A full 664s 720p
+video runs ~20 minutes on-device. Past that, scale out: copy the repo to a
+second machine and render disjoint chunk ranges (chunks are independent by
+construction), then concat.
 
 Architecture (two layers): `scripts/auto-video.ts` is the action — it
 orchestrates and owns the CLI. Reusable operations live in services:

@@ -201,49 +201,58 @@ export function buildStageObjects(beats: StageBeat[], opts: { maxLive?: number; 
       for (const [k, i] of live) {
         if (objects[i].retireAt <= b.start) live.delete(k);
       }
-      // Retire the oldest objects when the stage is full.
-      while (live.size >= maxLive) {
-        let oldestKey: string | null = null;
-        let oldestEnd = Infinity;
-        for (const [k, idx] of live) {
-          const end = objects[idx].retireAt;
-          if (end < oldestEnd) { oldestEnd = end; oldestKey = k; }
-        }
-        if (oldestKey === null) break;
-        live.delete(oldestKey);
-      }
       const existing = live.get(key);
       if (existing !== undefined) {
-        // Referenced again: refresh lifetime
-        objects[existing].retireAt = Math.max(objects[existing].retireAt, b.end + lifetime * 0.5);
-        continue;
-      }
-      
-      let x = CENTER_POS[0];
-      let y = CENTER_POS[1];
-      let slot = 0;
-
-      if (live.size === 1) {
-        // Shift existing object to left flank and put new object on right flank
-        const otherIdx = live.values().next().value!;
-        objects[otherIdx].x = PAIR_POS[0][0];
-        objects[otherIdx].y = PAIR_POS[0][1];
-        objects[otherIdx].slot = 0;
-        x = PAIR_POS[1][0];
-        y = PAIR_POS[1][1];
-        slot = 1;
+        // Referenced again while still visible: refresh lifetime.
+        // A faded object is NOT revived (that would teleport it back onto
+        // a mark another prop may have taken); it is re-placed below.
+        if (objects[existing].retireAt > b.start) {
+          objects[existing].retireAt = Math.max(objects[existing].retireAt, b.end + lifetime * 0.5);
+          continue;
+        }
+        live.delete(key);
       }
 
+      // Authoritative flank placement. Marks never move after spawn (no
+      // teleporting visible props), and a mark is only taken when no
+      // still-visible object stands within a puppet-width of it. While no
+      // flank is free, the earliest-retiring visible object is faded fast.
+      // Preference order keeps the classic pair composition: right flank,
+      // left flank, then center.
+      const FLANKS: Array<readonly [number, number]> = [PAIR_POS[1], PAIR_POS[0], CENTER_POS];
+      const visible = () => objects.filter((o) => o.retireAt > b.start + 1.0);
+      const free = (px: number) => !visible().some((o) => Math.abs(o.x - px) < 150);
+      let guard = 0;
+      while (!FLANKS.some(([fx]) => free(fx)) && guard++ < 4) {
+        let earliest: StageObject | null = null;
+        for (const o of visible()) {
+          if (!earliest || o.retireAt < earliest.retireAt) earliest = o;
+        }
+        if (!earliest) break;
+        earliest.retireAt = Math.min(earliest.retireAt, b.start + 0.5);
+      }
+      const pickIdx = FLANKS.findIndex(([fx]) => free(fx));
+      const pick = FLANKS[pickIdx >= 0 ? pickIdx : 0];
+      let x = pick[0];
+      let y = pick[1];
+      let slot = pickIdx >= 0 ? pickIdx : 0;
+      void maxLive;
+
+      const kind = classifyKind(concept);
       const idx = objects.length;
       objects.push({
         key,
         concept,
-        kind: classifyKind(concept),
+        kind,
         spawnAt: b.start + 0.25, // land quickly on the spoken word
         retireAt: b.end + lifetime,
         x,
         y,
-        scale: 1.35 + clamp(b.energy, 0, 1) * 0.25,
+        // Person puppets are guest stars, not backdrops: keep them near
+        // life size so a close-up camera never meets a giant cropped head.
+        scale: kind === "person"
+          ? 1.0 + clamp(b.energy, 0, 1) * 0.1
+          : 1.35 + clamp(b.energy, 0, 1) * 0.25,
         energy: b.energy,
         slot,
         beatId: b.id,

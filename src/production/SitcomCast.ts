@@ -219,7 +219,12 @@ export function renderSitcomLayer(
   punchAt: number | null,
   renderActor: (ctx: { actorId: string; state: StickFigureState; timeSec: number }) => string,
   presence?: Set<string>,
+  shotKind?: string,
 ): string {
+  // Close-ups (macro/insert/subject) frame a single prop or face: a full-size
+  // co-star standing in that frame renders as a giant cropped head. The
+  // two-shot only exists in wide/host/reaction framings.
+  if (shotKind === "macro" || shotKind === "insert" || shotKind === "subject") return "";
   const beatIndex = Math.round(beat.start * 7.13);
   if (presence) {
     if (!presence.has(beat.id ?? "")) return "";

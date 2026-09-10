@@ -45,6 +45,11 @@ export function clipLines(svg: string): string {
     const g = (n: string) => { const m = String(attrs).match(new RegExp(`\\b${n}="([^"]+)"`)); return m ? parseFloat(m[1]) : NaN; };
     const x1 = g("x1"), y1 = g("y1"), x2 = g("x2"), y2 = g("y2");
     if (![x1, y1, x2, y2].every(Number.isFinite)) return tag0;
+    // Only clip extreme backdrop lines spanning far outside the world canvas
+    // (e.g. x1="-4000"). Limbs/props live inside transformed <g> groups in
+    // local coordinates; clipping them erases arms and spines.
+    const isExtremeLine = Math.abs(x1) > 2000 || Math.abs(x2) > 2000 || Math.abs(y1) > 2000 || Math.abs(y2) > 2000 || Math.abs(x2 - x1) > 2500;
+    if (!isExtremeLine) return tag0;
     if (x1 >= a && x1 <= c && x2 >= a && x2 <= c && y1 >= b && y1 <= d && y2 >= b && y2 <= d) return tag0;
     let t0 = 0, t1 = 1;
     const dx = x2 - x1, dy = y2 - y1;

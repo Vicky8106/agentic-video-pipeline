@@ -1,1 +1,1 @@
-{"compilerOptions":{"target":"ES2020","useDefineForClassFields":true,"module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true},"include":["src"]}
+{"compilerOptions":{"target":"ES2020","useDefineForClassFields":true,"module":"ESNext","moduleResolution":"Bundler","strict":true,"skipLibCheck":true},"include":["src","scripts/auto-video.ts"]}

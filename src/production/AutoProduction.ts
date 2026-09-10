@@ -15,6 +15,7 @@ import { STYLE_REGISTRY, resolveStyle } from "../styles/index.js";
 import { buildStageObjects, stageAtTime, type StageObject, type StageObjectState } from "./SceneMemory.js";
 import { renderSitcomLayer, computeCoStarPresence } from "./SitcomCast.js";
 import { pickPunchWord, impactWordState, renderImpactWord } from "./ImpactTypography.js";
+import { isSpeakingAt, mouthOpenAt } from "../audio/Envelope.js";
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
 const smooth = t => t * t * (3 - 2 * t);
@@ -91,7 +92,9 @@ function actorState(tr, t, shot, production) {
     const beat = beatAt(production, t);
     const actions = actionsAt(production, t);
     const w = activeWord(tr, t);
-    const speaking = !!w;
+    // Voice truth when an envelope is attached: the mouth follows the
+    // recording, not the subtitle grid. Otherwise fall back to word timing.
+    const speaking = production.envelope ? isSpeakingAt(production.envelope, t) : !!w;
     const sentence = sentenceAt(tr, t);
     const role = beat?.role || "explanation";
     const energy = beat?.energy ?? .3;
@@ -150,7 +153,7 @@ function actorState(tr, t, shot, production) {
         isWalking: !!walk && entrance < .55,
         leftLegAngle1: 118 + Math.sin(t * 7.5) * 8,
         rightLegAngle1: 62 - Math.sin(t * 7.5) * 8,
-        mouthOpen: speaking ? clamp(.18 + .48 * Math.abs(Math.sin(t * 13.7)) + Math.abs(Math.sin(t * 22.1)) * .18) : 0,
+        mouthOpen: production.envelope ? mouthOpenAt(production.envelope, t) : (speaking ? clamp(.18 + .48 * Math.abs(Math.sin(t * 13.7)) + Math.abs(Math.sin(t * 22.1)) * .18) : 0),
         mouthWobble: speaking ? .06 : 0,
         isTalking: speaking, timeSec: t, bodyFacing: "right",
         comicFx: impact ? "impact_lines" : undefined,
@@ -164,7 +167,8 @@ function renderPersistentVisuals(tr, production, t, style) {
 }
 function renderStageObject(o: StageObjectState, style) {
   const idleDrift = Math.sin(o.age * 1.3 + o.slot * 2.1) * 6;
-  return `<g opacity="1">${style.renderAsset({ id: `stage-${o.key}`, kind: "prop", semantic: o.concept }, {
+  // Swaps on one mark cross-fade instead of popping: exiting props yield.
+  return `<g opacity="${(1 - o.exit).toFixed(2)}">${style.renderAsset({ id: `stage-${o.key}`, kind: "prop", semantic: o.concept }, {
     x: o.x, y: o.y + idleDrift, scale: o.scale, timeSec: o.age,
     entry: o.entry, exit: o.exit, spawnAt: o.spawnAt,
     energy: o.energy, concept: o.concept, kind: o.kind,
@@ -182,7 +186,7 @@ function renderCaption(tr, t, style) {
     const shown = words.slice(Math.max(0, idx - 2), Math.min(words.length, idx + 3)).join(" ");
     return `<g opacity=".68">${style.renderAsset({ id: "subtitle", kind: "label", semantic: "subtitle" }, { x: 960, y: 1010, timeSec: t, label: shown, accent: style.palette.muted })}</g>`;
 }
-export function createAutoProduction(srtText, styleId = "casually-procedural") {
+export function createAutoProduction(srtText, styleId = "casually-procedural", opts = {}) {
     const cues = parseSrt(srtText);
     const transcript = buildTranscript(cues);
     const style = resolveStyle(STYLE_REGISTRY, styleId);
@@ -201,9 +205,9 @@ export function createAutoProduction(srtText, styleId = "casually-procedural") {
     const coStarPresence = computeCoStarPresence(productionPlan.beats.map(b => ({
         id: b.id, start: b.start, end: b.end, role: b.role,
     })));
-    return { transcript, plan, productionPlan, style, stageObjects, coStarPresence };
+    return { transcript, plan, productionPlan, style, stageObjects, coStarPresence, envelope: opts.envelope ?? null };
 }
-export function renderAutoSvgFrame({ production, timeSec, width = 1920, height = 1080 }) {
+export function renderAutoSvgFrame({ production, timeSec, width = 1920, height = 1080, impactWords = false }) {
     const { transcript, plan, productionPlan, style } = production;
     const shot = shotAt(plan, timeSec);
     const pose = cameraAt(plan.resolved, timeSec);
@@ -256,11 +260,14 @@ export function renderAutoSvgFrame({ production, timeSec, width = 1920, height =
     // Two-shot blocking; reactions timed to the punch moment.
     const punchAction = active.find(a => a.type === "camera" && (a.payload?.move === "punch" || a.payload?.move === "impact"));
     const punchAt = punchAction ? punchAction.start : (beat && (beat.role === "punchline") ? beat.start + (beat.end - beat.start) * 0.55 : null);
-    const sitcom = beat ? renderSitcomLayer(timeSec, beat, punchAt, style.renderActor, production.coStarPresence) : "";
+    const sitcom = beat ? renderSitcomLayer(timeSec, beat, punchAt, style.renderActor, production.coStarPresence, shot.kind) : "";
     // Impact typography: the punch word SLAMS in exactly as spoken. Slot
     // rotates per beat so the composition varies.
     const beatText = beat?.visual?.semantic ?? "";
     const impactSvg = (() => {
+      // House rule: zero words in frame. Impact words stay available behind
+      // an explicit flag, but the default pipeline never burns text in.
+      if (!impactWords) return "";
       if (!beat || (beat.role !== "punchline" && beat.role !== "escalation" && !punchAction)) return "";
       const pw = pickPunchWord(beatText);
       if (!pw) return "";

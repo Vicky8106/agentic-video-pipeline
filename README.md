@@ -87,6 +87,14 @@ npx esbuild src/engine/SvgRenderer.ts --bundle --format=esm --platform=node --ou
 
 ## 🎬 How to Generate Videos
 
+> Production path — script + voice, zero tuning. See [docs/AUTO_PIPELINE.md](docs/AUTO_PIPELINE.md).
+> ```bash
+> NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/auto-video.ts \
+>   --script story.srt --audio voice.mp3 --out video.mp4
+> ```
+
+### Legacy window renderers (per-video hand authoring)
+
 ### 1. Render a Single 30-Second Hand-Driven Proof Window
 To render Window 1 (`0.00s` to `32.41s`) with audio sync:
 ```bash

@@ -22,6 +22,13 @@ export interface MovieBeat {
     x: number;
     y: number;
     zoom: number;
+    targetX?: number;
+    targetY?: number;
+    targetZoom?: number;
+    move?: string;
+    transition?: string;
+    energy?: number;
+    impactShake?: boolean;
   };
   activeProp?: null | {
     id: string;

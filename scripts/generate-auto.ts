@@ -63,6 +63,7 @@ for(let i=0;i<frames;i++){
   const {svg}=renderAutoSvgFrame({production,timeSec:t,width,height});
   const pixels=new Resvg(svg,{fitTo:{mode:"width",value:width},font:{fontFiles,defaultFontFamily:"Noto Sans",loadSystemFonts:false}}).render().pixels;
   if(!ff.stdin.write(pixels)) await new Promise(r=>ff.stdin.once("drain",r));
+  if(i%120===0 && (global as any).gc) (global as any).gc();
   if(i%Math.max(1,fps*5)===0) console.log(`render ${((i+1)/frames*100).toFixed(1)}% t=${t.toFixed(1)}s`);
 }
 ff.stdin.end();

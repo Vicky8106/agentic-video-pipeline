@@ -10,7 +10,8 @@ import path from "node:path";
 import { spawn, execFileSync } from "node:child_process";
 import { Resvg } from "@resvg/resvg-js";
 import { createAutoProduction, renderAutoSvgFrame } from "../src/production/AutoProduction.js";
-import { forgeAssetsForScript } from "../src/forge/ScriptAssetPipeline.js";
+import { forgeManifestForScript, manifestToDirectorSheet } from "../src/forge/ScriptAssetPipeline.js";
+import type { SheetBeat } from "../src/director/DirectorSheet.js";
 
 const args=process.argv.slice(2);
 const get=(name, fallback="")=>{const i=args.indexOf(name);return i>=0?args[i+1]??fallback:fallback};
@@ -26,17 +27,17 @@ if(!fs.existsSync(audio)) throw new Error(`Audio not found: ${audio}`);
 if(!fs.existsSync(srt)) throw new Error(`SRT not found: ${srt}`);
 fs.mkdirSync(path.dirname(out),{recursive:true});
 const srtText=fs.readFileSync(srt,"utf8");
+let sheet: SheetBeat[] = [];
 if (!args.includes("--no-auto-assets")) {
   try {
-    const report = await forgeAssetsForScript(srtText, { verbose: true });
-    if (report.propsCreated.length > 0 || report.caricaturesCreated.length > 0 || report.backgroundsCreated.length > 0) {
-      console.log(`[AssetForge] Generated ${report.propsCreated.length} props, ${report.caricaturesCreated.length} caricatures, ${report.backgroundsCreated.length} backgrounds.`);
-    }
+    const result = await forgeManifestForScript(srtText, { verbose: true });
+    sheet = manifestToDirectorSheet(result.manifest);
+    console.log(`[AssetForge] Generated & mapped ${sheet.length} beats to director sheet (${result.bom.counts.totalUniqueAssets} unique assets).`);
   } catch (e: any) {
     console.warn("[AssetForge] Dynamic asset generation note:", e.message);
   }
 }
-const production=createAutoProduction(srtText,style);
+const production = createAutoProduction(srtText, style, { sheet: sheet.length > 0 ? sheet : undefined });
 const duration=production.transcript.duration;
 if(!duration) throw new Error("SRT contains no timed words");
 

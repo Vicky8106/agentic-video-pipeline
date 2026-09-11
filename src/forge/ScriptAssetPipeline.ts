@@ -7,6 +7,7 @@ import { segmentScriptIntoBeats, ScriptBeat } from "./BeatSegmenter.js";
 import { extractFullBeatManifest, BeatVisualSpec } from "./BeatManifestExtractor.js";
 import { compileProductionBOM, ProductionBOM } from "./ManifestRoster.js";
 import { batchSynthesizeBOM, BatchSynthesisReport } from "./BatchSynthesizer.js";
+export { manifestToDirectorSheet } from "./DirectorSheetAdapter.js";
 
 export interface ForgeOptions {
   customConfig?: LlmConfig;

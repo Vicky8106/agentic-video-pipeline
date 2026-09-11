@@ -401,6 +401,30 @@ export function renderProp(propId, opts = {}) {
         <circle cx="0" cy="0" r="60" fill="none" stroke="#06b6d4" stroke-width="2"/>
         <text x="0" y="110" font-family="'Courier New', monospace" font-size="12" fill="#06b6d4" text-anchor="middle">FACIAL SYMMETRY 99.8%</text>
       `);
+        // 37. PROP-PIGEON: park pigeon crew (fat ringleader + pal + tiny lawyer)
+        case "PROP-PIGEON": {
+            const bob1 = Math.sin(t * 3.1) * 5;
+            const bob2 = Math.sin(t * 3.1 + 2.1) * 5;
+            const bob3 = Math.sin(t * 3.1 + 4.2) * 4;
+            const bird = (dx, dy, s, body, extra = "") => `
+        <g transform="translate(${dx} ${dy}) scale(${s})">
+          <ellipse cx="0" cy="26" rx="34" ry="7" fill="#0f172a" opacity="0.15"/>
+          <ellipse cx="0" cy="0" rx="26" ry="30" fill="${body}" stroke="#0f172a" stroke-width="5"/>
+          <circle cx="14" cy="-32" r="15" fill="${body}" stroke="#0f172a" stroke-width="5"/>
+          <circle cx="19" cy="-35" r="3.5" fill="#0f172a"/>
+          <polygon points="29,-35 42,-30 29,-25" fill="#f59e0b" stroke="#0f172a" stroke-width="2"/>
+          <line x1="-8" y1="28" x2="-8" y2="44" stroke="#f59e0b" stroke-width="5"/>
+          <line x1="8" y1="28" x2="8" y2="44" stroke="#f59e0b" stroke-width="5"/>
+          ${extra}
+        </g>`;
+            return wrap(`
+        ${bird(-95, bob1, 1.25, "#94a3b8")}
+        ${bird(0, bob2, 1.0, "#cbd5e1")}
+        ${bird(95, bob3, 0.8, "#64748b", `
+          <rect x="-46" y="-6" width="34" height="26" rx="4" fill="#78350f" stroke="#0f172a" stroke-width="4"/>
+          <line x1="-29" y1="-6" x2="-29" y2="6" stroke="#fbbf24" stroke-width="3"/>`)}
+      `);
+        }
         default:
             return wrap(`
         <rect x="-60" y="-40" width="120" height="80" rx="8" fill="#e2e8f0" stroke="#64748b" stroke-width="4"/>

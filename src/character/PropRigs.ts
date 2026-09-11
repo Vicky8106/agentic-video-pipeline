@@ -208,3 +208,215 @@ export function renderWheelbarrowRig(opts: WheelbarrowOpts): string {
     </g>
   `;
 }
+
+/**
+ * 5. Broadcast-Grade Olympic Barbell Rig with Official Color Bumpers
+ */
+export interface BarbellRigOpts extends PropRenderBase {
+  liftProgress?: number; // 0 (on floor) to 1 (overhead lockout)
+  plateCount?: number; // 1 to 4 pairs
+  bendCurve?: number; // whip/bend flex under extreme weight
+}
+
+export function renderOlympicBarbellRig(opts: BarbellRigOpts): string {
+  const { x, y, scale = 1, rotation = 0, liftProgress = 0, plateCount = 4, bendCurve = 0 } = opts;
+
+  // Floor elevation
+  const floorY = y - liftProgress * 220;
+  const shadowOpacity = Math.max(0.05, 0.35 * (1 - liftProgress * 0.85));
+
+  return `
+    <g id="prop-olympic-barbell-rig" transform="translate(${x}, ${floorY}) rotate(${rotation}) scale(${scale})">
+      <!-- Ambient Floor Contact Drop Shadow -->
+      <ellipse cx="0" cy="${55 + liftProgress * 200}" rx="220" ry="${18 * (1 - liftProgress * 0.5)}" fill="#000000" opacity="${shadowOpacity}"/>
+      <ellipse cx="-160" cy="${55 + liftProgress * 200}" rx="45" ry="${14 * (1 - liftProgress * 0.5)}" fill="#000000" opacity="${shadowOpacity * 1.5}"/>
+      <ellipse cx="160" cy="${55 + liftProgress * 200}" rx="45" ry="${14 * (1 - liftProgress * 0.5)}" fill="#000000" opacity="${shadowOpacity * 1.5}"/>
+
+      <!-- Barbell Steel Shaft with whip bend -->
+      <path d="M -240 0 Q 0 ${bendCurve * 15} 240 0" stroke="#0f172a" stroke-width="14" stroke-linecap="round" fill="none"/>
+      <path d="M -240 0 Q 0 ${bendCurve * 15} 240 0" stroke="#cbd5e1" stroke-width="10" stroke-linecap="round" fill="none"/>
+      <!-- Specular Chrome Reflection Highlight -->
+      <path d="M -235 -2 Q 0 ${bendCurve * 15 - 2} 235 -2" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+      <!-- Diamond Knurling Texture Zones -->
+      <line x1="-100" y1="-4" x2="-40" y2="-4" stroke="#64748b" stroke-width="6" stroke-dasharray="4 2"/>
+      <line x1="40" y1="-4" x2="100" y2="-4" stroke="#64748b" stroke-width="6" stroke-dasharray="4 2"/>
+      <line x1="-15" y1="-4" x2="15" y2="-4" stroke="#64748b" stroke-width="6" stroke-dasharray="4 2"/> <!-- Center ring -->
+
+      <!-- Steel Collar Bushings -->
+      <rect x="-124" y="-12" width="10" height="24" rx="2" fill="#475569" stroke="#1e293b" stroke-width="2"/>
+      <rect x="114" y="-12" width="10" height="24" rx="2" fill="#475569" stroke="#1e293b" stroke-width="2"/>
+
+      <!-- LEFT SIDE BUMPER STACK (Inner to Outer) -->
+      <g id="left-bumpers">
+        <!-- Green 10KG (Inner) -->
+        ${plateCount >= 4 ? `
+          <rect x="-138" y="-45" width="12" height="90" rx="3" fill="#16a34a" stroke="#14532d" stroke-width="3"/>
+          <line x1="-132" y1="-42" x2="-132" y2="42" stroke="#4ade80" stroke-width="2"/>
+        ` : ""}
+        <!-- Yellow 15KG -->
+        ${plateCount >= 3 ? `
+          <rect x="-154" y="-52" width="14" height="104" rx="4" fill="#eab308" stroke="#a16207" stroke-width="3"/>
+          <line x1="-147" y1="-48" x2="-147" y2="48" stroke="#fef08a" stroke-width="2.5"/>
+        ` : ""}
+        <!-- Blue 20KG -->
+        ${plateCount >= 2 ? `
+          <rect x="-172" y="-58" width="16" height="116" rx="4" fill="#2563eb" stroke="#1e3a8a" stroke-width="3.5"/>
+          <line x1="-164" y1="-54" x2="-164" y2="54" stroke="#93c5fd" stroke-width="3"/>
+        ` : ""}
+        <!-- Red 25KG (Massive Outer Bumper) -->
+        <rect x="-194" y="-65" width="20" height="130" rx="5" fill="#dc2626" stroke="#991b1b" stroke-width="4" filter="url(#cardShadow)"/>
+        <line x1="-184" y1="-60" x2="-184" y2="60" stroke="#fca5a5" stroke-width="3.5"/>
+        <!-- Plate Rim & Text -->
+        <circle cx="-184" cy="0" r="16" fill="#111111" stroke="#475569" stroke-width="3"/>
+        <text x="-184" y="-36" font-family="'Impact', sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">25</text>
+        <text x="-184" y="44" font-family="'Impact', sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">KG</text>
+
+        <!-- Quick-Release Lock Collar Clamp -->
+        <rect x="-204" y="-18" width="8" height="36" rx="2" fill="#f59e0b" stroke="#b45309" stroke-width="2"/>
+        <polygon points="-204,-10 -214,-16 -204,-8" fill="#b45309"/>
+      </g>
+
+      <!-- RIGHT SIDE BUMPER STACK (Inner to Outer) -->
+      <g id="right-bumpers">
+        <!-- Green 10KG (Inner) -->
+        ${plateCount >= 4 ? `
+          <rect x="126" y="-45" width="12" height="90" rx="3" fill="#16a34a" stroke="#14532d" stroke-width="3"/>
+          <line x1="132" y1="-42" x2="132" y2="42" stroke="#4ade80" stroke-width="2"/>
+        ` : ""}
+        <!-- Yellow 15KG -->
+        ${plateCount >= 3 ? `
+          <rect x="140" y="-52" width="14" height="104" rx="4" fill="#eab308" stroke="#a16207" stroke-width="3"/>
+          <line x1="147" y1="-48" x2="147" y2="48" stroke="#fef08a" stroke-width="2.5"/>
+        ` : ""}
+        <!-- Blue 20KG -->
+        ${plateCount >= 2 ? `
+          <rect x="156" y="-58" width="16" height="116" rx="4" fill="#2563eb" stroke="#1e3a8a" stroke-width="3.5"/>
+          <line x1="164" y1="-54" x2="164" y2="54" stroke="#93c5fd" stroke-width="3"/>
+        ` : ""}
+        <!-- Red 25KG (Massive Outer Bumper) -->
+        <rect x="174" y="-65" width="20" height="130" rx="5" fill="#dc2626" stroke="#991b1b" stroke-width="4" filter="url(#cardShadow)"/>
+        <line x1="184" y1="-60" x2="184" y2="60" stroke="#fca5a5" stroke-width="3.5"/>
+        <!-- Plate Rim & Text -->
+        <circle cx="184" cy="0" r="16" fill="#111111" stroke="#475569" stroke-width="3"/>
+        <text x="184" y="-36" font-family="'Impact', sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">25</text>
+        <text x="184" y="44" font-family="'Impact', sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">KG</text>
+
+        <!-- Quick-Release Lock Collar Clamp -->
+        <rect x="196" y="-18" width="8" height="36" rx="2" fill="#f59e0b" stroke="#b45309" stroke-width="2"/>
+        <polygon points="204,-10 214,-16 204,-8" fill="#b45309"/>
+      </g>
+    </g>
+  `;
+}
+
+/**
+ * 6. Detailed Commercial Janitor Mop Rig with Cotton Yarn Physics
+ */
+export interface MopRigOpts extends PropRenderBase {
+  swayInertia?: number; // yarn swing angle
+  isMopping?: boolean;
+}
+
+export function renderDetailedMopRig(opts: MopRigOpts): string {
+  const { x, y, scale = 1, rotation = 0, swayInertia = 0, isMopping = false, timeSec = 0 } = opts;
+  const swing = swayInertia + (isMopping ? Math.sin(timeSec * 8) * 14 : 0);
+
+  return `
+    <g id="prop-detailed-mop-rig" transform="translate(${x}, ${y}) rotate(${rotation}) scale(${scale})">
+      <!-- Fiberglass Mop Handle -->
+      <line x1="0" y1="-140" x2="0" y2="90" stroke="#ca8a04" stroke-width="9" stroke-linecap="round"/>
+      <line x1="-1.5" y1="-135" x2="-1.5" y2="85" stroke="#fef08a" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Rubber Grip Cap on top -->
+      <rect x="-6" y="-146" width="12" height="16" rx="4" fill="#1e293b" stroke="#0f172a" stroke-width="2"/>
+
+      <!-- Heavy Cast-Steel Clamp Bracket with Thumb Nut -->
+      <rect x="-24" y="86" width="48" height="18" rx="4" fill="#334155" stroke="#0f172a" stroke-width="3"/>
+      <rect x="-16" y="90" width="32" height="8" rx="2" fill="#64748b"/>
+      <!-- Wingnut butterfly ears -->
+      <ellipse cx="26" cy="95" rx="6" ry="10" fill="#94a3b8" stroke="#475569" stroke-width="2"/>
+
+      <!-- Braided Cotton Yarn Head (Reacts dynamically to motion) -->
+      <g transform="translate(0, 102) rotate(${swing})">
+        <!-- Shadow yarn underlayer -->
+        <path d="
+          M -22 0 Q ${-30 + swing * 0.4} 45 ${-26 + swing * 0.8} 85
+          M -12 0 Q ${-16 + swing * 0.4} 50 ${-10 + swing * 0.8} 88
+          M 0 0 Q ${swing * 0.4} 55 ${swing * 0.8} 92
+          M 12 0 Q ${16 + swing * 0.4} 50 ${10 + swing * 0.8} 88
+          M 22 0 Q ${30 + swing * 0.4} 45 ${26 + swing * 0.8} 85
+        " stroke="#94a3b8" stroke-width="6" stroke-linecap="round" fill="none"/>
+
+        <!-- Foreground Clean Cotton Strands -->
+        <path d="
+          M -26 0 Q ${-36 + swing * 0.5} 40 ${-30 + swing} 88
+          M -18 0 Q ${-24 + swing * 0.5} 48 ${-18 + swing} 92
+          M -8 0 Q ${-10 + swing * 0.5} 52 ${-4 + swing} 95
+          M 0 0 Q ${swing * 0.5} 55 ${swing} 96
+          M 8 0 Q ${10 + swing * 0.5} 52 ${4 + swing} 95
+          M 18 0 Q ${24 + swing * 0.5} 48 ${18 + swing} 92
+          M 26 0 Q ${36 + swing * 0.5} 40 ${30 + swing} 88
+        " stroke="#f1f5f9" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+        <!-- Blue tracer threads woven into yarn -->
+        <path d="
+          M -14 0 Q ${-18 + swing * 0.5} 48 ${-12 + swing} 90
+          M 14 0 Q ${18 + swing * 0.5} 48 ${12 + swing} 90
+        " stroke="#38bdf8" stroke-width="2" stroke-linecap="round" fill="none"/>
+      </g>
+    </g>
+  `;
+}
+
+/**
+ * 7. Commercial Janitor Mop Bucket with Wringer Mechanism
+ */
+export interface MopBucketRigOpts extends PropRenderBase {
+  wringerActive?: boolean;
+}
+
+export function renderDetailedMopBucketRig(opts: MopBucketRigOpts): string {
+  const { x, y, scale = 1, rotation = 0, wringerActive = false } = opts;
+
+  return `
+    <g id="prop-detailed-mop-bucket-rig" transform="translate(${x}, ${y}) scale(${scale})">
+      <!-- Ground Shadow -->
+      <ellipse cx="0" cy="52" rx="72" ry="16" fill="#000000" opacity="0.25"/>
+
+      <!-- 4 Swivel Caster Wheels -->
+      <g id="casters" fill="#1e293b" stroke="#0f172a" stroke-width="2">
+        <circle cx="-52" cy="46" r="8"/>
+        <circle cx="-28" cy="48" r="8"/>
+        <circle cx="28" cy="48" r="8"/>
+        <circle cx="52" cy="46" r="8"/>
+      </g>
+
+      <!-- Yellow Industrial Polyethylene Bucket Tub -->
+      <path d="M -60 -20 L 60 -20 L 52 42 L -52 42 Z" fill="#eab308" stroke="#854d0e" stroke-width="5" stroke-linejoin="round"/>
+      <rect x="-65" y="-28" width="130" height="10" rx="3" fill="#ca8a04" stroke="#854d0e" stroke-width="3"/>
+
+      <!-- Heavy Pressure Wringer Box Unit -->
+      <g transform="translate(18, -48)">
+        <rect x="-24" y="-20" width="48" height="42" rx="4" fill="#a16207" stroke="#713f12" stroke-width="3.5"/>
+        <!-- Steel Press Grid Flaps -->
+        <line x1="-18" y1="-10" x2="18" y2="-10" stroke="#451a03" stroke-width="3"/>
+        <line x1="-18" y1="0" x2="18" y2="0" stroke="#451a03" stroke-width="3"/>
+        <line x1="-18" y1="10" x2="18" y2="10" stroke="#451a03" stroke-width="3"/>
+        <!-- Chrome Press Lever Handle -->
+        <g transform="rotate(${wringerActive ? 35 : -25} -16 -12)">
+          <line x1="-16" y1="-12" x2="-45" y2="-65" stroke="#94a3b8" stroke-width="7" stroke-linecap="round"/>
+          <circle cx="-45" cy="-65" r="7" fill="#0f172a"/>
+        </g>
+      </g>
+
+      <!-- Warning Symbol: CAUTION WET FLOOR Triangle -->
+      <g transform="translate(-18, 12)">
+        <polygon points="0,-18 -18,14 18,14" fill="#facc15" stroke="#000000" stroke-width="2.5"/>
+        <polygon points="0,-14 -14,11 14,11" fill="#facc15"/>
+        <!-- Slipping Stickman Glyph -->
+        <circle cx="0" cy="-6" r="2.5" fill="#000"/>
+        <path d="M 0 -3 L 0 5 L -4 10 M 0 5 L 6 8" stroke="#000" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      </g>
+    </g>
+  `;
+}

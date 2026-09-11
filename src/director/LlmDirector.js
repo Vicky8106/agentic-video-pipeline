@@ -1,7 +1,7 @@
 export const BG_IDS = [
     "BG-STUDIO", "BG-HOLLYWOOD", "BG-CINEMA", "BG-90S", "BG-Y2K", "BG-GYM",
     "BG-CLINIC", "BG-RETRO", "BG-GOTHIC", "BG-TRIBUNAL", "BG-OFFICE",
-    "BG-KITCHEN", "BG-AUDIENCE", "BG-END",
+    "BG-KITCHEN", "BG-AUDIENCE", "BG-PARK", "BG-END",
 ];
 // Prop ids verified against PropLibrary. Glosses describe the confirmed gag;
 // unlisted-in-prompt ids may still validate (they exist) but the LLM is told
@@ -28,6 +28,7 @@ export const PROP_GLOSS = {
     "PROP-QUESTION": "giant question mark",
     "PROP-SHIELD": "shield",
     "PROP-GRID": "photo grid wall",
+    "PROP-PIGEON": "park pigeon crew (ringleader + pal + tiny lawyer)",
 };
 export const PROP_IDS = new Set(Object.keys(PROP_GLOSS));
 export const HAIRSTYLES = [
@@ -36,13 +37,13 @@ export const HAIRSTYLES = [
     "female_messy_bun", "female_pixie_y2k", "female_gothic_waves",
     "female_slicked_back", "female_side_braid", "male_host_curly", "host_classic",
     "male_tech_bro", "male_short", "male_bodybuilder_bald", "male_doctor_cap",
-    "female_widow_veil", "none",
+    "janitor_cap", "female_widow_veil", "none",
 ];
 export const OUTFITS = [
     "none", "tshirt", "hoodie", "suit", "dress_red_carpet", "dress_pink",
     "dress_black", "y2k_crop_top_low_rise", "crop_top_leggings", "doctor_scrubs",
-    "bodybuilder_tank", "victorian_mourning", "judge_robes", "tech_fleece_vest",
-    "patient_gown", "bathrobe", "bikini",
+    "janitor_overalls", "bodybuilder_tank", "victorian_mourning", "judge_robes",
+    "tech_fleece_vest", "patient_gown", "bathrobe", "bikini",
 ];
 // Expressions observed in the gold beat sheet + core rig vocabulary.
 export const EXPRESSIONS = [
@@ -267,6 +268,7 @@ export function validateBeats(raw, windowStart, windowEnd) {
 }
 const FALLBACK_BG = {
     money: { bg: "BG-OFFICE", prop: "PROP-MONEY" },
+    gym: { bg: "BG-GYM", prop: "PROP-GYM" },
     body: { bg: "BG-CLINIC", prop: "PROP-MED" },
     food: { bg: "BG-KITCHEN", prop: "PROP-FOOD" },
     device: { bg: "BG-STUDIO", prop: "PROP-PHONE" },
@@ -281,9 +283,15 @@ const FALLBACK_BG = {
 };
 function topicOf(text) {
     const x = text.toLowerCase();
-    if (/\b(\$|dollar|money|cost|price|million|billion|percent|%|salary|rent|wealth|crypto|budget)\b|\d/.test(x))
+    // Bare digits are not money ("300 kilos", "eighteen months"): currency
+    // needs a $, %, or money word beside it.
+    if (/\$|%|\b(dollar|money|cost|price|million|billion|percent|salary|rent|wealth|crypto|budget)\b/.test(x))
         return "money";
-    if (/\b(face|skin|body|weight|fat|thin|beauty|looks|jaw|cheek|wrinkle|aging|muscle|gym|workout|fitness)\b/.test(x))
+    // Gym/fitness is its own room (BG-GYM + barbell), not the clinic: a gym
+    // story must not stage medicine props.
+    if (/\b(gym|workout|fitness|deadlift|barbell|bodybuilder|janitor|mop|weights|fitness)\b/.test(x))
+        return "gym";
+    if (/\b(face|skin|body|weight|fat|thin|beauty|looks|jaw|cheek|wrinkle|aging|muscle)\b/.test(x))
         return "body";
     if (/\b(food|eat|dinner|lunch|breakfast|pizza|burger|bread|carb|coffee|diet|calorie)\b/.test(x))
         return "food";

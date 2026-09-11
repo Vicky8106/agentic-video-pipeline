@@ -13,7 +13,7 @@
  *
  * Deterministic: the same transcript yields the same plan, byte for byte.
  */
-import { compileShots } from "../camera/CameraTrack";
+import { compileShots } from "../camera/CameraTrack.js";
 /** Framing presets on the 1920x1080 design canvas. */
 export const FRAMING = {
     wide: { center: [960, 540], zoom: 1.02 },
@@ -51,6 +51,10 @@ const DEFAULTS = {
     sceneGapSec: 0.55,
     maxSentencesPerScene: 6,
     maxShot: 2.6,
+    punchSentences: new Set(),
+    roomOfSentence: () => null,
+    roleOfSentence: () => null,
+    moveBudgetSec: 8,
 };
 const isNumberToken = (w) => /^[$£€]?\d[\d.,]*[%a-zA-Z$]*$/.test(w.text);
 const COMMON_VISUAL_NOUNS = new Set([
@@ -280,6 +284,44 @@ export function normalizeShotList(shots, duration, opts) {
         finalShots[0].start = 0;
         finalShots[finalShots.length - 1].end = Math.max(finalShots[finalShots.length - 1].end, duration);
     }
+    // Move budget: at most one punch and one whip per window. Extra moves are
+    // demoted to cuts (framing kept). A camera that travels twice in eight
+    // seconds is not directing, it is fidgeting.
+    // Zoom clamp: a cut may not jump more than 1.35x — bigger jumps read as
+    // crash zooms. The clamp pulls the arriving zoom toward the previous one.
+    const budget = opts.moveBudgetSec ?? 8;
+    let lastPunch = -Infinity;
+    let lastWhip = -Infinity;
+    let prevZoom = 1;
+    for (const s of finalShots) {
+        if (s.move === "punch") {
+            if (s.start - lastPunch < budget) {
+                s.move = "cut";
+                s.approach = 0;
+                s.overshoot = 0;
+            }
+            else {
+                lastPunch = s.start;
+            }
+        }
+        else if (s.move === "whip") {
+            if (s.start - lastWhip < budget) {
+                s.move = "cut";
+                s.approach = 0;
+            }
+            else {
+                lastWhip = s.start;
+            }
+        }
+        if (s.move === "cut") {
+            const ratio = s.zoom / prevZoom;
+            if (ratio > 1.35)
+                s.zoom = prevZoom * 1.35;
+            else if (ratio < 1 / 1.35)
+                s.zoom = prevZoom / 1.35;
+        }
+        prevZoom = s.zoomEnd ?? s.zoom;
+    }
     // Split over-long shots, and make any surviving long shot drift instead of
     // sitting still.
     const out = [];
@@ -326,15 +368,34 @@ export function direct(transcript, options = {}) {
     let side = 1;
     let seq = 0;
     const nextId = (kind) => `shot_${String(++seq).padStart(3, "0")}_${kind}`;
+    // Motive gating: raw options (not merged defaults) distinguish "no brain"
+    // from "brain abstained". Without a brain, legacy trigger behavior holds.
+    const motive = options.punchSentences;
+    const roomOf = options.roomOfSentence;
+    const roleOf = options.roleOfSentence;
+    let prevRoom = undefined;
     for (const scene of scenes) {
         const firstSentence = transcript.sentences[scene.sentences[0]];
+        // Pull back ONLY on a real room change (a new place = a release).
+        // Same-room scenes open on a plain wide: no motive, no move.
+        const sceneRoom = roomOf?.(scene.sentences[0]) ?? null;
+        const roomChanged = roomOf !== undefined && prevRoom !== undefined && !!sceneRoom && sceneRoom !== prevRoom;
+        if (sceneRoom)
+            prevRoom = sceneRoom;
+        let pulled = false;
+        // One release per room change max: the wide and the host open share it.
+        let roomReleaseAvailable = roomChanged;
         if (firstSentence && firstSentence.start > scene.start) {
             shots.push({
                 id: nextId("wide"), start: scene.start,
                 end: Math.min(scene.end, firstSentence.start + 0.9),
                 kind: "wide", center: FRAMING.wide.center, zoom: FRAMING.wide.zoom,
-                move: "cut", breathe: 0.004,
+                move: roomChanged ? "pull" : "cut", approach: roomChanged ? 0.8 : 0,
+                breathe: 0.004,
             });
+            pulled = roomChanged;
+            if (roomChanged)
+                roomReleaseAvailable = false;
         }
         for (const sIndex of scene.sentences) {
             const sentence = transcript.sentences[sIndex];
@@ -346,17 +407,30 @@ export function direct(transcript, options = {}) {
             const setupEnd = firstTrigger
                 ? Math.max(sentence.start + opts.minShot, firstTrigger.word.start - lead)
                 : sentence.end;
+            // Scene openings release ONLY on a genuine room change the wide
+            // didn't already spend (one release per new room, never per sentence).
+            const sceneOpen = sIndex === scene.sentences[0] && scene.index > 0 && !pulled;
+            const hostPull = sceneOpen && roomReleaseAvailable;
+            roomReleaseAvailable = false;
             shots.push({
                 id: nextId("host"), start: sentence.start, end: setupEnd,
                 kind: "host", center: FRAMING.hostLeft.center, zoom: FRAMING.hostLeft.zoom,
-                move: "cut", screenSide: -1,
+                move: hostPull ? "pull" : "cut", approach: hostPull ? 0.8 : 0,
+                screenSide: -1,
             });
+            if (hostPull)
+                pulled = true;
             events.push({
                 t: sentence.start, kind: "expression", target: "host",
                 payload: { expression: "deadpan_classic" }, reason: "sentence-open",
             });
             let escalation = 0;
             let lastEnd = setupEnd;
+            // Setups establish (wide/host): close-ups fire only on escalation
+            // and punchlines. A macro on a setup fragment is how you get a phone
+            // filling the frame while the host is sawn in half.
+            const sentRole = roleOf?.(sentence.index) ?? null;
+            const allowCloseUp = !motive || !sentRole || sentRole === "escalation" || sentRole === "punchline";
             for (const trig of triggers) {
                 const w = trig.word;
                 const triggerAt = Math.max(lastEnd, w.start - lead);
@@ -380,25 +454,30 @@ export function direct(transcript, options = {}) {
                         side = (side * -1);
                     }
                     const anchor = anchors[subjectId];
-                    // CAMERA GRAMMAR: a reveal is a CUT to a slightly tighter frame —
-                    // the prop's pop-in entrance carries the energy, not the camera.
-                    // Macro (1.55x smooth push) is reserved for escalation beats; the
-                    // old 1.48-2.15x backOut crash on every concept read as random
-                    // crash zooming.
+                    const thisSide = (anchor[0] > 960 ? 1 : -1);
+                    // CAMERA GRAMMAR, motive-gated: a punch-in fires ONLY on an
+                    // evidenced punchline. Escalation without evidence earns a tighter
+                    // framing reached by cut — the camera never travels without motive.
                     const macro = escalation >= 2;
+                    const earned = motive ? motive.has(sentence.index) : true;
                     const zoom = macro ? 1.55 : 1.28;
-                    shots.push({
-                        id: nextId(macro ? "macro" : "subject"),
-                        start: triggerAt, end: Math.max(triggerAt + opts.minShot, w.end),
-                        kind: macro ? "macro" : "subject",
-                        center: macro ? [anchor[0] + 60, anchor[1] - 40] : anchor,
-                        zoom, move: macro ? "drift" : "cut",
-                        approach: macro ? 0.3 : 0,
-                        ease: "cubicInOut",
-                        overshoot: 0,
-                        screenSide: anchor[0] > 960 ? 1 : -1,
-                        tag: subjectId,
-                    });
+                    const prevSide = shots.length > 0 ? shots[shots.length - 1].screenSide : undefined;
+                    const crossed = prevSide === -thisSide;
+                    const move = macro && earned ? "punch" : crossed ? "whip" : "cut";
+                    const punching = move === "punch";
+                    if (allowCloseUp)
+                        shots.push({
+                            id: nextId(macro ? "macro" : "subject"),
+                            start: triggerAt, end: Math.max(triggerAt + opts.minShot, w.end),
+                            kind: macro ? "macro" : "subject",
+                            center: macro ? [anchor[0] + 60, anchor[1] - 40] : anchor,
+                            zoom, move,
+                            approach: punching ? 0.16 : crossed ? 0.1 : 0,
+                            ease: "cubicInOut",
+                            overshoot: punching ? 0.55 : 0,
+                            screenSide: thisSide,
+                            tag: subjectId,
+                        });
                     if (macro) {
                         events.push({
                             t: triggerAt, kind: "flash",
@@ -414,14 +493,15 @@ export function direct(transcript, options = {}) {
                     lastEnd = Math.max(lastEnd, w.end);
                 }
                 else if (trig.kind === "number") {
-                    shots.push({
-                        id: nextId("insert"),
-                        start: triggerAt, end: Math.max(triggerAt + opts.minShot, w.end + 0.12),
-                        kind: "insert", center: anchorForSide(side),
-                        zoom: 1.42,
-                        move: "cut", approach: 0, ease: "cubicInOut", overshoot: 0,
-                        tag: `readout:${w.text}`,
-                    });
+                    if (allowCloseUp)
+                        shots.push({
+                            id: nextId("insert"),
+                            start: triggerAt, end: Math.max(triggerAt + opts.minShot, w.end + 0.12),
+                            kind: "insert", center: anchorForSide(side),
+                            zoom: 1.42,
+                            move: "cut", approach: 0, ease: "cubicInOut", overshoot: 0,
+                            tag: `readout:${w.text}`,
+                        });
                     events.push({
                         t: triggerAt, kind: "prop", target: "readout",
                         duration: Math.max(0.5, w.end - triggerAt + 0.35),
@@ -430,13 +510,14 @@ export function direct(transcript, options = {}) {
                     lastEnd = Math.max(lastEnd, w.end + 0.12);
                 }
                 else if (trig.kind === "comparison") {
-                    shots.push({
-                        id: nextId("morph"),
-                        start: triggerAt, end: Math.max(triggerAt + opts.minShot, w.end + 0.2),
-                        kind: "subject", center: side > 0 ? FRAMING.subjectRight.center : FRAMING.subjectLeft.center,
-                        zoom: 1.35,
-                        move: "drift", approach: 0.25, ease: "cubicInOut", tag: `morph:${w.token}`,
-                    });
+                    if (allowCloseUp)
+                        shots.push({
+                            id: nextId("morph"),
+                            start: triggerAt, end: Math.max(triggerAt + opts.minShot, w.end + 0.2),
+                            kind: "subject", center: side > 0 ? FRAMING.subjectRight.center : FRAMING.subjectLeft.center,
+                            zoom: 1.35,
+                            move: "drift", approach: 0.25, ease: "cubicInOut", tag: `morph:${w.token}`,
+                        });
                     events.push({
                         t: triggerAt, kind: "morph", target: "subject",
                         duration: Math.max(0.45, w.end - triggerAt + 0.5),
@@ -480,11 +561,15 @@ export function direct(transcript, options = {}) {
             }
             if (lastWord && naturalEnd < scene.end) {
                 const reactEnd = Math.min(scene.end, naturalEnd + Math.max(opts.minShot, 0.45));
+                // The reaction snap-zoom fires only on an evidenced punchline;
+                // anything else holds the face by cut. No motive, no travel.
+                const reactPunch = motive ? motive.has(sentence.index) : true;
                 shots.push({
                     id: nextId("reaction"),
                     start: naturalEnd, end: reactEnd,
                     kind: "reaction", center: FRAMING.reaction.center, zoom: FRAMING.reaction.zoom,
-                    move: "cut", screenSide: -1,
+                    move: reactPunch ? "punch" : "cut", approach: reactPunch ? 0.14 : 0,
+                    overshoot: reactPunch ? 0.4 : 0, screenSide: -1,
                 });
                 events.push({
                     t: naturalEnd, kind: "expression", target: "host",

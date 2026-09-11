@@ -364,5 +364,80 @@ export function renderBackground(bgId = "BG-STUDIO", opts = {}) {
           <text x="0" y="60" font-family="'Impact', sans-serif" font-size="26" fill="#ffffff" text-anchor="middle">SUBSCRIBE</text>
         </g>
       `;
+        // 15. City Park Morning: the contested bench on a protest-ready lawn
+        case "BG-PARK": {
+            const sway = Math.sin(t * 0.9) * 6;
+            return `
+        <rect x="-4000" y="-4000" width="10000" height="10000" fill="#bae6fd"/>
+        <circle cx="1560" cy="180" r="90" fill="#fde047" stroke="#f59e0b" stroke-width="6"/>
+        <path d="M -1000 560 Q 400 420 1200 540 T 3000 500 L 3000 740 L -1000 740 Z" fill="#86efac"/>
+        <g opacity="0.9">
+          <rect x="180" y="380" width="36" height="360" fill="#92400e"/>
+          <circle cx="198" cy="320" r="110" fill="#16a34a"/>
+          <circle cx="130" cy="360" r="70" fill="#22c55e"/>
+          <circle cx="266" cy="360" r="70" fill="#15803d"/>
+          <rect x="1620" y="400" width="36" height="340" fill="#92400e"/>
+          <circle cx="1638" cy="340" r="100" fill="#16a34a"/>
+        </g>
+        <rect x="-4000" y="740" width="10000" height="4000" fill="#4ade80"/>
+        <line x1="-4000" y1="740" x2="6000" y2="740" stroke="#16a34a" stroke-width="4"/>
+        <!-- The contested bench -->
+        <g transform="translate(960 ${740 + sway * 0.2})">
+          <rect x="-220" y="-70" width="440" height="26" rx="10" fill="#92400e" stroke="#451a03" stroke-width="5"/>
+          <rect x="-220" y="-20" width="440" height="26" rx="10" fill="#a16207" stroke="#451a03" stroke-width="5"/>
+          <rect x="-190" y="6" width="24" height="120" fill="#451a03"/>
+          <rect x="166" y="6" width="24" height="120" fill="#451a03"/>
+          <rect x="-220" y="-190" width="26" height="130" rx="10" fill="#92400e" stroke="#451a03" stroke-width="5"/>
+        </g>
+        <ellipse cx="320" cy="900" rx="200" ry="40" fill="#38bdf8" opacity="0.7"/>
+      `;
+        }
     }
+}
+/** Keyword room for one beat's sentence, or null when it names no room. */
+export function keywordRoom(text) {
+    const x = text.toLowerCase();
+    if (/\b(gym|workout|bodybuilder|janitor|deadlift|barbell|weights|cleaning|mop|plates|fitness|squat|bench)\b/.test(x))
+        return "BG-GYM";
+    if (/\b(hollywood|red carpet|celebrity|oscar|actor|movie|premiere)\b/.test(x))
+        return "BG-HOLLYWOOD";
+    if (/\b(office|tech|computer|crypto|code|browser|cubicle|boss|saas)\b/.test(x))
+        return "BG-OFFICE";
+    if (/\b(clinic|doctor|surgery|medicine|shot|buccal|botox|contour)\b/.test(x))
+        return "BG-CLINIC";
+    if (/\b(court|judge|tribunal|trial|law|lawsuit)\b/.test(x))
+        return "BG-TRIBUNAL";
+    if (/\b(retro|ps1|videogame|gaming)\b/.test(x))
+        return "BG-RETRO";
+    if (/\b(subscribe|outro|end)\b/.test(x))
+        return "BG-END";
+    return null;
+}
+/** Roles where a new room may be established (a new setup = a new place). */
+const ROOM_CHANGE_ROLES = new Set(["setup", "explanation", "transition"]);
+/**
+ * Stable rooms: one background per beat, computed over the whole beat list.
+ * A joke keeps its setup room through escalation and punchline even when
+ * the punchline names a foreign keyword ("tech bro pivoting to crypto" in a
+ * gym joke stays in the gym). The room may only change on setup-family
+ * beats; every other beat inherits the running room. Pure function of the
+ * beats: chunked rendering stays bit-exact.
+ */
+export function stabilizeBeatBackgrounds(beats, fallback = "BG-STUDIO") {
+    const out = {};
+    const ordered = [...beats].sort((a, b) => a.start - b.start);
+    let room = fallback;
+    let started = false;
+    for (const b of ordered) {
+        const named = keywordRoom(b.semantic);
+        if (!started) {
+            room = named ?? fallback;
+            started = true;
+        }
+        else if (named && named !== room && ROOM_CHANGE_ROLES.has(b.role)) {
+            room = named;
+        }
+        out[b.id] = room;
+    }
+    return out;
 }

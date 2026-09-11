@@ -1,9 +1,11 @@
-import { action, bitWindows } from "../animation/Choreography";
+import { action, bitWindows } from "../animation/Choreography.js";
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const norm = (s) => String(s || "").toLowerCase();
 export function topicFor(text) {
     const x = norm(text);
-    if (/\b(\$|dollar|money|cost|price|million|billion|percent|%|salary|rent|wealth|crypto|bitcoin|budget|tax)\b|\d/.test(x))
+    // Bare digits are not money ("300 kilos", "eighteen months"): currency
+    // needs a $, %, or money word beside it.
+    if (/\$|%|\b(dollar|money|cost|price|million|billion|percent|salary|rent|wealth|crypto|bitcoin|budget|tax)\b/.test(x))
         return "money";
     if (/\b(face|skin|body|weight|fat|thin|beauty|looks|appearance|jaw|cheek|wrinkle|aging|muscle|gym|workout|fitness)\b/.test(x))
         return "body";
@@ -84,26 +86,27 @@ function eventActions(events, start, end) {
  * slideshow boundary: every sentence receives a performance arc, and visuals
  * are introduced through actions that can be animated by any StylePack.
  */
-export function compileProductionPlan(transcript, direction, styleId) {
+export function compileProductionPlan(transcript, direction, styleId, comedy) {
     const beats = [];
     for (const scene of direction.scenes) {
         const sentences = scene.sentences.map(i => transcript.sentences[i]).filter(Boolean);
         sentences.forEach((s, i) => {
             const matching = direction.resolved.filter(sh => sh.start < s.end && sh.end > s.start);
             const shotId = matching[0]?.id ?? direction.resolved[0]?.id ?? "shot-0";
-            // Role is computed against the WHOLE transcript, not the per-scene index:
-            // with sitcom 1-sentence scenes the in-scene index is always 0 and every
-            // beat would collapse to "setup". A sentence is a punchline when it is
-            // the final sentence of its scene AND carries punch signals (!, ?,
-            // contrast, or the end of a run of sentences).
-            const role = roleFor(s, i, sentences.length, s.index, transcript.sentences.length);
+            // The comedy analyzer owns role + punch word when it has evidence;
+            // legacy roleFor covers abstentions. (Old comment preserved: role was
+            // computed against the WHOLE transcript because per-scene index
+            // collapses to "setup" under 1-sentence sitcom scenes.)
+            const note = comedy?.notes.get(s.index);
+            const role = note?.role
+                ?? roleFor(s, i, sentences.length, s.index, transcript.sentences.length);
             const nextS = transcript.sentences[s.index + 1];
             const prevS = transcript.sentences[s.index - 1];
             const isSceneEnd = i === sentences.length - 1;
             const beatRole = (isSceneEnd && (/[!?]/.test(s.text) || nextS === undefined || (nextS.start - s.end) > 1.2))
                 ? (role === "escalation" ? "escalation" : "punchline")
                 : role;
-            const e = energy(s.text, role);
+            const e = Math.min(1, Math.max(energy(s.text, role), note?.energy ?? 0));
             const visualTopic = topicFor(s.text);
             const target = `visual-${scene.index}-${s.index}`;
             const actions = eventActions(direction.events, s.start, s.end);
@@ -147,7 +150,8 @@ export function compileProductionPlan(transcript, direction, styleId) {
                 actions.push(action("lookAt", a, b, { target: "camera" }, "host"));
                 actions.push(action("hold", Math.min(b, a + .22), b, { reaction: true }, "host"));
             }
-            const triggerWord = s.words.find(w => /\d|[!?]$/.test(w.text))?.text ?? s.words[s.words.length - 1]?.text;
+            const triggerWord = note?.punchWord
+                ?? s.words.find(w => /\d|[!?]$/.test(w.text))?.text ?? s.words[s.words.length - 1]?.text;
             beats.push({
                 id: `scene-${scene.index}-beat-${i}`,
                 start: s.start,

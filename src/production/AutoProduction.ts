@@ -351,56 +351,73 @@ export function renderAutoSvgFrame({ production, timeSec, width = 1920, height =
     // Host + visual beats are composed as a real two-shot. The camera frames
     // the LIVE stage object (from SceneMemory) when one exists, so inserts
     // zoom onto the actual prop that is on screen, not a nominal column.
-    const stageNow = stageAtTime(production.stageObjects ?? [], timeSec).filter(o => o.entry > 0.3);
-    const focus = stageNow.length ? stageNow[stageNow.length - 1] : null;
-    if (beat?.visual || focus) {
-        const p = focus ? { x: focus.x, y: focus.y } : semanticVisualPosition(beatIndex, 1);
-        if (shot.kind === "host" || shot.kind === "wide") {
-            // Two-shot: keep BOTH the host (~x=450) and the prop in frame.
-            // Clamp so the host is never cropped at the left edge.
-            camX = clamp((960 + p.x) / 2, 880, 1120);
-            camY = 560;
-            zoom = Math.min(1.08, zoom);
-        }
-        if (shot.kind === "insert" || shot.kind === "macro" || shot.kind === "subject") {
-            if (focus) {
-                camX = p.x;
-                camY = p.y;
-                zoom = Math.min(1.95, Math.max(1.45, zoom));
-            } else {
-                camX = 640;
-                camY = 560;
-                zoom = 1.25;
-            }
-        }
-    }
-    // Agent-sheet camera intent: steer the base framing toward the directed
-    // shot (the word-timed punch boost and grammar below still apply on top).
     const sheetNow = sheetAt((production.sheet ?? []) as SheetBeat[], timeSec);
     if (sheetNow) {
-        camX = lerp(camX, clamp(sheetNow.camera.x, 200, 1720), .35);
-        camY = lerp(camY, clamp(sheetNow.camera.y, 200, 880), .35);
-        zoom = lerp(zoom, clamp(sheetNow.camera.zoom, .8, 2.4), .5);
-    }
-    zoom *= 1 + punchCurve * (style.motion.punchScale - .98) * .85;
-    // Gag grammar: punch-in lands ON the punch word; reaction holds freeze.
-    zoom += punchZoomBoost(timeSec, wordPunchAt, beat?.energy ?? .3);
-    const freeze = freezeFactor(timeSec, beat ? { start: beat.start, end: beat.end, role: beat.role } : null);
-    if (freeze > 0) {
-        sh.x *= 1 - freeze;
-        sh.y *= 1 - freeze;
-        sh.rot *= 1 - freeze;
-    }
-    // Shake is impact-only: calm beats hold still. A camera that trembles
-    // with no impact is not energy, it is a fault.
-    const calm = 0.25 + 0.75 * clamp(beat?.energy ?? .3, 0, 1);
-    sh.x *= calm;
-    sh.y *= calm;
-    sh.rot *= calm;
-    if (shot.kind === "reaction") {
-        camX = 520;
-        camY = 560;
-        zoom = Math.min(1.55, Math.max(1.38, zoom));
+        // Agent-directed camera takes complete authority over framing, moves, and stability
+        const beatProg = clamp((timeSec - sheetNow.startSec) / Math.max(0.01, sheetNow.dur), 0, 1);
+        const ease = beatProg < 0.5 ? 2 * beatProg * beatProg : 1 - Math.pow(-2 * beatProg + 2, 2) / 2;
+
+        const targetX = sheetNow.camera.targetX ?? sheetNow.camera.x;
+        const targetY = sheetNow.camera.targetY ?? sheetNow.camera.y;
+        const targetZoom = sheetNow.camera.targetZoom ?? sheetNow.camera.zoom;
+
+        camX = lerp(sheetNow.camera.x, targetX, ease);
+        camY = lerp(sheetNow.camera.y, targetY, ease);
+        zoom = lerp(sheetNow.camera.zoom, targetZoom, ease);
+
+        // Motivated impact shake only on physical impact beats
+        if (sheetNow.camera.impactShake) {
+            const dt = timeSec - sheetNow.startSec;
+            const impactTrauma = dt >= 0 && dt <= 0.65 ? Math.exp(-dt * 4.5) * 0.45 : 0;
+            const impactSh = shakeAt(impactTrauma, timeSec, 17);
+            sh.x = impactSh.x;
+            sh.y = impactSh.y;
+            sh.rot = impactSh.rot;
+        } else {
+            sh.x = 0;
+            sh.y = 0;
+            sh.rot = 0;
+        }
+    } else {
+        // Legacy fallback when no agent sheet covers this timestamp
+        const stageNow = stageAtTime(production.stageObjects ?? [], timeSec).filter(o => o.entry > 0.3);
+        const focus = stageNow.length ? stageNow[stageNow.length - 1] : null;
+        if (beat?.visual || focus) {
+            const p = focus ? { x: focus.x, y: focus.y } : semanticVisualPosition(beatIndex, 1);
+            if (shot.kind === "host" || shot.kind === "wide") {
+                camX = clamp((960 + p.x) / 2, 880, 1120);
+                camY = 560;
+                zoom = Math.min(1.08, zoom);
+            }
+            if (shot.kind === "insert" || shot.kind === "macro" || shot.kind === "subject") {
+                if (focus) {
+                    camX = p.x;
+                    camY = p.y;
+                    zoom = Math.min(1.95, Math.max(1.45, zoom));
+                } else {
+                    camX = 640;
+                    camY = 560;
+                    zoom = 1.25;
+                }
+            }
+        }
+        zoom *= 1 + punchCurve * (style.motion.punchScale - .98) * .85;
+        zoom += punchZoomBoost(timeSec, wordPunchAt, beat?.energy ?? .3);
+        const freeze = freezeFactor(timeSec, beat ? { start: beat.start, end: beat.end, role: beat.role } : null);
+        if (freeze > 0) {
+            sh.x *= 1 - freeze;
+            sh.y *= 1 - freeze;
+            sh.rot *= 1 - freeze;
+        }
+        const calm = 0.25 + 0.75 * clamp(beat?.energy ?? .3, 0, 1);
+        sh.x *= calm;
+        sh.y *= calm;
+        sh.rot *= calm;
+        if (shot.kind === "reaction") {
+            camX = 520;
+            camY = 560;
+            zoom = Math.min(1.55, Math.max(1.38, zoom));
+        }
     }
     const sx = 960 - camX * zoom + sh.x, sy = 540 - camY * zoom + sh.y;
     const worldTransform = `translate(${sx} ${sy}) scale(${zoom}) rotate(${sh.rot} 560 650)`;

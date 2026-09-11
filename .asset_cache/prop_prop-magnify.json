@@ -1,0 +1,9 @@
+{
+  "id": "PROP-MAGNIFY",
+  "name": "Forensic Magnifying Glass",
+  "svgFragment": "<g id=\"PROP-MAGNIFY\"><ellipse cx=\"200\" cy=\"280\" rx=\"80\" ry=\"15\" fill=\"#000000\" opacity=\"0.2\"/><path d=\"M215 155 L285 225\" stroke=\"#0f172a\" stroke-width=\"28\" stroke-linecap=\"round\"/><path d=\"M215 155 L285 225\" stroke=\"#334155\" stroke-width=\"20\" stroke-linecap=\"round\"/><path d=\"M260 200 L280 220\" stroke=\"#1e293b\" stroke-width=\"8\" stroke-linecap=\"round\" opacity=\"0.3\"/><circle cx=\"165\" cy=\"105\" r=\"75\" fill=\"#94a3b8\" stroke=\"#0f172a\" stroke-width=\"7\"/><circle cx=\"165\" cy=\"105\" r=\"62\" fill=\"#bae6fd\" stroke=\"#0f172a\" stroke-width=\"4\"/><path d=\"M165 65 V145 M125 105 H205\" stroke=\"#10b981\" stroke-width=\"2\" opacity=\"0.6\"/><rect x=\"140\" y=\"115\" width=\"50\" height=\"12\" rx=\"2\" fill=\"#10b981\" opacity=\"0.8\"/><path d=\"M145 121 H185\" stroke=\"#ffffff\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><path d=\"M130 70 A 55 55 0 0 1 210 90\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"6\" stroke-linecap=\"round\" opacity=\"0.4\"/><path d=\"M165 43 L165 55 M165 155 L165 167 M103 105 L115 105 M215 105 L227 105\" stroke=\"#0f172a\" stroke-width=\"4\" stroke-linecap=\"round\"/><path d=\"M145 121 L148 121 M152 121 L155 121 M159 121 L162 121\" stroke=\"#064e3b\" stroke-width=\"2\"/></g>",
+  "gripX": 250,
+  "gripY": 190,
+  "gripAngle": 45,
+  "holdingStyle": "held_one_hand"
+}

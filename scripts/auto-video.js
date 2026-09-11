@@ -47,7 +47,7 @@ import { renderAuthoredFrame, coverageGaps } from "../src/authored/AuthoredScene
 import { validateSheet } from "../src/director/DirectorSheet.js";
 import { summarizeBeatManifest, formatManifestLine } from "../src/director/BeatManifest.js";
 // Bump when renderer code changes so stale chunks never pass resume.
-const PIPELINE_VERSION = 16;
+const PIPELINE_VERSION = 17;
 const MAX_JOBS = 2;
 const args = process.argv.slice(2);
 const get = (name, fallback = "") => {

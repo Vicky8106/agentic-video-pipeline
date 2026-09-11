@@ -1,0 +1,9 @@
+{
+  "id": "PROP-MOP",
+  "name": "Janitor Mop",
+  "svgFragment": "<g id=\"PROP-MOP\">\n  <!-- Drop Shadow -->\n  <ellipse cx=\"200\" cy=\"285\" rx=\"70\" ry=\"12\" fill=\"#000000\" opacity=\"0.2\"/>\n  \n  <!-- Mop Head (Strings) -->\n  <path d=\"M150 230 C140 240 130 260 135 275 C140 285 160 280 170 285 C180 290 190 280 200 285 C210 280 220 290 230 285 C240 280 260 285 265 275 C270 260 260 240 250 230 L150 230 Z\" fill=\"#e2e8f0\" stroke=\"#0f172a\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n  \n  <!-- Interior String Details -->\n  <path d=\"M170 235 V270 M185 235 V275 M200 235 V272 M215 235 V275 M230 235 V270\" fill=\"none\" stroke=\"#1e293b\" stroke-width=\"3.5\" stroke-linecap=\"round\"/>\n  \n  <!-- Connector/Clamp -->\n  <path d=\"M175 215 H225 L230 235 H170 L175 215 Z\" fill=\"#94a3b8\" stroke=\"#0f172a\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n  <rect x=\"185\" y=\"205\" width=\"30\" height=\"15\" rx=\"4\" fill=\"#64748b\" stroke=\"#0f172a\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n  \n  <!-- Handle -->\n  <rect x=\"194\" y=\"20\" width=\"12\" height=\"190\" rx=\"2\" fill=\"#d97706\" stroke=\"#0f172a\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n  \n  <!-- Highlights -->\n  <path d=\"M196 30 V200\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"3\" stroke-linecap=\"round\" opacity=\"0.35\"/>\n  <path d=\"M180 220 H220\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"2\" stroke-linecap=\"round\" opacity=\"0.35\"/>\n  <path d=\"M155 245 C155 245 165 255 165 265\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"4\" stroke-linecap=\"round\" opacity=\"0.3\"/>\n</g>",
+  "gripX": 200,
+  "gripY": 150,
+  "gripAngle": 0,
+  "holdingStyle": "held_two_hands"
+}

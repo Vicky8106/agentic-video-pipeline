@@ -4,6 +4,9 @@
  * with facial hair, stubble, headwear, custom garments, and posture profiles.
  */
 
+import fs from "node:fs";
+import path from "node:path";
+
 export interface CaricatureProfile {
   id: string;
   name: string;
@@ -15,6 +18,9 @@ export interface CaricatureProfile {
   outfit?: "anatoly_baggy_overalls" | "bodybuilder_tank" | "doctor_scrubs" | "suit" | "standard";
   shoeStyle?: "work_boot" | "gym_sneaker" | "dress_shoe" | "casual_sneaker";
   defaultSpineLean?: number;
+  customHeadwearSvg?: string;
+  customFacialSvg?: string;
+  customTorsoSvg?: string;
 }
 
 /**
@@ -58,11 +64,40 @@ export const CARICATURE_REGISTRY: Record<string, CaricatureProfile> = {
   },
 };
 
+export function registerCaricatureProfile(profile: CaricatureProfile): void {
+  CARICATURE_REGISTRY[profile.id] = profile;
+}
+
 /**
  * Resolves a caricature profile from character id, archetype, or keyword match.
  */
 export function resolveCaricature(identifier: string = ""): CaricatureProfile | null {
   const norm = identifier.toLowerCase();
+  if (!CARICATURE_REGISTRY[norm]) {
+    try {
+      const cachePath = path.resolve(process.cwd(), `.asset_cache/caricature_${norm.replace(/[^a-z0-9_-]/g, "_")}.json`);
+      if (fs.existsSync(cachePath)) {
+        const raw = JSON.parse(fs.readFileSync(cachePath, "utf8"));
+        if (raw) {
+          CARICATURE_REGISTRY[norm] = {
+            id: raw.id || norm,
+            name: raw.name || norm,
+            customHeadwearSvg: raw.headwearSvg,
+            customFacialSvg: raw.facialSvg,
+            customTorsoSvg: raw.torsoSvg,
+            outfit: "standard",
+            headwear: "none",
+            facialHair: "none",
+            shoeStyle: "casual_sneaker",
+          };
+        }
+      }
+    } catch {}
+  }
+
+  if (CARICATURE_REGISTRY[norm]) {
+    return CARICATURE_REGISTRY[norm];
+  }
   if (norm.includes("anatoly") || norm.includes("janitor") || norm.includes("cleaner") || norm.includes("mop")) {
     return CARICATURE_REGISTRY.anatoly;
   }
@@ -80,6 +115,9 @@ export function resolveCaricature(identifier: string = ""): CaricatureProfile | 
  */
 export function renderFacialFeatures(profile: CaricatureProfile, timeSec: number = 0): string {
   let markup = "";
+  if (profile.customFacialSvg) {
+    markup += profile.customFacialSvg;
+  }
 
   // 1. Scruffy 5 o'clock jawline stubble
   if (profile.stubble) {
@@ -144,6 +182,9 @@ export function renderFacialFeatures(profile: CaricatureProfile, timeSec: number
  * Renders bespoke caricature headwear.
  */
 export function renderCaricatureHeadwear(profile: CaricatureProfile, timeSec: number = 0): { backSvg: string; frontSvg: string } {
+  if (profile.customHeadwearSvg) {
+    return { backSvg: "", frontSvg: profile.customHeadwearSvg };
+  }
   if (profile.headwear === "anatoly_cap") {
     return {
       backSvg: `
@@ -200,6 +241,9 @@ export function renderCaricatureHeadwear(profile: CaricatureProfile, timeSec: nu
  * Renders bespoke caricature garments and muscular body contours.
  */
 export function renderCaricatureTorso(profile: CaricatureProfile, timeSec: number = 0): string {
+  if (profile.customTorsoSvg) {
+    return profile.customTorsoSvg;
+  }
   if (profile.outfit === "anatoly_baggy_overalls") {
     return `
       <!-- Anatoly Red Flannel Shirt Underneath -->

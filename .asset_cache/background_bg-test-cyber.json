@@ -1,0 +1,5 @@
+{
+  "id": "BG-TEST-CYBER",
+  "name": "Cyberpunk Alley",
+  "svgFragment": "<g id=\"BG-TEST-CYBER\"><rect width=\"1280\" height=\"720\" fill=\"#180b2b\"/><line x1=\"0\" y1=\"550\" x2=\"1280\" y2=\"550\" stroke=\"#f43f5e\" stroke-width=\"8\"/></g>"
+}

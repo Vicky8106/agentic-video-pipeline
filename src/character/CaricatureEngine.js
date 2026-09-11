@@ -3,6 +3,8 @@
  * Delivers distinct, instantly recognizable cartoon caricatures (Anatoly, Heavy Bodybuilder, Dr. Mike)
  * with facial hair, stubble, headwear, custom garments, and posture profiles.
  */
+import fs from "node:fs";
+import path from "node:path";
 /**
  * Registry of canonical caricatures for the pipeline.
  */
@@ -43,11 +45,39 @@ export const CARICATURE_REGISTRY = {
         defaultSpineLean: 2,
     },
 };
+export function registerCaricatureProfile(profile) {
+    CARICATURE_REGISTRY[profile.id] = profile;
+}
 /**
  * Resolves a caricature profile from character id, archetype, or keyword match.
  */
 export function resolveCaricature(identifier = "") {
     const norm = identifier.toLowerCase();
+    if (!CARICATURE_REGISTRY[norm]) {
+        try {
+            const cachePath = path.resolve(process.cwd(), `.asset_cache/caricature_${norm.replace(/[^a-z0-9_-]/g, "_")}.json`);
+            if (fs.existsSync(cachePath)) {
+                const raw = JSON.parse(fs.readFileSync(cachePath, "utf8"));
+                if (raw) {
+                    CARICATURE_REGISTRY[norm] = {
+                        id: raw.id || norm,
+                        name: raw.name || norm,
+                        customHeadwearSvg: raw.headwearSvg,
+                        customFacialSvg: raw.facialSvg,
+                        customTorsoSvg: raw.torsoSvg,
+                        outfit: "standard",
+                        headwear: "none",
+                        facialHair: "none",
+                        shoeStyle: "casual_sneaker",
+                    };
+                }
+            }
+        }
+        catch { }
+    }
+    if (CARICATURE_REGISTRY[norm]) {
+        return CARICATURE_REGISTRY[norm];
+    }
     if (norm.includes("anatoly") || norm.includes("janitor") || norm.includes("cleaner") || norm.includes("mop")) {
         return CARICATURE_REGISTRY.anatoly;
     }
@@ -64,6 +94,9 @@ export function resolveCaricature(identifier = "") {
  */
 export function renderFacialFeatures(profile, timeSec = 0) {
     let markup = "";
+    if (profile.customFacialSvg) {
+        markup += profile.customFacialSvg;
+    }
     // 1. Scruffy 5 o'clock jawline stubble
     if (profile.stubble) {
         const sc = profile.stubbleColor ?? "#a16207";
@@ -125,6 +158,9 @@ export function renderFacialFeatures(profile, timeSec = 0) {
  * Renders bespoke caricature headwear.
  */
 export function renderCaricatureHeadwear(profile, timeSec = 0) {
+    if (profile.customHeadwearSvg) {
+        return { backSvg: "", frontSvg: profile.customHeadwearSvg };
+    }
     if (profile.headwear === "anatoly_cap") {
         return {
             backSvg: `
@@ -178,6 +214,9 @@ export function renderCaricatureHeadwear(profile, timeSec = 0) {
  * Renders bespoke caricature garments and muscular body contours.
  */
 export function renderCaricatureTorso(profile, timeSec = 0) {
+    if (profile.customTorsoSvg) {
+        return profile.customTorsoSvg;
+    }
     if (profile.outfit === "anatoly_baggy_overalls") {
         return `
       <!-- Anatoly Red Flannel Shirt Underneath -->

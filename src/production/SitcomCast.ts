@@ -11,6 +11,7 @@
  */
 import type { StickFigureState, CharacterExpressionId } from "../character/StickFigure";
 import type { StageObjectState } from "./SceneMemory";
+import { solveMutualGaze } from "../character/EyelineSolver.js";
 
 const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 
@@ -279,6 +280,29 @@ export function coStarState(
   }
   const reaction = reactionExpressionFor(beat.role, Math.round(beat.start * 7.13));
   const speaking = false; // narrator is the only voice; co-star mimes
+  const gazeSol = solveMutualGaze(
+    { x: travelX, y: starY, scale: starScale },
+    { x: hostX, y: 650, scale: 1.25 }
+  );
+  let effectiveGazeX = gazeSol.gazeX;
+  let effectiveGazeY = gazeSol.gazeY;
+  let effectiveHeadTilt = gazeSol.headTilt + punchReact * 8 + Math.sin(t * 1.7 + 2) * 1.2;
+  let effectiveEyeStyle: StickFigureState["eyeStyle"] = "normal";
+  let effectiveExpression = member.expression ?? reaction;
+
+  if (punchAt !== null && t >= punchAt && t < punchAt + 1.2) {
+    const timeSincePunch = t - punchAt;
+    if (timeSincePunch > 0.45) {
+      effectiveGazeX = 0;
+      effectiveGazeY = 0;
+      effectiveEyeStyle = "deadpan_dots";
+      effectiveExpression = "deadpan_slow_blink";
+    } else {
+      effectiveEyeStyle = "eye_pop";
+      effectiveExpression = "shock_jaw_drop";
+    }
+  }
+
   return {
     actorId: member.actorId,
     present: true,
@@ -297,12 +321,13 @@ export function coStarState(
       rightHandProp: member.rightHandProp,
       eyelashes: member.eyelashes,
       blush: member.blush,
-      expression: member.expression ?? reaction,
+      expression: effectiveExpression,
+      eyeStyle: effectiveEyeStyle,
       pose: (member.pose ?? "default") as StickFigureState["pose"],
       spineLean: -punchReact * 7 + Math.sin(t * 1.4 + 1) * 1.5,
-      headTilt: punchReact * 8 + Math.sin(t * 1.7 + 2) * 1.2,
-      gazeX: clamp((hostX - travelX) / 700, -1, 1), // look AT the host
-      gazeY: -0.05,
+      headTilt: effectiveHeadTilt,
+      gazeX: effectiveGazeX,
+      gazeY: effectiveGazeY,
       gazeTarget: { x: hostX, y: 560 },
       isTalking: false,
       isWalking: walking,

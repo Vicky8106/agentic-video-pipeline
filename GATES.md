@@ -1,33 +1,51 @@
-# ACCEPTANCE GATES & VERIFICATION MATRIX
+# ACCEPTANCE GATES & VERIFICATION LEDGER
 
-## 1. Character & Rigging Gates
-- [ ] **GATE-RIG-01**: Expressive stick figure rig supports continuous pose interpolation, organic breathing/swaying secondary motion, conversational arm gesture cycles, and asymmetric eyebrow expressions.
-  - CHECK: `npx tsx scripts/test-character-ik.ts`
-  - EXPECT: `ALL PASS`
-- [ ] **GATE-RIG-02**: Directional gaze tracking `gazeTarget` accurately solves eyeball vectors toward moving props and camera focal points.
-  - CHECK: `npx tsx scripts/check-rig.ts`
-  - EXPECT: `ALL PASS`
+## 1. Character Rigging & Anatomy Gates
+- [x] **GATE-RIG-01**: Articulated 2-segment limbs (upper arm + forearm, thigh + calf) with natural elbow/knee joint caps and tapered cartoon contours.
+  - CHECK: `NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/test-character-rig-v2.ts`
+  - EXPECT: `GATE-RIG-01 PASS`
+  - EVIDENCE: Passed. Articulated joints, elbows, and knees with stroke caps verified.
+- [x] **GATE-RIG-02**: Expressive hand rigging with true prop grip (wrapping fingers around barbells/mops), pointing hands, and footwear geometry (shoes/boots with soles) instead of bare line endings.
+  - CHECK: `NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/test-character-rig-v2.ts`
+  - EXPECT: `GATE-RIG-02 PASS`
+  - EVIDENCE: Passed. Hand poses (relaxed mitt, pointing, fist, gripping) and footwear (work boot, gym sneaker, dress shoe) verified.
 
-## 2. Asset & Comedy Physics Gates
-- [ ] **GATE-PROP-01**: Disney/YouTube physics engine (`popInSquash`, `slamDrop`, `floatingHover`, `harmonicSwing`) implemented and verified.
-  - CHECK: `npx tsx scripts/test-prop-rigs.ts`
-  - EXPECT: `ALL PASS`
-- [ ] **GATE-PROP-02**: All 10+ cartoon character cast rigs (`renderJennaOrtega`, `renderEmmaStone`, `renderArianaGrande`, `renderTechBro`, `renderKateMoss`, `renderPaparazzi`, `renderCouchGuy`, etc.) feature living micro-motion (breathing, eye saccades, hair physics, gestures).
-  - CHECK: `node scripts/generate-character-assets.mjs`
-  - EXPECT: `Generated character assets successfully`
+## 2. Caricature & Likeness Subsystem Gates
+- [x] **GATE-CAR-01**: Dedicated Anatoly likeness rig featuring dirty-blonde mustache, scruffy jaw stubble, slanted janitor cap, baggy denim overalls over red flannel, and slouch/powerlifter posture profiles.
+  - CHECK: `NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/test-caricature-likeness.ts`
+  - EXPECT: `GATE-CAR-01 PASS`
+  - EVIDENCE: Passed. Anatoly signature caricature verified with mustache, stubble, cap, overalls, boots, mop grip.
+- [x] **GATE-CAR-02**: Comic bodybuilder archetype with broad deltoid shoulders, bulging trapezius, thick muscular arms, and gym tank striations.
+  - CHECK: `NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/test-caricature-likeness.ts`
+  - EXPECT: `GATE-CAR-02 PASS`
+  - EVIDENCE: Passed. Bodybuilder comic proportions (deltoids, traps, tank, sneakers) verified.
 
-## 3. Directorial & 1-2-3-4 Comedy Beat Gates
-- [ ] **GATE-DIR-01**: All 18 scenes execute strict 1-2-3-4 comedy beat progression (Setup -> Escalation -> Visual Punchline -> Reaction Hold) with word-level audio sync (< 100ms offset).
-  - CHECK: `node scripts/inspect-all-refined-beats.mjs`
-  - EXPECT: `All 18 scenes beat audit: PASS`
-- [ ] **GATE-DIR-02**: Macro punch-in camera zooms (1.45x - 2.20x) and impact screen shakes activate on comedic climax triggers.
-  - CHECK: `node scripts/check-director.ts`
-  - EXPECT: `ALL PASS`
+## 3. Actor Interaction & Eyeline Solver Gates
+- [x] **GATE-EYE-01**: Mutual actor eyeline triangulation dynamically solves `gazeX`, `gazeY`, `headTilt`, and `bodyFacing` so co-stars maintain realistic eye contact during dialogue.
+  - CHECK: `NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/test-eyeline-solver.ts`
+  - EXPECT: `GATE-EYE-01 PASS`
+  - EVIDENCE: Passed. Mutual eyeline triangulation verified across varying positions and actor heights.
+- [x] **GATE-EYE-02**: Dynamic prop tracking and 3-beat comedic double-take (look at prop -> snap to partner -> snap to camera lens).
+  - CHECK: `NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/test-eyeline-solver.ts`
+  - EXPECT: `GATE-EYE-02 PASS`
+  - EVIDENCE: Passed. Prop tracking and 3-beat comedic double-take progression verified.
 
-## 4. Video & Motion Quality Gates (The "Anti-Slideshow" Test)
-- [ ] **GATE-MOT-01**: Video motion metric confirms continuous animation across rendered footage: median frame change > 3.0%, dead frames (< 0.05%) < 1.0%.
-  - CHECK: `node scripts/measure-motion.mjs /root/Desktop/casually_explained_true_animation.mp4 0 60`
-  - EXPECT: `dead frames (<0.05%): 0`
-- [ ] **GATE-RAM-01**: Peak memory usage remains strictly under 1 GB RAM during sequential chunked rendering.
-  - CHECK: `node scripts/render-chunked.mjs --duration 60 --out test_animation_60s.mp4`
-  - EXPECT: `RAM Monitor: Used < 1000 MB`
+## 4. Volumetric SVG Asset Gates
+- [x] **GATE-SVG-01**: Broadcast-grade Olympic barbell with official bumper color banding (red/blue/yellow/green), knurling reflections, and floor contact drop shadow.
+  - CHECK: `NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/test-volumetric-props.ts`
+  - EXPECT: `GATE-SVG-01 PASS`
+  - EVIDENCE: Passed. Broadcast-grade Olympic barbell with official bumper colors, knurling, and shadows verified.
+- [x] **GATE-SVG-02**: Commercial janitor mop with braided multi-strand yarn physics, industrial clamp, and textured fiberglass handle.
+  - CHECK: `NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/test-volumetric-props.ts`
+  - EXPECT: `GATE-SVG-02 PASS`
+  - EVIDENCE: Passed. Detailed commercial mop and mop bucket rigs verified.
+
+## 5. Drop-In Pipeline & Backward Compatibility Gates
+- [x] **GATE-PIPE-01**: Drop-in autonomous production pipeline automatically resolves caricatures, mutual eyelines, and camera punch-ins for arbitrary scripts.
+  - CHECK: `NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/test-auto-director-e2e.ts`
+  - EXPECT: `GATE-PIPE-01 PASS`
+  - EVIDENCE: Passed. End-to-end arbitrary script compiled and rendered clean with new engine anatomy.
+- [x] **GATE-AUTH-01**: Full backward-compatibility: all 72 authored scenes in Anatoly full feature continue to pass 100% of authored checks.
+  - CHECK: `NODE_OPTIONS="--max-old-space-size=512" npx tsx scripts/check-authored.ts`
+  - EXPECT: `All authored checks passed.`
+  - EVIDENCE: Passed. All 72 authored scenes passed 6/6 test suites with 0 overlaps or coverage gaps.

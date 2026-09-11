@@ -13,9 +13,16 @@ import { parseSrt } from "../subtitles/SrtParser.js";
 import { cameraAt, traumaAt, shakeAt, flashAt } from "../camera/CameraTrack.js";
 import { STYLE_REGISTRY, resolveStyle } from "../styles/index.js";
 import { buildStageObjects, stageAtTime } from "./SceneMemory.js";
-import { renderSitcomLayer, computeCoStarPresence } from "./SitcomCast.js";
+import { renderSitcomLayer, computeCoStarPresence, computeCastRoster } from "./SitcomCast.js";
+import { stabilizeBeatBackgrounds } from "../assets/BackgroundLibrary.js";
 import { pickPunchWord, impactWordState, renderImpactWord } from "./ImpactTypography.js";
 import { isSpeakingAt, mouthOpenAt } from "../audio/Envelope.js";
+import { wordAt, buildSentences } from "../subtitles/Transcript.js";
+import { resolveWordTimings, punchWordAt } from "../subtitles/WordTiming.js";
+import { punchZoomBoost, freezeFactor, impactSquash } from "../camera/GagCamera.js";
+import { sheetCovering, sheetAt } from "../director/DirectorSheet.js";
+import { renderProp } from "../assets/PropLibrary.js";
+import { analyzeComedy } from "../subtitles/ComedyStructure.js";
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
 const smooth = t => t * t * (3 - 2 * t);
@@ -154,7 +161,16 @@ function actorState(tr, t, shot, production) {
     const x = hostBase + travel;
     const speakingBob = speaking ? (Math.sin(t * 11.5) + .35 * Math.sin(t * 19.3)) * 2.1 : 0;
     const deliberateLean = (point ? 7 : 0) + (g * 3) + (role === "escalation" ? 2 : 0);
-    const gazeTarget = look?.payload?.target === "camera" ? { x: 960, y: 520 } : visual;
+    const coStarPresent = production.coStarPresence?.has(beat?.id ?? "");
+    let gazeTarget = look?.payload?.target === "camera" ? { x: 960, y: 520 } : visual;
+    if (!look) {
+        if (role === "punchline" && beat && t >= beat.start + (beat.end - beat.start) * 0.55) {
+            gazeTarget = { x: 960, y: 520 }; // Snap straight into camera lens on punch!
+        }
+        else if (coStarPresent && (role === "setup" || role === "explanation" || role === "punchline")) {
+            gazeTarget = { x: 1250, y: 560 }; // Look towards co-star at stage right
+        }
+    }
     const pointTarget = point ? visual : undefined;
     const propAction = actions.find(a => a.type === "grab");
     const prop = propAction?.payload?.prop ?? "none";
@@ -211,22 +227,74 @@ function renderCaption(tr, t, style) {
 }
 export function createAutoProduction(srtText, styleId = "casually-procedural", opts = {}) {
     const cues = parseSrt(srtText);
-    const transcript = buildTranscript(cues);
+    // Word-timing hook: real forced-align timings when a sidecar exists
+    // (`--word-timings words.json` or `<script>.words.json`), otherwise the
+    // deterministic synthetic distribution. Audio duration stays the master.
+    const timing = resolveWordTimings(cues, { sidecar: opts.wordSidecar ?? undefined, srtPath: opts.srtPath ?? undefined });
+    const baseTranscript = buildTranscript(cues);
+    // Real timings keep the synthetic tokenisation (cue normalisation,
+    // sentence flags) and only swap the clock, so every word-level driver
+    // below follows the performance instead of the estimate.
+    const transcript = timing.source === "forced-align"
+        ? { ...baseTranscript, words: timing.words, sentences: buildSentences(timing.words) }
+        : baseTranscript;
+    const wordTiming = { source: timing.source, sidecar: timing.sidecar, count: transcript.words.length };
     const style = resolveStyle(STYLE_REGISTRY, styleId);
     // Sitcom doctrine: every sentence is its own scene (its own joke unit with
     // setup -> punchline inside it). ~89-100 scenes for a 10-minute script.
-    const plan = direct(transcript, { minShot: .48, maxShot: style.edit.maximumShotSec, punchlineHold: style.edit.punchlineHoldSec, maxSentencesPerScene: 1 });
-    const productionPlan = compileProductionPlan(transcript, plan, style.id);
+    // Drop-in brain FIRST: the director spends its move budget only on
+    // evidenced punchlines (motive-gated camera, no fidgeting).
+    const comedy = analyzeComedy(transcript);
+    const punchSentences = new Set();
+    for (const u of comedy.units) {
+        const n = comedy.notes.get(u.punchSentence);
+        if (u.punchWord && n && n.evidence.total >= 2)
+            punchSentences.add(u.punchSentence);
+    }
+    const roomOfSentence = (si) => {
+        for (const u of comedy.units) {
+            if (u.sentences.includes(si))
+                return u.room;
+        }
+        return null;
+    };
+    const roleOfSentence = (si) => comedy.notes.get(si)?.role ?? null;
+    // minShot 1.0: a shot that lives under a second is a flicker, not a cut.
+    const plan = direct(transcript, { minShot: 1.0, maxShot: style.edit.maximumShotSec, punchlineHold: style.edit.punchlineHoldSec, maxSentencesPerScene: 1, punchSentences, roomOfSentence, roleOfSentence });
+    const productionPlan = compileProductionPlan(transcript, plan, style.id, comedy);
+    // Analyzer entities per production beat (union over overlapping sentences).
+    const beatEntities = (start, end) => {
+        const out = new Set();
+        for (const s of transcript.sentences) {
+            if (s.end > start && s.start < end) {
+                for (const e of comedy.notes.get(s.index)?.entities ?? [])
+                    out.add(e);
+            }
+        }
+        return [...out];
+    };
+    const unitRoomAt = (start, end) => {
+        let best = null;
+        let bestOverlap = 0;
+        for (const u of comedy.units) {
+            const overlap = Math.min(end, u.end) - Math.max(start, u.start);
+            if (overlap > bestOverlap + 1e-9 && u.room) {
+                bestOverlap = overlap;
+                best = u.room;
+            }
+        }
+        return best;
+    };
+    // Agent-directed sheet (coding-agent director, --sheet beats.json):
+    // validated upstream, matched to production beats by time overlap.
+    const sheet = (opts.sheet ?? []).filter((s) => s && s.endSec > s.startSec);
+    const sheetFor = (start, end) => sheetCovering(sheet, start, end);
     // Persistent stage: concepts accumulate, persist, and retire over time.
     const stageObjects = buildStageObjects(productionPlan.beats.map(b => ({
         id: b.id, start: b.start, end: b.end,
         semantic: b.visual?.semantic ?? "", topic: b.visual?.topic ?? "explain",
         energy: b.energy, role: b.role,
-    })));
-    // Sitcom presence plan: never more than 2 consecutive beats without a
-    // co-star on stage (no dead zones over a 10-minute movie).
-    const coStarPresence = computeCoStarPresence(productionPlan.beats.map(b => ({
-        id: b.id, start: b.start, end: b.end, role: b.role,
+        dropKinds: sheetFor(b.start, b.end)?.dropKinds ?? [],
     })));
     const srtLower = srtText.toLowerCase();
     let dominantBg = "BG-STUDIO";
@@ -242,7 +310,55 @@ export function createAutoProduction(srtText, styleId = "casually-procedural", o
     else if (/\b(clinic|surgery|doctor|medicine|ozempic)\b/.test(srtLower)) {
         dominantBg = "BG-CLINIC";
     }
-    return { transcript, plan, productionPlan, style, stageObjects, coStarPresence, dominantBg, envelope: opts.envelope ?? null };
+    // Sitcom presence plan: never more than 2 consecutive beats without a
+    // co-star on stage (no dead zones over a 10-minute movie).
+    const coStarPresence = computeCoStarPresence(productionPlan.beats.map(b => ({
+        id: b.id, start: b.start, end: b.end, role: b.role,
+    })));
+    // Scene cast roster: keyword entrants persist across beats (no per-beat
+    // face pops), computed once so every chunk renders bit-identical frames.
+    // The agent sheet wins: its actor look becomes the co-star for covered
+    // beats, with a stable id per look so continuations hold the face.
+    const castRoster = computeCastRoster(productionPlan.beats.map(b => ({
+        id: b.id, start: b.start, end: b.end, role: b.role,
+        semantic: b.visual?.semantic ?? "",
+        entities: beatEntities(b.start, b.end),
+    })), (rb) => {
+        const covering = sheetFor(rb.start, rb.end);
+        if (!covering)
+            return null;
+        const a = covering.actor;
+        const look = `${a.gender}/${a.hairStyle}/${a.clothes}`;
+        return {
+            actorId: `sheet-${look}`,
+            gender: a.gender,
+            hairStyle: a.hairStyle,
+            clothes: a.clothes,
+            expression: a.expression,
+            pose: a.pose,
+            archetype: `sheet_directed:${covering.beatId}`,
+        };
+    });
+    // Stable rooms: a joke keeps its setup room through escalation and
+    // punchline even when the punchline names a foreign keyword. The agent
+    // sheet wins outright for covered beats.
+    const beatBackgrounds = stabilizeBeatBackgrounds(productionPlan.beats.map(b => ({
+        id: b.id, start: b.start, end: b.end, role: b.role,
+        semantic: b.visual?.semantic ?? "",
+    })), dominantBg);
+    for (const b of productionPlan.beats) {
+        const covering = sheetFor(b.start, b.end);
+        if (covering)
+            beatBackgrounds[b.id] = covering.bgId;
+        // Analyzer unit room wins over per-beat keyword matching (it saw the
+        // whole joke); the sticky map remains the fallback underneath.
+        else {
+            const room = unitRoomAt(b.start, b.end);
+            if (room)
+                beatBackgrounds[b.id] = room;
+        }
+    }
+    return { transcript, plan, productionPlan, style, stageObjects, coStarPresence, castRoster, beatBackgrounds, dominantBg, wordTiming, sheet, comedy, envelope: opts.envelope ?? null };
 }
 export function renderAutoSvgFrame({ production, timeSec, width = 1920, height = 1080, impactWords = false }) {
     const { transcript, plan, productionPlan, style } = production;
@@ -259,6 +375,14 @@ export function renderAutoSvgFrame({ production, timeSec, width = 1920, height =
     let camX = pose.centerX, camY = pose.centerY, zoom = pose.zoom;
     const beat = beatAt(production, timeSec);
     const beatIndex = latestBeatIndex(production, timeSec);
+    // Word-level drivers: the live word on the timing grid, and the beat's
+    // punch word located ON that grid (real timings when available, synthetic
+    // otherwise). The gag camera grammar builds on these, never on estimates.
+    const liveWord = wordAt(transcript.words, timeSec);
+    const punchPick = pickPunchWord(beat?.visual?.semantic ?? "");
+    const wordPunchAt = punchPick && beat
+        ? punchWordAt(transcript.words, punchPick.word, { start: beat.start, end: beat.end })
+        : null;
     // Host + visual beats are composed as a real two-shot. The camera frames
     // the LIVE stage object (from SceneMemory) when one exists, so inserts
     // zoom onto the actual prop that is on screen, not a nominal column.
@@ -286,7 +410,29 @@ export function renderAutoSvgFrame({ production, timeSec, width = 1920, height =
             }
         }
     }
+    // Agent-sheet camera intent: steer the base framing toward the directed
+    // shot (the word-timed punch boost and grammar below still apply on top).
+    const sheetNow = sheetAt((production.sheet ?? []), timeSec);
+    if (sheetNow) {
+        camX = lerp(camX, clamp(sheetNow.camera.x, 200, 1720), .35);
+        camY = lerp(camY, clamp(sheetNow.camera.y, 200, 880), .35);
+        zoom = lerp(zoom, clamp(sheetNow.camera.zoom, .8, 2.4), .5);
+    }
     zoom *= 1 + punchCurve * (style.motion.punchScale - .98) * .85;
+    // Gag grammar: punch-in lands ON the punch word; reaction holds freeze.
+    zoom += punchZoomBoost(timeSec, wordPunchAt, beat?.energy ?? .3);
+    const freeze = freezeFactor(timeSec, beat ? { start: beat.start, end: beat.end, role: beat.role } : null);
+    if (freeze > 0) {
+        sh.x *= 1 - freeze;
+        sh.y *= 1 - freeze;
+        sh.rot *= 1 - freeze;
+    }
+    // Shake is impact-only: calm beats hold still. A camera that trembles
+    // with no impact is not energy, it is a fault.
+    const calm = 0.25 + 0.75 * clamp(beat?.energy ?? .3, 0, 1);
+    sh.x *= calm;
+    sh.y *= calm;
+    sh.rot *= calm;
     if (shot.kind === "reaction") {
         camX = 520;
         camY = 560;
@@ -297,6 +443,15 @@ export function renderAutoSvgFrame({ production, timeSec, width = 1920, height =
     const hostState = actorState(transcript, timeSec, shot, production);
     if (shot.kind === "insert" || shot.kind === "macro")
         hostState.scale *= .96;
+    // Impact squash & stretch on the host through the punch hit: swell wide
+    // as he crouches, volume preserved. Cartoon impacts telegraph and land.
+    if (punchCurve > 0.01) {
+        const sq = impactSquash(punchCurve);
+        hostState.scaleX = (hostState.scaleX ?? hostState.scale ?? 1) * sq.sx;
+        hostState.scaleY = (hostState.scaleY ?? hostState.scale ?? 1) * sq.sy;
+    }
+    // Stable room for this beat (setup room held through the punchline).
+    const beatBg = production.beatBackgrounds?.[beat?.id ?? ""];
     const env = style.renderEnvironment(timeSec, {
         beatRole: beat?.role,
         energy: beat?.energy ?? .3,
@@ -304,14 +459,23 @@ export function renderAutoSvgFrame({ production, timeSec, width = 1920, height =
         semantic: beat?.visual?.semantic ?? "",
         topic: beat?.visual?.topic ?? "explain",
         dominantBg: production.dominantBg ?? "BG-STUDIO",
+        ...(beatBg ? { bgId: beatBg } : {}),
     });
     const stage = renderPersistentVisuals(transcript, production, timeSec, style);
+    // Agent-sheet prop: the directed prop staged at its mark while its beat
+    // is active (catalog-validated upstream, so the id always resolves).
+    const sheetProp = sheetNow?.activeProp
+        ? renderProp(sheetNow.activeProp.id, {
+            x: sheetNow.activeProp.x, y: sheetNow.activeProp.y,
+            scale: sheetNow.activeProp.scale, timeSec,
+        })
+        : "";
     const host = style.renderActor({ actorId: "auto-host", state: hostState, timeSec });
     // Sitcom layer: co-star (female/male cast) sharing the stage with the host.
     // Two-shot blocking; reactions timed to the punch moment.
     const punchAction = active.find(a => a.type === "camera" && (a.payload?.move === "punch" || a.payload?.move === "impact"));
-    const punchAt = punchAction ? punchAction.start : (beat && (beat.role === "punchline") ? beat.start + (beat.end - beat.start) * 0.55 : null);
-    const sitcom = beat ? renderSitcomLayer(timeSec, beat, punchAt, style.renderActor, production.coStarPresence, shot.kind) : "";
+    const punchAt = wordPunchAt ?? (punchAction ? punchAction.start : (beat && (beat.role === "punchline") ? beat.start + (beat.end - beat.start) * 0.55 : null));
+    const sitcom = beat ? renderSitcomLayer(timeSec, beat, punchAt, style.renderActor, production.coStarPresence, shot.kind, production.castRoster) : "";
     // Impact typography: the punch word SLAMS in exactly as spoken. Slot
     // rotates per beat so the composition varies.
     const beatText = beat?.visual?.semantic ?? "";
@@ -331,18 +495,34 @@ export function renderAutoSvgFrame({ production, timeSec, width = 1920, height =
     // No burned-in subtitles: the user asked for a clean video. The caption
     // layer was also the source of the legs/shadow-through-box compositing
     // glitch, so removing it fixes that at the root.
+    // Agent-sheet banner: the ONLY allowed on-screen text, screen-anchored
+    // (never zoom-cropped), validated to <=34 chars upstream.
+    const sheetBanner = sheetNow?.bannerText
+        ? `<g transform="translate(960, 140)" filter="url(#cardShadow)">
+      <rect x="-300" y="-35" width="600" height="70" rx="14" fill="#0f172a" stroke="#f59e0b" stroke-width="5"/>
+      <text x="0" y="10" font-family="'Impact', 'Arial Black', sans-serif" font-size="24" fill="#fbbf24" letter-spacing="2" text-anchor="middle">${esc(sheetNow.bannerText)}</text>
+    </g>`
+        : "";
     const flashLayer = flash > 0 ? `<rect x="0" y="0" width="1920" height="1080" fill="${style.palette.foreground}" opacity="${flash * .45}"/>` : "";
     const traumaLayer = trauma > .03 ? `<rect x="0" y="0" width="1920" height="1080" fill="${style.palette.shadow}" opacity="${trauma * .035}"/>` : "";
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="${width}" height="${height}">
-    <defs><filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity="0.3"/></filter></defs>
-    <g transform="${worldTransform}">
+    // House rule, enforced at the frame boundary: ZERO burned-in words from
+    // the automatic layers (no concept cards, no glyph marks, no prop copy).
+    // Deliberate layers below (opt-in impact words, agent-set banners) are
+    // composed after the strip, so they survive.
+    let world = `<g transform="${worldTransform}">
       ${env}
       ${stage}
+      ${sheetProp}
       ${sitcom}
       <g>${host}</g>
-    </g>
+    </g>`;
+    world = world.replace(/<text\b[^>]*>[\s\S]*?<\/text>/g, "");
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="${width}" height="${height}">
+    <defs><filter id="impactShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity="0.3"/></filter><filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.18"/></filter></defs>
+    ${world}
     ${impactSvg}
+    ${sheetBanner}
     ${flashLayer}${traumaLayer}
   </svg>`;
-    return { svg, viewBox: "0 0 1920 1080", shotId: shot.id, mode: beat?.visual?.topic ?? "explain", beatId: beat?.id ?? null };
+    return { svg, viewBox: "0 0 1920 1080", shotId: shot.id, mode: beat?.visual?.topic ?? "explain", beatId: beat?.id ?? null, word: liveWord?.text ?? null, punchAt };
 }

@@ -1,7 +1,7 @@
 import type { Transcript, Sentence } from "../subtitles/Transcript";
 import type { DirectionPlan, BeatEvent } from "../director/Director";
 import type { ProductionPlan, ProductionBeat, DirectedAction, VisualPlan } from "./ProductionPlan";
-import { action, bitWindows } from "../animation/Choreography";
+import { action, bitWindows } from "../animation/Choreography.js";
 import type { ComedyAnalysis } from "../subtitles/ComedyStructure.js";
 
 const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v));

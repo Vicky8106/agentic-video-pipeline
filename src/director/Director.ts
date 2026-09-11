@@ -14,9 +14,9 @@
  * Deterministic: the same transcript yields the same plan, byte for byte.
  */
 
-import { Shot, compileShots, enforceMinShotLength, ResolvedShot } from "../camera/CameraTrack";
-import { Transcript, Word, Sentence } from "../subtitles/Transcript";
-import { Vec } from "../anim/Track";
+import { Shot, compileShots, enforceMinShotLength, ResolvedShot } from "../camera/CameraTrack.js";
+import { Transcript, Word, Sentence } from "../subtitles/Transcript.js";
+import { Vec } from "../anim/Track.js";
 
 export type BeatKind =
   | "entrance" | "exit" | "expression" | "morph" | "fx" | "prop" | "flash" | "shake";

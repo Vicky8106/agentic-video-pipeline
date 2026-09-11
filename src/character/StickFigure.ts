@@ -44,6 +44,7 @@ export type HandProp =
   | "caliper"
   | "stamp"
   | "mop"
+  | "barbell"
   | "coffee_cup";
 
 export type Costume = "none" | "tech_bro" | "tim_burton" | "ps1_retro" | "victorian" | "corporate_pr" | "y2k_sunglasses";
@@ -82,8 +83,11 @@ export type CharacterExpressionId =
   | "crying_waterfalls" | "sad_pout" | "exhausted_melting" | "sleepy_yawn" | "sleeping_drool"
   | "defeated_face_down" | "tiny_violin" | "dark_circles_insomnia" | "sad_rain_cloud" | "knocked_out_stars";
 
-import { renderHairstyle, HairstyleId } from "./Hairstyles";
-import { renderOutfit, OutfitId } from "./Outfits";
+import { renderHairstyle, HairstyleId } from "./Hairstyles.js";
+import { renderOutfit, OutfitId } from "./Outfits.js";
+import { renderHand, renderGrippingHandLayers, HandPose } from "./HandRig.js";
+import { renderFoot, ShoeStyle } from "./FootRig.js";
+import { resolveCaricature, renderFacialFeatures, renderCaricatureHeadwear, renderCaricatureTorso, CaricatureProfile } from "./CaricatureEngine.js";
 
 export type CharacterGender = "male" | "female" | "doctor" | "bodybuilder" | "janitor" | "widow" | "tech_bro";
 
@@ -190,6 +194,13 @@ export interface StickFigureState {
   costume?: Costume;
   comicFx?: ComicFx;
   alpha?: number;
+  // Caricature & Articulation
+  caricatureId?: string;
+  shoeStyle?: ShoeStyle;
+  handPoseLeft?: HandPose;
+  handPoseRight?: HandPose;
+  bodyType?: "slender_janitor" | "massive_bodybuilder" | "stocky_powerlifter" | "standard";
+  spineCurve?: number;
 }
 
 export function renderStickFigure(id: string, state: StickFigureState): string {
@@ -847,15 +858,23 @@ export function renderStickFigure(id: string, state: StickFigureState): string {
     return "";
   }
 
-  // Character Gender, Hair, and Clothes Resolution
-  const charGender = state.gender ?? "male";
-  const charHair = state.hairStyle ?? (charGender === "female" ? "female_long_brunette" : charGender === "doctor" ? "doctor_cap" : charGender === "bodybuilder" ? "bodybuilder_bald" : charGender === "janitor" ? "janitor_cap" : charGender === "widow" ? "widow_veil" : "host_classic");
-  const charClothes = state.clothes ?? (charGender === "female" ? "dress_pink" : charGender === "doctor" ? "doctor_scrubs" : charGender === "bodybuilder" ? "bodybuilder_tank" : charGender === "janitor" ? "janitor_overalls" : charGender === "widow" ? "dress_black" : costume === "tech_bro" ? "tech_fleece_vest" : "none");
+  // Character Gender, Hair, and Clothes Resolution with Caricature Engine
+  const caricature = resolveCaricature(state.caricatureId || id || state.gender || state.clothes || "");
+  const charGender = state.gender ?? (caricature?.id === "anatoly" ? "janitor" : caricature?.id === "bodybuilder" ? "bodybuilder" : "male");
+  const isMuscular = charGender === "bodybuilder" || state.bodyType === "massive_bodybuilder";
+  const charHair = state.hairStyle ?? (caricature?.id === "anatoly" ? "janitor_cap" : charGender === "female" ? "female_long_brunette" : charGender === "doctor" ? "doctor_cap" : charGender === "bodybuilder" ? "bodybuilder_bald" : charGender === "janitor" ? "janitor_cap" : charGender === "widow" ? "widow_veil" : "host_classic");
+  const charClothes = state.clothes ?? (caricature?.id === "anatoly" ? "janitor_overalls" : charGender === "female" ? "dress_pink" : charGender === "doctor" ? "doctor_scrubs" : charGender === "bodybuilder" ? "bodybuilder_tank" : charGender === "janitor" ? "janitor_overalls" : charGender === "widow" ? "dress_black" : costume === "tech_bro" ? "tech_fleece_vest" : "none");
+  const shoeStyle: ShoeStyle = state.shoeStyle ?? caricature?.shoeStyle ?? (charGender === "janitor" || caricature?.id === "anatoly" ? "work_boot" : charGender === "bodybuilder" ? "gym_sneaker" : charGender === "doctor" ? "dress_shoe" : "casual_sneaker");
   const hasEyelashes = state.eyelashes ?? (charGender === "female" || charGender === "widow");
   const hasBlush = state.blush ?? (charGender === "female" || charGender === "widow");
 
   const hairResult = renderHairstyle(charHair, timeSec);
   const clothesMarkup = renderOutfit(charClothes, timeSec);
+
+  // Caricature Overlays (Mustache, Stubble, Cap, Torso)
+  const caricatureHeadwear = caricature ? renderCaricatureHeadwear(caricature, timeSec) : { backSvg: "", frontSvg: "" };
+  const caricatureFacial = caricature ? renderFacialFeatures(caricature, timeSec) : "";
+  const caricatureTorso = caricature ? renderCaricatureTorso(caricature, timeSec) : "";
 
   // Extra female facial features (eyelashes & rosy cheeks)
   let femaleDetails = "";
@@ -872,6 +891,86 @@ export function renderStickFigure(id: string, state: StickFigureState): string {
     `;
   }
 
+  // Limb widths and joint caps
+  const armStroke = isMuscular ? 12 : 7.5;
+  const legStroke = isMuscular ? 13 : 8.5;
+
+  // Feet rendering with grounded footwear geometry
+  const footFacing = bodyFacing !== "left";
+  const leftFootSvg = renderFoot({
+    x: footLX,
+    y: footLY,
+    angleDeg: (leftLegAngle1 + leftLegAngle2 - 90) * 0.2,
+    isLeft: true,
+    shoeStyle,
+    facingRight: footFacing,
+  });
+  const rightFootSvg = renderFoot({
+    x: footRX,
+    y: footRY,
+    angleDeg: (rightLegAngle1 + rightLegAngle2 - 90) * 0.2,
+    isLeft: false,
+    shoeStyle,
+    facingRight: footFacing,
+  });
+
+  // Expressive hand rendering with true 2-layer prop grasping
+  let leftHandSvg = "";
+  if (leftHandProp === "mop" || leftHandProp === "barbell") {
+    const gripLayers = renderGrippingHandLayers({
+      x: handLX,
+      y: handLY,
+      angleDeg: leftArmAngle1 + leftArmAngle2,
+      isLeft: true,
+      scale: 1.0,
+      strokeWidth: 4.5,
+    });
+    leftHandSvg = `
+      ${gripLayers.backSvg}
+      ${renderProp(leftHandProp, handLX, handLY, leftArmAngle1 + leftArmAngle2)}
+      ${gripLayers.frontSvg}
+    `;
+  } else if (leftHandProp !== "none") {
+    leftHandSvg = `
+      ${renderHand({ x: handLX, y: handLY, angleDeg: leftArmAngle1 + leftArmAngle2, pose: state.handPoseLeft || "gripping", isLeft: true, strokeWidth: 4.5 })}
+      ${renderProp(leftHandProp, handLX, handLY, leftArmAngle1 + leftArmAngle2)}
+    `;
+  } else if (leftHandTarget) {
+    leftHandSvg = renderHand({ x: handLX, y: handLY, angleDeg: leftArmAngle1 + leftArmAngle2, pose: "pointing", isLeft: true, strokeWidth: 4.5 });
+  } else if (pose === "mind_blown" || pose === "waving") {
+    leftHandSvg = renderHand({ x: handLX, y: handLY, angleDeg: leftArmAngle1 + leftArmAngle2, pose: "open_spread", isLeft: true, strokeWidth: 4.5 });
+  } else {
+    leftHandSvg = renderHand({ x: handLX, y: handLY, angleDeg: leftArmAngle1 + leftArmAngle2, pose: state.handPoseLeft || "relaxed_mitt", isLeft: true, strokeWidth: 4.5 });
+  }
+
+  let rightHandSvg = "";
+  if (rightHandProp === "mop" || rightHandProp === "barbell") {
+    const gripLayers = renderGrippingHandLayers({
+      x: handRX,
+      y: handRY,
+      angleDeg: rightArmAngle1 + rightArmAngle2,
+      isLeft: false,
+      scale: 1.0,
+      strokeWidth: 4.5,
+    });
+    rightHandSvg = `
+      ${gripLayers.backSvg}
+      ${renderProp(rightHandProp, handRX, handRY, rightArmAngle1 + rightArmAngle2)}
+      ${gripLayers.frontSvg}
+    `;
+  } else if (rightHandProp !== "none") {
+    rightHandSvg = `
+      ${renderHand({ x: handRX, y: handRY, angleDeg: rightArmAngle1 + rightArmAngle2, pose: state.handPoseRight || "gripping", isLeft: false, strokeWidth: 4.5 })}
+      ${renderProp(rightHandProp, handRX, handRY, rightArmAngle1 + rightArmAngle2)}
+    `;
+  } else if (pointTarget) {
+    rightHandSvg = renderHand({ x: handRX, y: handRY, angleDeg: rightArmAngle1 + rightArmAngle2, pose: "pointing", isLeft: false, strokeWidth: 4.5 });
+  } else if (pose === "mind_blown" || pose === "waving") {
+    rightHandSvg = renderHand({ x: handRX, y: handRY, angleDeg: rightArmAngle1 + rightArmAngle2, pose: "open_spread", isLeft: false, strokeWidth: 4.5 });
+  } else {
+    rightHandSvg = renderHand({ x: handRX, y: handRY, angleDeg: rightArmAngle1 + rightArmAngle2, pose: state.handPoseRight || "relaxed_mitt", isLeft: false, strokeWidth: 4.5 });
+  }
+
   // Non-uniform scale keeps the exact legacy string when uniform.
   const sx = scaleX ?? scale;
   const sy = scaleY ?? scale;
@@ -879,51 +978,51 @@ export function renderStickFigure(id: string, state: StickFigureState): string {
 
   return `
     <g id="${id}" class="stick-figure" data-gender="${charGender}" data-expression="${expression ?? 'default'}" data-pose="${pose ?? 'default'}" transform="translate(${x}, ${y}) rotate(${rotation}) scale(${scaleStr})" opacity="${alpha}">
-      <!-- Floor Drop Shadow -->
-      <ellipse cx="0" cy="${footLY > footRY ? footLY + 10 : footRY + 10}" rx="65" ry="14" fill="#111111" opacity="0.16"/>
+      <!-- Floor Drop Shadow & Dual Foot Ambient Occlusion -->
+      <ellipse cx="0" cy="${footLY > footRY ? footLY + 10 : footRY + 10}" rx="65" ry="14" fill="#111111" opacity="0.14"/>
+      <ellipse cx="${footLX}" cy="${footLY + 8}" rx="26" ry="7" fill="#111111" opacity="0.22"/>
+      <ellipse cx="${footRX}" cy="${footRY + 8}" rx="26" ry="7" fill="#111111" opacity="0.22"/>
 
-      <!-- Legs (Back to Front) -->
-      <g id="legs" stroke="#111111" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Legs (Back to Front) with Articulated Knee Caps -->
+      <g id="legs" stroke="#111111" stroke-width="${legStroke}" stroke-linecap="round" stroke-linejoin="round" fill="none">
         <line x1="0" y1="${hipY}" x2="${kneeLX}" y2="${kneeLY}"/>
+        <circle cx="${kneeLX}" cy="${kneeLY}" r="${legStroke * 0.55}" fill="#111111"/>
         <line x1="${kneeLX}" y1="${kneeLY}" x2="${footLX}" y2="${footLY}"/>
 
         <line x1="0" y1="${hipY}" x2="${kneeRX}" y2="${kneeRY}"/>
+        <circle cx="${kneeRX}" cy="${kneeRY}" r="${legStroke * 0.55}" fill="#111111"/>
         <line x1="${kneeRX}" y1="${kneeRY}" x2="${footRX}" y2="${footRY}"/>
       </g>
+      ${leftFootSvg}
+      ${rightFootSvg}
 
       <!-- Spine & Torso with arms -->
       <g id="torso" transform="rotate(${spineLean} 0 ${hipY})">
-        <line x1="0" y1="${neckY}" x2="0" y2="${hipY}" stroke="#111111" stroke-width="8" stroke-linecap="round"/>
+        <line x1="0" y1="${neckY}" x2="0" y2="${hipY}" stroke="#111111" stroke-width="${isMuscular ? 14 : 8}" stroke-linecap="round"/>
 
-        ${clothesMarkup}
+        ${caricatureTorso || clothesMarkup}
 
-        <!-- Left Arm: index-finger point when IK-reaching, else 2-finger V hand -->
-        <g id="left-arm" class="arms" stroke="#111111" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Left Arm: 2-bone FK with elbow joint & articulated hand -->
+        <g id="left-arm" class="arms" stroke="#111111" stroke-width="${armStroke}" stroke-linecap="round" stroke-linejoin="round" fill="none">
           <line x1="0" y1="${shoulderY}" x2="${elbowLX}" y2="${elbowLY}"/>
+          <circle cx="${elbowLX}" cy="${elbowLY}" r="${armStroke * 0.55}" fill="#111111"/>
           <line x1="${elbowLX}" y1="${elbowLY}" x2="${handLX}" y2="${handLY}"/>
-          ${leftHandTarget
-            ? `<line x1="${handLX}" y1="${handLY}" x2="${(handLX + Math.cos(radL2) * 36).toFixed(1)}" y2="${(handLY + Math.sin(radL2) * 36).toFixed(1)}"/>`
-            : `<line x1="${handLX}" y1="${handLY}" x2="${handLX - 22}" y2="${handLY - 12}"/>
-          <line x1="${handLX}" y1="${handLY}" x2="${handLX - 18}" y2="${handLY + 20}"/>`}
-          ${renderProp(leftHandProp, handLX, handLY, leftArmAngle1 + leftArmAngle2)}
         </g>
+        ${leftHandSvg}
 
-        <!-- Right Arm: index-finger point when IK-reaching, else 2-finger V hand -->
-        <g id="right-arm" class="arms" stroke="#111111" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Right Arm: 2-bone FK with elbow joint & articulated hand -->
+        <g id="right-arm" class="arms" stroke="#111111" stroke-width="${armStroke}" stroke-linecap="round" stroke-linejoin="round" fill="none">
           <line x1="0" y1="${shoulderY}" x2="${elbowRX}" y2="${elbowRY}"/>
+          <circle cx="${elbowRX}" cy="${elbowRY}" r="${armStroke * 0.55}" fill="#111111"/>
           <line x1="${elbowRX}" y1="${elbowRY}" x2="${handRX}" y2="${handRY}"/>
-          ${pointTarget
-            ? `<line x1="${handRX}" y1="${handRY}" x2="${(handRX + Math.cos(radR2) * 36).toFixed(1)}" y2="${(handRY + Math.sin(radR2) * 36).toFixed(1)}"/>`
-            : `<line x1="${handRX}" y1="${handRY}" x2="${handRX + 22}" y2="${handRY - 14}"/>
-          <line x1="${handRX}" y1="${handRY}" x2="${handRX + 20}" y2="${handRY + 18}"/>`}
-          ${renderProp(rightHandProp, handRX, handRY, rightArmAngle1 + rightArmAngle2)}
         </g>
+        ${rightHandSvg}
 
         <!-- HEAD GROUP (Crisp Casually Explained / Alex Meyers proportions) -->
         <g id="head" transform="translate(${neckX}, ${neckY}) rotate(${headTilt}) scale(0.72)">
           ${fxMarkup}
           <!-- 1. Back Hair Layer (Flows behind head and shoulders) -->
-          ${hairResult.backSvg}
+          ${caricatureHeadwear.backSvg || hairResult.backSvg}
 
           <!-- 2. Warm Creamy Peach Head Skin (tilted egg/oval shape) -->
           <path id="head-skin" d="
@@ -937,16 +1036,17 @@ export function renderStickFigure(id: string, state: StickFigureState): string {
           <!-- Nose/Cheek Tick Mark (from reference image) -->
           <path d="M -12 8 L -10 20" fill="none" stroke="#111111" stroke-width="5" stroke-linecap="round"/>
 
-          <!-- 3. Facial Features -->
+          <!-- 3. Facial Features & Caricature Details (mustache, stubble) -->
           <g id="face">
             ${eyebrowsMarkup}
             ${eyesMarkup}
             ${femaleDetails}
+            ${caricatureFacial}
             ${mouthMarkup}
           </g>
 
           <!-- 4. Front Hair Layer (Bangs, Strands, Clips sit in front of Face) -->
-          ${hairResult.frontSvg}
+          ${caricatureHeadwear.frontSvg || hairResult.frontSvg}
         </g>
       </g>
     </g>

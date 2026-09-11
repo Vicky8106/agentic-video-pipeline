@@ -3,6 +3,10 @@
  * Catalog rigs as raw material; bespoke staging choices per scene.
  */
 import { renderStickFigure } from "../../src/character/StickFigure.js";
+import { renderOlympicBarbellRig, renderDetailedMopBucketRig } from "../../src/character/PropRigs.js";
+import { solveMutualGaze, solvePropGaze, solveComedicDoubleTake } from "../../src/character/EyelineSolver.js";
+
+export { solveMutualGaze, solvePropGaze, solveComedicDoubleTake };
 
 type FigState = Parameters<typeof renderStickFigure>[1];
 
@@ -23,20 +27,25 @@ export const host = (x: number, y: number, t: number, extra: Record<string, unkn
     ...extra,
   });
 
-/** Anatoly in janitor uniform, mop in hand. */
+/** Anatoly in janitor uniform, mop in hand with signature mustache, stubble, and work boots. */
 export const janitor = (x: number, y: number, t: number, extra: Record<string, unknown> = {}): string =>
   fig("anatoly", {
-    ...base, timeSec: t, x, y, scale: 1.2, gender: "male",
-    hairStyle: "janitor_cap", clothes: "janitor_overalls",
+    ...base, timeSec: t, x, y, scale: 1.25, gender: "janitor",
+    caricatureId: "anatoly",
+    clothes: "janitor_overalls",
+    shoeStyle: "work_boot",
     rightHandProp: "mop", expression: "deadpan_classic",
     ...extra,
   });
 
-/** The enormous gym bodybuilder. */
+/** The enormous comic gym bodybuilder with broad deltoids and tank top. */
 export const builder = (x: number, y: number, t: number, extra: Record<string, unknown> = {}): string =>
   fig("bodybuilder", {
-    ...base, timeSec: t, x, y, scale: 1.5, gender: "male",
-    hairStyle: "male_bodybuilder_bald", clothes: "bodybuilder_tank",
+    ...base, timeSec: t, x, y, scale: 1.45, gender: "bodybuilder",
+    caricatureId: "bodybuilder",
+    bodyType: "massive_bodybuilder",
+    clothes: "bodybuilder_tank",
+    shoeStyle: "gym_sneaker",
     expression: "smug_rock_eyebrow",
     ...extra,
   });
@@ -52,8 +61,9 @@ export const suit = (x: number, y: number, t: number, extra: Record<string, unkn
 /** Dr. Mike Israetel / Exercise Scientist analysis figure. */
 export const drMike = (x: number, y: number, t: number, extra: Record<string, unknown> = {}): string =>
   fig("dr_mike", {
-    ...base, timeSec: t, x, y, scale: 1.3, gender: "male",
-    hairStyle: "male_bodybuilder_bald", clothes: "doctor_scrubs",
+    ...base, timeSec: t, x, y, scale: 1.3, gender: "doctor",
+    caricatureId: "dr_mike",
+    clothes: "doctor_scrubs",
     expression: "smug_rock_eyebrow",
     ...extra,
   });
@@ -111,15 +121,9 @@ export const cameraRig = (x: number, y: number, scale = 1, recOn = true): string
   (recOn ? `<circle cx="-30" cy="-18" r="6" fill="#ef4444"/>` : ``) +
   `</g>`;
 
-/** Heavy barbell on floor or lifted. */
-export const barbell = (x: number, y: number, scale = 1): string =>
-  `<g transform="translate(${x} ${y}) scale(${scale})">` +
-  `<line x1="-160" y1="0" x2="160" y2="0" stroke="#94a3b8" stroke-width="10" stroke-linecap="round"/>` +
-  `<rect x="-140" y="-50" width="20" height="100" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="3"/>` +
-  `<rect x="-115" y="-45" width="16" height="90" rx="5" fill="#334155"/>` +
-  `<rect x="120" y="-50" width="20" height="100" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="3"/>` +
-  `<rect x="99" y="-45" width="16" height="90" rx="5" fill="#334155"/>` +
-  `</g>`;
+/** Heavy Olympic barbell with official color bumper plates, knurling, and floor drop shadow. */
+export const barbell = (x: number, y: number, scale = 1, liftProgress = 0): string =>
+  renderOlympicBarbellRig({ x, y, scale, liftProgress, plateCount: 4 });
 
 /** Crew silhouette with gear icon (cam, edit, thumb). */
 export const crewSil = (x: number, y: number, s: number, gear: "cam" | "edit" | "thumb", t: number): string => {
@@ -195,21 +199,9 @@ export const card = (x: number, y: number, s: number, accent: string): string =>
   `<rect x="-62" y="-14" width="104" height="12" rx="6" fill="#475569"/>` +
   `<circle cx="0" cy="66" r="26" fill="none" stroke="${accent}" stroke-width="8"/></g>`;
 
-/** Yellow commercial wringer bucket on caster wheels. */
+/** Commercial yellow mop bucket with wringer mechanism, wheels, and caution emblem. */
 export const mopBucket = (x: number, y: number, s = 1): string =>
-  `<g transform="translate(${x} ${y}) scale(${s})">` +
-  `<!-- Wheels -->` +
-  `<circle cx="-32" cy="38" r="8" fill="#0f172a"/>` +
-  `<circle cx="32" cy="38" r="8" fill="#0f172a"/>` +
-  `<!-- Yellow Bucket Body -->` +
-  `<path d="M -42 -20 L 42 -20 L 32 34 L -32 34 Z" fill="#eab308" stroke="#a16207" stroke-width="4"/>` +
-  `<!-- Wringer Press Mechanism -->` +
-  `<rect x="-36" y="-45" width="34" height="28" rx="4" fill="#ca8a04" stroke="#854d0e" stroke-width="3"/>` +
-  `<line x1="-32" y1="-30" x2="-8" y2="-30" stroke="#713f12" stroke-width="4"/>` +
-  `<line x1="-36" y1="-42" x2="-52" y2="-65" stroke="#475569" stroke-width="5" stroke-linecap="round"/>` +
-  `<!-- Wet floor caution icon -->` +
-  `<polygon points="8,-8 24,-8 16,12" fill="#713f12"/>` +
-  `</g>`;
+  renderDetailedMopBucketRig({ x, y, scale: s });
 
 /** Comic thought bubble with bleach bottle and question mark. */
 export const thoughtBubble = (x: number, y: number, s = 1): string =>

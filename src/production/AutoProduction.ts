@@ -140,7 +140,15 @@ function actorState(tr, t, shot, production) {
     const x = hostBase + travel;
     const speakingBob = speaking ? (Math.sin(t * 11.5) + .35 * Math.sin(t * 19.3)) * 2.1 : 0;
     const deliberateLean = (point ? 7 : 0) + (g * 3) + (role === "escalation" ? 2 : 0);
-    const gazeTarget = look?.payload?.target === "camera" ? { x: 960, y: 520 } : visual;
+    const coStarPresent = production.coStarPresence?.has(beat?.id ?? "");
+    let gazeTarget = look?.payload?.target === "camera" ? { x: 960, y: 520 } : visual;
+    if (!look) {
+      if (role === "punchline" && beat && t >= beat.start + (beat.end - beat.start) * 0.55) {
+        gazeTarget = { x: 960, y: 520 }; // Snap straight into camera lens on punch!
+      } else if (coStarPresent && (role === "setup" || role === "explanation" || role === "punchline")) {
+        gazeTarget = { x: 1250, y: 560 }; // Look towards co-star at stage right
+      }
+    }
     const pointTarget = point ? visual : undefined;
     const propAction = actions.find(a => a.type === "grab");
     const prop = propAction?.payload?.prop ?? "none";

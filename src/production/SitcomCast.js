@@ -1,3 +1,4 @@
+import { solveMutualGaze } from "../character/EyelineSolver.js";
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 export const ENSEMBLE = [
     { actorId: "anatoly", gender: "janitor", hairStyle: "janitor_cap", clothes: "janitor_overalls", rightHandProp: "mop", archetype: "janitor_anatoly" },
@@ -90,6 +91,91 @@ export function computeCoStarPresence(beats) {
     }
     return present;
 }
+/**
+ * Entity -> purpose-built ensemble archetype. Only where the catalog has a
+ * real look for the job; everything else rides rotation + persistence.
+ */
+const ENTITY_CAST = [
+    [/\b(lawyer|attorney)\b/i, 8], // suit: corporate_suit
+    [/\b(doctor|surgeon)\b/i, 11], // scrubs: surgeon
+    [/\b(boss|manager|landlord)\b/i, 8], // suit reads as authority
+];
+function entityEntrant(entities) {
+    if (!entities)
+        return null;
+    for (const e of entities) {
+        if (/\b(janitor|cleaner|cleaning|mop|overalls)\b/i.test(e))
+            return ENSEMBLE[0];
+        if (/\b(bodybuilder|muscle|deadlift|giant|meathead)\b/i.test(e))
+            return ENSEMBLE[1];
+    }
+    for (const e of entities) {
+        for (const [re, idx] of ENTITY_CAST) {
+            if (re.test(e))
+                return ENSEMBLE[idx];
+        }
+    }
+    return null;
+}
+/**
+ * Scene cast roster: who is on stage for each beat, computed over the whole
+ * beat list so faces persist instead of popping every beat.
+ *
+ * - A janitor/bodybuilder keyword entrance brings that member on stage.
+ * - Otherwise the current member stays (sitcom continuity: no dead entrances).
+ * - A long gap (>4s) or the first beat falls back to the rotation.
+ * Pure function of the beats: chunked rendering stays bit-exact.
+ */
+export function computeCastRoster(beats, 
+/** Agent-sheet override: return the directed member for a beat, or null
+ * to fall back to keyword entrances. Wins over every heuristic. */
+castOverride) {
+    const out = new Map();
+    const ordered = [...beats].sort((a, b) => a.start - b.start);
+    let current = null;
+    let prevEnd = -Infinity;
+    ordered.forEach((b) => {
+        const lower = (b.semantic ?? "").toLowerCase();
+        const directed = castOverride?.(b) ?? null;
+        let entered = null;
+        // Named by THIS beat (sheet direction or analyzer entity): holds stage.
+        let named = false;
+        if (directed) {
+            entered = directed;
+            named = true;
+        }
+        else {
+            const byEntity = entityEntrant(b.entities);
+            if (byEntity) {
+                entered = byEntity;
+                named = true;
+            }
+        }
+        if (!entered) {
+            if (/\b(janitor|cleaner|cleaning|mop|overalls)\b/.test(lower))
+                entered = ENSEMBLE[0];
+            else if (/\b(bodybuilder|muscle|lift|deadlift|gym\s*bro|giant|meathead)\b/.test(lower))
+                entered = ENSEMBLE[1];
+        }
+        let member;
+        if (entered)
+            member = entered;
+        else if (current && b.start - prevEnd <= 4.0)
+            member = current;
+        // No roulette: an unnamed beat keeps the standing partner, and a cold
+        // open takes the resident cohost once and keeps her. Random faces walking
+        // in read as gibberish, never as direction.
+        else
+            member = current ?? ENSEMBLE[2];
+        // Same face continuing across a small gap is already on stage: skip the
+        // walk-in whether the face came from a keyword, the sheet, or rotation.
+        const continued = current !== null && current.actorId === member.actorId && b.start - prevEnd <= 4.0;
+        out.set(b.id, { member, continued, named });
+        current = member;
+        prevEnd = b.end;
+    });
+    return out;
+}
 export function reactionExpressionFor(role, beatIndex) {
     const family = REACTION_GRAMMAR[role] ?? REACTION_GRAMMAR.explanation;
     return family[Math.abs(Math.floor(beatIndex)) % family.length];
@@ -108,9 +194,12 @@ export const HOST_X = 450;
  * the co-star alternates between downstage-right (close, large) and a
  * further, smaller placement — like real sitcom blocking.
  */
-export function coStarState(member, beat, t, punchAt, hostX = HOST_X) {
+export function coStarState(member, beat, t, punchAt, hostX = HOST_X, 
+/** True when the roster kept this face from the previous beat: the co-star
+ * is already standing on stage, so the walk-in is skipped (no pop). */
+alreadyOnStage = false) {
     const span = beat.end - beat.start;
-    const enterDur = Math.min(0.55, span * 0.35);
+    const enterDur = alreadyOnStage ? 0 : Math.min(0.55, span * 0.35);
     const settleAt = beat.start + enterDur;
     const entrance = clamp((t - beat.start) / Math.max(0.001, enterDur));
     // After settle: idle life (breathing sway), no frozen frames.
@@ -129,6 +218,25 @@ export function coStarState(member, beat, t, punchAt, hostX = HOST_X) {
     }
     const reaction = reactionExpressionFor(beat.role, Math.round(beat.start * 7.13));
     const speaking = false; // narrator is the only voice; co-star mimes
+    const gazeSol = solveMutualGaze({ x: travelX, y: starY, scale: starScale }, { x: hostX, y: 650, scale: 1.25 });
+    let effectiveGazeX = gazeSol.gazeX;
+    let effectiveGazeY = gazeSol.gazeY;
+    let effectiveHeadTilt = gazeSol.headTilt + punchReact * 8 + Math.sin(t * 1.7 + 2) * 1.2;
+    let effectiveEyeStyle = "normal";
+    let effectiveExpression = member.expression ?? reaction;
+    if (punchAt !== null && t >= punchAt && t < punchAt + 1.2) {
+        const timeSincePunch = t - punchAt;
+        if (timeSincePunch > 0.45) {
+            effectiveGazeX = 0;
+            effectiveGazeY = 0;
+            effectiveEyeStyle = "deadpan_dots";
+            effectiveExpression = "deadpan_slow_blink";
+        }
+        else {
+            effectiveEyeStyle = "eye_pop";
+            effectiveExpression = "shock_jaw_drop";
+        }
+    }
     return {
         actorId: member.actorId,
         present: true,
@@ -147,12 +255,13 @@ export function coStarState(member, beat, t, punchAt, hostX = HOST_X) {
             rightHandProp: member.rightHandProp,
             eyelashes: member.eyelashes,
             blush: member.blush,
-            expression: reaction,
-            pose: "default",
+            expression: effectiveExpression,
+            eyeStyle: effectiveEyeStyle,
+            pose: (member.pose ?? "default"),
             spineLean: -punchReact * 7 + Math.sin(t * 1.4 + 1) * 1.5,
-            headTilt: punchReact * 8 + Math.sin(t * 1.7 + 2) * 1.2,
-            gazeX: clamp((hostX - travelX) / 700, -1, 1), // look AT the host
-            gazeY: -0.05,
+            headTilt: effectiveHeadTilt,
+            gazeX: effectiveGazeX,
+            gazeY: effectiveGazeY,
             gazeTarget: { x: hostX, y: 560 },
             isTalking: false,
             isWalking: walking,
@@ -177,21 +286,27 @@ function hash(n) { const s = Math.sin(n * 127.1) * 43758.5453; return s - Math.f
  * both framed when the shot is a "wide"/"host" kind. Called per-frame by
  * AutoProduction — pure function of time.
  */
-export function renderSitcomLayer(t, beat, punchAt, renderActor, presence, shotKind) {
+export function renderSitcomLayer(t, beat, punchAt, renderActor, presence, shotKind, 
+/** Precomputed scene cast roster: when present the co-star persists across
+ * beats instead of re-entering every beat. */
+roster) {
     // Close-ups (macro/insert/subject) frame a single prop or face: a full-size
     // co-star standing in that frame renders as a giant cropped head. The
     // two-shot only exists in wide/host/reaction framings.
     if (shotKind === "macro" || shotKind === "insert" || shotKind === "subject")
         return "";
     const beatIndex = Math.round(beat.start * 7.13);
+    const entry = roster?.get(beat.id ?? "");
     if (presence) {
-        if (!presence.has(beat.id ?? ""))
+        // A face named by this beat holds the stage (the landlord stays while
+        // discussed); everything else obeys the presence plan.
+        if (!presence.has(beat.id ?? "") && !(entry?.named ?? false))
             return "";
     }
     else if (!beatHasCoStar(beat.role, beatIndex)) {
         return "";
     }
-    const member = castForBeat(beatIndex, beat?.visual?.semantic);
-    const cs = coStarState(member, beat, t, punchAt);
+    const member = entry?.member ?? castForBeat(beatIndex, beat?.visual?.semantic);
+    const cs = coStarState(member, beat, t, punchAt, HOST_X, entry?.continued ?? false);
     return renderActor({ actorId: cs.actorId, state: cs.state, timeSec: t });
 }

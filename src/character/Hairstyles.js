@@ -330,15 +330,15 @@ export function renderHairstyle(hairId = "host_classic", timeSec = 0) {
         case "janitor_cap":
             return {
                 backSvg: `
-          <!-- Blue janitor work cap back -->
-          <ellipse cx="0" cy="-60" rx="72" ry="42" fill="#1e3a8a" stroke="#0f172a" stroke-width="6"/>
+          <!-- Worker cap back dome -->
+          <ellipse cx="0" cy="-60" rx="74" ry="44" fill="#57534e" stroke="#1c1917" stroke-width="6"/>
         `,
                 frontSvg: `
-          <!-- Cap front dome and visor -->
-          <path d="M -70 -50 C -70 -95 70 -95 70 -50 Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="6"/>
-          <path d="M -72 -46 Q 0 -30 72 -46 C 85 -36 50 -24 0 -26 C -50 -24 -85 -36 -72 -46 Z" fill="#172554" stroke="#0f172a" stroke-width="4"/>
-          <!-- Front brass button badge -->
-          <circle cx="0" cy="-60" r="5" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
+          <!-- Worker cap front dome and curved visor -->
+          <path d="M -72 -48 C -72 -98 72 -98 72 -48 Z" fill="#57534e" stroke="#1c1917" stroke-width="6"/>
+          <path d="M -74 -44 Q 0 -24 74 -44 C 84 -34 50 -20 0 -22 C -50 -20 -84 -34 -74 -44 Z" fill="#44403c" stroke="#1c1917" stroke-width="5"/>
+          <!-- Sweatband stitching -->
+          <path d="M -60 -48 Q 0 -36 60 -48" fill="none" stroke="#78716c" stroke-width="3" stroke-dasharray="8 6"/>
         `,
             };
         case "none":

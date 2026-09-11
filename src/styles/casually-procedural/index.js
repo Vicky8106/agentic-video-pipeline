@@ -3,6 +3,10 @@ import { renderBackground } from "../../assets/BackgroundLibrary";
 import { renderProceduralAsset } from "../procedural/assetLibrary";
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 function resolveBgForState(timeSec, state = {}) {
+    // Per-beat stable room (precomputed over the whole beat list): wins over
+    // per-frame keyword matching so a joke never changes rooms mid-punchline.
+    if (typeof state.bgId === "string" && state.bgId)
+        return state.bgId;
     const semantic = String(state.semantic || "").toLowerCase();
     const topic = String(state.topic || "").toLowerCase();
     const dominantBg = state.dominantBg || null;

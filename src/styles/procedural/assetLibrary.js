@@ -340,7 +340,7 @@ function drawMoney(s) {
         bills += `<g transform="translate(${wob} ${y}) rotate(${rot})">
       <rect x="-60" y="-24" width="120" height="48" rx="6" fill="#bbf7d0" stroke="${INK}" stroke-width="4"/>
       <circle cx="0" cy="0" r="14" fill="none" stroke="${INK}" stroke-width="3.5"/>
-      <text x="0" y="6" text-anchor="middle" font-family="'Impact', sans-serif" font-size="20" font-weight="bold" fill="${INK}">$100</text>
+      <circle cx="0" cy="0" r="6" fill="${INK}" opacity="0.25"/>
     </g>`;
     }
     // count-up total ticks the number while the beat is live
@@ -556,15 +556,15 @@ function drawBody(s) {
 }
 /* -------------------------------------------------------------------- sign */
 function drawSign(s) {
+    // Wordless warning placard: zero burned-in text. The swing carries it.
     const t = s.age;
     const swing = Math.sin(t * 2.2) * 4;
-    const word = s.concept.replace(/[^a-z0-9$%' -]/gi, "").slice(0, 16).toUpperCase() || "WARNING";
-    const w = Math.max(130, word.length * 18 + 36);
     return `<g transform="rotate(${swing})">
     <ellipse cx="0" cy="90" rx="45" ry="10" fill="${INK}" opacity="0.15"/>
     <line x1="0" y1="20" x2="0" y2="85" stroke="${INK}" stroke-width="6"/>
-    <rect x="${-w / 2}" y="-60" width="${w}" height="80" rx="8" fill="#fde047" stroke="${INK}" stroke-width="5.5"/>
-    <text y="-5" text-anchor="middle" font-family="'Impact', sans-serif" font-size="28" font-weight="bold" fill="${INK}">${esc(word)}</text>
+    <rect x="-65" y="-60" width="130" height="80" rx="8" fill="#fde047" stroke="${INK}" stroke-width="5.5"/>
+    <line x1="0" y1="-38" x2="0" y2="2" stroke="${INK}" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="0" cy="14" r="6" fill="${INK}"/>
   </g>`;
 }
 /* ----------------------------------------------------------------- vehicle */
@@ -711,42 +711,23 @@ function drawObject(s) {
 }
 /* ----------------------------------------------------------------- generic */
 function drawGeneric(s) {
+    // Wordless diagram card: abstract schematic, zero burned-in text.
     const t = s.age;
     const bob = Math.sin(t * 2.4) * 4;
-    const word = s.concept.replace(/[^a-z0-9$%' -]/gi, "").slice(0, 16).toUpperCase() || "CORE CONCEPT";
-    const w = Math.max(200, word.length * 16 + 60);
-    // Instead of a plain yellow box, render a dynamic tactile whiteboard sketch with animated vector diagrams & stickers
-    const stampAngle = 12 + Math.sin(t * 1.5) * 3;
+    const w = 240;
+    const dash = Math.sin(t * 1.5) * 3;
     return `<g transform="translate(0 ${bob})">
-    <!-- Tactile Whiteboard Blueprint Card -->
     <rect x="${-w / 2}" y="-105" width="${w}" height="190" rx="16" fill="${PAPER}" stroke="${INK}" stroke-width="5" filter="url(#cardShadow)"/>
-    
-    <!-- Top Blueprint Banner -->
-    <rect x="${-w / 2 + 8}" y="-97" width="${w - 16}" height="42" rx="10" fill="#0f172a"/>
-    <text x="0" y="-70" text-anchor="middle" font-family="'Impact', sans-serif" font-size="22" fill="${GOLD}" letter-spacing="2">ANALYSIS REPORT</text>
-    
-    <!-- Visual Diagram Schematic inside the card -->
-    <g transform="translate(0 -10)">
-      <!-- Left Metric Node -->
+    <rect x="${-w / 2 + 8}" y="-97" width="${w - 16}" height="30" rx="10" fill="#0f172a"/>
+    <g transform="translate(0 0)">
       <circle cx="-45" cy="0" r="22" fill="#dbeafe" stroke="${INK}" stroke-width="3.5"/>
-      <text x="-45" y="6" text-anchor="middle" font-family="'Impact', sans-serif" font-size="16" fill="${COOL}">A</text>
-      <!-- Connecting Arrow -->
+      <rect x="-53" y="-8" width="16" height="16" fill="${COOL}"/>
       <line x1="-20" y1="0" x2="20" y2="0" stroke="${INK}" stroke-width="4" stroke-dasharray="6 4"/>
       <polygon points="20,0 12,-6 12,6" fill="${INK}"/>
-      <!-- Right Result Node -->
       <circle cx="45" cy="0" r="22" fill="#fee2e2" stroke="${INK}" stroke-width="3.5"/>
-      <text x="45" y="6" text-anchor="middle" font-family="'Impact', sans-serif" font-size="16" fill="${ACCENT}">B</text>
+      <polygon points="45,-10 55,6 35,6" fill="${ACCENT}"/>
     </g>
-
-    <!-- Bottom Highlighted Keyword Pill -->
-    <rect x="${-w / 2 + 16}" y="32" width="${w - 32}" height="40" rx="8" fill="#f8fafc" stroke="${INK}" stroke-width="3.5"/>
-    <text x="0" y="58" text-anchor="middle" font-family="'Impact', 'Comic Sans MS', sans-serif" font-size="22" font-weight="bold" fill="${INK}">${esc(word)}</text>
-
-    <!-- Dynamic Slapstick Stamp Tag -->
-    <g transform="translate(${w / 2 - 25} -90) rotate(${stampAngle})">
-      <rect x="-40" y="-14" width="80" height="28" rx="6" fill="${ACCENT}" stroke="${INK}" stroke-width="3"/>
-      <text x="0" y="5" text-anchor="middle" font-family="'Impact', sans-serif" font-size="14" fill="#ffffff">FACTS</text>
-    </g>
+    <line x1="${-w / 2 + 24}" y1="52" x2="${w / 2 - 24 - dash}" y2="52" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>
   </g>`;
 }
 const DRAWERS = {

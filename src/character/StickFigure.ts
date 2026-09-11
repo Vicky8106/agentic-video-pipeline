@@ -817,9 +817,30 @@ export function renderStickFigure(id: string, state: StickFigureState): string {
     if (prop === "mop") {
       return `
         <g transform="translate(${hx} ${hy}) rotate(${angle})">
-          <line x1="0" y1="-80" x2="0" y2="120" stroke="#854d0e" stroke-width="8" stroke-linecap="round"/>
-          <rect x="-24" y="110" width="48" height="14" rx="3" fill="#0284c7" stroke="#0369a1" stroke-width="2"/>
-          <path d="M -22 124 C -28 150 -18 165 -14 175 M -10 124 C -12 155 -6 170 -4 180 M 2 124 C 0 155 8 170 12 180 M 14 124 C 18 150 24 165 28 175" stroke="#f1f5f9" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <!-- Heavy commercial yellow fiberglass mop handle -->
+          <line x1="0" y1="-100" x2="0" y2="110" stroke="#eab308" stroke-width="8" stroke-linecap="round"/>
+          <line x1="-1" y1="-95" x2="-1" y2="105" stroke="#fef08a" stroke-width="2"/>
+          <!-- Industrial steel clamp bracket -->
+          <rect x="-22" y="102" width="44" height="16" rx="4" fill="#334155" stroke="#0f172a" stroke-width="3"/>
+          <rect x="-14" y="106" width="28" height="6" fill="#64748b"/>
+          <!-- Heavy braided cotton yarn head (thick, draped, curved strands) -->
+          <path d="
+            M -22 118 Q -30 150 -26 185
+            M -16 118 Q -22 160 -18 190
+            M -10 118 Q -14 165 -8 192
+            M -4 118 Q -5 170 0 195
+            M 4 118 Q 5 170 8 195
+            M 10 118 Q 14 165 16 192
+            M 16 118 Q 22 160 24 190
+            M 22 118 Q 30 150 32 185
+          " stroke="#e2e8f0" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+          <!-- Shadow yarn layer -->
+          <path d="
+            M -18 122 Q -24 155 -20 180
+            M -6 122 Q -8 165 -2 188
+            M 6 122 Q 8 165 12 188
+            M 18 122 Q 24 155 26 180
+          " stroke="#94a3b8" stroke-width="4" stroke-linecap="round" fill="none"/>
         </g>
       `;
     }

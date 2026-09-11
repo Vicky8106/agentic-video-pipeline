@@ -5,25 +5,45 @@ import type { StylePack } from "../StylePack";
 
 const esc = (s: unknown) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-function resolveBgForTime(timeSec: number): BackgroundId {
-  if (timeSec < 8.62) return "BG-HOLLYWOOD";
-  if (timeSec < 15.33) return "BG-OFFICE";
-  if (timeSec < 32.86) return "BG-HOLLYWOOD";
-  if (timeSec < 42.0) return "BG-OFFICE";
-  if (timeSec < 57.8) return "BG-RETRO";
-  if (timeSec < 80.45) return "BG-STUDIO";
-  if (timeSec < 105.0) return "BG-90S";
-  if (timeSec < 140.0) return "BG-STUDIO";
-  if (timeSec < 180.0) return "BG-OFFICE";
-  if (timeSec < 220.0) return "BG-OFFICE";
-  if (timeSec < 260.0) return "BG-Y2K";
-  if (timeSec < 300.0) return "BG-CLINIC";
-  if (timeSec < 345.0) return "BG-HOLLYWOOD";
-  if (timeSec < 395.0) return "BG-GYM";
-  if (timeSec < 450.0) return "BG-CLINIC";
-  if (timeSec < 510.0) return "BG-TRIBUNAL";
-  if (timeSec < 575.0) return "BG-CLINIC";
-  return "BG-END";
+function resolveBgForState(timeSec: number, state: Record<string, unknown> = {}): BackgroundId {
+  // Per-beat stable room (precomputed over the whole beat list): wins over
+  // per-frame keyword matching so a joke never changes rooms mid-punchline.
+  if (typeof state.bgId === "string" && state.bgId) return state.bgId as BackgroundId;
+  const semantic = String(state.semantic || "").toLowerCase();
+  const topic = String(state.topic || "").toLowerCase();
+  const dominantBg = (state.dominantBg as BackgroundId) || null;
+
+  // 1. Explicit keyword matching on active dialogue/semantic
+  if (/\b(gym|workout|bodybuilder|janitor|deadlift|barbell|weights|cleaning|mop|plates|fitness|squat|bench)\b/.test(semantic)) {
+    return "BG-GYM";
+  }
+  if (/\b(hollywood|red carpet|celebrity|oscar|actor|movie|premiere)\b/.test(semantic)) {
+    return "BG-HOLLYWOOD";
+  }
+  if (/\b(office|tech|computer|crypto|code|browser|cubicle|boss|saas)\b/.test(semantic)) {
+    return "BG-OFFICE";
+  }
+  if (/\b(clinic|doctor|surgery|medicine|shot|buccal|botox|contour)\b/.test(semantic)) {
+    return "BG-CLINIC";
+  }
+  if (/\b(court|judge|tribunal|trial|law|lawsuit)\b/.test(semantic)) {
+    return "BG-TRIBUNAL";
+  }
+  if (/\b(retro|ps1|videogame|gaming)\b/.test(semantic)) {
+    return "BG-RETRO";
+  }
+  if (/\b(subscribe|outro|end)\b/.test(semantic)) {
+    return "BG-END";
+  }
+
+  // 2. Fall back to script-wide dominant background if known
+  if (dominantBg) return dominantBg;
+
+  // 3. Fallback based on topic
+  if (topic === "body") return "BG-GYM";
+  if (topic === "device") return "BG-OFFICE";
+
+  return "BG-STUDIO";
 }
 
 const PROP_MAP: Record<string, string> = {
@@ -178,8 +198,8 @@ export const casuallyProceduralStyle: StylePack = {
     if (intent === "reveal") return { shotKind: intensity > 0.7 ? "macro" : "insert", transition: "punch" };
     return { shotKind: "host", transition: "cut" };
   },
-  renderEnvironment: (timeSec = 0) => {
-    const bgId = resolveBgForTime(timeSec);
+  renderEnvironment: (timeSec = 0, state: Record<string, unknown> = {}) => {
+    const bgId = resolveBgForState(timeSec, state);
     return renderBackground(bgId, { timeSec });
   },
 };

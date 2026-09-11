@@ -1,0 +1,107 @@
+{
+  "metadata": {
+    "srt": "sheets/pigeon-park.srt",
+    "llm": "none",
+    "model": null,
+    "range": [
+      0,
+      26.973000000000006
+    ],
+    "windows": 1,
+    "beats": 3,
+    "created": "2026-09-11T07:10:10.885Z"
+  },
+  "beats": [
+    {
+      "beatId": 1,
+      "startSec": 0,
+      "endSec": 10.033797630331751,
+      "dur": 10.033797630331751,
+      "bgId": "BG-CLINIC",
+      "actor": {
+        "id": "actor_1",
+        "x": 680,
+        "y": 640,
+        "scale": 1.34,
+        "gender": "male",
+        "hairStyle": "host_classic",
+        "clothes": "none",
+        "expression": "smug_rock_eyebrow",
+        "pose": "neutral"
+      },
+      "camera": {
+        "x": 960,
+        "y": 520,
+        "zoom": 1.3
+      },
+      "activeProp": {
+        "id": "PROP-MED",
+        "x": 1360,
+        "y": 440,
+        "scale": 1.3
+      },
+      "bannerText": null,
+      "graphicType": null,
+      "text": "I have started feeding the pigeons in the park every morning. They now recognize me. This was my first mistake. Yesterday, the fat one brought a friend."
+    },
+    {
+      "beatId": 2,
+      "startSec": 10.033797630331751,
+      "endSec": 18.463000000000005,
+      "dur": 8.429202369668253,
+      "bgId": "BG-STUDIO",
+      "actor": {
+        "id": "actor_2",
+        "x": 960,
+        "y": 640,
+        "scale": 1.34,
+        "gender": "male",
+        "hairStyle": "host_classic",
+        "clothes": "none",
+        "expression": "deadpan_soul_stare",
+        "pose": "neutral"
+      },
+      "camera": {
+        "x": 960,
+        "y": 520,
+        "zoom": 1.3
+      },
+      "activeProp": null,
+      "bannerText": null,
+      "graphicType": null,
+      "text": "Today, the friend brought a lawyer. They staged a protest on my bench because the breadcrumbs were, and I quote, too artisanal."
+    },
+    {
+      "beatId": 3,
+      "startSec": 18.463000000000005,
+      "endSec": 26.973000000000006,
+      "dur": 8.510000000000002,
+      "bgId": "BG-OFFICE",
+      "actor": {
+        "id": "actor_3",
+        "x": 680,
+        "y": 640,
+        "scale": 1.34,
+        "gender": "male",
+        "hairStyle": "host_classic",
+        "clothes": "suit",
+        "expression": "deadpan_soul_stare",
+        "pose": "neutral"
+      },
+      "camera": {
+        "x": 960,
+        "y": 520,
+        "zoom": 1.3
+      },
+      "activeProp": {
+        "id": "PROP-MONEY",
+        "x": 1360,
+        "y": 440,
+        "scale": 1.3
+      },
+      "bannerText": null,
+      "graphicType": null,
+      "text": "I tried to leave. They had already eaten my bus ticket. The park ranger says I am now legally their landlord. Rent is due on Friday."
+    }
+  ]
+}

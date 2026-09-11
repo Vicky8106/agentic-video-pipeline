@@ -119,11 +119,94 @@ function popTransform(entry: number, exit: number, t: number): string {
   return `scale(${s.toFixed(4)} ${sy.toFixed(4)})`;
 }
 
-function labelTag(text: string, y: number): string {
-  const w = Math.max(70, text.length * 14 + 30);
-  return `<g transform="translate(0 ${y})">
-    <rect x="${-w / 2}" y="-20" width="${w}" height="38" rx="10" fill="${PAPER}" stroke="${INK}" stroke-width="4"/>
-    <text y="7" text-anchor="middle" font-family="'Impact', 'Comic Sans MS', sans-serif" font-size="20" font-weight="bold" fill="${INK}">${esc(text.toUpperCase())}</text>
+function labelTag(_text: string, _y: number): string {
+  // House rule: Zero text burned into the frame.
+  return "";
+}
+
+function renderOlympicBarbell(x: number, y: number, s: number, t: number): string {
+  const barHalfWidth = 280;
+  const bend = Math.sin(t * 3.5) * 8;
+  const barPath = `M ${-barHalfWidth} 0 Q 0 ${bend} ${barHalfWidth} 0`;
+  let leftPlates = "";
+  let rightPlates = "";
+  const platePairs = 4;
+  const plateWidth = 14;
+  const plateGap = 3;
+  for (let i = 0; i < platePairs; i++) {
+    const lx = -barHalfWidth + 30 + i * (plateWidth + plateGap);
+    const rx = barHalfWidth - 30 - (i + 1) * (plateWidth + plateGap);
+    const color = i < 2 ? "#ef4444" : "#3b82f6";
+    const border = i < 2 ? "#991b1b" : "#1d4ed8";
+    const plateH = 180 - i * 14;
+    leftPlates += `<rect x="${lx}" y="${-plateH / 2}" width="${plateWidth}" height="${plateH}" rx="4" fill="${color}" stroke="${border}" stroke-width="3"/>`;
+    rightPlates += `<rect x="${rx}" y="${-plateH / 2}" width="${plateWidth}" height="${plateH}" rx="4" fill="${color}" stroke="${border}" stroke-width="3"/>`;
+  }
+  const leftClamp = `<rect x="${-barHalfWidth + 30 + platePairs * (plateWidth + plateGap)}" y="-20" width="14" height="40" rx="3" fill="#94a3b8" stroke="#334155" stroke-width="2"/>`;
+  const rightClamp = `<rect x="${barHalfWidth - 30 - platePairs * (plateWidth + plateGap) - 14}" y="-20" width="14" height="40" rx="3" fill="#94a3b8" stroke="#334155" stroke-width="2"/>`;
+  const knurl = `<line x1="-80" y1="${bend * 0.9}" x2="80" y2="${bend * 0.9}" stroke="#cbd5e1" stroke-width="12" stroke-dasharray="6 3"/>`;
+
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <ellipse cx="${-barHalfWidth + 60}" cy="${bend + 95}" rx="70" ry="12" fill="#000000" opacity="0.3"/>
+    <ellipse cx="${barHalfWidth - 60}" cy="${bend + 95}" rx="70" ry="12" fill="#000000" opacity="0.3"/>
+    <path d="${barPath}" fill="none" stroke="#64748b" stroke-width="12" stroke-linecap="round"/>
+    <path d="${barPath}" fill="none" stroke="#e2e8f0" stroke-width="5" stroke-linecap="round"/>
+    ${knurl}${leftPlates}${rightPlates}${leftClamp}${rightClamp}
+  </g>`;
+}
+
+function renderMopBucketCart(x: number, y: number, s: number, t: number): string {
+  const bubble1 = Math.sin(t * 5) * 3;
+  const bubble2 = Math.cos(t * 6) * 4;
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <polygon points="-70,-40 -50,60 50,60 70,-40" fill="#eab308" stroke="#a16207" stroke-width="7"/>
+    <rect x="-76" y="-48" width="152" height="14" rx="5" fill="#ca8a04" stroke="#854d0e" stroke-width="4"/>
+    <rect x="-65" y="-95" width="60" height="52" rx="6" fill="#475569" stroke="#1e293b" stroke-width="5"/>
+    <line x1="-35" y1="-90" x2="-80" y2="-130" stroke="#dc2626" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="-80" cy="-130" r="10" fill="#ef4444"/>
+    <ellipse cx="15" cy="-36" rx="42" ry="8" fill="#38bdf8" opacity="0.8"/>
+    <circle cx="${10 + bubble1}" cy="-42" r="7" fill="#ffffff" opacity="0.9"/>
+    <circle cx="${28 + bubble2}" cy="-44" r="5" fill="#ffffff" opacity="0.85"/>
+    <circle cx="-42" cy="70" r="14" fill="#334155" stroke="#0f172a" stroke-width="4"/>
+    <circle cx="42" cy="70" r="14" fill="#334155" stroke="#0f172a" stroke-width="4"/>
+  </g>`;
+}
+
+function renderHeavyShipAnchor(x: number, y: number, s: number, t: number): string {
+  const dropK = clamp(t * 2, 0, 1);
+  const curY = y + (dropK < 1 ? Math.sin(dropK * Math.PI * 0.5) * 40 : 40);
+  return `<g transform="translate(${x} ${curY.toFixed(1)}) scale(${s})">
+    <circle cx="0" cy="-150" r="28" fill="none" stroke="#334155" stroke-width="14"/>
+    <line x1="-75" y1="-100" x2="75" y2="-100" stroke="#334155" stroke-width="16" stroke-linecap="round"/>
+    <line x1="0" y1="-140" x2="0" y2="100" stroke="#475569" stroke-width="22"/>
+    <path d="M -110 40 C -100 150 100 150 110 40" fill="none" stroke="#334155" stroke-width="22" stroke-linecap="round"/>
+    <polygon points="-125,45 -95,35 -110,10" fill="#1e293b"/>
+    <polygon points="125,45 95,35 110,10" fill="#1e293b"/>
+  </g>`;
+}
+
+function renderGymBenchPress(x: number, y: number, s: number, t: number): string {
+  const barY = -40 + Math.sin(t * 4) * 16;
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <polygon points="-80,80 80,80 60,60 -60,60" fill="#1e293b"/>
+    <line x1="0" y1="60" x2="0" y2="0" stroke="#334155" stroke-width="16"/>
+    <rect x="-130" y="-15" width="260" height="26" rx="6" fill="#0f172a" stroke="#334155" stroke-width="4"/>
+    <line x1="-90" y1="0" x2="-90" y2="-120" stroke="#475569" stroke-width="12"/>
+    <line x1="90" y1="0" x2="90" y2="-120" stroke="#475569" stroke-width="12"/>
+    <line x1="-150" y1="${barY}" x2="150" y2="${barY}" stroke="#94a3b8" stroke-width="10"/>
+    <rect x="-140" y="${barY - 30}" width="16" height="60" rx="4" fill="#ef4444"/>
+    <rect x="124" y="${barY - 30}" width="16" height="60" rx="4" fill="#ef4444"/>
+  </g>`;
+}
+
+function renderThoughtBubbleSupplies(x: number, y: number, s: number): string {
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <circle cx="-60" cy="70" r="8" fill="#ffffff" stroke="#1e293b" stroke-width="3"/>
+    <circle cx="-35" cy="40" r="12" fill="#ffffff" stroke="#1e293b" stroke-width="3"/>
+    <path d="M -70 10 C -95 10 -95 -45 -60 -45 C -60 -75 15 -75 25 -45 C 65 -45 65 10 25 10 C 15 30 -60 30 -70 10 Z" fill="#ffffff" stroke="#1e293b" stroke-width="5"/>
+    <rect x="-40" y="-35" width="24" height="34" rx="4" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
+    <line x1="15" y1="15" x2="-5" y2="-40" stroke="#92400e" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="30" cy="-15" r="10" fill="#ef4444"/>
   </g>`;
 }
 
@@ -134,6 +217,56 @@ function labelTag(text: string, y: number): string {
 function tryHandcraftedPuppet(s: AssetState): string | null {
   const c = s.concept.toLowerCase();
   const t = s.age;
+
+  // 0. Anatoly & Gym Production Rigs
+  if (/janitor|cleaner|cleaning|mop|overalls/i.test(c)) {
+    if (/bucket|cart|supplies/i.test(c)) {
+      return renderMopBucketCart(0, 0, 1.1, t);
+    }
+    return renderStickFigure(`stage-janitor-${s.slot}`, {
+      x: 0,
+      y: 110,
+      scale: 1.15,
+      gender: "janitor",
+      rightHandProp: "mop",
+      expression: "blissful_serenity",
+      timeSec: t,
+    });
+  }
+  if (/anatoly/i.test(c)) {
+    return renderStickFigure(`stage-anatoly-${s.slot}`, {
+      x: 0,
+      y: 110,
+      scale: 1.15,
+      gender: "janitor",
+      rightHandProp: "mop",
+      expression: "blissful_serenity",
+      timeSec: t,
+    });
+  }
+  if (/bodybuilder|muscle|deadlift|gym\s*bro|powerlifter|meathead|giant/i.test(c)) {
+    return renderStickFigure(`stage-bodybuilder-${s.slot}`, {
+      x: 0,
+      y: 110,
+      scale: 1.25,
+      gender: "bodybuilder",
+      expression: "smug_rock_eyebrow",
+      pose: "hands_on_hips",
+      timeSec: t,
+    });
+  }
+  if (/barbell|olympic|bumper|plates|dumbbell|weights|45lb/i.test(c)) {
+    return renderOlympicBarbell(0, 0, 1.1, t);
+  }
+  if (/anchor|heavy\s*anchor/i.test(c)) {
+    return renderHeavyShipAnchor(0, 0, 1.1, t);
+  }
+  if (/bench\s*press|bench/i.test(c)) {
+    return renderGymBenchPress(0, 0, 1.1, t);
+  }
+  if (/supplies|thought\s*bubble/i.test(c)) {
+    return renderThoughtBubbleSupplies(0, -60, 1.1);
+  }
 
   // 1. Celebrities & Characters
   if (/jenna|ortega|wednesday/i.test(c)) {
@@ -309,7 +442,7 @@ function drawMoney(s: AssetState): string {
     bills += `<g transform="translate(${wob} ${y}) rotate(${rot})">
       <rect x="-60" y="-24" width="120" height="48" rx="6" fill="#bbf7d0" stroke="${INK}" stroke-width="4"/>
       <circle cx="0" cy="0" r="14" fill="none" stroke="${INK}" stroke-width="3.5"/>
-      <text x="0" y="6" text-anchor="middle" font-family="'Impact', sans-serif" font-size="20" font-weight="bold" fill="${INK}">$100</text>
+      <circle cx="0" cy="0" r="6" fill="${INK}" opacity="0.25"/>
     </g>`;
   }
   // count-up total ticks the number while the beat is live
@@ -534,15 +667,15 @@ function drawBody(s: AssetState): string {
 
 /* -------------------------------------------------------------------- sign */
 function drawSign(s: AssetState): string {
+  // Wordless warning placard: zero burned-in text. The swing carries it.
   const t = s.age;
   const swing = Math.sin(t * 2.2) * 4;
-  const word = s.concept.replace(/[^a-z0-9$%' -]/gi, "").slice(0, 16).toUpperCase() || "WARNING";
-  const w = Math.max(130, word.length * 18 + 36);
   return `<g transform="rotate(${swing})">
     <ellipse cx="0" cy="90" rx="45" ry="10" fill="${INK}" opacity="0.15"/>
     <line x1="0" y1="20" x2="0" y2="85" stroke="${INK}" stroke-width="6"/>
-    <rect x="${-w / 2}" y="-60" width="${w}" height="80" rx="8" fill="#fde047" stroke="${INK}" stroke-width="5.5"/>
-    <text y="-5" text-anchor="middle" font-family="'Impact', sans-serif" font-size="28" font-weight="bold" fill="${INK}">${esc(word)}</text>
+    <rect x="-65" y="-60" width="130" height="80" rx="8" fill="#fde047" stroke="${INK}" stroke-width="5.5"/>
+    <line x1="0" y1="-38" x2="0" y2="2" stroke="${INK}" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="0" cy="14" r="6" fill="${INK}"/>
   </g>`;
 }
 
@@ -699,43 +832,23 @@ function drawObject(s: AssetState): string {
 
 /* ----------------------------------------------------------------- generic */
 function drawGeneric(s: AssetState): string {
+  // Wordless diagram card: abstract schematic, zero burned-in text.
   const t = s.age;
   const bob = Math.sin(t * 2.4) * 4;
-  const word = s.concept.replace(/[^a-z0-9$%' -]/gi, "").slice(0, 16).toUpperCase() || "CORE CONCEPT";
-  const w = Math.max(200, word.length * 16 + 60);
-
-  // Instead of a plain yellow box, render a dynamic tactile whiteboard sketch with animated vector diagrams & stickers
-  const stampAngle = 12 + Math.sin(t * 1.5) * 3;
+  const w = 240;
+  const dash = Math.sin(t * 1.5) * 3;
   return `<g transform="translate(0 ${bob})">
-    <!-- Tactile Whiteboard Blueprint Card -->
     <rect x="${-w / 2}" y="-105" width="${w}" height="190" rx="16" fill="${PAPER}" stroke="${INK}" stroke-width="5" filter="url(#cardShadow)"/>
-    
-    <!-- Top Blueprint Banner -->
-    <rect x="${-w / 2 + 8}" y="-97" width="${w - 16}" height="42" rx="10" fill="#0f172a"/>
-    <text x="0" y="-70" text-anchor="middle" font-family="'Impact', sans-serif" font-size="22" fill="${GOLD}" letter-spacing="2">ANALYSIS REPORT</text>
-    
-    <!-- Visual Diagram Schematic inside the card -->
-    <g transform="translate(0 -10)">
-      <!-- Left Metric Node -->
+    <rect x="${-w / 2 + 8}" y="-97" width="${w - 16}" height="30" rx="10" fill="#0f172a"/>
+    <g transform="translate(0 0)">
       <circle cx="-45" cy="0" r="22" fill="#dbeafe" stroke="${INK}" stroke-width="3.5"/>
-      <text x="-45" y="6" text-anchor="middle" font-family="'Impact', sans-serif" font-size="16" fill="${COOL}">A</text>
-      <!-- Connecting Arrow -->
+      <rect x="-53" y="-8" width="16" height="16" fill="${COOL}"/>
       <line x1="-20" y1="0" x2="20" y2="0" stroke="${INK}" stroke-width="4" stroke-dasharray="6 4"/>
       <polygon points="20,0 12,-6 12,6" fill="${INK}"/>
-      <!-- Right Result Node -->
       <circle cx="45" cy="0" r="22" fill="#fee2e2" stroke="${INK}" stroke-width="3.5"/>
-      <text x="45" y="6" text-anchor="middle" font-family="'Impact', sans-serif" font-size="16" fill="${ACCENT}">B</text>
+      <polygon points="45,-10 55,6 35,6" fill="${ACCENT}"/>
     </g>
-
-    <!-- Bottom Highlighted Keyword Pill -->
-    <rect x="${-w / 2 + 16}" y="32" width="${w - 32}" height="40" rx="8" fill="#f8fafc" stroke="${INK}" stroke-width="3.5"/>
-    <text x="0" y="58" text-anchor="middle" font-family="'Impact', 'Comic Sans MS', sans-serif" font-size="22" font-weight="bold" fill="${INK}">${esc(word)}</text>
-
-    <!-- Dynamic Slapstick Stamp Tag -->
-    <g transform="translate(${w / 2 - 25} -90) rotate(${stampAngle})">
-      <rect x="-40" y="-14" width="80" height="28" rx="6" fill="${ACCENT}" stroke="${INK}" stroke-width="3"/>
-      <text x="0" y="5" text-anchor="middle" font-family="'Impact', sans-serif" font-size="14" fill="#ffffff">FACTS</text>
-    </g>
+    <line x1="${-w / 2 + 24}" y1="52" x2="${w / 2 - 24 - dash}" y2="52" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>
   </g>`;
 }
 

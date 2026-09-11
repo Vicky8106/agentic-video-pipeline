@@ -1,5 +1,21 @@
 # Video Animator 2D — YouTube Animated Comedy & Video Generation Pipeline
 
+## Agentic use (start here on a new device)
+
+This pipeline does not generate video by itself — the coding agent is the
+director. There is no regex fallback and no background LLM call: undirecteded
+seconds fail instead of rendering.
+
+1. Prereqs: Node 18+, system `ffmpeg`/`ffprobe`, then `npm install`.
+2. Drop in `story.srt` + `voice.mp3` (same basenames help, not required).
+3. Tell your agent: read `docs/AUTHORED_SCENES.md` and
+   `docs/NEW_SCRIPT_WORKFLOW.md`, direct the script as an authored film
+   under `authored/<name>/`, keep `scripts/check-authored.ts` green, render
+   with `scripts/auto-video.ts --film`.
+4. Worked example: `sheets/pigeon-park.srt` + `sheets/pigeon-park.mp3`
+   directed in `authored/pigeon-park/`; full 7-scene example in
+   `authored/anatoly-last2min/` (needs its voice track, not shipped).
+
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 [![FFmpeg](https://img.shields.io/badge/FFmpeg-6.0+-orange.svg)](https://ffmpeg.org/)

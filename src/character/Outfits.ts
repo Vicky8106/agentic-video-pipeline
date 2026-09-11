@@ -15,6 +15,7 @@ export type OutfitId =
   | "crop_top_leggings"
   | "doctor_scrubs"
   | "bodybuilder_tank"
+  | "janitor_overalls"
   | "victorian_mourning"
   | "judge_robes"
   | "tech_fleece_vest"
@@ -111,7 +112,22 @@ export function renderOutfit(outfitId: OutfitId | string = "none", timeSec: numb
         <text x="0" y="-35" font-family="'Impact', sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">IRON</text>
       `;
 
-    // 7. Victorian Mourning Corseted Dress
+    // 7. Work Janitor Overalls (Dark Navy Blue)
+    case "janitor_overalls":
+      return `
+        <!-- Janitor Overalls Base -->
+        <path d="M -34 -90 L 34 -90 L 38 12 L -38 12 Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="5"/>
+        <!-- Overalls Straps -->
+        <line x1="-22" y1="-90" x2="-18" y2="-10" stroke="#172554" stroke-width="8"/>
+        <line x1="22" y1="-90" x2="18" y2="-10" stroke="#172554" stroke-width="8"/>
+        <!-- Brass Buckles -->
+        <rect x="-24" y="-35" width="12" height="10" rx="2" fill="#eab308" stroke="#a16207" stroke-width="2"/>
+        <rect x="12" y="-35" width="12" height="10" rx="2" fill="#eab308" stroke="#a16207" stroke-width="2"/>
+        <!-- Front Chest Pocket -->
+        <path d="M -14 -15 L 14 -15 L 12 10 L -12 10 Z" fill="#172554" stroke="#0f172a" stroke-width="3"/>
+      `;
+
+    // 8. Victorian Mourning Corseted Dress
     case "victorian_mourning":
       return `
         <!-- High-Neck Victorian Mourning Dress -->

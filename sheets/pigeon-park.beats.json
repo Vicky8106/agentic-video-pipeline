@@ -1,0 +1,181 @@
+{
+ "beats": [
+  {
+   "activeProp": {
+    "id": "PROP-PIGEON",
+    "scale": 1.1,
+    "x": 1360,
+    "y": 480
+   },
+   "actor": {
+    "clothes": "hoodie",
+    "expression": "deadpan_classic",
+    "gender": "male",
+    "hairStyle": "male_host_curly",
+    "id": "actor_1",
+    "pose": "neutral",
+    "scale": 1.34,
+    "x": 680,
+    "y": 640
+   },
+   "bannerText": null,
+   "beatId": 1,
+   "bgId": "BG-PARK",
+   "camera": {
+    "x": 960,
+    "y": 540,
+    "zoom": 1.08
+   },
+   "dur": 7.06,
+   "endSec": 7.06,
+   "graphicType": null,
+   "startSec": 0.0,
+   "text": "feeding routine",
+   "dropKinds": []
+  },
+  {
+   "activeProp": {
+    "id": "PROP-PIGEON",
+    "scale": 1.3,
+    "x": 1360,
+    "y": 440
+   },
+   "actor": {
+    "clothes": "hoodie",
+    "expression": "shock_eye_pop",
+    "gender": "male",
+    "hairStyle": "male_host_curly",
+    "id": "actor_2",
+    "pose": "pointing_right",
+    "scale": 1.34,
+    "x": 780,
+    "y": 640
+   },
+   "bannerText": null,
+   "beatId": 2,
+   "bgId": "BG-PARK",
+   "camera": {
+    "x": 1100,
+    "y": 520,
+    "zoom": 1.45
+   },
+   "dur": 5.15,
+   "endSec": 12.21,
+   "graphicType": null,
+   "startSec": 7.06,
+   "text": "lawyer escalation",
+   "dropKinds": [
+    "generic",
+    "sign",
+    "chart",
+    "object"
+   ]
+  },
+  {
+   "activeProp": null,
+   "actor": {
+    "clothes": "hoodie",
+    "expression": "shock_jaw_drop",
+    "gender": "male",
+    "hairStyle": "male_host_curly",
+    "id": "actor_3",
+    "pose": "shrugging",
+    "scale": 1.34,
+    "x": 780,
+    "y": 640
+   },
+   "bannerText": "TOO ARTISANAL",
+   "beatId": 3,
+   "bgId": "BG-PARK",
+   "camera": {
+    "x": 960,
+    "y": 520,
+    "zoom": 1.85
+   },
+   "dur": 6.0,
+   "endSec": 18.21,
+   "graphicType": null,
+   "startSec": 12.21,
+   "text": "protest punchline",
+   "dropKinds": [
+    "generic",
+    "sign",
+    "chart",
+    "object"
+   ]
+  },
+  {
+   "activeProp": null,
+   "actor": {
+    "clothes": "hoodie",
+    "expression": "fear_trembling",
+    "gender": "male",
+    "hairStyle": "male_host_curly",
+    "id": "actor_4",
+    "pose": "neutral",
+    "scale": 1.34,
+    "x": 680,
+    "y": 640
+   },
+   "bannerText": null,
+   "beatId": 4,
+   "bgId": "BG-PARK",
+   "camera": {
+    "x": 700,
+    "y": 540,
+    "zoom": 1.4
+   },
+   "dur": 4.1,
+   "endSec": 22.32,
+   "graphicType": null,
+   "startSec": 18.21,
+   "text": "bus ticket reaction",
+   "dropKinds": [
+    "vehicle",
+    "generic",
+    "sign",
+    "chart",
+    "object"
+   ]
+  },
+  {
+   "activeProp": {
+    "id": "PROP-CONTRACT",
+    "scale": 1.2,
+    "x": 1360,
+    "y": 440
+   },
+   "actor": {
+    "clothes": "suit",
+    "expression": "smug_rock_eyebrow",
+    "gender": "male",
+    "hairStyle": "male_short",
+    "id": "actor_5",
+    "pose": "finger_guns",
+    "scale": 1.34,
+    "x": 780,
+    "y": 640
+   },
+   "bannerText": "RENT DUE FRIDAY",
+   "beatId": 5,
+   "bgId": "BG-PARK",
+   "camera": {
+    "x": 960,
+    "y": 520,
+    "zoom": 1.9
+   },
+   "dur": 4.9,
+   "endSec": 27.22,
+   "graphicType": null,
+   "startSec": 22.32,
+   "text": "landlord punchline",
+   "dropKinds": [
+    "vehicle",
+    "generic",
+    "sign",
+    "chart",
+    "object"
+   ]
+  }
+ ]
+}

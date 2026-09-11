@@ -22,6 +22,8 @@ export interface StageBeat {
   topic: string; // money | body | compare | process | problem | device | person | explain
   energy: number;
   role: string;
+  /** Agent-sheet suppression: kinds never staged for this beat. */
+  dropKinds?: string[];
 }
 
 export interface StageObject {
@@ -84,6 +86,20 @@ const KIND_RULES: Array<[RegExp, StageObject["kind"]]> = [
   [/(rule|law|ban|policy|warning|notice|sign|deadline|contract|terms|nda|statement|headline|news|banner|badge|asterisk|fine\s*print|siren|modal|standards?|license|document|certificate|award|agreement)/i, "sign"],
   [/(book|clock|time|watch|timer|hammer|tool|microscope|telescope|medal|trophy|dumbbell|guitar|key|box|package|umbrella|flag|weapon|sword|gun|bomb|lightbulb|idea|cup|glass|bottle)/i, "object"],
 ];
+
+/**
+ * Lift/carry verbs: when these own the sentence, vehicle nouns inside it are
+ * weight comparisons ("anchor a small ship"), and equipment nouns are the
+ * barbell — never a car, never a torso blob.
+ */
+const LIFT_CONTEXT = /\b(lift|lifted|lifting|deadlift|deadlifts|grab|grabbed|carry|carrying|hold|holding|weigh|weighs|weighed|curl|press|pressing|squat|squat)\b/i;
+/**
+ * Consumption/ticket/simile contexts: the vehicle noun is something eaten,
+ * held, or compared ("eaten my bus ticket", "anchor a small ship") — never
+ * a car to stage. Vehicles stage only for road/drive contexts.
+ */
+const NO_CAR_CONTEXT = /\b(eat|ate|eaten|eating|drink|drank|anchor|ticket|receipt|used to|weigh|weighs)\b/i;
+const ROAD_CONTEXT = /\b(drive|driving|drove|road|highway|race|racing|crash|park the|traffic)\b/i;
 
 export function classifyKind(concept: string): StageObject["kind"] {
   for (const [re, kind] of KIND_RULES) if (re.test(concept)) return kind;
@@ -196,7 +212,7 @@ export function buildStageObjects(beats: StageBeat[], opts: { maxLive?: number; 
     const concepts = extractConcepts(b.semantic, 2);
     if (concepts.length === 0) continue;
     for (const concept of concepts) {
-      const key = concept;
+      let key = concept;
       // Expire objects whose retireAt has passed relative to this beat.
       for (const [k, i] of live) {
         if (objects[i].retireAt <= b.start) live.delete(k);
@@ -238,11 +254,31 @@ export function buildStageObjects(beats: StageBeat[], opts: { maxLive?: number; 
       let slot = pickIdx >= 0 ? pickIdx : 0;
       void maxLive;
 
-      const kind = classifyKind(concept);
+      // Lift/carry context: a vehicle noun is a weight comparison ("a weight
+      // that could anchor a small ship"), never a car to stage. Drop it so
+      // the lifter and the barbell carry the gag.
+      let kind = classifyKind(concept);
+      if (kind === "vehicle" && LIFT_CONTEXT.test(b.semantic)) continue;
+      // A bus ticket is paper, not a car: vehicle nouns in consumption /
+      // ticket contexts never stage unless the sentence is about roads.
+      if (kind === "vehicle" && NO_CAR_CONTEXT.test(b.semantic) && !ROAD_CONTEXT.test(b.semantic)) continue;
+      // Sign and generic kinds exist only as text cards ("YESTERDAY",
+      // "ANALYSIS REPORT"): zero burned-in words means they never stage.
+      if (kind === "sign" || kind === "generic") continue;
+      // Agent-sheet suppression wins over every heuristic.
+      if (b.dropKinds?.includes(kind)) continue;
+      // Gym equipment nouns stage as the Olympic barbell, not as a body
+      // silhouette blob ("weight" otherwise renders the THICC torso gag).
+      if (/^(weight|weights|barbell|dumbbell|plates?|kettlebell)$/i.test(concept) && LIFT_CONTEXT.test(b.semantic)) {
+        key = "barbell";
+        kind = "object";
+      }
       const idx = objects.length;
       objects.push({
         key,
-        concept,
+        // Remapped equipment nouns carry the barbell concept so the
+        // handcrafted-puppet router draws the Olympic barbell.
+        concept: key,
         kind,
         spawnAt: b.start + 0.25, // land quickly on the spoken word
         retireAt: b.end + lifetime,

@@ -26,6 +26,7 @@ export type HairstyleId =
   | "bodybuilder_bald"
   | "male_doctor_cap"
   | "doctor_cap"
+  | "janitor_cap"
   | "female_widow_veil"
   | "widow_veil"
   | "none";
@@ -370,6 +371,21 @@ export function renderHairstyle(hairId: HairstyleId | string = "host_classic", t
           <path d="M -55 -52 Q 0 -62 55 -52 L 50 -42 Q 0 -50 -50 -42 Z" fill="#18181b" opacity="0.85" stroke="#000000" stroke-width="3"/>
           <circle cx="0" cy="-55" r="10" fill="#450a0a" stroke="#18181b" stroke-width="3"/>
           <circle cx="0" cy="-55" r="4" fill="#dc2626"/>
+        `,
+      };
+
+    case "janitor_cap":
+      return {
+        backSvg: `
+          <!-- Blue janitor work cap back -->
+          <ellipse cx="0" cy="-60" rx="72" ry="42" fill="#1e3a8a" stroke="#0f172a" stroke-width="6"/>
+        `,
+        frontSvg: `
+          <!-- Cap front dome and visor -->
+          <path d="M -70 -50 C -70 -95 70 -95 70 -50 Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="6"/>
+          <path d="M -72 -46 Q 0 -30 72 -46 C 85 -36 50 -24 0 -26 C -50 -24 -85 -36 -72 -46 Z" fill="#172554" stroke="#0f172a" stroke-width="4"/>
+          <!-- Front brass button badge -->
+          <circle cx="0" cy="-60" r="5" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
         `,
       };
 

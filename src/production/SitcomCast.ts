@@ -19,16 +19,22 @@ const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 // ---------------------------------------------------------------------------
 export interface CastMember {
   actorId: string;
-  gender: "male" | "female";
+  gender: "male" | "female" | "doctor" | "bodybuilder" | "janitor" | "widow" | "tech_bro";
   hairStyle: string;
   clothes: string;
   eyelashes?: boolean;
   blush?: boolean;
+  rightHandProp?: StickFigureState["rightHandProp"];
+  /** Agent-sheet directed acting: overrides the role-driven defaults. */
+  expression?: StickFigureState["expression"];
+  pose?: string;
   /** Archetype name for the asset manifest. */
   archetype: string;
 }
 
 export const ENSEMBLE: CastMember[] = [
+  { actorId: "anatoly", gender: "janitor", hairStyle: "janitor_cap", clothes: "janitor_overalls", rightHandProp: "mop", archetype: "janitor_anatoly" },
+  { actorId: "bodybuilder", gender: "bodybuilder", hairStyle: "male_bodybuilder_bald", clothes: "bodybuilder_tank", archetype: "bodybuilder_bro" },
   { actorId: "cohost", gender: "female", hairStyle: "female_ponytail", clothes: "dress_pink", eyelashes: true, blush: true, archetype: "ponytail_cohost" },
   { actorId: "blonde", gender: "female", hairStyle: "female_blonde_curls", clothes: "dress_red_carpet", eyelashes: true, blush: true, archetype: "redcarpet_star" },
   { actorId: "goth", gender: "female", hairStyle: "female_gothic_waves", clothes: "dress_black", eyelashes: true, archetype: "goth_deadpan" },
@@ -61,10 +67,17 @@ export const REACTION_GRAMMAR: Record<string, CharacterExpressionId[]> = {
  * recurring character (sitcom continuity: the cohost is the "main" co-star
  * and appears most often).
  */
-export function castForBeat(beatIndex: number): CastMember {
+export function castForBeat(beatIndex: number, text = ""): CastMember {
+  const lower = text.toLowerCase();
+  if (/\b(janitor|cleaner|cleaning|mop|overalls)\b/.test(lower)) {
+    return ENSEMBLE[0]; // anatoly
+  }
+  if (/\b(bodybuilder|muscle|lift|deadlift|gym\s*bro|giant|meathead)\b/.test(lower)) {
+    return ENSEMBLE[1]; // bodybuilder
+  }
   // Cohost is the sitcom co-lead: every 3rd beat.
-  if (beatIndex % 3 === 1) return ENSEMBLE[0];
-  return ENSEMBLE[1 + (beatIndex % (ENSEMBLE.length - 1))];
+  if (beatIndex % 3 === 1) return ENSEMBLE[2];
+  return ENSEMBLE[2 + (beatIndex % (ENSEMBLE.length - 2))];
 }
 
 /**
@@ -106,6 +119,105 @@ export function computeCoStarPresence(
   return present;
 }
 
+export interface RosterBeat {
+  id: string;
+  start: number;
+  end: number;
+  role: string;
+  /** Sentence text: keyword entrances are read from it. */
+  semantic?: string;
+  /** Analyzer entities for this beat (cleaner than raw text). */
+  entities?: string[];
+}
+
+/**
+ * Entity -> purpose-built ensemble archetype. Only where the catalog has a
+ * real look for the job; everything else rides rotation + persistence.
+ */
+const ENTITY_CAST: Array<[RegExp, number]> = [
+  [/\b(lawyer|attorney)\b/i, 8], // suit: corporate_suit
+  [/\b(doctor|surgeon)\b/i, 11], // scrubs: surgeon
+  [/\b(boss|manager|landlord)\b/i, 8], // suit reads as authority
+];
+
+function entityEntrant(entities: readonly string[] | undefined): CastMember | null {
+  if (!entities) return null;
+  for (const e of entities) {
+    if (/\b(janitor|cleaner|cleaning|mop|overalls)\b/i.test(e)) return ENSEMBLE[0];
+    if (/\b(bodybuilder|muscle|deadlift|giant|meathead)\b/i.test(e)) return ENSEMBLE[1];
+  }
+  for (const e of entities) {
+    for (const [re, idx] of ENTITY_CAST) {
+      if (re.test(e)) return ENSEMBLE[idx];
+    }
+  }
+  return null;
+}
+
+export interface RosterEntry {
+  member: CastMember;
+  /** Same face as the previous roster beat: already on stage, no walk-in. */
+  continued: boolean;
+  /**
+   * This beat's own text/entities called for this face (directed sheet or
+   * analyzer entity — NOT the background-keyword regexes, which fire on
+   * mere mentions like "back to the gym"). Named faces hold the stage even
+   * when the presence plan scheduled a breather.
+   */
+  named: boolean;
+}
+
+/**
+ * Scene cast roster: who is on stage for each beat, computed over the whole
+ * beat list so faces persist instead of popping every beat.
+ *
+ * - A janitor/bodybuilder keyword entrance brings that member on stage.
+ * - Otherwise the current member stays (sitcom continuity: no dead entrances).
+ * - A long gap (>4s) or the first beat falls back to the rotation.
+ * Pure function of the beats: chunked rendering stays bit-exact.
+ */
+export function computeCastRoster(
+  beats: readonly RosterBeat[],
+  /** Agent-sheet override: return the directed member for a beat, or null
+   * to fall back to keyword entrances. Wins over every heuristic. */
+  castOverride?: (b: RosterBeat) => CastMember | null,
+): Map<string, RosterEntry> {
+  const out = new Map<string, RosterEntry>();
+  const ordered = [...beats].sort((a, b) => a.start - b.start);
+  let current: CastMember | null = null;
+  let prevEnd = -Infinity;
+  ordered.forEach((b) => {
+    const lower = (b.semantic ?? "").toLowerCase();
+    const directed = castOverride?.(b) ?? null;
+    let entered: CastMember | null = null;
+    // Named by THIS beat (sheet direction or analyzer entity): holds stage.
+    let named = false;
+    if (directed) { entered = directed; named = true; }
+    else {
+      const byEntity = entityEntrant(b.entities);
+      if (byEntity) { entered = byEntity; named = true; }
+    }
+    if (!entered) {
+      if (/\b(janitor|cleaner|cleaning|mop|overalls)\b/.test(lower)) entered = ENSEMBLE[0];
+      else if (/\b(bodybuilder|muscle|lift|deadlift|gym\s*bro|giant|meathead)\b/.test(lower)) entered = ENSEMBLE[1];
+    }
+    let member: CastMember;
+    if (entered) member = entered;
+    else if (current && b.start - prevEnd <= 4.0) member = current;
+    // No roulette: an unnamed beat keeps the standing partner, and a cold
+    // open takes the resident cohost once and keeps her. Random faces walking
+    // in read as gibberish, never as direction.
+    else member = current ?? ENSEMBLE[2];
+    // Same face continuing across a small gap is already on stage: skip the
+    // walk-in whether the face came from a keyword, the sheet, or rotation.
+    const continued = current !== null && current.actorId === member.actorId && b.start - prevEnd <= 4.0;
+    out.set(b.id, { member, continued, named });
+    current = member;
+    prevEnd = b.end;
+  });
+  return out;
+}
+
 export function reactionExpressionFor(role: string, beatIndex: number): CharacterExpressionId {
   const family = REACTION_GRAMMAR[role] ?? REACTION_GRAMMAR.explanation;
   return family[Math.abs(Math.floor(beatIndex)) % family.length];
@@ -143,9 +255,12 @@ export function coStarState(
   t: number,
   punchAt: number | null,
   hostX = HOST_X,
+  /** True when the roster kept this face from the previous beat: the co-star
+   * is already standing on stage, so the walk-in is skipped (no pop). */
+  alreadyOnStage = false,
 ): CoStarState {
   const span = beat.end - beat.start;
-  const enterDur = Math.min(0.55, span * 0.35);
+  const enterDur = alreadyOnStage ? 0 : Math.min(0.55, span * 0.35);
   const settleAt = beat.start + enterDur;
   const entrance = clamp((t - beat.start) / Math.max(0.001, enterDur));
   // After settle: idle life (breathing sway), no frozen frames.
@@ -179,10 +294,11 @@ export function coStarState(
       gender: member.gender,
       hairStyle: member.hairStyle as StickFigureState["hairStyle"],
       clothes: member.clothes as StickFigureState["clothes"],
+      rightHandProp: member.rightHandProp,
       eyelashes: member.eyelashes,
       blush: member.blush,
-      expression: reaction,
-      pose: "default",
+      expression: member.expression ?? reaction,
+      pose: (member.pose ?? "default") as StickFigureState["pose"],
       spineLean: -punchReact * 7 + Math.sin(t * 1.4 + 1) * 1.5,
       headTilt: punchReact * 8 + Math.sin(t * 1.7 + 2) * 1.2,
       gazeX: clamp((hostX - travelX) / 700, -1, 1), // look AT the host
@@ -215,23 +331,29 @@ function hash(n: number) { const s = Math.sin(n * 127.1) * 43758.5453; return s 
  */
 export function renderSitcomLayer(
   t: number,
-  beat: { start: number; end: number; role: string; id?: string },
+  beat: { start: number; end: number; role: string; id?: string; visual?: { semantic?: string } },
   punchAt: number | null,
   renderActor: (ctx: { actorId: string; state: StickFigureState; timeSec: number }) => string,
   presence?: Set<string>,
   shotKind?: string,
+  /** Precomputed scene cast roster: when present the co-star persists across
+   * beats instead of re-entering every beat. */
+  roster?: Map<string, RosterEntry>,
 ): string {
   // Close-ups (macro/insert/subject) frame a single prop or face: a full-size
   // co-star standing in that frame renders as a giant cropped head. The
   // two-shot only exists in wide/host/reaction framings.
   if (shotKind === "macro" || shotKind === "insert" || shotKind === "subject") return "";
   const beatIndex = Math.round(beat.start * 7.13);
+  const entry = roster?.get(beat.id ?? "");
   if (presence) {
-    if (!presence.has(beat.id ?? "")) return "";
+    // A face named by this beat holds the stage (the landlord stays while
+    // discussed); everything else obeys the presence plan.
+    if (!presence.has(beat.id ?? "") && !(entry?.named ?? false)) return "";
   } else if (!beatHasCoStar(beat.role, beatIndex)) {
     return "";
   }
-  const member = castForBeat(beatIndex);
-  const cs = coStarState(member, beat, t, punchAt);
+  const member = entry?.member ?? castForBeat(beatIndex, (beat as any)?.visual?.semantic);
+  const cs = coStarState(member, beat, t, punchAt, HOST_X, entry?.continued ?? false);
   return renderActor({ actorId: cs.actorId, state: cs.state, timeSec: t });
 }

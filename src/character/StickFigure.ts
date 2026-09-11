@@ -43,6 +43,7 @@ export type HandProp =
   | "bread"
   | "caliper"
   | "stamp"
+  | "mop"
   | "coffee_cup";
 
 export type Costume = "none" | "tech_bro" | "tim_burton" | "ps1_retro" | "victorian" | "corporate_pr" | "y2k_sunglasses";
@@ -84,7 +85,7 @@ export type CharacterExpressionId =
 import { renderHairstyle, HairstyleId } from "./Hairstyles";
 import { renderOutfit, OutfitId } from "./Outfits";
 
-export type CharacterGender = "male" | "female" | "doctor" | "bodybuilder" | "widow" | "tech_bro";
+export type CharacterGender = "male" | "female" | "doctor" | "bodybuilder" | "janitor" | "widow" | "tech_bro";
 
 export type HairStyleId =
   | "host_classic"
@@ -692,17 +693,21 @@ export function renderStickFigure(id: string, state: StickFigureState): string {
       </g>
     `;
   } else if (comicFx === "question_marks") {
+    // Wordless confusion loops: orbiting rings, zero glyphs.
     fxMarkup = `
-      <g transform="translate(85, -110)">
-        <text x="0" y="0" font-family="'Impact', sans-serif" font-size="36" fill="#f43f5e" filter="url(#glow)">?</text>
-        <text x="25" y="-20" font-family="'Impact', sans-serif" font-size="28" fill="#ec4899">?</text>
+      <g transform="translate(85, -110)" fill="none" stroke-linecap="round">
+        <ellipse cx="0" cy="0" rx="16" ry="22" stroke="#f43f5e" stroke-width="7" filter="url(#glow)"/>
+        <ellipse cx="30" cy="-24" rx="11" ry="15" stroke="#ec4899" stroke-width="6"/>
+        <circle cx="-14" cy="30" r="5" fill="#f43f5e" stroke="none"/>
       </g>
     `;
   } else if (comicFx === "exclamation") {
+    // Vector exclamation: bar + dot, no text element.
     fxMarkup = `
       <g transform="translate(0, -175)">
         <polygon points="0,0 -20,-30 0,-25 20,-30" fill="#eab308" stroke="#ca8a04" stroke-width="3" filter="url(#glow)"/>
-        <text x="0" y="-35" font-family="'Impact', sans-serif" font-size="48" font-weight="bold" fill="#ef4444" text-anchor="middle" filter="url(#glow)">!</text>
+        <rect x="-7" y="-95" width="14" height="44" rx="7" fill="#ef4444" stroke="#991b1b" stroke-width="3" filter="url(#glow)"/>
+        <circle cx="0" cy="-40" r="8" fill="#ef4444" stroke="#991b1b" stroke-width="3"/>
       </g>
     `;
   } else if (comicFx === "speed_lines") {
@@ -741,7 +746,7 @@ export function renderStickFigure(id: string, state: StickFigureState): string {
           <path d="M 0 0 L 120 -60" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
           <path d="M 120 -60 L 120 -20 M 60 -30 L 60 -10" stroke="#0ea5e9" stroke-width="6" stroke-linecap="round"/>
           <rect x="50" y="-45" width="40" height="20" rx="3" fill="#0284c7" stroke="#0369a1" stroke-width="2"/>
-          <text x="70" y="-31" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">0.02mm</text>
+          <line x1="56" y1="-35" x2="84" y2="-35" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
         </g>
       `;
     }
@@ -809,13 +814,22 @@ export function renderStickFigure(id: string, state: StickFigureState): string {
         </g>
       `;
     }
+    if (prop === "mop") {
+      return `
+        <g transform="translate(${hx} ${hy}) rotate(${angle})">
+          <line x1="0" y1="-80" x2="0" y2="120" stroke="#854d0e" stroke-width="8" stroke-linecap="round"/>
+          <rect x="-24" y="110" width="48" height="14" rx="3" fill="#0284c7" stroke="#0369a1" stroke-width="2"/>
+          <path d="M -22 124 C -28 150 -18 165 -14 175 M -10 124 C -12 155 -6 170 -4 180 M 2 124 C 0 155 8 170 12 180 M 14 124 C 18 150 24 165 28 175" stroke="#f1f5f9" stroke-width="6" stroke-linecap="round" fill="none"/>
+        </g>
+      `;
+    }
     return "";
   }
 
   // Character Gender, Hair, and Clothes Resolution
   const charGender = state.gender ?? "male";
-  const charHair = state.hairStyle ?? (charGender === "female" ? "female_long_brunette" : charGender === "doctor" ? "doctor_cap" : charGender === "bodybuilder" ? "bodybuilder_bald" : charGender === "widow" ? "widow_veil" : "host_classic");
-  const charClothes = state.clothes ?? (charGender === "female" ? "dress_pink" : charGender === "doctor" ? "doctor_scrubs" : charGender === "bodybuilder" ? "bodybuilder_tank" : charGender === "widow" ? "dress_black" : costume === "tech_bro" ? "tech_fleece_vest" : "none");
+  const charHair = state.hairStyle ?? (charGender === "female" ? "female_long_brunette" : charGender === "doctor" ? "doctor_cap" : charGender === "bodybuilder" ? "bodybuilder_bald" : charGender === "janitor" ? "janitor_cap" : charGender === "widow" ? "widow_veil" : "host_classic");
+  const charClothes = state.clothes ?? (charGender === "female" ? "dress_pink" : charGender === "doctor" ? "doctor_scrubs" : charGender === "bodybuilder" ? "bodybuilder_tank" : charGender === "janitor" ? "janitor_overalls" : charGender === "widow" ? "dress_black" : costume === "tech_bro" ? "tech_fleece_vest" : "none");
   const hasEyelashes = state.eyelashes ?? (charGender === "female" || charGender === "widow");
   const hasBlush = state.blush ?? (charGender === "female" || charGender === "widow");
 

@@ -219,3 +219,48 @@ export async function callLlm(req: LlmRequest, customConfig?: LlmConfig): Promis
     clearTimeout(timer);
   }
 }
+
+export function parseLlmJson<T = any>(raw: string): T {
+  if (!raw || typeof raw !== "string") {
+    throw new Error("Cannot parse empty or non-string LLM response");
+  }
+
+  // 1. If wrapped in markdown code fence (```json ... ``` or ``` ... ```)
+  const fenceMatch = raw.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  let text = fenceMatch ? fenceMatch[1].trim() : raw.trim();
+
+  // 2. Try direct parsing
+  try {
+    return JSON.parse(text) as T;
+  } catch (initialErr) {
+    // 3. Fallback: extract substring between first { and last }, or first [ and last ]
+    const firstBrace = text.indexOf("{");
+    const lastBrace = text.lastIndexOf("}");
+    if (firstBrace !== -1 && lastBrace > firstBrace) {
+      try {
+        return JSON.parse(text.substring(firstBrace, lastBrace + 1)) as T;
+      } catch (_) {}
+    }
+
+    const firstBracket = text.indexOf("[");
+    const lastBracket = text.lastIndexOf("]");
+    if (firstBracket !== -1 && lastBracket > firstBracket) {
+      try {
+        return JSON.parse(text.substring(firstBracket, lastBracket + 1)) as T;
+      } catch (_) {}
+    }
+
+    // 4. Try scanning raw string in case fence matching sliced incorrectly
+    const rawFirstBrace = raw.indexOf("{");
+    const rawLastBrace = raw.lastIndexOf("}");
+    if (rawFirstBrace !== -1 && rawLastBrace > rawFirstBrace) {
+      try {
+        return JSON.parse(raw.substring(rawFirstBrace, rawLastBrace + 1)) as T;
+      } catch (_) {}
+    }
+
+    throw new Error(
+      `Failed to parse JSON from LLM response (${(initialErr as Error).message}). Snippet: ${text.slice(0, 150)}...`
+    );
+  }
+}

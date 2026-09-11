@@ -3,6 +3,10 @@ import { synthesizePropVector, synthesizeCaricatureVector, synthesizeBackgroundV
 import { validateAndSanitizeSvg } from "./SvgValidator.js";
 import { registerSynthesizedProp, registerSynthesizedCaricature, registerSynthesizedBackground, loadAssetFromCache } from "./DynamicAssetRegistry.js";
 import { LlmConfig } from "./LlmClient.js";
+import { segmentScriptIntoBeats, ScriptBeat } from "./BeatSegmenter.js";
+import { extractFullBeatManifest, BeatVisualSpec } from "./BeatManifestExtractor.js";
+import { compileProductionBOM, ProductionBOM } from "./ManifestRoster.js";
+import { batchSynthesizeBOM, BatchSynthesisReport } from "./BatchSynthesizer.js";
 
 export interface ForgeOptions {
   customConfig?: LlmConfig;
@@ -114,4 +118,63 @@ export async function forgeAssetsForScript(
   }
 
   return report;
+}
+
+export interface ManifestPipelineOptions {
+  beatDurationSec?: number;
+  batchSize?: number;
+  customConfig?: LlmConfig;
+  verbose?: boolean;
+}
+
+export interface ManifestPipelineResult {
+  beats: ScriptBeat[];
+  manifest: BeatVisualSpec[];
+  bom: ProductionBOM;
+  synthesisReport: BatchSynthesisReport;
+}
+
+/**
+ * High-precision Beat-by-Beat Manifest & Production Bill of Materials pipeline.
+ * Decomposes script into granular comedic beats (4-10s), extracts visual gags & assets
+ * per beat, compiles the production roster (50-100 assets for long scripts),
+ * and batch-synthesizes all novel assets using the LLM.
+ */
+export async function forgeManifestForScript(
+  scriptOrSrtText: string,
+  options: ManifestPipelineOptions = {}
+): Promise<ManifestPipelineResult> {
+  const beatSec = options.beatDurationSec ?? 8.0;
+  const batchSize = options.batchSize ?? 10;
+
+  if (options.verbose) {
+    console.log(`[ManifestPipeline] Segmenting script into ${beatSec}s comedic beats...`);
+  }
+  const beats = segmentScriptIntoBeats(scriptOrSrtText, beatSec);
+
+  if (options.verbose) {
+    console.log(`[ManifestPipeline] Total beats: ${beats.length}. Extracting visual manifest in batches of ${batchSize}...`);
+  }
+  const manifest = await extractFullBeatManifest(beats, batchSize, options.customConfig);
+
+  if (options.verbose) {
+    console.log(`[ManifestPipeline] Compiling Production Bill of Materials across ${manifest.length} beats...`);
+  }
+  const bom = compileProductionBOM(manifest);
+
+  if (options.verbose) {
+    console.log(`[ManifestPipeline] Production BOM resolved:`, bom.counts);
+    console.log(`[ManifestPipeline] Batch synthesizing novel assets...`);
+  }
+  const synthesisReport = await batchSynthesizeBOM(bom, {
+    customConfig: options.customConfig,
+    onProgress: options.verbose ? (msg) => console.log(`[ManifestPipeline] ${msg}`) : undefined,
+  });
+
+  return {
+    beats,
+    manifest,
+    bom,
+    synthesisReport,
+  };
 }

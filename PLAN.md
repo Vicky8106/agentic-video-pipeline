@@ -1,54 +1,49 @@
-# PLAN: LLM Asset Forge Engine
+# PLAN: Beat-by-Beat Asset Manifest & Synthesis Engine
 
 ## Problem Statement
-The current pipeline relies on a closed catalog of ~25 props, ~15 backgrounds, and a fixed set of caricatures. When a new script introduces un-cataloged entities (e.g. an espresso machine, an astronaut helmet, a medieval sword, or a chef's kitchen), the engine either omits them or falls back to generic stick figures. The user wants the LLM to act as the "brain" to dynamically design and generate brand-new, broadcast-ready vector assets for any drop-in script automatically.
+A single macro-prompt over a 30,000-character, 16-minute script causes Macro Summarization Bias, reducing a 72-scene comedy film to just 5-6 broad theme items. A broadcast-grade 16-minute animated video requires a complete Production Bill of Materials of 50–100 distinct visual assets (props, stage environments, and character archetypes) corresponding to individual 5–10 second comedic beats.
 
-## Architecture
+## System Architecture
 
 ```
-Script (SRT / Text)
-      │
-      ▼
-[AssetBrain: Script Entity Analyzer] ──(LLM)──> Extracts missing characters, props, settings
-      │
-      ▼
-[VectorSynthesizer: SVG Generator] ──(LLM)──> Generates 4px/7px stroke compliant SVG code + grip anchors
-      │
-      ▼
-[SvgValidator & Sanitizer] ──> Verifies XML, enforces viewBox, bounds, and security
-      │
-      ▼
-[DynamicAssetRegistry] ──> Persists to cache & registers into PropLibrary, CaricatureEngine, BackgroundLibrary
-      │
-      ▼
-[AutoProduction & Director] ──> Renders video utilizing the freshly synthesized assets
+Script (SRT) ──> [BeatSegmenter] (Chunks into ~60-80 discrete 5-10s beats)
+                       │
+                       ▼
+            [BeatManifestExtractor] (Processes in act-sized batches of 10-15 beats)
+                       │
+                       ▼
+          [ProductionBillOfMaterials] (50-100 unique assets mapped to beat IDs)
+                       │
+                       ▼
+         [CatalogDeduplicator & Filter] (Separates existing library vs missing assets)
+                       │
+                       ▼
+           [BatchVectorSynthesizer] (Sequentially synthesizes missing SVGs with retry backoff)
+                       │
+                       ▼
+         [DynamicAssetRegistry & Cache] (.asset_cache & live mounting into runtime libraries)
 ```
 
-## Module Boundaries
+## Module Specifications
 
-1. `src/forge/LlmClient.ts`:
-   - Unified multi-provider LLM caller supporting Gemini (`gemini-flash-latest`), OpenAI/NVIDIA, and Anthropic. Reads keys from environment or `/root/.env`.
-2. `src/forge/AssetBrain.ts`:
-   - Analyzes script/transcript sentences against existing catalogs (`PROP_IDS`, `BG_IDS`, `CARICATURE_PROFILES`).
-   - Identifies required new props, custom caricature archetypes, or backgrounds.
-3. `src/forge/VectorSynthesizer.ts`:
-   - Prompts the LLM with strict vector design tokens:
-     - 4px inner detail strokes, 7px outer contour strokes
-     - Bounding boxes and aspect ratios
-     - Grip metadata `{ gripX, gripY, gripAngle }` for prop manipulation by `HandRig`
-     - Valid SVG fragments (`<g>...</g>`)
-4. `src/forge/SvgValidator.ts`:
-   - XML parsing validation, strip unsafe tags (`<script>`, event handlers).
-   - Validates coordinates, stroke-width tokens, and dimensions.
-5. `src/forge/DynamicAssetRegistry.ts`:
-   - In-memory and on-disk caching (`.asset_cache/`).
-   - Dynamic injection into `PropLibrary`, `BackgroundLibrary`, and `CaricatureEngine`.
-6. `src/forge/ScriptAssetPipeline.ts`:
-   - High-level orchestrator: `forgeAssetsForScript(transcript, options)`.
-   - Wired directly into `AutoProduction.ts` and `generate-auto.ts`.
+1. `src/forge/BeatSegmenter.ts`:
+   - Segments raw SRT into contiguous comedic beat windows (target 6–10s, min 4s, max 14s).
+   - Guarantees 100% time coverage [0, duration] with zero gaps.
 
-## Test Plan & Verification
-1. `scripts/test-asset-brain.ts` (GATE-FORGE-01)
-2. `scripts/test-vector-synthesizer.ts` (GATE-FORGE-02)
-3. `scripts/test-asset-registry.ts` (GATE-FORGE-03)
-4. `scripts/test-asset-forge-e2e.ts` (GATE-FORGE-04)
+2. `src/forge/BeatManifestExtractor.ts`:
+   - Analyzes beats in focused act/sequence chunks (10–15 beats per LLM call).
+   - Determines the specific visual metaphor, required prop, and background for each beat.
+   - Prevents macro-summarization bias.
+
+3. `src/forge/ManifestRoster.ts`:
+   - Compiles the full Production Bill of Materials.
+   - Tracks which beats utilize which assets, frequency counts, and holding styles.
+   - Deduplicates against existing verified catalogs.
+
+4. `src/forge/BatchSynthesizer.ts`:
+   - Synthesizes missing novel assets in a controlled sequential queue.
+   - Handles rate limits and retries.
+   - Validates each SVG with `SvgValidator` before registering.
+
+5. Integration into `ScriptAssetPipeline.ts` & `generate-auto.ts`:
+   - When a full script is processed, it generates the full beat-by-beat manifest and synthesizes all missing assets.

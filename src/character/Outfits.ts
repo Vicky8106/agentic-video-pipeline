@@ -112,19 +112,22 @@ export function renderOutfit(outfitId: OutfitId | string = "none", timeSec: numb
         <text x="0" y="-35" font-family="'Impact', sans-serif" font-size="12" fill="#ffffff" text-anchor="middle">IRON</text>
       `;
 
-    // 7. Work Janitor Overalls (Dark Navy Blue)
+    // 7. Work Janitor Overalls (Khaki/Slate Worker Jumpsuit)
     case "janitor_overalls":
       return `
         <!-- Janitor Overalls Base -->
-        <path d="M -34 -90 L 34 -90 L 38 12 L -38 12 Z" fill="#1e3a8a" stroke="#0f172a" stroke-width="5"/>
-        <!-- Overalls Straps -->
-        <line x1="-22" y1="-90" x2="-18" y2="-10" stroke="#172554" stroke-width="8"/>
-        <line x1="22" y1="-90" x2="18" y2="-10" stroke="#172554" stroke-width="8"/>
-        <!-- Brass Buckles -->
-        <rect x="-24" y="-35" width="12" height="10" rx="2" fill="#eab308" stroke="#a16207" stroke-width="2"/>
-        <rect x="12" y="-35" width="12" height="10" rx="2" fill="#eab308" stroke="#a16207" stroke-width="2"/>
-        <!-- Front Chest Pocket -->
-        <path d="M -14 -15 L 14 -15 L 12 10 L -12 10 Z" fill="#172554" stroke="#0f172a" stroke-width="3"/>
+        <path d="M -34 -90 L 34 -90 L 38 12 L -38 12 Z" fill="#78716c" stroke="#1c1917" stroke-width="5"/>
+        <!-- Inner Work T-Shirt under straps -->
+        <path d="M -20 -90 L 20 -90 L 20 -50 L -20 -50 Z" fill="#44403c"/>
+        <!-- Heavy Cotton Overalls Straps -->
+        <line x1="-22" y1="-90" x2="-18" y2="-10" stroke="#57534e" stroke-width="9"/>
+        <line x1="22" y1="-90" x2="18" y2="-10" stroke="#57534e" stroke-width="9"/>
+        <!-- Matte Silver Utility Clasps -->
+        <rect x="-24" y="-35" width="12" height="10" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="2"/>
+        <rect x="12" y="-35" width="12" height="10" rx="2" fill="#94a3b8" stroke="#475569" stroke-width="2"/>
+        <!-- Utility Chest Pouch -->
+        <path d="M -16 -12 L 16 -12 L 14 12 L -14 12 Z" fill="#57534e" stroke="#292524" stroke-width="3"/>
+        <line x1="-8" y1="-2" x2="8" y2="-2" stroke="#a8a29e" stroke-width="2"/>
       `;
 
     // 8. Victorian Mourning Corseted Dress

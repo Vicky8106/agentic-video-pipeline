@@ -1,4 +1,4 @@
-import { callLlm, LlmConfig } from "./LlmClient.js";
+import { callLlm, parseLlmJson, LlmConfig } from "./LlmClient.js";
 import { NovelPropSpec, NovelCaricatureSpec, NovelBackgroundSpec } from "./AssetBrain.js";
 
 export interface SynthesizedProp {
@@ -75,16 +75,58 @@ Holding Style: ${spec.holdingStyle}
     customConfig
   );
 
-  const clean = rawJson.replace(/```(?:json)?\s*([\s\S]*?)```/i, "$1").trim();
-  const parsed = JSON.parse(clean);
+  return extractPropFromLlmOutput(rawJson, spec);
+}
+
+function extractPropFromLlmOutput(raw: string, spec: NovelPropSpec): SynthesizedProp {
+  try {
+    const parsed = parseLlmJson<{
+      svgFragment?: string;
+      gripX?: number;
+      gripY?: number;
+      gripAngle?: number;
+    }>(raw);
+
+    if (parsed && typeof parsed.svgFragment === "string" && parsed.svgFragment.includes("<")) {
+      return {
+        id: spec.id,
+        name: spec.name,
+        svgFragment: parsed.svgFragment,
+        gripX: Number(parsed.gripX) || 200,
+        gripY: Number(parsed.gripY) || 150,
+        gripAngle: Number(parsed.gripAngle) || 0,
+        holdingStyle: spec.holdingStyle,
+      };
+    }
+  } catch (_) {
+    // Fall back to regex-based robust extraction
+  }
+
+  const gripXMatch = raw.match(/"gripX"\s*:\s*(-?\d+(?:\.\d+)?)/);
+  const gripYMatch = raw.match(/"gripY"\s*:\s*(-?\d+(?:\.\d+)?)/);
+  const gripAngleMatch = raw.match(/"gripAngle"\s*:\s*(-?\d+(?:\.\d+)?)/);
+
+  let svg = "";
+  const gMatch = raw.match(/<g[\s\S]*?<\/g>/i);
+  if (gMatch) {
+    svg = gMatch[0];
+  } else {
+    const unescaped = raw.replace(/\\"/g, '"').replace(/\\n/g, "\n").replace(/\\\//g, "/");
+    const unescapedMatch = unescaped.match(/<g[\s\S]*?<\/g>/i);
+    if (unescapedMatch) svg = unescapedMatch[0];
+  }
+
+  if (!svg) {
+    svg = `<g id="${spec.id}"><rect x="100" y="100" width="200" height="100" fill="#94a3b8" stroke="#0f172a" stroke-width="5"/></g>`;
+  }
 
   return {
     id: spec.id,
     name: spec.name,
-    svgFragment: parsed.svgFragment || `<g id="${spec.id}"><rect x="100" y="100" width="200" height="100" fill="#94a3b8" stroke="#0f172a" stroke-width="5"/></g>`,
-    gripX: Number(parsed.gripX) || 200,
-    gripY: Number(parsed.gripY) || 150,
-    gripAngle: Number(parsed.gripAngle) || 0,
+    svgFragment: svg,
+    gripX: gripXMatch ? parseFloat(gripXMatch[1]) : 200,
+    gripY: gripYMatch ? parseFloat(gripYMatch[1]) : 150,
+    gripAngle: gripAngleMatch ? parseFloat(gripAngleMatch[1]) : 0,
     holdingStyle: spec.holdingStyle,
   };
 }
@@ -132,17 +174,37 @@ Signature Features: ${JSON.stringify(spec.signatureFeatures)}
     customConfig
   );
 
-  const clean = rawJson.replace(/```(?:json)?\s*([\s\S]*?)```/i, "$1").trim();
-  const parsed = JSON.parse(clean);
+  try {
+    const parsed = parseLlmJson<{
+      headwearSvg?: string;
+      facialSvg?: string;
+      torsoSvg?: string;
+      proportions?: any;
+    }>(rawJson);
 
-  return {
-    id: spec.id,
-    name: spec.name,
-    headwearSvg: parsed.headwearSvg || "",
-    facialSvg: parsed.facialSvg || "",
-    torsoSvg: parsed.torsoSvg || "",
-    proportions: parsed.proportions || {},
-  };
+    return {
+      id: spec.id,
+      name: spec.name,
+      headwearSvg: parsed.headwearSvg || "",
+      facialSvg: parsed.facialSvg || "",
+      torsoSvg: parsed.torsoSvg || "",
+      proportions: parsed.proportions || {},
+    };
+  } catch (_) {
+    const unescaped = rawJson.replace(/\\"/g, '"').replace(/\\n/g, "\n");
+    const headwear = unescaped.match(/<g[^>]*id=["']?headwear["']?[\s\S]*?<\/g>/i)?.[0] || "";
+    const facial = unescaped.match(/<g[^>]*id=["']?facial["']?[\s\S]*?<\/g>/i)?.[0] || "";
+    const torso = unescaped.match(/<g[^>]*id=["']?torso["']?[\s\S]*?<\/g>/i)?.[0] || "";
+
+    return {
+      id: spec.id,
+      name: spec.name,
+      headwearSvg: headwear,
+      facialSvg: facial,
+      torsoSvg: torso,
+      proportions: {},
+    };
+  }
 }
 
 export async function synthesizeBackgroundVector(
@@ -183,12 +245,41 @@ Mood: ${spec.settingMood}
     customConfig
   );
 
-  const clean = rawJson.replace(/```(?:json)?\s*([\s\S]*?)```/i, "$1").trim();
-  const parsed = JSON.parse(clean);
+  return extractBackgroundFromLlmOutput(rawJson, spec);
+}
+
+function extractBackgroundFromLlmOutput(raw: string, spec: NovelBackgroundSpec): SynthesizedBackground {
+  try {
+    const parsed = parseLlmJson<{
+      svgFragment?: string;
+    }>(raw);
+
+    if (parsed && typeof parsed.svgFragment === "string" && parsed.svgFragment.includes("<")) {
+      return {
+        id: spec.id,
+        name: spec.name,
+        svgFragment: parsed.svgFragment,
+      };
+    }
+  } catch (_) {}
+
+  let svg = "";
+  const gMatch = raw.match(/<g[\s\S]*?<\/g>/i) || raw.match(/<svg[\s\S]*?<\/svg>/i);
+  if (gMatch) {
+    svg = gMatch[0];
+  } else {
+    const unescaped = raw.replace(/\\"/g, '"').replace(/\\n/g, "\n").replace(/\\\//g, "/");
+    const unescapedMatch = unescaped.match(/<g[\s\S]*?<\/g>/i);
+    if (unescapedMatch) svg = unescapedMatch[0];
+  }
+
+  if (!svg) {
+    svg = `<g id="${spec.id}"><rect width="1280" height="720" fill="#f8fafc"/><line x1="0" y1="540" x2="1280" y2="540" stroke="#cbd5e1" stroke-width="4"/></g>`;
+  }
 
   return {
     id: spec.id,
     name: spec.name,
-    svgFragment: parsed.svgFragment || `<g id="${spec.id}"><rect width="1280" height="720" fill="#f8fafc"/><line x1="0" y1="540" x2="1280" y2="540" stroke="#cbd5e1" stroke-width="4"/></g>`,
+    svgFragment: svg,
   };
 }

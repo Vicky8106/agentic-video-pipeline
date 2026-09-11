@@ -1,4 +1,4 @@
-import { callLlm, LlmConfig } from "./LlmClient.js";
+import { callLlm, parseLlmJson, LlmConfig } from "./LlmClient.js";
 import { PROP_GLOSS, BG_IDS } from "../director/LlmDirector.js";
 import { CARICATURE_REGISTRY } from "../character/CaricatureEngine.js";
 
@@ -112,8 +112,7 @@ JSON Schema:
   );
 
   try {
-    const clean = rawJson.replace(/```(?:json)?\s*([\s\S]*?)```/i, "$1").trim();
-    const parsed = JSON.parse(clean) as AssetPlan;
+    const parsed = parseLlmJson<AssetPlan>(rawJson);
     return {
       novelProps: Array.isArray(parsed.novelProps) ? parsed.novelProps : [],
       novelCaricatures: Array.isArray(parsed.novelCaricatures) ? parsed.novelCaricatures : [],

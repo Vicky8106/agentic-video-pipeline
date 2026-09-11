@@ -3,6 +3,9 @@
  * Phase 1 asset contract: stable IDs, volumetric vector depth, tactile comedy props.
  */
 
+import fs from "node:fs";
+import path from "node:path";
+
 export interface PropOpts {
   x?: number;
   y?: number;
@@ -14,12 +17,42 @@ export interface PropOpts {
   extra?: Record<string, any>;
 }
 
+export interface DynamicPropEntry {
+  svgFragment: string;
+  gripX?: number;
+  gripY?: number;
+  gripAngle?: number;
+}
+export const DYNAMIC_PROPS = new Map<string, DynamicPropEntry>();
+
+export function registerDynamicProp(id: string, prop: DynamicPropEntry | string): void {
+  const entry: DynamicPropEntry = typeof prop === "string" ? { svgFragment: prop } : prop;
+  DYNAMIC_PROPS.set(id, entry);
+}
+
 export function renderProp(propId: string, opts: PropOpts = {}): string {
   const { x = 0, y = 0, scale = 1, rotation = 0, timeSec = 0, label = "", progress = 1 } = opts;
   const t = timeSec;
 
   const wrap = (content: string, id: string = propId) =>
     `<g id="${id}" transform="translate(${x}, ${y}) rotate(${rotation}) scale(${scale})">${content}</g>`;
+
+  if (!DYNAMIC_PROPS.has(propId)) {
+    try {
+      const cachePath = path.resolve(process.cwd(), `.asset_cache/prop_${propId.toLowerCase().replace(/[^a-z0-9_-]/g, "_")}.json`);
+      if (fs.existsSync(cachePath)) {
+        const raw = JSON.parse(fs.readFileSync(cachePath, "utf8"));
+        if (raw && raw.svgFragment) {
+          DYNAMIC_PROPS.set(propId, { svgFragment: raw.svgFragment, gripX: raw.gripX, gripY: raw.gripY, gripAngle: raw.gripAngle });
+        }
+      }
+    } catch {}
+  }
+
+  if (DYNAMIC_PROPS.has(propId)) {
+    const entry = DYNAMIC_PROPS.get(propId)!;
+    return wrap(entry.svgFragment, propId);
+  }
 
   switch (propId) {
     // 1. PROP-PHONE: Instagram Phone Post with Single Celery Dinner

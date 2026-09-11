@@ -1,0 +1,9 @@
+{
+  "id": "PROP-TEST-LASER",
+  "name": "Sci-Fi Laser Blaster",
+  "svgFragment": "<g id=\"PROP-TEST-LASER\"><rect x=\"-40\" y=\"-15\" width=\"80\" height=\"30\" fill=\"#38bdf8\" stroke=\"#0f172a\" stroke-width=\"5\"/><circle cx=\"40\" cy=\"0\" r=\"10\" fill=\"#ef4444\"/></g>",
+  "gripX": -20,
+  "gripY": 0,
+  "gripAngle": 0,
+  "holdingStyle": "held_one_hand"
+}

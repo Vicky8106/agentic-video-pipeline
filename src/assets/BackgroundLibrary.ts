@@ -3,6 +3,9 @@
  * Phase 1 asset contract: stable IDs, full-bleed unconstrained parallax, multi-layer depth.
  */
 
+import fs from "node:fs";
+import path from "node:path";
+
 export type BackgroundId =
   | "BG-STUDIO"
   | "BG-HOLLYWOOD"
@@ -28,12 +31,38 @@ export interface BackgroundRenderOpts {
   cameraY?: number;
 }
 
+export interface DynamicBackgroundEntry {
+  svgFragment: string;
+}
+export const DYNAMIC_BACKGROUNDS = new Map<string, DynamicBackgroundEntry>();
+
+export function registerDynamicBackground(id: string, bg: DynamicBackgroundEntry | string): void {
+  const entry: DynamicBackgroundEntry = typeof bg === "string" ? { svgFragment: bg } : bg;
+  DYNAMIC_BACKGROUNDS.set(id, entry);
+}
+
 /**
  * Renders rich full-bleed vector backgrounds with depth layers, parallax and contact shadows.
  */
 export function renderBackground(bgId: BackgroundId | string = "BG-STUDIO", opts: BackgroundRenderOpts = {}): string {
   const { timeSec = 0, flashL = false, flashR = false, cameraX = 960, cameraY = 540 } = opts;
   const t = timeSec;
+
+  if (!DYNAMIC_BACKGROUNDS.has(bgId)) {
+    try {
+      const cachePath = path.resolve(process.cwd(), `.asset_cache/background_${bgId.toLowerCase().replace(/[^a-z0-9_-]/g, "_")}.json`);
+      if (fs.existsSync(cachePath)) {
+        const raw = JSON.parse(fs.readFileSync(cachePath, "utf8"));
+        if (raw && raw.svgFragment) {
+          DYNAMIC_BACKGROUNDS.set(bgId, { svgFragment: raw.svgFragment });
+        }
+      }
+    } catch {}
+  }
+
+  if (DYNAMIC_BACKGROUNDS.has(bgId)) {
+    return DYNAMIC_BACKGROUNDS.get(bgId)!.svgFragment;
+  }
 
   switch (bgId) {
     // 1. Neutral Explainer Studio Stage
